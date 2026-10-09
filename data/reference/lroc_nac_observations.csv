@@ -1,0 +1,10 @@
+product,start_utc,stop_utc,incidence_deg,subsolar_azimuth_deg,center_lat_deg,center_lon_deg,source_url
+M139729686,2010-09-21T17:33:39,2010-09-21T17:34:22,87.94,97.45,-89.50,14.51,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M139729686LE
+M139356343,2010-09-17T09:51:16,2010-09-17T09:51:56,83.65,101.41,-84.73,94.41,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M139356343LE
+M151364517,2011-02-03T09:27:30,2011-02-03T09:28:13,84.82,140.93,-81.11,224.72,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M151364517LE
+M154940551,2011-03-16T18:48:04,2011-03-16T18:48:36,80.81,97.96,-79.26,40.44,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M154940551LE
+M155368056,2011-03-21T17:33:09,2011-03-21T17:33:51,82.25,93.15,-80.72,338.65,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M155368056LE
+M184288222,2012-02-19T10:55:55,2012-02-19T10:56:48,86.46,118.02,-84.89,223.80,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M184288222LE
+M1188426614,2015-06-08T18:15:48,2015-06-08T18:16:41,89.38,158.78,-85.57,21.25,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M1188426614LE
+M1311409938,2019-05-02T04:17:51,2019-05-02T04:18:44,85.34,127.50,-81.42,276.88,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M1311409938LE
+M1312308500,2019-05-12T13:53:53,2019-05-12T13:54:46,81.99,116.97,-79.28,132.80,https://data.lroc.im-ldi.com/lroc/view_lroc/LRO-L-LROC-2-EDR-V1.0/M1312308500LE

@@ -1,0 +1,6 @@
+# Third-party imports in src/, examples/ and tests/, pinned to the versions
+# these were developed against.
+numpy==2.5.2
+rasterio==1.5.1
+spiceypy==8.2.0
+pytest==9.1.1

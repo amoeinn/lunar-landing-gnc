@@ -54,16 +54,13 @@ def elevation(lat, lon, utc, abcorr="LT+S", frame="MOON_ME_DE421"):
     return sun_az_el(lat, lon, utc, abcorr=abcorr, frame=frame)[1]
 
 
-def main():
-    rows = read_observations()
+def budget():
+    """Per product, in table order: the four budget terms, their total, and the
+    two systematics kept out of the total. Every caller reads these numbers
+    from here rather than re-typing them."""
     seps = {r[0]: r[7] for r in centre_differences()}
-
-    print("Error budget, elevation change in degrees")
-    print(f"{'product':<12} {'(i) centre':>11} {'(ii) scan':>10} {'(iii) round':>11} "
-          f"{'(iv) epoch':>10} {'total':>9}")
-    totals = {}
-    systematics = {}
-    for row in rows:
+    out = {}
+    for row in read_observations():
         p = row["product"]
         lat, lon = row["center_lat_deg"], row["center_lon_deg"]
         start, stop = row["start_utc"], row["stop_utc"]
@@ -74,12 +71,25 @@ def main():
         i = seps[p]
         ii = abs(e_stop - e_start)
         iv = abs(e_mid - e_start)
-        total = i + ii + ROUNDING_DEG + iv
-        totals[p] = total
-        aberr = abs(e_mid - elevation(lat, lon, mid, abcorr="NONE"))
-        frame = abs(e_mid - elevation(lat, lon, mid, frame="IAU_MOON"))
-        systematics[p] = (aberr, frame)
-        print(f"{p:<12} {i:11.5f} {ii:10.5f} {ROUNDING_DEG:11.5f} {iv:10.5f} {total:9.5f}")
+        out[p] = dict(centre=i, scan=ii, rounding=ROUNDING_DEG, epoch=iv,
+                      total=i + ii + ROUNDING_DEG + iv,
+                      aberration=abs(e_mid - elevation(lat, lon, mid, abcorr="NONE")),
+                      frame=abs(e_mid - elevation(lat, lon, mid, frame="IAU_MOON")))
+    return out
+
+
+def main():
+    rows = read_observations()
+    terms = budget()
+
+    print("Error budget, elevation change in degrees")
+    print(f"{'product':<12} {'(i) centre':>11} {'(ii) scan':>10} {'(iii) round':>11} "
+          f"{'(iv) epoch':>10} {'total':>9}")
+    totals = {p: t["total"] for p, t in terms.items()}
+    systematics = {p: (t["aberration"], t["frame"]) for p, t in terms.items()}
+    for p, t in terms.items():
+        print(f"{p:<12} {t['centre']:11.5f} {t['scan']:10.5f} {t['rounding']:11.5f} "
+              f"{t['epoch']:10.5f} {t['total']:9.5f}")
     worst = max(totals, key=totals.get)
     print(f"maximum total {totals[worst]:.5f} deg ({worst})")
 

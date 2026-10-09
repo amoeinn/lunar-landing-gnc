@@ -47,14 +47,17 @@ def shifted_kappa(obs_dark, f_dark, valid, dr, dc, n=N_CELLS):
     return kappa(obs[v], f[v])[0]
 
 
-def main():
+def score_rows(mask_dir=None):
+    """The per-frame scores, for F's masks in mask_dir/<product>/lit.npy;
+    phase 1b's own masks by default."""
+    mask_dir = WORK / "windows" if mask_dir is None else Path(mask_dir)
     summary = json.loads((WORK / "windows" / "summary.json").read_text())
     kept = [r for r in summary if r.get("kept")]
     rows = []
     for r in kept:
         p = r["product"]
         x0, _, _, y1 = r["window"]
-        f_dark = ~np.load(WORK / "windows" / p / "lit.npy")
+        f_dark = ~np.load(mask_dir / p / "lit.npy")
         model_pad = read_model(p, x0, y1)
         model = model_pad[SHIFT:SHIFT + N_CELLS, SHIFT:SHIFT + N_CELLS]
         model_dark = model == 0.0
@@ -73,6 +76,20 @@ def main():
                              f_dark=float(f_dark[valid].mean()), agree=agree, k_f=k_f, k_m=k_m,
                              diff=k_f - k_m, shifted=shifted,
                              min_drop=k_f - max(shifted.values())))
+    return rows
+
+
+def criteria(rows):
+    """The three registered criteria: (values, passes)."""
+    k_f = np.array([x["k_f"] for x in rows])
+    diffs = np.array([x["diff"] for x in rows])
+    drops = np.array([x["min_drop"] for x in rows])
+    return (k_f, diffs, drops), (bool(np.all(k_f >= FLOOR)), bool(np.median(diffs) >= MARGIN),
+                                 bool(np.all(drops > 0.0)))
+
+
+def main():
+    rows = score_rows()
 
     print("Phase 1b: F's shadow mask against the observed dark cells, per frame")
     print(f"{'image':<12} {'frame':<5} {'n':>6} {'obs dark':>9} {'F dark':>8} {'agree':>8} "
@@ -98,12 +115,7 @@ def main():
               f"kappa_MODEL {x['k_m']:.4f}, difference {x['diff']:+.4f}, "
               f"smallest shift drop {x['min_drop']:+.4f}")
 
-    k_f = np.array([x["k_f"] for x in rows])
-    diffs = np.array([x["diff"] for x in rows])
-    drops = np.array([x["min_drop"] for x in rows])
-    c1 = bool(np.all(k_f >= FLOOR))
-    c2 = bool(np.median(diffs) >= MARGIN)
-    c3 = bool(np.all(drops > 0.0))
+    (k_f, diffs, drops), (c1, c2, c3) = criteria(rows)
     print(f"\nRegistered criteria over {len(rows)} frames:")
     worst = rows[int(np.argmin(k_f))]
     print(f"  1. kappa_F >= {FLOOR} on every frame: lowest {k_f.min():.4f} "

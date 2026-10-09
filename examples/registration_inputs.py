@@ -71,11 +71,12 @@ def shift_drops(obs_dark, model_pad, valid, k0, n=N_CELLS):
 SUB_MIN_SHARE = 0.10
 
 
-def stability(obs_dark, model_dark, valid, rng, n=N_CELLS):
-    """Kappa over SUBSETS accepted sub-windows, and the number redrawn."""
-    ks, redrawn = [], 0
+def draw_subwindows(valid, rng, n=N_CELLS):
+    """SUBSETS half-area sub-windows of a frame's scored cells, as masks, and
+    the number of draws rejected for holding under SUB_MIN_SHARE of them."""
+    masks, redrawn = [], 0
     need = SUB_MIN_SHARE * valid.sum()
-    while len(ks) < SUBSETS:
+    while len(masks) < SUBSETS:
         r, c = rng.integers(0, n - SUB_N + 1, size=2)
         v = np.zeros_like(valid)
         v[r:r + SUB_N, c:c + SUB_N] = True
@@ -84,8 +85,14 @@ def stability(obs_dark, model_dark, valid, rng, n=N_CELLS):
             redrawn += 1
             assert redrawn < 10000, "no sub-window holds enough scored cells"
             continue
-        ks.append(kappa(obs_dark[v], model_dark[v])[0])
-    return np.array(ks), redrawn
+        masks.append(v)
+    return masks, redrawn
+
+
+def stability(obs_dark, model_dark, valid, rng, n=N_CELLS):
+    """Kappa over SUBSETS accepted sub-windows, and the number redrawn."""
+    masks, redrawn = draw_subwindows(valid, rng, n)
+    return np.array([kappa(obs_dark[v], model_dark[v])[0] for v in masks]), redrawn
 
 
 def main():

@@ -43,12 +43,13 @@ def sun_position(utc, abcorr=ABCORR, frame=FRAME):
 
 
 def local_axes(lat_deg, lon_deg):
-    """(up, east, north) unit vectors at a planetocentric latitude and longitude."""
-    lat = np.radians(lat_deg)
-    lon = np.radians(lon_deg)
+    """(up, east, north) unit vectors at planetocentric latitudes and longitudes,
+    each shaped (..., 3)."""
+    lat = np.radians(np.asarray(lat_deg, dtype=float))
+    lon = np.radians(np.asarray(lon_deg, dtype=float))
     up = unit_vector(lat_deg, lon_deg)
-    east = np.array([-np.sin(lon), np.cos(lon), 0.0])
-    north = np.array([-np.sin(lat) * np.cos(lon), -np.sin(lat) * np.sin(lon), np.cos(lat)])
+    east = np.stack([-np.sin(lon), np.cos(lon), np.zeros_like(lon)], axis=-1)
+    north = np.stack([-np.sin(lat) * np.cos(lon), -np.sin(lat) * np.sin(lon), np.cos(lat)], axis=-1)
     return up, east, north
 
 
@@ -58,11 +59,28 @@ def sun_from_surface(lat_deg, lon_deg, utc, abcorr=ABCORR, radius=MOON_RADIUS_M,
     return sun_position(utc, abcorr, frame) - radius * up
 
 
+def az_el_of(sun_pos, lat_deg, lon_deg, radius=MOON_RADIUS_M):
+    """Azimuth and elevation in degrees of a Moon-fixed sun position, in
+    metres, at any number of surface points. The one implementation of the
+    convention; sun_az_el is this at a single point."""
+    up, east, north = local_axes(lat_deg, lon_deg)
+    d = np.asarray(sun_pos, dtype=float) - radius * up
+    d = d / np.linalg.norm(d, axis=-1, keepdims=True)
+    elevation = np.degrees(np.arcsin(np.clip(np.sum(d * up, axis=-1), -1.0, 1.0)))
+    azimuth = np.degrees(np.arctan2(np.sum(d * east, axis=-1), np.sum(d * north, axis=-1))) % 360.0
+    return azimuth, elevation
+
+
 def sun_az_el(lat_deg, lon_deg, utc, abcorr=ABCORR, radius=MOON_RADIUS_M, frame=FRAME):
     """Sun azimuth and elevation in degrees at a surface point and UTC epoch."""
-    up, east, north = local_axes(lat_deg, lon_deg)
-    d = sun_from_surface(lat_deg, lon_deg, utc, abcorr, radius, frame)
-    d = d / np.linalg.norm(d)
-    elevation = np.degrees(np.arcsin(np.clip(np.dot(d, up), -1.0, 1.0)))
-    azimuth = np.degrees(np.arctan2(np.dot(d, east), np.dot(d, north))) % 360.0
+    azimuth, elevation = az_el_of(sun_position(utc, abcorr, frame), lat_deg, lon_deg, radius)
     return float(azimuth), float(elevation)
+
+
+def solar_semidiameter_deg(utc, abcorr=ABCORR):
+    """Apparent angular radius of the sun from the Moon's centre, degrees, from
+    the kernel pool's solar radius."""
+    load_kernels()
+    radius_km = sp.bodvrd("SUN", "RADII", 3)[1][0]
+    distance_m = np.linalg.norm(sun_position(utc, abcorr))
+    return float(np.degrees(np.arcsin(radius_km * 1000.0 / distance_m)))

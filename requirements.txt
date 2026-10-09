@@ -2,5 +2,6 @@
 # these were developed against.
 numpy==2.5.2
 rasterio==1.5.1
+scipy==1.18.1
 spiceypy==8.2.0
 pytest==9.1.1

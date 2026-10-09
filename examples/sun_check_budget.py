@@ -25,7 +25,7 @@ Controls:
   constant: every row predicted as the mean of the nine LROC elevations.
   mirrored: F's elevation with longitude negated, which must fail.
 
-Needs LLG_E_DATA. Usage: python examples/sun_check_budget.py
+Needs LLG_DATA. Usage: python examples/sun_check_budget.py
 """
 import math
 import sys

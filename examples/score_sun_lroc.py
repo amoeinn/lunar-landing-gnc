@@ -6,7 +6,7 @@ tol_i = the budget total plus that row's aberration term plus its frame term,
 read from examples/sun_check_budget.py's budget() rather than re-typed.
 PASS when |r_i| <= tol_i on all nine rows.
 
-Needs LLG_E_DATA. Usage: python examples/score_sun_lroc.py
+Needs LLG_DATA. Usage: python examples/score_sun_lroc.py
 """
 import sys
 from pathlib import Path

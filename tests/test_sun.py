@@ -1,7 +1,7 @@
 """Sun geometry at a surface point.
 
 Each test names what it protects. All need the SPICE kernels and skip cleanly
-when LLG_E_DATA is unset.
+when LLG_DATA is unset.
 """
 import numpy as np
 import pytest
@@ -12,7 +12,7 @@ from lunar_landing_gnc.projection import map_to_latlon
 from lunar_landing_gnc.sun import FRAME, load_kernels, sun_az_el, sun_from_surface
 
 pytestmark = pytest.mark.skipif(
-    paths.e_data() is None, reason=f"{paths.ENV_VAR} not set; SPICE kernels unavailable")
+    paths.data_dir() is None, reason=f"{paths.ENV_VAR} not set; SPICE kernels unavailable")
 
 # E's src.illumination.sun_angles with the sun in metres; see the region
 # centre test for the derivation.

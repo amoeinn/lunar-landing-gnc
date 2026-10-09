@@ -37,3 +37,28 @@ def frame_centroid(product, kind="LE", root=None):
     cx, cy = float(x.mean()), float(y.mean())
     lat, lon = map_to_latlon(cx, cy)
     return (cx, cy), (float(lat), float(lon))
+
+
+def best_window(product, n=500, cell_m=20.0, kind="LE", root=None):
+    """The n by n cell window, on the DEM grid, with the most valid pixels of a frame.
+
+    Searched over every placement on the frame's own grid with a summed area
+    table, then snapped to the nearest 20 m line of the DEM grid, whose edges
+    sit at multiples of 20 m from -304000. Returns (x0, x1, y0, y1) in map
+    metres and the valid fraction at the best placement.
+    """
+    with rasterio.open(nac_path(product, kind, root)) as ds:
+        a = ds.read(1)
+        t = ds.transform
+    v = (np.isfinite(a) & (a > -1e30)).astype(np.int64)
+    if v.shape[0] < n or v.shape[1] < n:
+        raise ValueError(f"{product}{kind} is smaller than a {n} cell window")
+    s = np.zeros((v.shape[0] + 1, v.shape[1] + 1), np.int64)
+    s[1:, 1:] = v.cumsum(0).cumsum(1)
+    w = s[n:, n:] - s[:-n, n:] - s[n:, :-n] + s[:-n, :-n]
+    r0, c0 = np.unravel_index(np.argmax(w), w.shape)
+    frac = float(w[r0, c0]) / (n * n)
+    edge = 304000.0
+    x0 = round((t.c + c0 * cell_m + edge) / cell_m) * cell_m - edge
+    y1 = round((t.f - r0 * cell_m + edge) / cell_m) * cell_m - edge
+    return (x0, x0 + n * cell_m, y1 - n * cell_m, y1), frac

@@ -6,7 +6,7 @@ and reports the difference. The stop rule is on great-circle separation,
 0.1 deg; latitude and longitude differences are printed beside it, since a
 longitude difference near the pole says little about distance.
 
-Needs LLG_E_DATA. Usage: python examples/check_nac_centres.py
+Needs LLG_DATA. Usage: python examples/check_nac_centres.py
 """
 import sys
 from pathlib import Path

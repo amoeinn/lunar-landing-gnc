@@ -114,6 +114,29 @@ def test_single_ray_agrees_with_independent_march(binary):
     assert np.all(np.isfinite(diffs)) and np.all(diffs < 1e-3), np.max(diffs)
 
 
+@needs_data
+def test_dem_windows_cover_the_reach_far_from_the_pole(binary):
+    """Protects the DEM window padding. Away from the pole the projection
+    stretches distance, by 1 + (rho / 2R)^2, so a window padded by the reach
+    measured at the pole is too small, and a ray running outward along a map
+    axis leaves the window while still on the DEM. The shortfall only shows
+    along an axis, since a square pad over-covers a diagonal ray. A window on
+    the -y axis at 250 km, every ray due outward for 45 km: the rays are
+    asserted to stay on the DEM first, then the march must miss nothing."""
+    from lunar_landing_gnc.nac import rays_stay_on_dem
+    n = 20
+    x0, y1 = -200.0, -250000.0
+    reach = 45000.0
+    xs = x0 + (np.arange(n) + 0.5) * 20.0
+    ys = y1 - (np.arange(n) + 0.5) * 20.0
+    gx, gy = np.meshgrid(xs, ys)
+    az = np.zeros((n, n))               # local north: away from the pole, here along -y
+    assert rays_stay_on_dem(gx.ravel(), gy.ravel(), az.ravel(), reach)
+    p = H.window_params(paths.WORK / "test_pad", x0, y1, n, n, reach_m=reach)
+    _, _, side = H.run(p, azimuth_deg=az, binary=binary)
+    assert side["samples_outside_grid"] == 0, side["samples_outside_grid"]
+
+
 def test_reach_is_where_the_bound_crosses_the_threshold():
     """Protects the reach bound: it must sit exactly where the highest terrain
     at the closest approach falls to the threshold, and fall short of it beyond.

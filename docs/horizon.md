@@ -53,6 +53,34 @@ A window is kept only if the march reports no sample outside a grid: every
 cell's ray toward the sun must stay on the DEM out to the reach. A window that
 fails is dropped and reported, not patched.
 
+The DEM windows handed to the march are padded by the reach as a map
+distance, not as an arc. The projection's scale factor is 1 + (rho / 2R)^2 at
+map radius rho, about 1.008 at 80 deg S, so padding by the arc alone leaves a
+ray that runs along a map axis short of the window's edge while it is still on
+the DEM. The pad uses the largest scale factor any ray from the window can
+reach.
+
+## Window selection
+
+Each image is compared over one 10 km window, 500 by 500 cells, chosen by a
+rule applied the same way to every image. Candidates sit every 50 cells on the
+DEM grid, wholly inside the LE frame's bounding box. A window qualifies when
+
+- (a) every cell's ray toward the sun stays on the DEM out to the window's
+  reach at the image's scan midpoint;
+- (b) the LE frame covers at least 25% of its cells;
+- (c) the published simulated image is zero on between 10% and 90% of the
+  cells the LE frame covers, so that a shadow comparison there is not
+  dominated by one class;
+
+and the qualifying window with the most LE coverage is chosen. The rule reads
+where the LE frame has data, never its values, and never reads this
+project's masks. Criterion (a) is screened on rays from the window's boundary
+and then confirmed by the march over every cell. An image with no qualifying
+window is dropped and reported. The exception is M139729686, whose window is
+lunar-polar-traverse's planning region, the landing patch; it is scored on
+the rule rather than selected by it.
+
 ## Shadow mask
 
 A cell is lit when the sun's centre stands above the horizon at the sun's
@@ -76,3 +104,7 @@ gazetteer, and this project uses its convention as it stands.
 - The single-ray mode equals the 360 mode at whole-degree azimuths, bit for bit.
 - The single-ray march agrees with the independent Python march, which shares
   no code with it, to 1e-3 deg on 200 random cells per window.
+- A window near 80 deg S with rays running outward along a map axis loses no
+  sample off its DEM windows.
+- Each criterion of the selection rule rejects a synthetic window built to
+  fail it.

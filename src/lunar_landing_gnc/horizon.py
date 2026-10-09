@@ -48,6 +48,26 @@ def arc_to_map(arc_m, radius=MOON_RADIUS_M):
     return 2.0 * radius * np.tan(0.5 * arc_m / radius)
 
 
+def map_pad(arc_m, x0, x1, y0, y1, radius=MOON_RADIUS_M):
+    """Map distance that bounds an arc of arc_m from any point of a region.
+
+    The projection's scale factor is k = 1 + (rho / 2R)^2 at map radius rho, so
+    an arc maps to at most arc times the largest k along it. Rho along a ray
+    is at most the region's farthest corner from the pole plus the ray's own
+    map length, itself at most arc_m times that same k, so the bound is
+    iterated to a fixed point. Near the pole k is 1 to five digits; at 80 deg S
+    it is 1.0077, which on a 100 km ray is 770 m.
+    """
+    rho0 = max(np.hypot(x, y) for x in (x0, x1) for y in (y0, y1))
+    k = 1.0
+    for _ in range(20):
+        k_new = 1.0 + ((rho0 + arc_m * k) / (2.0 * radius)) ** 2
+        if abs(k_new - k) < 1e-12:
+            break
+        k = k_new
+    return arc_m * k
+
+
 def read_window(path, x0, x1, y0, y1):
     """Raster cells covering the map bounds, NaN wherever the raster has none.
 
@@ -86,7 +106,7 @@ def window_params(out_dir, x0, y1, nx, ny, reach_m, root=None):
              out_sidecar=str(out / "horizon.json"))
     for label, name, reach, px in (("near", "LDEM_80S_20MPP_ADJ.TIF", min(SWITCH_M, reach_m), 20.0),
                                    ("far", "LDEM_80S_80MPP_ADJ.TIF", reach_m, 80.0)):
-        pad = arc_to_map(reach) + EDGE_PIXELS * px
+        pad = map_pad(reach, x0, x1, y0, y1) + EDGE_PIXELS * px
         a, ox, oy, got = read_window(root / "lola" / name, x0 - pad, x1 + pad, y0 - pad, y1 + pad)
         assert abs(got - px) < 1e-9, f"{name}: expected {px} m pixels, got {got}"
         path = out / f"{label}.f32"

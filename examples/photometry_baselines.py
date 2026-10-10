@@ -42,13 +42,13 @@ def fit(y, x):
     return r2, r, float(a), float(b)
 
 
-def main():
+def baseline_rows():
+    """Per kept window and frame: the observed I/F and _MODEL on the window's
+    cells, the scored cells, the _MODEL's whole-frame fit and its half-window
+    R squared spread."""
     summary = json.loads((WORK / "windows" / "summary.json").read_text())
     kept = [r for r in summary if r.get("kept")]
-    print("Phase 1c baselines: I/F = a x MODEL + b, per frame, all valid cells, lit and dark")
-    print("(constant predictor: R squared 0 by construction; MODEL in W/m^2/sr)")
-    print(f"{'image':<12} {'frame':<5} {'n':>6} {'R2':>7} {'r':>7} {'a':>11} {'b':>11} "
-          f"{'R2 median':>10} {'R2 min':>7} {'R2 max':>7} {'redrawn':>8} {'undef':>6}")
+    rows = []
     for r in kept:
         p = r["product"]
         x0, _, _, y1 = r["window"]
@@ -62,9 +62,22 @@ def main():
             sub = np.array([fit(img[v], model[v])[0] for v in masks])
             undefined = int(np.sum(~np.isfinite(sub)))
             sub = sub[np.isfinite(sub)]
-            print(f"{p:<12} {frame:<5} {int(valid.sum()):6d} {r2:7.4f} {rr:7.4f} {a:11.4e} "
-                  f"{b:11.4e} {np.median(sub):10.4f} {sub.min():7.4f} {sub.max():7.4f} "
-                  f"{redrawn:8d} {undefined:6d}")
+            rows.append(dict(product=p, frame=frame, img=img, model=model, valid=valid,
+                             r2=r2, r=rr, a=a, b=b, sub_median=float(np.median(sub)),
+                             sub_min=float(sub.min()), sub_max=float(sub.max()),
+                             redrawn=redrawn, undefined=undefined))
+    return rows
+
+
+def main():
+    print("Phase 1c baselines: I/F = a x MODEL + b, per frame, all valid cells, lit and dark")
+    print("(constant predictor: R squared 0 by construction; MODEL in W/m^2/sr)")
+    print(f"{'image':<12} {'frame':<5} {'n':>6} {'R2':>7} {'r':>7} {'a':>11} {'b':>11} "
+          f"{'R2 median':>10} {'R2 min':>7} {'R2 max':>7} {'redrawn':>8} {'undef':>6}")
+    for x in baseline_rows():
+        print(f"{x['product']:<12} {x['frame']:<5} {int(x['valid'].sum()):6d} {x['r2']:7.4f} "
+              f"{x['r']:7.4f} {x['a']:11.4e} {x['b']:11.4e} {x['sub_median']:10.4f} "
+              f"{x['sub_min']:7.4f} {x['sub_max']:7.4f} {x['redrawn']:8d} {x['undefined']:6d}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,39 @@
+
+case1: no state constraint; published 387.9 kg at 72 s
+  dt 1 s: Algorithm 1 over N 15..158, 144 solves, feasible from N = 66, local minima of beta over feasible N: 1
+      dt s     N     tf s   fuel kg  vs published  change on halving   gap rel  solves  time s
+   1.00000    72   72.000   388.281       +0.098%                      1.2e-09     144
+   0.50000   145   72.500   388.085       +0.048%            0.0506%   4.6e-09       4
+  throttle switches (first node below 0.55, first back above): paper about 40 and 63 s; F at 1 s 41.00 and 64.00 s; F converged 41.00 and 64.00 s
+  Algorithm 1 fuel check (1 - exp(-alpha beta)) m_wet <= m_wet - m_dry: 388.281 <= 400 at 1 s
+  criterion 1, at 1 s fuel within 1 pct and tf within 1 s: +0.098%, tf 72 s: PASS
+  criterion 2, converged at dt 1 s (halving to 0.5 s changes fuel 0.0506%): +0.098%: PASS
+  criterion 3, largest relative lossless gap 4.6e-09 against 1e-06: PASS
+
+case2: no-subsurface; published 390.4 kg at 75 s
+  dt 1 s: Algorithm 1 over N 15..158, 144 solves, feasible from N = 69, local minima of beta over feasible N: 1
+      dt s     N     tf s   fuel kg  vs published  change on halving   gap rel  solves  time s
+   1.00000    75   75.000   390.854       +0.116%                      7.4e-07     144
+   0.50000   149   74.500   390.620       +0.056%            0.0597%   5.0e-08       4
+  throttle switches (first node below 0.55, first back above): paper about 38 and 65 s; F at 1 s 39.00 and 66.00 s; F converged 39.00 and 66.00 s
+  Algorithm 1 fuel check (1 - exp(-alpha beta)) m_wet <= m_wet - m_dry: 390.854 <= 400 at 1 s
+  criterion 1, at 1 s fuel within 1 pct and tf within 1 s: +0.116%, tf 75 s: PASS
+  criterion 2, converged at dt 1 s (halving to 0.5 s changes fuel 0.0597%): +0.116%: PASS
+  criterion 3, largest relative lossless gap 7.4e-07 against 1e-06: PASS
+
+case3: glide slope 86 deg; published 399.5 kg at 81 s
+  dt 1 s: Algorithm 1 over N 15..158, 144 solves, feasible from N = 75, local minima of beta over feasible N: 1
+      dt s     N     tf s   fuel kg  vs published  change on halving   gap rel  solves  time s
+   1.00000    78   78.000   398.737       -0.191%                      1.0e-07     144
+   0.50000   156   78.000   398.424       -0.269%            0.0786%   1.3e-06       3
+  throttle switches (first node below 0.55, first back above): paper about 36 and 70 s; F at 1 s 38.00 and 68.00 s; F converged 38.00 and 68.00 s
+  Algorithm 1 fuel check (1 - exp(-alpha beta)) m_wet <= m_wet - m_dry: 398.737 <= 400 at 1 s
+  criterion 1, at 1 s fuel within 1 pct and tf within 1 s: -0.191%, tf 78 s: FAIL
+  criterion 2, converged at dt 1 s (halving to 0.5 s changes fuel 0.0786%): -0.191%: PASS
+  criterion 3, largest relative lossless gap 1.3e-06 against 1e-06: FAIL
+
+Phase 2a reproduction, per case (criterion 1, 2, 3):
+  case1: PASS, PASS, PASS
+  case2: PASS, PASS, PASS
+  case3: FAIL, PASS, FAIL
+Phase 2a, all criteria on all three cases: FAIL

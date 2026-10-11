@@ -31,6 +31,10 @@ Constraints, each from the paper and the switchable ones marked:
   switchable: ||(r2_k, r3_k)|| <= tan(theta_alt) r1_k, the glide
       slope, theta_alt from vertical                               (Eq. 11)
   switchable: u_N = sigma_N n_f, the terminal thrust direction     (Eq. 37)
+  switchable: n_f . u_k >= cos(theta_p) sigma_k, k = 0..N, thrust within
+      theta_p of vertical, the paper's pointing cone              (Eq. 61)
+  switchable: r_N, v_N equal to a target end state other than rest at the
+      origin (default: r_N = 0, v_N = 0)
 
 Final time. Algorithm 1: a line search over whole N in [N_min, N_max] from
 Eqs. (55) to (57), minimising beta(N) = sum dt sigma_k, infinite when Problem 4
@@ -55,6 +59,9 @@ class Case:
     no_subsurface: bool = False
     glide_slope_deg: float = None             # None: off
     terminal_direction: bool = True
+    pointing_deg: float = None                # None: off
+    target_r: tuple = (0.0, 0.0, 0.0)
+    target_v: tuple = (0.0, 0.0, 0.0)
     vehicle: Vehicle = field(default_factory=Vehicle)
 
 
@@ -123,7 +130,7 @@ def solve(case, n, dt):
         z[n] >= np.log(veh.m_dry),
         r[0] == np.asarray(case.r0, float), v[0] == np.asarray(case.v0, float),
         z[0] == np.log(veh.m_wet),
-        r[n] == 0, v[n] == 0,
+        r[n] == np.asarray(case.target_r, float), v[n] == np.asarray(case.target_v, float),
     ]
     if case.no_subsurface:
         cons.append(r[:, 0] >= 0)
@@ -131,6 +138,8 @@ def solve(case, n, dt):
         cons.append(cp.norm(r[:, 1:3], 2, axis=1) <= np.tan(np.radians(case.glide_slope_deg)) * r[:, 0])
     if case.terminal_direction:
         cons.append(u[n] == s[n] * N_F)
+    if case.pointing_deg is not None:
+        cons.append(u[:, 0] >= np.cos(np.radians(case.pointing_deg)) * s)
     prob = cp.Problem(cp.Minimize(dt * cp.sum(s[:n])), cons)
     try:
         prob.solve(solver=cp.CLARABEL)

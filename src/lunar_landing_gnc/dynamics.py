@@ -39,6 +39,7 @@ class Vehicle:
     throttle_min: float = 0.3
     throttle_max: float = 0.8
     cant_deg: float = 27.0
+    g_e: float = G_E                          # converts Isp to exhaust velocity
 
     @property
     def cos_cant(self):
@@ -47,7 +48,7 @@ class Vehicle:
     @property
     def alpha(self):
         """Fuel use per unit net thrust impulse, s/m: 1 / (Isp g_e cos(phi))."""
-        return 1.0 / (self.isp * G_E * self.cos_cant)
+        return 1.0 / (self.isp * self.g_e * self.cos_cant)
 
     @property
     def rho1(self):

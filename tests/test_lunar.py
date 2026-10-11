@@ -6,6 +6,7 @@ import contextlib
 import importlib.util
 import io
 import re
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -98,10 +99,22 @@ def test_undispersed_flights_reach_the_end_point_within_the_hold_error(nominal):
 
 def test_first_re_solve_reproduces_the_nominal_plan(nominal):
     """Protects the closed loop's starting point: at time zero, from the
-    nominal state, the re-solve is the nominal plan."""
+    nominal state, the re-solve is the nominal plan. As revision 1 it is the
+    same problem and equal exactly. As revision 2 it differs only by the
+    glide slope at node 0, inactive at high gate (16 deg against 10), and
+    agrees to solver tolerance: measured 2.0e-4 m/s^2 on the thrust
+    acceleration over nodes 0 to N-1, 3.2 mm on position, 7.9e-5 kg of fuel;
+    bounds at five times that. Node N's control enters neither dynamics nor
+    cost and is not compared there."""
+    p = nominal.plan
+    _, _, first = CL.fly_guided(nominal, "closed", revision=1)
+    assert np.abs(first.u - p.u).max() < 1e-9
+    assert np.abs(first.r - p.r).max() < 1e-9
     _, _, first = CL.fly_guided(nominal, "closed")
-    assert np.abs(first.u - nominal.plan.u).max() < 1e-9
-    assert np.abs(first.r - nominal.plan.r).max() < 1e-9
+    assert first.n == p.n
+    assert np.abs(first.u[:-1] - p.u[:-1]).max() < 1e-3
+    assert np.abs(first.r - p.r).max() < 0.016
+    assert abs(first.fuel - p.fuel) < 4e-4
 
 
 def test_closed_loop_removes_an_initial_error_the_open_loop_carries(nominal):
@@ -155,8 +168,9 @@ def test_window_search_takes_the_least_fuel_feasible_final_time(nominal):
     n_rem = nominal.plan.n + 4
     chosen = CL.resolve_window(nominal, y, n_rem)
     fuels = {}
+    case = replace(CL.lunar_case(LV.R0, LV.V0, nominal.veh), state_from=1)
     for n in range(n_rem + CL.WINDOW[0], n_rem + CL.WINDOW[1] + 1):
-        s = solve(CL.lunar_case(LV.R0, LV.V0, nominal.plan_veh), n, CL.DT)
+        s = solve(case, n, CL.DT)
         if s.feasible:
             fuels[n] = s.fuel
     best = min(fuels, key=fuels.get)
@@ -175,17 +189,17 @@ def test_impossible_state_raises_the_infeasible_flag(nominal):
     assert infeasible > 0
 
 
-def test_cap_060_without_the_window_is_the_unrevised_design():
-    """Protects the revision from changing what it did not mean to: at
-    u_cap 0.60 with the window off, draw 0 of the evaluation seed flies to
-    the same end and touchdown states, with the same infeasible re-solves, as
-    commit 392ac9e recorded."""
+def test_cap_060_at_revision_0_is_the_unrevised_design():
+    """Protects the revisions from changing what they did not mean to: at
+    u_cap 0.60 flown as revision 0 (no window, state constraints from node
+    0), draw 0 of the evaluation seed flies to the same end and touchdown
+    states, with the same infeasible re-solves, as commit 392ac9e recorded."""
     import json
     ref = json.loads((ROOT / "tests" / "data" / "closed_loop_392ac9e.json").read_text())
     nom = CL.high_gate_mass(u_cap=0.60)
     for mode in ("closed", "open"):
         f = CL.fly(nom, mode, ref["kappa"], ref["isp"], np.array(ref["dr0"]), np.array(ref["dv0"]),
-                   window=False)
+                   revision=0)
         assert np.allclose(f.end, ref[mode]["end"], rtol=0, atol=1e-9)
         assert np.allclose(f.touchdown, ref[mode]["touchdown"], rtol=0, atol=1e-9)
         assert f.infeasible == ref[mode]["infeasible"]
@@ -205,9 +219,70 @@ def test_flight_saturates_at_the_engine_not_at_the_planning_cap(nominal):
     guidance's, not the engine's. A plan commanding up to 60 pct, flown with a
     0.50 planning cap in force, is delivered as commanded and ends where it
     ends with no cap; clipping at the cap would leave it short."""
-    from dataclasses import replace
     capped = replace(nominal, plan_veh=replace(nominal.plan_veh, throttle_max=0.50))
     assert nominal.plan.throttle(nominal.plan_veh)[:-1].max() > 0.59
     a, _, _ = CL.fly_guided(nominal, "open")
     b, _, _ = CL.fly_guided(capped, "open")
     assert np.allclose(a, b, rtol=0, atol=1e-9)
+
+
+def outside_cone_state(nominal):
+    """200 m from the site, 0.5 deg below the cone's edge, sinking at 2 m/s
+    and closing at 5 m/s, ten steps to go."""
+    d = 200.0
+    y = np.array([d * np.tan(np.radians(9.5)), 0.0, -d, -2.0, 0.0, 5.0, nominal.m_hg - 640.0])
+    return y, 10
+
+
+def test_resolve_from_a_state_outside_the_cone_constrains_from_node_1(nominal):
+    """Protects the second revision's state constraints: node 0 is the
+    measured state, so a re-solve from 0.5 deg outside the cone is feasible,
+    and every node from 1 on is inside. The fixture discriminates: from node
+    0 the problem is infeasible, and from node 2 its node 1 leaves the cone."""
+    y, n_rem = outside_cone_state(nominal)
+    assert abs(CL.cone_excursion_deg(y[0:3]) - 0.5) < 1e-9
+    sol = CL.resolve_window(nominal, y, n_rem)
+    assert sol is not None
+    exc = [CL.cone_excursion_deg(r) for r in sol.r[1:]]
+    assert max(exc) < 1e-6, max(exc)
+    case = CL.lunar_case(y[0:3], y[3:6], replace(nominal.veh, m_wet=float(y[6])))
+    assert not solve(replace(case, state_from=0), sol.n, CL.DT).feasible
+    late = solve(replace(case, state_from=2), sol.n, CL.DT)
+    assert CL.cone_excursion_deg(late.r[1]) > 0.05
+
+
+def test_cap_limits_the_nominal_plan_only_and_re_solves_keep_60_pct():
+    """Protects where u_cap applies: planned at 0.50 the nominal stays at or
+    under 50 pct, while a re-solve from the same high gate, offered the
+    window around the nominal's remaining time, takes a shorter final time
+    that commands up to the physical 60 pct."""
+    nom = CL.high_gate_mass(u_cap=0.50)
+    assert nom.plan.throttle(nom.plan_veh)[:-1].max() <= 0.50 + 1e-5
+    y = np.concatenate([LV.R0, LV.V0, [nom.m_hg]])
+    sol = CL.resolve_window(nom, y, nom.plan.n)
+    thr = sol.throttle(nom.veh)[:-1].max()
+    assert 0.55 < thr <= 0.60 + 1e-5, thr
+    assert sol.n < nom.plan.n
+
+
+def test_cone_excursion_is_degrees_below_the_edge_and_zero_inside():
+    """Protects the recorded excursion's definition: elevation seen from the
+    site, against the 10 deg edge, crossrange counted as horizontal."""
+    for el, want in ((9.5, 0.5), (7.0, 3.0), (10.0, 0.0), (30.0, 0.0)):
+        e = np.radians(el)
+        r = 300.0 * np.array([np.sin(e), 0.6 * np.cos(e), -0.8 * np.cos(e)])
+        assert abs(CL.cone_excursion_deg(r) - want) < 1e-9, (el, CL.cone_excursion_deg(r))
+
+
+def test_no_subsurface_also_applies_from_node_1():
+    """Protects the second revision's 'any other state constraint': the
+    no-subsurface constraint, off in the lunar case, also starts at node 1
+    when asked. From 1 m below the ground climbing at 3 m/s the problem is
+    feasible from node 1 and infeasible from node 0, and no node from 1 on is
+    below ground."""
+    nom_veh = LV.lunar_vehicle(8000.0)
+    case = replace(CL.lunar_case((-1.0, 0.0, -50.0), (3.0, 0.0, 2.0), nom_veh),
+                   glide_slope_deg=None, no_subsurface=True, state_from=1)
+    sol = solve(case, 10, CL.DT)
+    assert sol.feasible and sol.r[1:, 0].min() >= -1e-6, sol.status
+    assert not solve(replace(case, state_from=0), 10, CL.DT).feasible

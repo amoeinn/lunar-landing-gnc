@@ -17,8 +17,20 @@ commanded thrust at the physical 10 and 60 pct (step_truth). Each re-solve
 chooses its own remaining final time: every whole number of steps from
 WINDOW[0] to WINDOW[1] around the current remaining steps is solved and the
 least-fuel feasible one taken (resolve_window). None feasible is the
-guidance-infeasible flag. With window=False the re-solve uses exactly the
-remaining steps, the design before the revision.
+guidance-infeasible flag.
+
+Second design revision (PLAN.md phase 2c, 11 Oct 2026). u_cap limits the
+nominal plan only; every re-solve plans with the physical 10 to 60 pct range,
+so the cap is margin in the plan and the correction keeps full authority. In
+a re-solve the state constraints apply from node 1; node 0 is the measured
+state. How far the true state goes outside the glide-slope cone is recorded
+per run (Flight.cone_excursion_deg).
+
+revision selects the design flown: 0 the unrevised one (re-solve over exactly
+the remaining steps, at the plan's vehicle, state constraints from node 0),
+1 the first revision (adds the window), 2 the second (adds the physical range
+and state constraints from node 1). The earlier two are kept so their records
+stay reproducible.
 
 Closed loop. Every DT, guidance is re-solved from the true state and true
 mass to the same end point; the first step's thrust acceleration u_0 becomes
@@ -47,6 +59,7 @@ from . import vehicle as LV
 from .guidance import Case, local_search, solve
 
 DT = 2.0
+REVISION = 2                       # the design flown by default; see the docstring
 MIN_RESOLVE = 3
 WINDOW = (-2, 5)                   # remaining steps tried around the current remaining time
 MAX_STEPS_FACTOR = 3               # guided flight is cut at this many times the nominal steps
@@ -92,19 +105,29 @@ def high_gate_mass(u_cap=LV.THROTTLE_MAX, n_start=50, tol_kg=0.01, max_iter=20):
     raise RuntimeError("high gate mass did not converge")
 
 
-def resolve_window(nom, y, n_remaining, window=True):
+def resolve_window(nom, y, n_remaining, revision=REVISION):
     """The least-fuel feasible plan from state y over the window of remaining
     steps, or None when no remaining time in it is feasible."""
-    if window:
+    if revision >= 1:
         candidates = range(max(1, n_remaining + WINDOW[0]), n_remaining + WINDOW[1] + 1)
     else:
         candidates = (n_remaining,)
+    veh = nom.veh if revision >= 2 else nom.plan_veh
+    case = replace(lunar_case(y[0:3], y[3:6], replace(veh, m_wet=float(y[6]))),
+                   state_from=1 if revision >= 2 else 0)
     best = None
     for n in candidates:
-        sol = solve(lunar_case(y[0:3], y[3:6], replace(nom.plan_veh, m_wet=float(y[6]))), n, DT)
+        sol = solve(case, n, DT)
         if sol.feasible and (best is None or sol.fuel < best.fuel):
             best = sol
     return best
+
+
+def cone_excursion_deg(r):
+    """How far below the glide-slope cone's edge position r sits, seen from
+    the site, in degrees of elevation; zero inside the cone."""
+    elevation = np.degrees(np.arctan2(r[0], np.hypot(r[1], r[2])))
+    return max(0.0, (90.0 - LV.GLIDE_SLOPE_DEG) - elevation)
 
 
 def saturate(thrust, veh):
@@ -140,6 +163,7 @@ class Flight:
     first_solution: object = None
     landed: bool = True             # touched down within the descent's time limit
     min_altitude_guided: float = np.nan   # lowest altitude at a step end in guided flight
+    cone_excursion_deg: float = 0.0       # largest, over the measured states of guided flight
 
     @property
     def exhausted(self):
@@ -149,7 +173,7 @@ class Flight:
 
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
-               window=True):
+               revision=REVISION):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
     With a list as log, the state at the end of every step is appended."""
     y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])
@@ -162,7 +186,7 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
             thrust = nom.plan.u[k] * np.exp(nom.plan.z[k])
         else:
             if remaining >= MIN_RESOLVE:
-                sol = resolve_window(nom, y, remaining, window)
+                sol = resolve_window(nom, y, remaining, revision)
                 if sol is not None:
                     plan, k, remaining = sol, 0, sol.n
                     if first is None:
@@ -209,12 +233,15 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0):
     return sol.y[:, -1], float(sol.t[-1]), False
 
 
-def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), window=True):
-    log = []
-    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, window)
+def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION):
+    """The whole flight. The cone excursion is over the states guidance
+    measures: high gate and every step end of guided flight."""
+    log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])]
+    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision)
     td, t_td, landed = descend(end, nom, kappa, isp)
     return Flight(end, td, t_td, infeasible, first, landed,
-                  float(min(row[0] for row in log)))
+                  float(min(row[0] for row in log)),
+                  float(max(cone_excursion_deg(row[0:3]) for row in log)))
 
 
 # Dispersions, fixed before any Monte Carlo run (PLAN.md phase 2c). SEED is

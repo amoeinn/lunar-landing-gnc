@@ -35,6 +35,11 @@ Constraints, each from the paper and the switchable ones marked:
       theta_p of vertical, the paper's pointing cone              (Eq. 61)
   switchable: r_N, v_N equal to a target end state other than rest at the
       origin (default: r_N = 0, v_N = 0)
+  state_from: the first node the state constraints (no-subsurface, glide
+      slope) apply at. 0 by default, as in the paper. A re-solve from a
+      measured state sets 1: node 0 is that state, given rather than
+      planned, so constraining it can only make the problem infeasible. The
+      mass bounds (Eq. 52) are exact at node 0 and are kept there.
 
 Final time. Algorithm 1: a line search over whole N in [N_min, N_max] from
 Eqs. (55) to (57), minimising beta(N) = sum dt sigma_k, infinite when Problem 4
@@ -63,6 +68,7 @@ class Case:
     target_r: tuple = (0.0, 0.0, 0.0)
     target_v: tuple = (0.0, 0.0, 0.0)
     vehicle: Vehicle = field(default_factory=Vehicle)
+    state_from: int = 0                       # first node with state constraints
 
 
 @dataclass
@@ -133,9 +139,10 @@ def solve(case, n, dt):
         r[n] == np.asarray(case.target_r, float), v[n] == np.asarray(case.target_v, float),
     ]
     if case.no_subsurface:
-        cons.append(r[:, 0] >= 0)
+        cons.append(r[case.state_from:, 0] >= 0)
     if case.glide_slope_deg is not None:
-        cons.append(cp.norm(r[:, 1:3], 2, axis=1) <= np.tan(np.radians(case.glide_slope_deg)) * r[:, 0])
+        rs = r[case.state_from:]
+        cons.append(cp.norm(rs[:, 1:3], 2, axis=1) <= np.tan(np.radians(case.glide_slope_deg)) * rs[:, 0])
     if case.terminal_direction:
         cons.append(u[n] == s[n] * N_F)
     if case.pointing_deg is not None:

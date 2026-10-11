@@ -1,11 +1,15 @@
-"""Size the planning throttle cap u_cap, as PLAN.md's phase 2c revision registers.
+"""Size the planning throttle cap u_cap, as PLAN.md's phase 2c revisions register.
 
 Design set: 50 dispersed draws on DESIGN_SEED (20261012), never the
 evaluation seed. For each candidate cap (0.60, 0.58, 0.56, 0.54, 0.52, 0.50)
 the nominal plan and the mass at high gate are rebuilt at that cap and every
-draw is flown closed loop with the re-solve window. Rule, fixed before the
+draw is flown closed loop as the design in force (closed_loop.REVISION: the
+second revision, so u_cap limits the nominal plan only and re-solves keep the
+physical range with state constraints from node 1). Rule, fixed before the
 sweep: the largest cap with zero infeasible re-solves over all 50 draws. If no
-cap qualifies, nothing is chosen and the run says so.
+cap qualifies, nothing is chosen and the run says so. Each cap also reports
+the largest excursion of the true state outside the glide-slope cone over its
+draws.
 
 Runtime is estimated before the sweep from a calibration batch, one flight
 per process spread across the caps and timed by wall clock in parallel, and
@@ -55,8 +59,8 @@ def run_one(args):
 
 def main():
     t_all = time.time()
-    print(f"Sizing u_cap on the design seed {CL.DESIGN_SEED}, {N_DRAWS} draws, closed loop with the "
-          f"re-solve window {CL.WINDOW}; candidates {CL.U_CAP_CANDIDATES}")
+    print(f"Sizing u_cap on the design seed {CL.DESIGN_SEED}, {N_DRAWS} draws, closed loop as revision "
+          f"{CL.REVISION}, re-solve window {CL.WINDOW}; candidates {CL.U_CAP_CANDIDATES}")
     t0 = time.time()
     for cap in CL.U_CAP_CANDIDATES:
         nom = nominal(cap)
@@ -83,7 +87,7 @@ def main():
     statuses = ("landed", "below ground in guided flight", "out of descent propellant",
                 "no touchdown in 300 s")
     print(f"\n{'cap':>5} {'runs infeas':>11} {'re-solves infeas':>16} {'end err med':>11} {'end err p95':>11} "
-          f"{'fuel med':>9} {'fuel p95':>9}  outcomes")
+          f"{'fuel med':>9} {'fuel p95':>9} {'cone max deg':>12}  outcomes")
     qualifying = []
     for cap in CL.U_CAP_CANDIDATES:
         rs = res[cap]
@@ -94,7 +98,8 @@ def main():
         fuel = np.array([r["fuel"] for r in landed])
         outcomes = ", ".join(f"{s} {sum(r['status'] == s for r in rs)}" for s in statuses)
         print(f"{cap:5.2f} {runs:11d} {total:16d} {np.median(end):11.3f} {np.percentile(end, 95):11.3f} "
-              f"{np.median(fuel):9.2f} {np.percentile(fuel, 95):9.2f}  {outcomes}")
+              f"{np.median(fuel):9.2f} {np.percentile(fuel, 95):9.2f} {max(r['cone'] for r in rs):12.4f}  "
+              f"{outcomes}")
         if total == 0:
             qualifying.append(cap)
     if qualifying:

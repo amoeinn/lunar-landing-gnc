@@ -286,3 +286,37 @@ def test_no_subsurface_also_applies_from_node_1():
     sol = solve(case, 10, CL.DT)
     assert sol.feasible and sol.r[1:, 0].min() >= -1e-6, sol.status
     assert not solve(replace(case, state_from=0), 10, CL.DT).feasible
+
+
+
+def test_inaccurate_solver_returns_are_counted_and_change_nothing(nominal, monkeypatch):
+    """Protects the inaccurate-status counter and its neutrality: with every
+    feasible solve forced to report the solver's inaccurate status, each such
+    solver call and each adopted re-solve is counted, exactly, and the flight
+    is the same, state for state, as with the status left alone."""
+    import lunar_landing_gnc.guidance as G
+    kw = dict(kappa=0.99, dr0=np.array([0.0, 30.0, -60.0]))
+    plain = CL.fly(nominal, "closed", **kw)
+    assert plain.inaccurate_solves == 0 and plain.inaccurate_resolves == 0
+    n = {"feasible": 0, "adopted": 0}
+
+    def forced(case, k, dt):
+        sol = G.solve(case, k, dt)
+        if sol.feasible:
+            sol.status = CL.INACCURATE
+            n["feasible"] += 1
+        return sol
+    window = CL.resolve_window
+
+    def watched(*a, **k):
+        sol = window(*a, **k)
+        n["adopted"] += sol is not None
+        return sol
+    monkeypatch.setattr(CL, "solve", forced)
+    monkeypatch.setattr(CL, "resolve_window", watched)
+    f = CL.fly(nominal, "closed", **kw)
+    assert n["feasible"] > 0 and n["adopted"] > 0
+    assert f.inaccurate_solves == n["feasible"], (f.inaccurate_solves, n)
+    assert f.inaccurate_resolves == n["adopted"], (f.inaccurate_resolves, n)
+    assert np.array_equal(f.end, plain.end) and np.array_equal(f.touchdown, plain.touchdown)
+    assert f.infeasible == plain.infeasible

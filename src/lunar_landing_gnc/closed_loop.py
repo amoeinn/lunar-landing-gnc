@@ -105,9 +105,15 @@ def high_gate_mass(u_cap=LV.THROTTLE_MAX, n_start=50, tol_kg=0.01, max_iter=20):
     raise RuntimeError("high gate mass did not converge")
 
 
-def resolve_window(nom, y, n_remaining, revision=REVISION):
+INACCURATE = "optimal_inaccurate"
+
+
+def resolve_window(nom, y, n_remaining, revision=REVISION, counts=None):
     """The least-fuel feasible plan from state y over the window of remaining
-    steps, or None when no remaining time in it is feasible."""
+    steps, or None when no remaining time in it is feasible. With a dict as
+    counts, each solve returning the solver's inaccurate status adds one to
+    counts["solves"]; the choice is unchanged, since guidance.solve accepts
+    that status as feasible."""
     if revision >= 1:
         candidates = range(max(1, n_remaining + WINDOW[0]), n_remaining + WINDOW[1] + 1)
     else:
@@ -118,6 +124,8 @@ def resolve_window(nom, y, n_remaining, revision=REVISION):
     best = None
     for n in candidates:
         sol = solve(case, n, DT)
+        if counts is not None and sol.status == INACCURATE:
+            counts["solves"] = counts.get("solves", 0) + 1
         if sol.feasible and (best is None or sol.fuel < best.fuel):
             best = sol
     return best
@@ -164,6 +172,8 @@ class Flight:
     landed: bool = True             # touched down within the descent's time limit
     min_altitude_guided: float = np.nan   # lowest altitude at a step end in guided flight
     cone_excursion_deg: float = 0.0       # largest, over the measured states of guided flight
+    inaccurate_solves: int = 0            # solver calls returning the inaccurate status
+    inaccurate_resolves: int = 0          # re-solves whose adopted plan had that status
 
     @property
     def exhausted(self):
@@ -173,9 +183,12 @@ class Flight:
 
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
-               revision=REVISION):
+               revision=REVISION, counts=None):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
-    With a list as log, the state at the end of every step is appended."""
+    With a list as log, the state at the end of every step is appended. With
+    a dict as counts, the solver's inaccurate returns are counted there:
+    "solves" over every solver call, "resolves" over adopted plans. Counting
+    changes no decision."""
     y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])
     plan, k, infeasible, first = nom.plan, 0, 0, None
     remaining = plan.n
@@ -186,8 +199,10 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
             thrust = nom.plan.u[k] * np.exp(nom.plan.z[k])
         else:
             if remaining >= MIN_RESOLVE:
-                sol = resolve_window(nom, y, remaining, revision)
+                sol = resolve_window(nom, y, remaining, revision, counts)
                 if sol is not None:
+                    if counts is not None and sol.status == INACCURATE:
+                        counts["resolves"] = counts.get("resolves", 0) + 1
                     plan, k, remaining = sol, 0, sol.n
                     if first is None:
                         first = sol
@@ -237,11 +252,13 @@ def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision
     """The whole flight. The cone excursion is over the states guidance
     measures: high gate and every step end of guided flight."""
     log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])]
-    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision)
+    counts = {}
+    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts)
     td, t_td, landed = descend(end, nom, kappa, isp)
     return Flight(end, td, t_td, infeasible, first, landed,
                   float(min(row[0] for row in log)),
-                  float(max(cone_excursion_deg(row[0:3]) for row in log)))
+                  float(max(cone_excursion_deg(row[0:3]) for row in log)),
+                  counts.get("solves", 0), counts.get("resolves", 0))
 
 
 # Dispersions, fixed before any Monte Carlo run (PLAN.md phase 2c). SEED is

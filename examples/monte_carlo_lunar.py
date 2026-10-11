@@ -23,7 +23,8 @@ final mass below 6,855 kg flags it); no touchdown within the descent's 300 s
 limit; otherwise landed. The end-of-guided-flight error is over every run;
 the touchdown quantities are over landed runs, with the counts beside them.
 
-Usage: python examples/monte_carlo_lunar.py U_CAP
+Usage: python examples/monte_carlo_lunar.py U_CAP [SEED]   (SEED defaults to
+closed_loop.SEED, the evaluation seed)
 """
 import os
 import sys
@@ -55,9 +56,9 @@ def nominal(cap):
 
 
 def run_one(args):
-    cap, i, mode = args
+    cap, seed, i, mode = args
     nom = nominal(cap)
-    kappa, isp, dr, dv = CL.draws(N_RUNS)[i]
+    kappa, isp, dr, dv = CL.draws(N_RUNS, seed)[i]
     return i, mode, metrics(CL.fly(nom, mode, kappa, isp, dr, dv), nom)
 
 
@@ -73,7 +74,8 @@ def metrics(f, nom):
                 fuel=float(nom.m_hg - f.touchdown[6]),
                 reserve=float(f.touchdown[6] - LV.M_NO_DESCENT_PROPELLANT),
                 infeasible=f.infeasible, landed=bool(np.isfinite(f.t_touchdown)),
-                cone=f.cone_excursion_deg)
+                cone=f.cone_excursion_deg, inaccurate=f.inaccurate_solves,
+                inaccurate_resolves=f.inaccurate_resolves)
 
 
 def dist(x):
@@ -81,7 +83,9 @@ def dist(x):
     return f"{np.median(x):10.3f} {np.percentile(x, 95):10.3f} {x.max():10.3f}"
 
 
-def main(cap):
+def main(cap, seed=CL.SEED):
+    """Prints the run and returns {mode: [metrics per draw]}, or None when
+    the runtime estimate stops it."""
     t_all = time.time()
     nom = nominal(cap)
     print(f"Phase 2c baselines, lunar approach from high gate; u_cap {cap:.2f}, closed loop as revision "
@@ -99,16 +103,16 @@ def main(cap):
         print(f"  undispersed {mode:<6}: end {m0['end']:.3f} m, touchdown {m0['td']:.3f} m, velocity error "
               f"{m0['vtd']:.2e} m/s, fuel {m0['fuel']:.2f} kg, remaining {m0['reserve']:.2f} kg, "
               f"infeasible re-solves {m0['infeasible']}, cone excursion {m0['cone']:.4f} deg")
-    print(f"dispersions (closed_loop.py): seed {CL.SEED}; thrust scale uniform "
+    print(f"dispersions (closed_loop.py): seed {seed}; thrust scale uniform "
           f"[{CL.KAPPA_RANGE[0]:.5f}, {CL.KAPPA_RANGE[1]:.5f}]; Isp uniform [{CL.ISP_RANGE[0]}, "
           f"{CL.ISP_RANGE[1]}] s; initial position sigma {CL.SIGMA_R} m and velocity sigma {CL.SIGMA_V} m/s "
           f"(up, crossrange, downrange)")
 
-    jobs = [(cap, i, mode) for i in range(N_RUNS) for mode in ("closed", "open")]
+    jobs = [(cap, seed, i, mode) for i in range(N_RUNS) for mode in ("closed", "open")]
     out = {"closed": [None] * N_RUNS, "open": [None] * N_RUNS}
     t0 = time.time()
     with ProcessPoolExecutor(WORKERS) as ex:
-        calib = [(cap, i, "closed") for i in range(WORKERS)]
+        calib = [(cap, seed, i, "closed") for i in range(WORKERS)]
         for i, mode, m in ex.map(run_one, calib):
             out[mode][i] = m
         wall = time.time() - t0
@@ -118,8 +122,8 @@ def main(cap):
               f"flights about {est / 60:.1f} min")
         if est > BUDGET_S:
             print("estimate exceeds 30 min: stopping for approval")
-            return 2
-        rest = [j for j in jobs if not (j[2] == "closed" and j[1] < WORKERS)]
+            return None
+        rest = [j for j in jobs if not (j[3] == "closed" and j[2] < WORKERS)]
         for i, mode, m in ex.map(run_one, rest, chunksize=2):
             out[mode][i] = m
     res = out
@@ -147,6 +151,11 @@ def main(cap):
         landed = [r for r in rs if r["status"] == "landed"]
         rem = np.array([r["reserve"] for r in landed])
         print(f"{mode}: runs outside the cone at some measured state {sum(r['cone'] > 0 for r in rs)}")
+        if mode == "closed":
+            print(f"closed: solver inaccurate status, runs affected {sum(r['inaccurate'] > 0 for r in rs)}, "
+                  f"solver calls {sum(r['inaccurate'] for r in rs)}; adopted re-solves, runs affected "
+                  f"{sum(r['inaccurate_resolves'] > 0 for r in rs)}, total "
+                  f"{sum(r['inaccurate_resolves'] for r in rs)}")
         print(f"{mode}: landed below the {LV.RESERVE:.0f} kg reserve {int(np.sum(rem < LV.RESERVE))} of "
               f"{len(landed)}; minimum remaining among landed {rem.min():.2f} kg; runs with an infeasible "
               f"re-solve {sum(r['infeasible'] > 0 for r in rs)}; infeasible re-solves per run median "
@@ -162,10 +171,11 @@ def main(cap):
           f"{np.median(ratio):.2f}, p5 {np.percentile(ratio, 5):.2f}, p95 {np.percentile(ratio, 95):.2f}, "
           f"min {ratio.min():.2f}, max {ratio.max():.2f}; closed better in {int(np.sum(ratio > 1))}")
     print(f"\nruntime {time.time() - t_all:.1f} s")
-    return 0
+    return res
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit("usage: python examples/monte_carlo_lunar.py U_CAP")
-    sys.exit(main(float(sys.argv[1])))
+    if len(sys.argv) not in (2, 3):
+        sys.exit("usage: python examples/monte_carlo_lunar.py U_CAP [SEED]")
+    out = main(float(sys.argv[1]), int(sys.argv[2]) if len(sys.argv) == 3 else CL.SEED)
+    sys.exit(0 if out is not None else 2)

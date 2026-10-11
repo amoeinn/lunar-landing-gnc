@@ -1,5 +1,9 @@
 # Third-party imports in src/, examples/ and tests/, pinned to the versions
-# these were developed against.
+# these were developed against. clarabel is not imported directly; cvxpy
+# calls it as the guidance solver.
+clarabel==0.11.1
+cvxpy==1.9.3
+matplotlib==3.11.2
 numpy==2.5.2
 rasterio==1.5.1
 scipy==1.18.1

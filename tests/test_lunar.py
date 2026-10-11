@@ -129,3 +129,85 @@ def test_open_loop_flies_the_plans_thrust_unchanged(nominal):
     a, _, _ = CL.fly_guided(nominal, "open", isp=LV.ISP_LOW)
     b, _, _ = CL.fly_guided(nominal, "open", isp=LV.ISP_HIGH)
     assert np.linalg.norm(a[0:3] - b[0:3]) > 2.0
+
+
+def test_truth_saturates_commanded_thrust_at_the_physical_limits(nominal):
+    """Protects the engine model: a command above 60 pct or below 10 pct is
+    delivered at the limit, seen in the propellant burned over one step;
+    a command between them is delivered as commanded."""
+    veh = nominal.veh
+    y = np.concatenate([LV.R0, LV.V0, [nominal.m_hg]])
+    up = np.array([1.0, 0.0, 0.0])
+    for cmd, want in ((1.0e6, veh.rho2), (1.0, veh.rho1), (0.5 * (veh.rho1 + veh.rho2), None)):
+        y1 = CL.step_truth(y, cmd * up, 1.0, LV.ISP, veh)
+        burned = y[6] - y1[6]
+        expect = (want if want is not None else cmd) * CL.DT / (LV.ISP * LV.G0)
+        assert abs(burned - expect) < 1e-6 * expect, (cmd, burned, expect)
+    assert abs(veh.rho2 - 0.60 * LV.THRUST_RATED) < 1e-9 and abs(veh.rho1 - 0.10 * LV.THRUST_RATED) < 1e-9
+
+
+def test_window_search_takes_the_least_fuel_feasible_final_time(nominal):
+    """Protects the re-solve's choice of final time: from high gate, offered
+    a remaining time four steps too long, it takes the least-fuel feasible
+    of the window's eight candidates, which is shorter than the one offered,
+    so the window changes the answer."""
+    y = np.concatenate([LV.R0, LV.V0, [nominal.m_hg]])
+    n_rem = nominal.plan.n + 4
+    chosen = CL.resolve_window(nominal, y, n_rem)
+    fuels = {}
+    for n in range(n_rem + CL.WINDOW[0], n_rem + CL.WINDOW[1] + 1):
+        s = solve(CL.lunar_case(LV.R0, LV.V0, nominal.plan_veh), n, CL.DT)
+        if s.feasible:
+            fuels[n] = s.fuel
+    best = min(fuels, key=fuels.get)
+    assert chosen.n == best and best < n_rem, (chosen.n, best, n_rem)
+    assert fuels[best] < fuels[n_rem]
+
+
+def test_impossible_state_raises_the_infeasible_flag(nominal):
+    """Protects the guidance-infeasible flag: 50 m above the site at 150 m/s
+    across it with ten seconds to go, no remaining time in the window is
+    feasible, and flying from a high gate 20 km off counts infeasible
+    re-solves."""
+    y = np.array([50.0, 0.0, -100.0, -2.0, 0.0, 150.0, nominal.m_hg])
+    assert CL.resolve_window(nominal, y, 5) is None
+    _, infeasible, _ = CL.fly_guided(nominal, "closed", dr0=np.array([0.0, 0.0, -20000.0]))
+    assert infeasible > 0
+
+
+def test_cap_060_without_the_window_is_the_unrevised_design():
+    """Protects the revision from changing what it did not mean to: at
+    u_cap 0.60 with the window off, draw 0 of the evaluation seed flies to
+    the same end and touchdown states, with the same infeasible re-solves, as
+    commit 392ac9e recorded."""
+    import json
+    ref = json.loads((ROOT / "tests" / "data" / "closed_loop_392ac9e.json").read_text())
+    nom = CL.high_gate_mass(u_cap=0.60)
+    for mode in ("closed", "open"):
+        f = CL.fly(nom, mode, ref["kappa"], ref["isp"], np.array(ref["dr0"]), np.array(ref["dv0"]),
+                   window=False)
+        assert np.allclose(f.end, ref[mode]["end"], rtol=0, atol=1e-9)
+        assert np.allclose(f.touchdown, ref[mode]["touchdown"], rtol=0, atol=1e-9)
+        assert f.infeasible == ref[mode]["infeasible"]
+
+
+def test_plan_respects_the_planning_cap():
+    """Protects u_cap's use in planning: planned at 0.54, the nominal never
+    commands more than 54 pct, while the physical vehicle keeps 60."""
+    nom = CL.high_gate_mass(u_cap=0.54)
+    thr = nom.plan.throttle(nom.plan_veh)[:-1]
+    assert thr.max() <= 0.54 + 1e-5 and thr.max() > 0.54 - 1e-3
+    assert abs(nom.veh.throttle_max - 0.60) < 1e-12
+
+
+def test_flight_saturates_at_the_engine_not_at_the_planning_cap(nominal):
+    """Protects which limit the truth applies in flight: the planning cap is
+    guidance's, not the engine's. A plan commanding up to 60 pct, flown with a
+    0.50 planning cap in force, is delivered as commanded and ends where it
+    ends with no cap; clipping at the cap would leave it short."""
+    from dataclasses import replace
+    capped = replace(nominal, plan_veh=replace(nominal.plan_veh, throttle_max=0.50))
+    assert nominal.plan.throttle(nominal.plan_veh)[:-1].max() > 0.59
+    a, _, _ = CL.fly_guided(nominal, "open")
+    b, _, _ = CL.fly_guided(capped, "open")
+    assert np.allclose(a, b, rtol=0, atol=1e-9)

@@ -43,6 +43,14 @@ DV_DESCENT = 6827.0 * FT           # 2,081 m/s
 ISP_BRAKING = 304.0
 # Bennett: 301.4 lb propellant margin, about 32 s of hover.
 RESERVE = 301.4 * LB               # 137 kg
+# Safe landing, PLAN.md phase 2c-2 landing criterion revision (12 Oct 2026).
+LANDING_RADIUS = 2.0 * 1.046       # m: twice the largest closed-loop horizontal touchdown error in
+                                   # the phase 2c reference sample (1.046 m, commit 7fbbd74)
+GEAR_VERTICAL = 7.0 * FT           # 2.13 m/s, with horizontal at most GEAR_HORIZONTAL: LM landing gear
+GEAR_HORIZONTAL = 4.0 * FT         # 1.22 m/s   envelope, Rogers, NASA TN D-6850 (1972), p. 4, appendix A
+GEAR_VERTICAL_OUTER = 10.0 * FT    # 3.05 m/s: the outer box containing the whole envelope; reported
+                                   # beside the verdict, never used to score
+SENSITIVITY_RADII = (10.0, 100.0, 1000.0)   # m, reported beside the verdict, never used to score
 
 G_MOON = 1.62                      # m/s^2, PLAN.md phase 2c, flat Moon
 

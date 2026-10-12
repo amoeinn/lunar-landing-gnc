@@ -137,12 +137,13 @@ def high_gate_mass(u_cap=LV.THROTTLE_MAX, n_start=50, tol_kg=0.01, max_iter=20):
 INACCURATE = "optimal_inaccurate"
 
 
-def resolve_window(nom, y, n_remaining, revision=REVISION, counts=None):
+def resolve_window(nom, y, n_remaining, revision=REVISION, counts=None, trace=None):
     """The least-fuel feasible plan from state y over the window of remaining
     steps, or None when no remaining time in it is feasible. With a dict as
     counts, each solve returning the solver's inaccurate status adds one to
     counts["solves"]; the choice is unchanged, since guidance.solve accepts
-    that status as feasible."""
+    that status as feasible. With a list as trace, every N tried is appended
+    as (N, feasible, fuel, "window")."""
     if revision >= 1:
         candidates = range(max(1, n_remaining + WINDOW[0]), n_remaining + WINDOW[1] + 1)
     else:
@@ -155,17 +156,20 @@ def resolve_window(nom, y, n_remaining, revision=REVISION, counts=None):
         sol = solve(case, n, DT)
         if counts is not None and sol.status == INACCURATE:
             counts["solves"] = counts.get("solves", 0) + 1
+        if trace is not None:
+            trace.append((n, bool(sol.feasible), float(sol.fuel), "window"))
         if sol.feasible and (best is None or sol.fuel < best.fuel):
             best = sol
     return best
 
 
-def resolve(nom, y, n_remaining, revision=REVISION, counts=None):
+def resolve(nom, y, n_remaining, revision=REVISION, counts=None, trace=None):
     """The re-solve: the window, then, as revision 3 and only when the window
     finds nothing, every other whole final time from 1 to the propellant's
     limit. counts["widened"] counts widenings, counts["widened_found"] those
-    that found a plan."""
-    best = resolve_window(nom, y, n_remaining, revision, counts)
+    that found a plan. With a list as trace, every N tried is appended as
+    (N, feasible, fuel, "window" or "widen")."""
+    best = resolve_window(nom, y, n_remaining, revision, counts, trace)
     if best is not None or revision < 3:
         return best
     case = replace(lunar_case(y[0:3], y[3:6], replace(nom.veh, m_wet=float(y[6]))), state_from=1)
@@ -177,6 +181,8 @@ def resolve(nom, y, n_remaining, revision=REVISION, counts=None):
         sol = solve(case, n, DT)
         if counts is not None and sol.status == INACCURATE:
             counts["solves"] = counts.get("solves", 0) + 1
+        if trace is not None:
+            trace.append((n, bool(sol.feasible), float(sol.fuel), "widen"))
         if sol.feasible and (best is None or sol.fuel < best.fuel):
             best = sol
     if counts is not None:
@@ -279,6 +285,12 @@ class Flight:
     cut_off: bool = False                 # the terminal descent ended at propellant exhaustion
     widened: int = 0                      # re-solves that widened past the window (revision 3)
     widened_found: int = 0                # of those, the ones that found a plan
+    t_guided: float = np.nan              # s, high gate to the end of guided flight
+
+    @property
+    def landing(self):
+        """The touchdown record and the landing verdict (landing_verdict)."""
+        return landing_verdict(self)
 
     @property
     def exhausted(self):
@@ -290,7 +302,7 @@ class Flight:
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
                revision=REVISION, counts=None, fault=None, aborts=False, abort_out=None, m0=None,
-               resume=None):
+               resume=None, history=None):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
     With a list as log, the state at the end of every step is appended. With
     a dict as counts, the solver's inaccurate returns are counted there:
@@ -301,7 +313,11 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     everything needed to fly on from that point. m0 replaces the mass at high
     gate. resume, such a record, continues the flight from the trigger as if
     no abort had fired: the trigger step's re-solve is adopted (or counted
-    infeasible), the fault's jump, already applied, is not applied again."""
+    infeasible), the fault's jump, already applied, is not applied again.
+    With a list as history, one record per step is appended (history_row):
+    time, the true state the step starts from, the fault's effects in force,
+    the re-solve and every N it tried, the trigger, and the command flown.
+    Recording changes no decision."""
     y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
                         [nom.m_hg if m0 is None else m0]])
     plan, k, infeasible, first = nom.plan, 0, 0, None
@@ -322,10 +338,16 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
             if abs(t - fault.t) < 1e-9 and pending is None:
                 y = y + np.concatenate([fault.dr, fault.dv, [0.0]])
             kap, leak = fault.kappa(kappa, t), fault.leak_at(t)
+        row = None if history is None else history_row(step, t, y, kap, leak, remaining)
         if mode == "open":
             thrust = nom.plan.u[k] * np.exp(nom.plan.z[k])
         elif pending is not None:          # the trigger step, flown on without the abort
             sol, pending = pending["sol"], None
+            if row is not None:
+                row.update(resolved=True, from_trigger=True, tries=list(pending_tries(resume)),
+                           chosen_n=None if sol is None else sol.n,
+                           chosen_fuel=np.nan if sol is None else float(sol.fuel),
+                           predicted=np.nan if sol is None else predicted_reserve(sol, y[6]), stale=sol is None)
             if sol is not None:
                 plan, k, remaining = sol, 0, sol.n
                 if first is None:
@@ -335,16 +357,24 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
             thrust = plan.u[k] * y[6]
         else:
             if remaining >= MIN_RESOLVE:
-                sol = resolve(nom, y, remaining, revision, counts)
+                tries = None if row is None else []
+                sol = resolve(nom, y, remaining, revision, counts, tries)
                 fired = trigger(sol, y[6]) if aborts else None
+                if row is not None:
+                    row.update(resolved=True, tries=tries, chosen_n=None if sol is None else sol.n,
+                               chosen_fuel=np.nan if sol is None else float(sol.fuel),
+                               predicted=np.nan if sol is None else predicted_reserve(sol, y[6]),
+                               fired=fired, stale=sol is None)
                 if fired is not None:
                     if abort_out is not None:
                         abort_out.update(trigger=fired, t=t, y=y.copy(), remaining=remaining,
                                          predicted=None if sol is None else predicted_reserve(sol, y[6]))
                         abort_out["resume"] = dict(
                             y=y.copy(), step=step, plan=plan, k=k, remaining=remaining,
-                            infeasible=infeasible, first=first, sol=sol,
-                            log=None if log is None else [row.copy() for row in log])
+                            infeasible=infeasible, first=first, sol=sol, tries=tries,
+                            log=None if log is None else [r.copy() for r in log])
+                    if row is not None:
+                        history.append(row)
                     return y, infeasible + (sol is None), first
                 if sol is not None:
                     if counts is not None and sol.status == INACCURATE:
@@ -355,6 +385,9 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
                 else:
                     infeasible += 1
             thrust = plan.u[k] * y[6]
+        if row is not None:
+            row["command"] = saturate(thrust, nom.veh)
+            history.append(row)
         y = step_truth(y, thrust, kap, isp, nom.veh, leak=leak)
         k += 1
         remaining -= 1
@@ -363,13 +396,16 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     return y, infeasible, first
 
 
-def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None):
+def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj=None):
     """The terminal velocity controller to touchdown: (state, time, landed).
     Without a touchdown within t_max, the state and time at t_max. The
     descent also stops when the mass reaches everything but descent
     propellant, the propellant gone (without it a leak drives the mass toward
     zero and the integration with it); with a list as cut, True is appended
-    when it stopped there."""
+    when it stopped there. With a list as traj, the integrator's points are
+    appended as (t, state, thrust): the state with its mass, and the thrust
+    commanded there after the pointing limit and the magnitude saturation
+    (the engine delivers kappa times it)."""
     veh = nom.veh
     v_ref = np.array([-LV.VV_END, 0.0, 0.0])
     g = np.array([-LV.G_MOON, 0.0, 0.0])
@@ -412,6 +448,8 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None):
             cut.append(True)
         return np.asarray(y, float), 0.0, False
     sol = solve_ivp(rhs, (0.0, t_max), y, method="DOP853", rtol=RTOL, atol=ATOL, events=(ground, empty))
+    if traj is not None:
+        traj.extend((float(t), sol.y[:, i].copy(), thrust_cmd(sol.y[:, i])) for i, t in enumerate(sol.t))
     if sol.t_events[0].size:
         return sol.y_events[0][0], float(sol.t_events[0][0]), True
     if sol.t_events[1].size:
@@ -432,10 +470,80 @@ def classify(f):
     return "landed" if f.landed else "no touchdown in 300 s"
 
 
-def justified(f):
-    """PLAN.md's trigger revision: an abort is justified when the same flight
-    flown on with aborts disabled, f, goes below ground, runs out of descent
-    propellant, or lands below the 137 kg reserve; otherwise it is false."""
+def history_row(step, t, y, kap, leak, remaining):
+    """One step's history record, before its re-solve and command are known."""
+    return dict(step=step, t=t, y=np.asarray(y, float).copy(), kappa=kap, leak=leak, remaining=remaining,
+                resolved=False, from_trigger=False, tries=[], chosen_n=None, chosen_fuel=np.nan,
+                predicted=np.nan, fired=None, stale=True, command=None)
+
+
+def pending_tries(resume):
+    """The trigger step's re-solve tries, carried in a resume record."""
+    return (resume or {}).get("tries") or []
+
+
+def touchdown_record(f):
+    """Where and how a flight met the ground: horizontal distance from the
+    site (crossrange and downrange), descent rate (positive down), horizontal
+    speed, descent propellant left, and time from high gate."""
+    td = f.touchdown
+    return dict(distance=float(np.hypot(td[1], td[2])), v_down=float(-td[3]), v_horizontal=float(np.hypot(td[4], td[5])),
+                propellant=float(td[6] - LV.M_NO_DESCENT_PROPELLANT), time=float(f.t_guided + f.t_touchdown))
+
+
+def landing_verdict(f):
+    """PLAN.md's landing criterion revision: a flight lands safely only if it
+    touched down and, at touchdown, 1 its propellant is at least the reserve,
+    2 its horizontal distance from the site is at most LANDING_RADIUS, and 3
+    its velocity is inside the gear envelope (descent rate at most
+    GEAR_VERTICAL with horizontal speed at most GEAR_HORIZONTAL). Reported
+    beside it, never used to score: the outer box (descent rate at most
+    GEAR_VERTICAL_OUTER) and the verdict with the radius replaced by each of
+    SENSITIVITY_RADII."""
+    rec = touchdown_record(f)
+    touched = classify(f) == "landed"
+    c1 = rec["propellant"] >= LV.RESERVE
+    c2 = rec["distance"] <= LV.LANDING_RADIUS
+    c3 = rec["v_down"] <= LV.GEAR_VERTICAL and rec["v_horizontal"] <= LV.GEAR_HORIZONTAL
+    c3_outer = rec["v_down"] <= LV.GEAR_VERTICAL_OUTER and rec["v_horizontal"] <= LV.GEAR_HORIZONTAL
+    rec.update(touched=touched, reserve=c1, radius=c2, gear=c3, safe=bool(touched and c1 and c2 and c3),
+               gear_outer=c3_outer, safe_outer=bool(touched and c1 and c2 and c3_outer),
+               safe_at={r: bool(touched and c1 and rec["distance"] <= r and c3) for r in LV.SENSITIVITY_RADII})
+    return rec
+
+
+UNRESOLVED_S = 300.0               # s from the trigger, PLAN.md landing criterion revision
+
+
+def unresolved(f, t_trigger):
+    """A counterfactual with no touchdown within UNRESOLVED_S of the trigger:
+    it neither went below ground nor ran out of propellant, and it did not
+    touch down, or touched down later than that."""
+    out = classify(f)
+    if out in ("below ground in guided flight", "out of descent propellant"):
+        return False
+    return out != "landed" or touchdown_record(f)["time"] - t_trigger > UNRESOLVED_S
+
+
+def justified(f, t_trigger=None):
+    """PLAN.md's landing criterion revision: an abort is justified when the
+    same flight flown on with aborts disabled, f, goes below ground, runs out
+    of descent propellant, or touches down failing any of the landing
+    criteria (landing_verdict). None when it is unresolved (unresolved, with
+    the trigger's time t_trigger): counted in neither column."""
+    out = classify(f)
+    if out in ("below ground in guided flight", "out of descent propellant"):
+        return True
+    if t_trigger is not None and unresolved(f, t_trigger):
+        return None
+    if out == "landed":
+        return not landing_verdict(f)["safe"]
+    return None
+
+
+def justified_reserve_only(f):
+    """The trigger revision's judgement before the landing criterion: landed
+    counts as safe whenever the reserve is kept. Reported beside justified."""
     out = classify(f)
     if out in ("below ground in guided flight", "out of descent propellant"):
         return True
@@ -463,7 +571,7 @@ def condition_true(nom, ab, end, revision):
     return True, left
 
 
-def _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault):
+def _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault, traj=None):
     """Guided flight's end to touchdown: the terminal descent and the Flight."""
     stats = (float(min(row[0] for row in log)),
              float(max(cone_excursion_deg(row[0:3]) for row in log)),
@@ -474,23 +582,26 @@ def _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault):
     if fault is not None:
         kap, leak = fault.kappa(kappa, t_end * DT), fault.leak_at(t_end * DT)
     cut = []
-    td, t_td, landed = descend(end, nom, kap, isp, leak=leak, cut=cut)
-    return Flight(end, td, t_td, infeasible, first, landed, *stats, cut_off=bool(cut), **wide)
+    td, t_td, landed = descend(end, nom, kap, isp, leak=leak, cut=cut, traj=traj)
+    return Flight(end, td, t_td, infeasible, first, landed, *stats, cut_off=bool(cut), **wide,
+                  t_guided=t_end * DT)
 
 
-def fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault):
+def fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault, history=None, traj=None):
     """The counterfactual from the trigger: the flight continued from the
-    state where the abort fired, with aborts disabled, to touchdown."""
+    state where the abort fired, with aborts disabled, to touchdown. history
+    and traj record it as fly_guided and descend do."""
     res = ab["resume"]
     log = [row.copy() for row in res["log"]]
     counts = {}
     end, infeasible, first = fly_guided(nom, "closed", kappa, isp, dr0, dv0, log, revision, counts,
-                                        fault, False, None, resume=res)
-    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault)
+                                        fault, False, None, resume=res, history=history)
+    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault, traj)
 
 
 def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION,
-        fault=None, aborts=False, abort_branch="descent", counterfactual="resume", m0=None):
+        fault=None, aborts=False, abort_branch="descent", counterfactual="resume", m0=None,
+        history=None):
     """The whole flight. The cone excursion is over the states guidance
     measures: high gate and every step end of guided flight. With aborts, a
     fired trigger switches the flight to the abort (abort_branch "descent",
@@ -501,12 +612,17 @@ def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision
     definitions (ab["condition"]). counterfactual "resume" flies it on from
     the trigger state (fly_on); "restart" flies the whole flight again from
     high gate, the step 9 way. The flight is deterministic, so both agree.
-    m0 replaces the mass at high gate."""
+    m0 replaces the mass at high gate. With a dict as history, the flight's
+    record is stored there: "main" and "main_descent" (the flight as flown),
+    and, when an abort fired, "cf" and "cf_descent" (the counterfactual from
+    the trigger)."""
+    if history is not None:
+        history.update(main=[], main_descent=[])
     log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
                            [nom.m_hg if m0 is None else m0]])]
     counts, ab = {}, {}
     end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts,
-                                        fault, aborts, ab, m0)
+                                        fault, aborts, ab, m0, history=None if history is None else history["main"])
     stats = (float(min(row[0] for row in log)),
              float(max(cone_excursion_deg(row[0:3]) for row in log)),
              counts.get("solves", 0), counts.get("resolves", 0))
@@ -514,17 +630,25 @@ def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision
     if ab:
         from .abort import abort_from_approach
         if counterfactual == "resume":
-            cf = fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault)
+            if history is not None:
+                history.update(cf=[], cf_descent=[])
+                cf = fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault, history["cf"], history["cf_descent"])
+            else:
+                cf = fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault)
         else:
             cf = fly(nom, mode, kappa, isp, dr0, dv0, revision, fault, aborts=False, m0=m0)
         ab.pop("resume")
         ab["counterfactual"] = classify(cf)
         ab["counterfactual_reserve"] = float(cf.touchdown[6] - LV.M_NO_DESCENT_PROPELLANT)
-        ab["justified"] = justified(cf)
+        ab["justified"] = justified(cf, ab["t"])
+        ab["unresolved"] = unresolved(cf, ab["t"])
+        ab["justified_reserve_only"] = justified_reserve_only(cf)
+        ab["cf_landing"] = cf.landing
         ab["condition"], ab["propellant_without_abort"] = condition_true(nom, ab, cf.end, revision)
         return Flight(end, end.copy(), np.nan, infeasible, first, False, *stats, ab,
-                      abort_from_approach(end, branch=abort_branch), **wide)
-    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault)
+                      abort_from_approach(end, branch=abort_branch), **wide, t_guided=(len(log) - 1) * DT)
+    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault,
+                   None if history is None else history["main_descent"])
 
 
 # Dispersions, fixed before any Monte Carlo run (PLAN.md phase 2c). SEED is

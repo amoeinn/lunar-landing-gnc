@@ -263,6 +263,75 @@ def stage_boundary():
                       for b in ("descent", "ascent")})
 
 
+def refly_job(job):
+    """One state draw re-flown from high gate with history, saved to
+    work/abort_baselines/history/state_<draw>.npz; returns its summary."""
+    _, draw = job
+    nom = nominal()
+    kappa, isp, dr, dv = CL.draws(N_FAULT, FAULT_SEED)[draw]
+    h = {}
+    t0 = time.time()
+    f = CL.fly(nom, "closed", kappa, isp, dr, dv, revision=REVISION, fault=CL.FAULTS["state"], aborts=True,
+               abort_branch=BRANCH, history=h)
+    out = flight_summary(f)
+    out["seconds"] = time.time() - t0
+    if f.abort is not None:
+        ab = f.abort
+        out.update(unresolved=ab["unresolved"], justified_reserve_only=ab["justified_reserve_only"],
+                   cf_landing=ab["cf_landing"])
+        found = [r for r in h["cf"][1:] if r["resolved"] and r["chosen_n"] is not None]
+        out["cf_resolves"] = sum(r["resolved"] for r in h["cf"])
+        out["cf_first_feasible_t"] = found[0]["t"] if found else None
+        out["cf_trigger_step_plan"] = h["cf"][0]["chosen_n"]
+        out["cf_feasible_count"] = len(found)
+        out["cf_end_of_guided_t"] = h["cf"][-1]["t"] + CL.DT
+    else:
+        out["landing"] = f.landing
+    save_history(HISTORY / f"state_{draw}.npz", h, out)
+    return job, plain(out)
+
+
+def stage_refly_state():
+    """The 20 state draws of mixed stages 0 and 1, re-flown from high gate
+    with history and the revised landing judgement, longest first by their
+    saved times; compared with the saved trigger time and state."""
+    saved = {r["draw"]: r for k in (0, 1) for r in (load(f"mixed_{k}") or {}).get("rows", [])
+             if r["fault"] == "state"}
+    order = sorted(saved, key=lambda d: -saved[d]["seconds"])
+    jobs = [("refly", d) for d in order]
+    res = {}
+    t0 = time.time()
+    deadline = t0 + float(os.environ.get("STAGE_DEADLINE_S", "inf"))
+    ex = ProcessPoolExecutor(WORKERS)
+    stopped = False
+    try:
+        futs = [ex.submit(refly_job, j) for j in jobs]
+        try:
+            for fu in as_completed(futs, timeout=max(1.0, deadline - time.time())):
+                job, out = fu.result()
+                res[job[1]] = out
+        except FuturesTimeout:
+            stopped = True
+    finally:
+        if stopped:
+            for proc in list(getattr(ex, "_processes", {}).values()):
+                proc.terminate()
+            ex.shutdown(wait=False, cancel_futures=True)
+        else:
+            ex.shutdown()
+    rows = []
+    for d in sorted(res):
+        r, s0 = res[d], saved[d]
+        r["draw"] = d
+        if r["aborts"] and s0["aborts"]:
+            r["trigger_same"] = (r["trigger"] == s0["trigger"] and r["t"] == s0["t"])
+            r["trigger_state_diff"] = float(np.max(np.abs(np.array(r["y_trigger"]) - np.array(s0["y_trigger"]))))
+        r["aborts_same"] = r["aborts"] == s0["aborts"]
+        rows.append(r)
+    return dict(stopped=stopped, rows=rows, unfinished=[d for d in order if d not in res],
+                unresolved=[r["draw"] for r in rows if r.get("unresolved")])
+
+
 def stage_mixed(k):
     lo, hi = 10 * k, 10 * k + 9
     jobs = [("flight", "thrust", FAULT_SEED, N_FAULT, i, REVISION, "resume") for i in range(lo, hi + 1)]
@@ -306,6 +375,64 @@ def stage_fault(name, lo, hi):
         if a and b:
             out["restart_check"] = restart_check(a, b)
     return out
+
+
+HISTORY = OUT / "history"
+FIRED = {None: 0, "reserve": 1, "infeasible": 2}
+
+
+def history_arrays(rows, prefix):
+    """A flight's per-step history (closed_loop.history_row records) as arrays."""
+    n = len(rows)
+    out = {
+        f"{prefix}_step": np.array([r["step"] for r in rows], int),
+        f"{prefix}_t": np.array([r["t"] for r in rows], float),
+        f"{prefix}_y": np.array([r["y"] for r in rows], float).reshape(n, 7),
+        f"{prefix}_kappa": np.array([r["kappa"] for r in rows], float),
+        f"{prefix}_leak": np.array([r["leak"] for r in rows], float),
+        f"{prefix}_remaining": np.array([r["remaining"] for r in rows], int),
+        f"{prefix}_resolved": np.array([r["resolved"] for r in rows], bool),
+        f"{prefix}_from_trigger": np.array([r["from_trigger"] for r in rows], bool),
+        f"{prefix}_chosen_n": np.array([-1 if r["chosen_n"] is None else r["chosen_n"] for r in rows], int),
+        f"{prefix}_chosen_fuel": np.array([r["chosen_fuel"] for r in rows], float),
+        f"{prefix}_predicted": np.array([r["predicted"] for r in rows], float),
+        f"{prefix}_fired": np.array([FIRED[r["fired"]] for r in rows], int),
+        f"{prefix}_stale": np.array([r["stale"] for r in rows], bool),
+        f"{prefix}_command": np.array([np.full(3, np.nan) if r["command"] is None else r["command"] for r in rows],
+                                      float).reshape(n, 3),
+    }
+    tries = [(i, n_, f, fuel, ph == "widen") for i, r in enumerate(rows) for (n_, f, fuel, ph) in r["tries"]]
+    out[f"{prefix}_try_row"] = np.array([x[0] for x in tries], int)
+    out[f"{prefix}_try_n"] = np.array([x[1] for x in tries], int)
+    out[f"{prefix}_try_feasible"] = np.array([x[2] for x in tries], bool)
+    out[f"{prefix}_try_fuel"] = np.array([x[3] for x in tries], float)
+    out[f"{prefix}_try_widen"] = np.array([x[4] for x in tries], bool)
+    return out
+
+
+def save_history(path, history, summary):
+    """One draw's history (closed_loop.fly's history dict) and its summary,
+    as a compressed .npz: per step of the main flight ("main") and of the
+    counterfactual from the trigger ("cf", when an abort fired), every N
+    tried per re-solve, and both terminal descents' trajectories: time,
+    state with mass, and thrust after saturation at each integrator point."""
+    arrays = {"summary": np.array(json.dumps(plain(summary)))}
+    for part in ("main", "cf"):
+        if part in history:
+            arrays.update(history_arrays(history[part], part))
+            traj = history.get(f"{part}_descent") or []
+            arrays[f"{part}_descent_t"] = np.array([p[0] for p in traj], float)
+            arrays[f"{part}_descent_y"] = np.array([p[1] for p in traj], float).reshape(len(traj), 7)
+            arrays[f"{part}_descent_thrust"] = np.array([p[2] for p in traj], float).reshape(len(traj), 3)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(path, **arrays)
+
+
+def load_history(path):
+    """A saved draw: its arrays, and its summary decoded."""
+    with np.load(path) as z:
+        arrays = {k: z[k] for k in z.files}
+    return arrays, json.loads(str(arrays.pop("summary")))
 
 
 def load(name):
@@ -457,6 +584,64 @@ def gate(k):
     return None
 
 
+def report_refly():
+    """The state draws re-flown with history (stage refly_state) under the
+    landing criterion revision: per draw, the trigger against the saved
+    stage, the counterfactual's touchdown and verdicts, when its guidance
+    found a plan again, and the main flight's landing for draws that did not
+    abort."""
+    d = load("refly_state")
+    if not d:
+        print("refly_state not run")
+        return 0
+    rows = d["rows"]
+    print(f"State draws 0 to 19 re-flown from high gate (revision {REVISION}, ascent-stage response), with history in "
+          f"{HISTORY}; landing criterion: R {LV.LANDING_RADIUS:.3f} m, gear {LV.GEAR_VERTICAL:.2f} m/s down with "
+          f"{LV.GEAR_HORIZONTAL:.2f} m/s across, outer box {LV.GEAR_VERTICAL_OUTER:.2f} m/s down; reserve "
+          f"{LV.RESERVE:.0f} kg. Stage runtime {d['runtime_s']:.1f} s; stopped {d['stopped']}; unfinished "
+          f"{d['unfinished']}; unresolved {d['unresolved']}")
+    ab = [r for r in rows if r["aborts"]]
+    print(f"\naborted draws {len(ab)}: trigger and time identical to the saved stage in "
+          f"{sum(r.get('trigger_same', False) for r in ab)}; largest trigger state difference "
+          f"{max(r['trigger_state_diff'] for r in ab):.3e}; abort or not identical in "
+          f"{sum(r['aborts_same'] for r in rows)} of {len(rows)}")
+    print("columns: trigger time; trigger state difference from the saved one; counterfactual (cf) outcome; cf touchdown "
+          "distance from the site, descent rate, horizontal speed, propellant; verdicts: R primary, outer box, safe at "
+          "10 m / 100 m / 1 km; justified (revised) and justified by the reserve alone (before); cf re-solves, those "
+          "finding a plan, first time one did")
+    print(f"  {'draw':>4} {'t s':>4} {'state diff':>10} {'cf':>7} {'dist m':>8} {'v_down':>7} {'v_hor':>7} "
+          f"{'prop kg':>8} {'R':>5} {'outer':>5} {'10m':>5} {'100m':>5} {'1km':>5} {'just':>5} {'resv':>5} "
+          f"{'cf res':>6} {'found':>5} {'first t':>7}")
+    short = {"landed": "landed", "below ground in guided flight": "ground", "out of descent propellant": "dry",
+             "no touchdown in 300 s": "no td"}
+    for r in ab:
+        L = r["cf_landing"]
+        sa = L["safe_at"]
+        first = r["cf_first_feasible_t"]
+        print(f"  {r['draw']:4d} {r['t']:4.0f} {r['trigger_state_diff']:10.1e} {short[r['counterfactual']]:>7} "
+              f"{L['distance']:8.1f} {L['v_down']:7.3f} {L['v_horizontal']:7.3f} {L['propellant']:8.1f} "
+              f"{str(L['safe']):>5} {str(L['safe_outer']):>5} {str(sa['10.0']):>5} {str(sa['100.0']):>5} "
+              f"{str(sa['1000.0']):>5} {str(r['justified']):>5} {str(r['justified_reserve_only']):>5} "
+              f"{r['cf_resolves']:6d} {r['cf_feasible_count']:5d} {('-' if first is None else f'{first:.0f}'):>7}")
+    just = [r["justified"] for r in ab]
+    print(f"  justified (revised) {sum(j is True for j in just)}, false {sum(j is False for j in just)}, unresolved "
+          f"{sum(j is None for j in just)}; justified by the reserve alone (before) "
+          f"{sum(bool(r['justified_reserve_only']) for r in ab)}")
+    print(f"  primary and outer box disagree on {sum(r['cf_landing']['safe'] != r['cf_landing']['safe_outer'] for r in ab)}"
+          f" counterfactual landings")
+    na = [r for r in rows if not r["aborts"]]
+    print(f"\ndraws that did not abort {len(na)} (main flight, as flown):")
+    print(f"  {'draw':>4} {'outcome':>26} {'dist m':>8} {'v_down':>7} {'v_hor':>7} {'prop kg':>8} {'R':>5} {'outer':>5} "
+          f"{'10m':>5} {'100m':>5} {'1km':>5} {'widened':>8}")
+    for r in na:
+        L = r["landing"]
+        sa = L["safe_at"]
+        print(f"  {r['draw']:4d} {r['outcome']:>26} {L['distance']:8.1f} {L['v_down']:7.3f} {L['v_horizontal']:7.3f} "
+              f"{L['propellant']:8.1f} {str(L['safe']):>5} {str(L['safe_outer']):>5} {str(sa['10.0']):>5} "
+              f"{str(sa['100.0']):>5} {str(sa['1000.0']):>5} {r['widened']:4d} ({r['widened_found']})")
+    return 0
+
+
 def main(stage):
     t_all = time.time()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -467,6 +652,8 @@ def main(stage):
             return 4
     if stage == "report":
         return report()
+    if stage == "report_refly":
+        return report_refly()
     if stage == "identity":
         out = stage_identity()
     elif stage == "falsealarm":
@@ -475,6 +662,8 @@ def main(stage):
         out = stage_boundary()
     elif stage in CL.FAULTS:
         out = stage_fault(stage, 0, N_FAULT - 1)
+    elif stage == "refly_state":
+        out = stage_refly_state()
     elif stage.startswith("mixed:"):
         k = int(stage.split(":")[1])
         out = stage_mixed(k)
@@ -490,6 +679,9 @@ def main(stage):
     out["runtime_s"] = time.time() - t_all
     (OUT / f"{stage}.json").write_text(json.dumps(plain(out)))
     print(f"saved {OUT / (stage + '.json')}; stage runtime {out['runtime_s']:.1f} s")
+    if out.get("unresolved"):
+        print(f"unresolved counterfactuals, draws {out['unresolved']}: stopping for diagnosis", flush=True)
+        return 5
     return 3 if out.get("stopped") else 0
 
 

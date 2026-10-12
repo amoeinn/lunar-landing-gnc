@@ -40,13 +40,33 @@ room to absorb an error. A re-solve with no feasible final time is counted
 and the last feasible plan flown on. Guided flight ends when the plan in
 force runs out of steps. Navigation is perfect in this phase.
 
+Aborts (PLAN.md phase 2c-2), with aborts=True, closed loop only. At every
+re-solve, two triggers: "infeasible", no feasible re-solve in the window;
+"reserve", the adopted re-solve's own predicted propellant at the end of
+guided flight, mass less the plan's fuel less the 6,855 kg of everything but
+descent propellant, below the 137 kg reserve. When one fires the descent ends
+there and the flight switches to the descent-engine abort ascent (abort.py)
+from that state. Whether the trigger's condition was true is judged in
+fly(): for "reserve", the same flight flown on without aborts ends guided
+flight below the reserve; for "infeasible", no final time from 1 to
+MAX_STEPS_FACTOR times the nominal steps is feasible from that state.
+
+Faults (Fault, FAULTS), injected into the truth only, with sizes and times
+fixed here before any run: a propellant leak, mass lost without thrust; a
+thrust shortfall beyond the dispersion range; a state error, an
+instantaneous jump in position and velocity. Each acts from its time to
+touchdown; none acts in the abort ascent, which PLAN.md defines on the
+remaining propellant alone.
+
 Open loop, the baseline. The nominal plan's thrust, u_k times the plan's own
 mass at node k, held per step, never re-solved.
 
 Terminal descent. From the end of guided flight a velocity controller holds
 the descent at VV_END: commanded acceleration K (v_ref - v) - g, v_ref =
 (-VV_END, 0, 0), the thrust limited to the engine's range and to 45 deg of
-vertical. It nulls horizontal velocity but not horizontal position, so any
+vertical (outside that cone, the nearest thrust on its edge, or minimum thrust
+straight up where none is realisable). It nulls horizontal velocity but not
+horizontal position, so any
 offset at the end of guided flight is carried to touchdown. Touchdown is the
 first instant at zero altitude.
 """
@@ -145,21 +165,67 @@ def saturate(thrust, veh):
     return thrust * (np.clip(mag, veh.rho1, veh.rho2) / mag)
 
 
-def step_truth(y, thrust_cmd, kappa, isp, veh, dt=DT):
-    """One truth step: the command saturated at the physical limits, then held."""
-    return _hold(y, saturate(thrust_cmd, veh), kappa, isp, dt)
+def step_truth(y, thrust_cmd, kappa, isp, veh, dt=DT, leak=0.0):
+    """One truth step: the command saturated at the physical limits, then held.
+    leak, kg/s, is mass lost without thrust."""
+    return _hold(y, saturate(thrust_cmd, veh), kappa, isp, dt, leak)
 
 
-def _truth_rhs(t, y, thrust, kappa, isp):
+def _truth_rhs(t, y, thrust, kappa, isp, leak=0.0):
     m = y[6]
     return np.concatenate([y[3:6], np.array([-LV.G_MOON, 0.0, 0.0]) + kappa * thrust / m,
-                           [-kappa * np.linalg.norm(thrust) / (isp * LV.G0)]])
+                           [-kappa * np.linalg.norm(thrust) / (isp * LV.G0) - leak]])
 
 
-def _hold(y, thrust, kappa, isp, dt):
+def _hold(y, thrust, kappa, isp, dt, leak=0.0):
     sol = solve_ivp(_truth_rhs, (0.0, dt), y, method="DOP853", rtol=RTOL, atol=ATOL,
-                    args=(np.asarray(thrust, float), kappa, isp))
+                    args=(np.asarray(thrust, float), kappa, isp, leak))
     return sol.y[:, -1]
+
+
+@dataclass(frozen=True)
+class Fault:
+    name: str
+    t: float                        # s after high gate, on a guidance step
+    leak: float = 0.0               # kg/s, mass lost without thrust from t on
+    thrust_scale: float = 1.0       # multiplies the run's thrust scale from t on
+    dr: tuple = (0.0, 0.0, 0.0)     # m, added to the true position at t (up, cross, down)
+    dv: tuple = (0.0, 0.0, 0.0)     # m/s, added to the true velocity at t
+
+    def kappa(self, kappa, t):
+        return kappa * self.thrust_scale if t >= self.t else kappa
+
+    def leak_at(self, t):
+        return self.leak if t >= self.t else 0.0
+
+
+# Fixed before any run (PLAN.md phase 2c-2). Sized from the nominal budget so
+# that each should reach a trigger's condition: about 860 kg of descent
+# propellant is left at the end of nominal guided flight, so 20 kg/s from 10 s
+# removes it within the approach; the dispersion spans 0.984 to 1.016 of
+# thrust, and 0.80 is far outside it; a 1.5 km, 20 m/s jump downrange at 50 s,
+# with 34 s of the plan left.
+FAULTS = {
+    "leak": Fault("leak", 10.0, leak=20.0),
+    "thrust": Fault("thrust", 20.0, thrust_scale=0.80),
+    "state": Fault("state", 50.0, dr=(0.0, 0.0, 1500.0), dv=(0.0, 0.0, 20.0)),
+}
+
+
+def predicted_reserve(sol, m):
+    """A plan's predicted descent propellant at the end of guided flight, kg."""
+    return float(m - sol.fuel - LV.M_NO_DESCENT_PROPELLANT)
+
+
+def trigger(sol, m):
+    """Which abort trigger a re-solve fires, or None: 'infeasible' when no
+    plan was found, 'reserve' when the plan's predicted propellant at the end
+    of guided flight is below the 137 kg reserve."""
+    if sol is None:
+        return "infeasible"
+    if predicted_reserve(sol, m) < LV.RESERVE:
+        return "reserve"
+    return None
 
 
 @dataclass
@@ -174,32 +240,52 @@ class Flight:
     cone_excursion_deg: float = 0.0       # largest, over the measured states of guided flight
     inaccurate_solves: int = 0            # solver calls returning the inaccurate status
     inaccurate_resolves: int = 0          # re-solves whose adopted plan had that status
+    abort: dict = None                    # the trigger that fired: name, t, state, condition
+    ascent: object = None                 # abort.Ascent, when an abort fired
+    cut_off: bool = False                 # the terminal descent ended at propellant exhaustion
 
     @property
     def exhausted(self):
-        """Descent propellant used up: the truth does not cut the engine, so a
-        final mass below everything-but-descent-propellant flags it."""
-        return bool(self.touchdown[6] < LV.M_NO_DESCENT_PROPELLANT)
+        """Descent propellant used up: in guided flight the truth does not cut
+        the engine, so a final mass below everything-but-descent-propellant
+        flags it; the terminal descent stops where the propellant runs out."""
+        return bool(self.cut_off or self.touchdown[6] < LV.M_NO_DESCENT_PROPELLANT)
 
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
-               revision=REVISION, counts=None):
+               revision=REVISION, counts=None, fault=None, aborts=False, abort_out=None, m0=None):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
     With a list as log, the state at the end of every step is appended. With
     a dict as counts, the solver's inaccurate returns are counted there:
     "solves" over every solver call, "resolves" over adopted plans. Counting
-    changes no decision."""
-    y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])
+    changes no decision. fault, a Fault, acts on the truth. With aborts, a
+    trigger ends guided flight where it fires and, with a dict as abort_out,
+    records there the trigger, the time and the state. m0 replaces the mass
+    at high gate."""
+    y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
+                        [nom.m_hg if m0 is None else m0]])
     plan, k, infeasible, first = nom.plan, 0, 0, None
     remaining = plan.n
-    for _ in range(MAX_STEPS_FACTOR * nom.plan.n):
+    for step in range(MAX_STEPS_FACTOR * nom.plan.n):
         if remaining <= 0:
             break
+        t = step * DT
+        kap, leak = kappa, 0.0
+        if fault is not None:
+            if abs(t - fault.t) < 1e-9:
+                y = y + np.concatenate([fault.dr, fault.dv, [0.0]])
+            kap, leak = fault.kappa(kappa, t), fault.leak_at(t)
         if mode == "open":
             thrust = nom.plan.u[k] * np.exp(nom.plan.z[k])
         else:
             if remaining >= MIN_RESOLVE:
                 sol = resolve_window(nom, y, remaining, revision, counts)
+                fired = trigger(sol, y[6]) if aborts else None
+                if fired is not None:
+                    if abort_out is not None:
+                        abort_out.update(trigger=fired, t=t, y=y.copy(), remaining=remaining,
+                                         predicted=None if sol is None else predicted_reserve(sol, y[6]))
+                    return y, infeasible + (sol is None), first
                 if sol is not None:
                     if counts is not None and sol.status == INACCURATE:
                         counts["resolves"] = counts.get("resolves", 0) + 1
@@ -209,7 +295,7 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
                 else:
                     infeasible += 1
             thrust = plan.u[k] * y[6]
-        y = step_truth(y, thrust, kappa, isp, nom.veh)
+        y = step_truth(y, thrust, kap, isp, nom.veh, leak=leak)
         k += 1
         remaining -= 1
         if log is not None:
@@ -217,48 +303,110 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     return y, infeasible, first
 
 
-def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0):
+def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None):
     """The terminal velocity controller to touchdown: (state, time, landed).
-    Without a touchdown within t_max, the state and time at t_max."""
+    Without a touchdown within t_max, the state and time at t_max. The
+    descent also stops when the mass reaches everything but descent
+    propellant, the propellant gone (without it a leak drives the mass toward
+    zero and the integration with it); with a list as cut, True is appended
+    when it stopped there."""
     veh = nom.veh
     v_ref = np.array([-LV.VV_END, 0.0, 0.0])
     g = np.array([-LV.G_MOON, 0.0, 0.0])
     cos_p = np.cos(np.radians(LV.POINTING_DEG))
 
+    sin_p = np.sin(np.radians(LV.POINTING_DEG))
+
     def thrust_cmd(yy):
         a = K_DESCENT * (v_ref - yy[3:6]) - g
         t_vec = yy[6] * a
         mag = np.linalg.norm(t_vec)
-        d = t_vec / mag
-        if d[0] < cos_p:                          # tilt back to the pointing limit
-            h = d[1:] / np.linalg.norm(d[1:])
-            d = np.concatenate([[cos_p], np.sin(np.radians(LV.POINTING_DEG)) * h])
-        return np.clip(mag, veh.rho1, veh.rho2) * d
+        if t_vec[0] >= cos_p * mag:               # inside the pointing cone
+            return np.clip(mag, veh.rho1, veh.rho2) * (t_vec / mag)
+        # Outside it, the realisable thrust nearest the command: its component
+        # along the cone's edge in the command's horizontal direction. With no
+        # realisable component (the command points at or below the edge's
+        # opposite), minimum thrust straight up. Continuous in the command, so
+        # a command crossing zero horizontal does not flip the tilt.
+        hn = np.linalg.norm(t_vec[1:])
+        along = cos_p * t_vec[0] + sin_p * hn
+        if along <= 0.0 or hn == 0.0:
+            return np.array([veh.rho1, 0.0, 0.0])
+        d = np.concatenate([[cos_p], sin_p * t_vec[1:] / hn])
+        return np.clip(along, veh.rho1, veh.rho2) * d
 
     def rhs(t, yy):
-        return _truth_rhs(t, yy, thrust_cmd(yy), kappa, isp)
+        return _truth_rhs(t, yy, thrust_cmd(yy), kappa, isp, leak)
 
     def ground(t, yy):
         return yy[0]
     ground.terminal = True
     ground.direction = -1.0
-    sol = solve_ivp(rhs, (0.0, t_max), y, method="DOP853", rtol=RTOL, atol=ATOL, events=ground)
+
+    def empty(t, yy):
+        return yy[6] - LV.M_NO_DESCENT_PROPELLANT
+    empty.terminal = True
+    empty.direction = -1.0
+    if y[6] <= LV.M_NO_DESCENT_PROPELLANT:
+        if cut is not None:
+            cut.append(True)
+        return np.asarray(y, float), 0.0, False
+    sol = solve_ivp(rhs, (0.0, t_max), y, method="DOP853", rtol=RTOL, atol=ATOL, events=(ground, empty))
     if sol.t_events[0].size:
         return sol.y_events[0][0], float(sol.t_events[0][0]), True
+    if sol.t_events[1].size:
+        if cut is not None:
+            cut.append(True)
+        return sol.y_events[1][0], float(sol.t_events[1][0]), False
     return sol.y[:, -1], float(sol.t[-1]), False
 
 
-def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION):
+def condition_true(nom, ab, kappa, isp, dr0, dv0, revision, fault):
+    """Whether a fired trigger's condition held, judged outside the trigger:
+    for 'reserve', the same flight flown on without aborts ends guided flight
+    below the reserve; for 'infeasible', no final time from 1 to
+    MAX_STEPS_FACTOR times the nominal steps is feasible from the trigger
+    state. Returns (true, propellant at the end of guided flight without the
+    abort, kg)."""
+    end, _, _ = fly_guided(nom, "closed", kappa, isp, dr0, dv0, None, revision, None, fault, False)
+    left = float(end[6] - LV.M_NO_DESCENT_PROPELLANT)
+    if ab["trigger"] == "reserve":
+        return left < LV.RESERVE, left
+    y = ab["y"]
+    case = replace(lunar_case(y[0:3], y[3:6], replace(nom.veh, m_wet=float(y[6]))),
+                   state_from=1 if revision >= 2 else 0)
+    for n in range(1, MAX_STEPS_FACTOR * nom.plan.n + 1):
+        if solve(case, n, DT).feasible:
+            return False, left
+    return True, left
+
+
+def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION,
+        fault=None, aborts=False):
     """The whole flight. The cone excursion is over the states guidance
-    measures: high gate and every step end of guided flight."""
+    measures: high gate and every step end of guided flight. With aborts, a
+    fired trigger switches the flight to the abort ascent: no terminal
+    descent, touchdown left as the trigger state, landed False."""
     log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])]
-    counts = {}
-    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts)
-    td, t_td, landed = descend(end, nom, kappa, isp)
-    return Flight(end, td, t_td, infeasible, first, landed,
-                  float(min(row[0] for row in log)),
-                  float(max(cone_excursion_deg(row[0:3]) for row in log)),
-                  counts.get("solves", 0), counts.get("resolves", 0))
+    counts, ab = {}, {}
+    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts,
+                                        fault, aborts, ab)
+    stats = (float(min(row[0] for row in log)),
+             float(max(cone_excursion_deg(row[0:3]) for row in log)),
+             counts.get("solves", 0), counts.get("resolves", 0))
+    if ab:
+        from .abort import abort_from_approach
+        ab["condition"], ab["propellant_without_abort"] = condition_true(
+            nom, ab, kappa, isp, dr0, dv0, revision, fault)
+        return Flight(end, end.copy(), np.nan, infeasible, first, False, *stats, ab,
+                      abort_from_approach(end))
+    t_end = len(log) - 1
+    kap, leak = kappa, 0.0
+    if fault is not None:
+        kap, leak = fault.kappa(kappa, t_end * DT), fault.leak_at(t_end * DT)
+    cut = []
+    td, t_td, landed = descend(end, nom, kap, isp, leak=leak, cut=cut)
+    return Flight(end, td, t_td, infeasible, first, landed, *stats, cut_off=bool(cut))
 
 
 # Dispersions, fixed before any Monte Carlo run (PLAN.md phase 2c). SEED is

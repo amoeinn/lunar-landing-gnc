@@ -29,7 +29,12 @@ per run (Flight.cone_excursion_deg).
 revision selects the design flown: 0 the unrevised one (re-solve over exactly
 the remaining steps, at the plan's vehicle, state constraints from node 0),
 1 the first revision (adds the window), 2 the second (adds the physical range
-and state constraints from node 1). The earlier two are kept so their records
+and state constraints from node 1), 3 the trigger revision of PLAN.md phase
+2c-2 (adds widening: when the window finds no plan, every whole final time
+from 1 to the propellant's limit, guidance's N_max of Eqs. 55 to 57, is
+solved and the least-fuel feasible one taken; only if none is feasible is
+the re-solve infeasible). REVISION stays 2, the design phase 2c-1 scored;
+the abort runs fly revision 3. The earlier two are kept so their records
 stay reproducible.
 
 Closed loop. Every DT, guidance is re-solved from the true state and true
@@ -46,10 +51,14 @@ re-solve, two triggers: "infeasible", no feasible re-solve in the window;
 guided flight, mass less the plan's fuel less the 6,855 kg of everything but
 descent propellant, below the 137 kg reserve. When one fires the descent ends
 there and the flight switches to the descent-engine abort ascent (abort.py)
-from that state. Whether the trigger's condition was true is judged in
-fly(): for "reserve", the same flight flown on without aborts ends guided
-flight below the reserve; for "infeasible", no final time from 1 to
-MAX_STEPS_FACTOR times the nominal steps is feasible from that state.
+from that state, on the descent engine or, after staging, on the ascent
+stage (abort_branch). Each abort is judged in fly() by the counterfactual of
+PLAN.md's trigger revision, the same flight flown on with aborts disabled:
+justified if it goes below ground, runs out of descent propellant or lands
+below the reserve (justified()). Step 9's judgements are kept beside it:
+for "reserve", that flight ends guided flight below the reserve; for
+"infeasible", no final time from 1 to MAX_STEPS_FACTOR times the nominal
+steps is feasible from the trigger state.
 
 Faults (Fault, FAULTS), injected into the truth only, with sizes and times
 fixed here before any run: a propellant leak, mass lost without thrust; a
@@ -76,7 +85,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 from . import vehicle as LV
-from .guidance import Case, local_search, solve
+from .guidance import Case, local_search, n_bounds, solve
 
 DT = 2.0
 REVISION = 2                       # the design flown by default; see the docstring
@@ -148,6 +157,31 @@ def resolve_window(nom, y, n_remaining, revision=REVISION, counts=None):
             counts["solves"] = counts.get("solves", 0) + 1
         if sol.feasible and (best is None or sol.fuel < best.fuel):
             best = sol
+    return best
+
+
+def resolve(nom, y, n_remaining, revision=REVISION, counts=None):
+    """The re-solve: the window, then, as revision 3 and only when the window
+    finds nothing, every other whole final time from 1 to the propellant's
+    limit. counts["widened"] counts widenings, counts["widened_found"] those
+    that found a plan."""
+    best = resolve_window(nom, y, n_remaining, revision, counts)
+    if best is not None or revision < 3:
+        return best
+    case = replace(lunar_case(y[0:3], y[3:6], replace(nom.veh, m_wet=float(y[6]))), state_from=1)
+    window = set(range(max(1, n_remaining + WINDOW[0]), n_remaining + WINDOW[1] + 1))
+    _, n_max = n_bounds(case, DT)
+    for n in range(1, n_max + 1):
+        if n in window:
+            continue
+        sol = solve(case, n, DT)
+        if counts is not None and sol.status == INACCURATE:
+            counts["solves"] = counts.get("solves", 0) + 1
+        if sol.feasible and (best is None or sol.fuel < best.fuel):
+            best = sol
+    if counts is not None:
+        counts["widened"] = counts.get("widened", 0) + 1
+        counts["widened_found"] = counts.get("widened_found", 0) + (best is not None)
     return best
 
 
@@ -243,6 +277,8 @@ class Flight:
     abort: dict = None                    # the trigger that fired: name, t, state, condition
     ascent: object = None                 # abort.Ascent, when an abort fired
     cut_off: bool = False                 # the terminal descent ended at propellant exhaustion
+    widened: int = 0                      # re-solves that widened past the window (revision 3)
+    widened_found: int = 0                # of those, the ones that found a plan
 
     @property
     def exhausted(self):
@@ -253,38 +289,62 @@ class Flight:
 
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
-               revision=REVISION, counts=None, fault=None, aborts=False, abort_out=None, m0=None):
+               revision=REVISION, counts=None, fault=None, aborts=False, abort_out=None, m0=None,
+               resume=None):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
     With a list as log, the state at the end of every step is appended. With
     a dict as counts, the solver's inaccurate returns are counted there:
     "solves" over every solver call, "resolves" over adopted plans. Counting
     changes no decision. fault, a Fault, acts on the truth. With aborts, a
     trigger ends guided flight where it fires and, with a dict as abort_out,
-    records there the trigger, the time and the state. m0 replaces the mass
-    at high gate."""
+    records there the trigger, the time and the state, and under "resume"
+    everything needed to fly on from that point. m0 replaces the mass at high
+    gate. resume, such a record, continues the flight from the trigger as if
+    no abort had fired: the trigger step's re-solve is adopted (or counted
+    infeasible), the fault's jump, already applied, is not applied again."""
     y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
                         [nom.m_hg if m0 is None else m0]])
     plan, k, infeasible, first = nom.plan, 0, 0, None
     remaining = plan.n
-    for step in range(MAX_STEPS_FACTOR * nom.plan.n):
+    step0, pending = 0, None
+    if resume is not None:
+        y, plan, k, remaining = resume["y"].copy(), resume["plan"], resume["k"], resume["remaining"]
+        infeasible, first, step0, pending = resume["infeasible"], resume["first"], resume["step"], resume
+    max_steps = MAX_STEPS_FACTOR * nom.plan.n
+    if revision >= 3:                     # a widened plan may run to the propellant's limit
+        max_steps = max(max_steps, n_bounds(nom.case, DT)[1])
+    for step in range(step0, max_steps):
         if remaining <= 0:
             break
         t = step * DT
         kap, leak = kappa, 0.0
         if fault is not None:
-            if abs(t - fault.t) < 1e-9:
+            if abs(t - fault.t) < 1e-9 and pending is None:
                 y = y + np.concatenate([fault.dr, fault.dv, [0.0]])
             kap, leak = fault.kappa(kappa, t), fault.leak_at(t)
         if mode == "open":
             thrust = nom.plan.u[k] * np.exp(nom.plan.z[k])
+        elif pending is not None:          # the trigger step, flown on without the abort
+            sol, pending = pending["sol"], None
+            if sol is not None:
+                plan, k, remaining = sol, 0, sol.n
+                if first is None:
+                    first = sol
+            else:
+                infeasible += 1
+            thrust = plan.u[k] * y[6]
         else:
             if remaining >= MIN_RESOLVE:
-                sol = resolve_window(nom, y, remaining, revision, counts)
+                sol = resolve(nom, y, remaining, revision, counts)
                 fired = trigger(sol, y[6]) if aborts else None
                 if fired is not None:
                     if abort_out is not None:
                         abort_out.update(trigger=fired, t=t, y=y.copy(), remaining=remaining,
                                          predicted=None if sol is None else predicted_reserve(sol, y[6]))
+                        abort_out["resume"] = dict(
+                            y=y.copy(), step=step, plan=plan, k=k, remaining=remaining,
+                            infeasible=infeasible, first=first, sol=sol,
+                            log=None if log is None else [row.copy() for row in log])
                     return y, infeasible + (sol is None), first
                 if sol is not None:
                     if counts is not None and sol.status == INACCURATE:
@@ -361,14 +421,36 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None):
     return sol.y[:, -1], float(sol.t[-1]), False
 
 
-def condition_true(nom, ab, kappa, isp, dr0, dv0, revision, fault):
-    """Whether a fired trigger's condition held, judged outside the trigger:
-    for 'reserve', the same flight flown on without aborts ends guided flight
-    below the reserve; for 'infeasible', no final time from 1 to
+def classify(f):
+    """A flight's outcome class, as the baselines count them."""
+    if f.abort is not None:
+        return "aborted"
+    if f.min_altitude_guided < 0.0:
+        return "below ground in guided flight"
+    if f.exhausted:
+        return "out of descent propellant"
+    return "landed" if f.landed else "no touchdown in 300 s"
+
+
+def justified(f):
+    """PLAN.md's trigger revision: an abort is justified when the same flight
+    flown on with aborts disabled, f, goes below ground, runs out of descent
+    propellant, or lands below the 137 kg reserve; otherwise it is false."""
+    out = classify(f)
+    if out in ("below ground in guided flight", "out of descent propellant"):
+        return True
+    if out == "landed":
+        return bool(f.touchdown[6] - LV.M_NO_DESCENT_PROPELLANT < LV.RESERVE)
+    return False
+
+
+def condition_true(nom, ab, end, revision):
+    """Step 9's judgement, kept beside the counterfactual: for 'reserve', the
+    same flight flown on without aborts, ending guided flight at end, has
+    less than the reserve left; for 'infeasible', no final time from 1 to
     MAX_STEPS_FACTOR times the nominal steps is feasible from the trigger
     state. Returns (true, propellant at the end of guided flight without the
     abort, kg)."""
-    end, _, _ = fly_guided(nom, "closed", kappa, isp, dr0, dv0, None, revision, None, fault, False)
     left = float(end[6] - LV.M_NO_DESCENT_PROPELLANT)
     if ab["trigger"] == "reserve":
         return left < LV.RESERVE, left
@@ -381,32 +463,68 @@ def condition_true(nom, ab, kappa, isp, dr0, dv0, revision, fault):
     return True, left
 
 
-def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION,
-        fault=None, aborts=False):
-    """The whole flight. The cone excursion is over the states guidance
-    measures: high gate and every step end of guided flight. With aborts, a
-    fired trigger switches the flight to the abort ascent: no terminal
-    descent, touchdown left as the trigger state, landed False."""
-    log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0, [nom.m_hg]])]
-    counts, ab = {}, {}
-    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts,
-                                        fault, aborts, ab)
+def _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault):
+    """Guided flight's end to touchdown: the terminal descent and the Flight."""
     stats = (float(min(row[0] for row in log)),
              float(max(cone_excursion_deg(row[0:3]) for row in log)),
              counts.get("solves", 0), counts.get("resolves", 0))
-    if ab:
-        from .abort import abort_from_approach
-        ab["condition"], ab["propellant_without_abort"] = condition_true(
-            nom, ab, kappa, isp, dr0, dv0, revision, fault)
-        return Flight(end, end.copy(), np.nan, infeasible, first, False, *stats, ab,
-                      abort_from_approach(end))
+    wide = dict(widened=counts.get("widened", 0), widened_found=counts.get("widened_found", 0))
     t_end = len(log) - 1
     kap, leak = kappa, 0.0
     if fault is not None:
         kap, leak = fault.kappa(kappa, t_end * DT), fault.leak_at(t_end * DT)
     cut = []
     td, t_td, landed = descend(end, nom, kap, isp, leak=leak, cut=cut)
-    return Flight(end, td, t_td, infeasible, first, landed, *stats, cut_off=bool(cut))
+    return Flight(end, td, t_td, infeasible, first, landed, *stats, cut_off=bool(cut), **wide)
+
+
+def fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault):
+    """The counterfactual from the trigger: the flight continued from the
+    state where the abort fired, with aborts disabled, to touchdown."""
+    res = ab["resume"]
+    log = [row.copy() for row in res["log"]]
+    counts = {}
+    end, infeasible, first = fly_guided(nom, "closed", kappa, isp, dr0, dv0, log, revision, counts,
+                                        fault, False, None, resume=res)
+    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault)
+
+
+def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION,
+        fault=None, aborts=False, abort_branch="descent", counterfactual="resume", m0=None):
+    """The whole flight. The cone excursion is over the states guidance
+    measures: high gate and every step end of guided flight. With aborts, a
+    fired trigger switches the flight to the abort (abort_branch "descent",
+    the descent-engine ascent, or "ascent", the ascent-stage abort): no
+    terminal descent, touchdown left as the trigger state, landed False. The
+    abort is then judged by the counterfactual, the same flight flown on with
+    aborts disabled (ab["counterfactual"], ab["justified"]), and by step 9's
+    definitions (ab["condition"]). counterfactual "resume" flies it on from
+    the trigger state (fly_on); "restart" flies the whole flight again from
+    high gate, the step 9 way. The flight is deterministic, so both agree.
+    m0 replaces the mass at high gate."""
+    log = [np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
+                           [nom.m_hg if m0 is None else m0]])]
+    counts, ab = {}, {}
+    end, infeasible, first = fly_guided(nom, mode, kappa, isp, dr0, dv0, log, revision, counts,
+                                        fault, aborts, ab, m0)
+    stats = (float(min(row[0] for row in log)),
+             float(max(cone_excursion_deg(row[0:3]) for row in log)),
+             counts.get("solves", 0), counts.get("resolves", 0))
+    wide = dict(widened=counts.get("widened", 0), widened_found=counts.get("widened_found", 0))
+    if ab:
+        from .abort import abort_from_approach
+        if counterfactual == "resume":
+            cf = fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault)
+        else:
+            cf = fly(nom, mode, kappa, isp, dr0, dv0, revision, fault, aborts=False, m0=m0)
+        ab.pop("resume")
+        ab["counterfactual"] = classify(cf)
+        ab["counterfactual_reserve"] = float(cf.touchdown[6] - LV.M_NO_DESCENT_PROPELLANT)
+        ab["justified"] = justified(cf)
+        ab["condition"], ab["propellant_without_abort"] = condition_true(nom, ab, cf.end, revision)
+        return Flight(end, end.copy(), np.nan, infeasible, first, False, *stats, ab,
+                      abort_from_approach(end, branch=abort_branch), **wide)
+    return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault)
 
 
 # Dispersions, fixed before any Monte Carlo run (PLAN.md phase 2c). SEED is

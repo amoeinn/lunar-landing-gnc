@@ -111,3 +111,76 @@ def test_ascent_dynamics_carry_central_gravity():
         acc = d[2:4]
         assert abs(np.linalg.norm(acc) - MU / r ** 2) < 1e-9, np.linalg.norm(acc)
         assert np.allclose(acc / np.linalg.norm(acc), -p / r, atol=1e-12)
+
+
+def test_ascent_stage_numbers_are_the_registered_ones():
+    """Protects the ascent stage's numbers against PLAN.md's sources: 4,821 kg
+    at staging (NSSDC 1969-059C), 2,376 kg of it propellant, 3,508 lbf
+    (15,604 N) at 308.7 s (Apollo 10 Mission Report, Supplement 6), 4 s of
+    free fall (Bennett)."""
+    assert AB.M_ASCENT_STAGE == 4821.0 and AB.M_ASCENT_PROPELLANT == 2376.0
+    assert AB.M_ASCENT_DRY == 2445.0
+    assert abs(AB.APS.thrust - 15604.0) < 1.0 and AB.APS.isp == 308.7
+    assert AB.FREE_FALL_S == 4.0
+
+
+def test_staging_removes_exactly_the_descent_stage():
+    """Protects staging: whatever the LM weighs at the trigger, what flies on
+    is the 4,821 kg ascent stage, so what is removed is the LM less that."""
+    for m_lm in (8359.77, 7100.0):
+        assert AB.stage(m_lm) == AB.M_ASCENT_STAGE
+        assert abs((m_lm - AB.stage(m_lm)) - (m_lm - 4821.0)) < 1e-12
+
+
+def test_free_fall_lasts_4_s_under_gravity_alone():
+    """Protects the crew delay: from high gate the fall conserves orbital
+    energy and angular momentum (no thrust), and moves the LM by v t + g t^2
+    / 2 with t = 4 s, to well under a centimetre (the third-order term)."""
+    p0, w0 = AB.approach_to_plane((2133.6, 0.0, -7441.0), (-43.7, 0.0, 152.4))
+    p, w, hit = AB.free_fall(p0, w0)
+    assert not hit
+
+    def energy(p, w):
+        return 0.5 * float(w @ w) - MU / np.linalg.norm(p)
+
+    def h(p, w):
+        return p[0] * w[1] - p[1] * w[0]
+    assert abs(energy(p, w) - energy(p0, w0)) < 1e-6 * abs(energy(p0, w0))
+    assert abs(h(p, w) - h(p0, w0)) < 1e-9 * abs(h(p0, w0))
+    g0 = -MU * p0 / np.linalg.norm(p0) ** 3
+    t = 4.0
+    assert np.linalg.norm(p - (p0 + w0 * t + 0.5 * g0 * t * t)) < 0.01
+    assert np.linalg.norm(w - (w0 + g0 * t)) < 0.01
+
+
+def test_ascent_stage_from_high_gate_reaches_insertion():
+    """Protects the ascent-stage abort end to end: staged at high gate, after
+    the fall, the ascent engine reaches the insertion conditions within the
+    ascent propellant, vis-viva on the burnout state gives 9 and 45 nmi, and
+    the propellant left is the 2,376 kg less the engine's burn at 308.7 s."""
+    y = np.concatenate([[2133.6, 0.0, -7441.0], [-43.7, 0.0, 152.4], [8359.77]])
+    a = AB.abort_from_approach(y, branch="ascent")
+    assert a.branch == "ascent" and a.reached and not a.free_fall["crashed"]
+    lo, hi = VV.altitudes(a.burnout[0:2], a.burnout[2:4])
+    assert abs(lo - 9 * 1852.0) < 2.0 and abs(hi - 45 * 1852.0) < 2.0, (lo, hi)
+    want = 2376.0 - a.t_b * 15604.36 / (308.7 * 9.80665)
+    assert abs(a.propellant - want) < 0.05, (a.propellant, want)
+    p0, w0 = AB.approach_to_plane(y[0:3], y[3:6])
+    p, w, _ = AB.free_fall(p0, w0)
+    assert np.allclose(a.free_fall["p"], p) and np.allclose(a.free_fall["w"], w)
+
+
+def test_ascent_dynamics_fly_the_engine_they_are_given():
+    """Protects the engine's thrust in the dynamics: the shooting adapts to
+    any thrust and the propellant follows the engine's mass flow, so neither
+    sees a dynamics that ignores the engine. One second of horizontal thrust
+    from rest, 100 km up, gains the rocket equation's speed for that engine,
+    Isp g0 ln(m0 / m1), to a millimetre per second, for the ascent engine
+    and for the descent engine."""
+    p0 = np.array([0.0, -(R + 100e3)])
+    for engine, m0 in ((AB.APS, 4821.0), (AB.DPS, 8000.0)):
+        s, _ = AB.fly(p0, np.zeros(2), m0, 0.0, 0.0, 1.0, engine)
+        m1 = m0 - engine.mdot
+        want = engine.isp * 9.80665 * np.log(m0 / m1)
+        assert abs(s[2] - want) < 1e-3, (engine, s[2], want)
+        assert abs(s[4] - m1) < 1e-9

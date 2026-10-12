@@ -33,9 +33,11 @@ and state constraints from node 1), 3 the trigger revision of PLAN.md phase
 2c-2 (adds widening: when the window finds no plan, every whole final time
 from 1 to the propellant's limit, guidance's N_max of Eqs. 55 to 57, is
 solved and the least-fuel feasible one taken; only if none is feasible is
-the re-solve infeasible). REVISION stays 2, the design phase 2c-1 scored;
-the abort runs fly revision 3. The earlier two are kept so their records
-stay reproducible.
+the re-solve infeasible), 4 the reserve trigger revision (12 Oct 2026:
+trigger (1) compares the predicted propellant at touchdown, not at the end of
+guided flight, with the reserve; see trigger). REVISION stays 2, the design
+phase 2c-1 scored; step 10's abort runs flew revision 3. The earlier ones are
+kept so their records stay reproducible.
 
 Closed loop. Every DT, guidance is re-solved from the true state and true
 mass to the same end point; the first step's thrust acceleration u_0 becomes
@@ -257,15 +259,43 @@ def predicted_reserve(sol, m):
     return float(m - sol.fuel - LV.M_NO_DESCENT_PROPELLANT)
 
 
-def trigger(sol, m):
-    """Which abort trigger a re-solve fires, or None: 'infeasible' when no
-    plan was found, 'reserve' when the plan's predicted propellant at the end
-    of guided flight is below the 137 kg reserve."""
-    if sol is None:
+def descent_allowance(m_end, veh):
+    """D of PLAN.md's reserve trigger revision: the propellant the terminal
+    descent is allowed, (ALT_END / VV_END) x m_end x g / (Isp g0), hover
+    thrust over the constant-rate descent from the guided end point, with
+    m_end the plan's end mass and guidance's own g and Isp (veh, the
+    vehicle guidance plans with). Used as written, never tuned."""
+    return LV.ALT_END / LV.VV_END * m_end * -veh.g[0] / (veh.isp * veh.g_e)
+
+
+def predicted_touchdown(predicted_end, veh):
+    """A plan's predicted propellant at touchdown: its predicted propellant at
+    the end of guided flight less D, from its end mass (that propellant plus
+    everything but descent propellant)."""
+    return predicted_end - descent_allowance(predicted_end + LV.M_NO_DESCENT_PROPELLANT, veh)
+
+
+def trigger_from(found, predicted_end, veh, revision=REVISION):
+    """Which abort trigger a re-solve fires, from what the re-solve records
+    (found a plan; its predicted propellant at the end of guided flight), or
+    None: 'infeasible' when no plan was found; 'reserve' when the predicted
+    propellant is below the 137 kg reserve, measured at the end of guided
+    flight before revision 4 and at touchdown (predicted_touchdown) from it.
+    The same rule serves flight (trigger) and the offline evaluator."""
+    if not found:
         return "infeasible"
-    if predicted_reserve(sol, m) < LV.RESERVE:
+    left = predicted_touchdown(predicted_end, veh) if revision >= 4 else predicted_end
+    if left < LV.RESERVE:
         return "reserve"
     return None
+
+
+def trigger(sol, m, veh=None, revision=REVISION):
+    """Which abort trigger a re-solve sol from mass m fires, or None
+    (trigger_from)."""
+    if sol is None:
+        return trigger_from(False, np.nan, veh, revision)
+    return trigger_from(True, predicted_reserve(sol, m), veh, revision)
 
 
 @dataclass
@@ -359,7 +389,7 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
             if remaining >= MIN_RESOLVE:
                 tries = None if row is None else []
                 sol = resolve(nom, y, remaining, revision, counts, tries)
-                fired = trigger(sol, y[6]) if aborts else None
+                fired = trigger(sol, y[6], nom.veh, revision) if aborts else None
                 if row is not None:
                     row.update(resolved=True, tries=tries, chosen_n=None if sol is None else sol.n,
                                chosen_fuel=np.nan if sol is None else float(sol.fuel),

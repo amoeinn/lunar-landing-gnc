@@ -135,3 +135,47 @@ def test_evaluator_reproduces_a_flown_trigger(nominal):
         hit = offline.evaluate(offline.joined(arrays), rules)
         assert hit["trigger"] == f.abort["trigger"] and hit["t"] == f.abort["t"]
         assert np.array_equal(hit["y"], f.abort["y"])
+
+
+def _offline_triggers():
+    spec = importlib.util.spec_from_file_location("offline_triggers", ROOT / "examples" / "offline_triggers.py")
+    OT = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(OT)
+    return OT
+
+
+def test_flight_classes_under_the_revised_triggers():
+    """Protects the evaluation's classes: a firing is justified when the rest
+    of the flight goes below ground, runs dry or lands unsafely, false when
+    it lands safely, unresolved when it lands more than 300 s after the
+    firing; no firing is a missed abort when the flight does not land
+    safely, correct when it does, unresolved without touchdown."""
+    OT = _offline_triggers()
+    hit = dict(t=50.0)
+    safe = dict(safe=True, time=200.0)
+    unsafe = dict(safe=False, time=200.0)
+    assert OT.classify_flight(hit, "below ground in guided flight", unsafe) == "justified"
+    assert OT.classify_flight(hit, "out of descent propellant", unsafe) == "justified"
+    assert OT.classify_flight(hit, "landed", unsafe) == "justified"
+    assert OT.classify_flight(hit, "landed", safe) == "false"
+    assert OT.classify_flight(hit, "landed", dict(safe=False, time=351.0)) == "unresolved"
+    assert OT.classify_flight(hit, "landed", dict(safe=False, time=349.0)) == "justified"
+    assert OT.classify_flight(None, "landed", unsafe) == "missed"
+    assert OT.classify_flight(None, "out of descent propellant", unsafe) == "missed"
+    assert OT.classify_flight(None, "landed", safe) == "correct"
+    assert OT.classify_flight(None, "no touchdown in 300 s", unsafe) == "unresolved"
+
+
+def test_descent_check_takes_d_at_the_last_plan_and_the_measured_burn(nominal):
+    """Protects the D error's inputs: D from the last re-solve that found a
+    plan (not a later failed one, not an earlier one), and the burn as the
+    descent's first mass less its last."""
+    OT = _offline_triggers()
+    a = _arrays([0, 2, 4, 6], [True, True, True, False], [40, 39, -1, -1], [500.0, 300.0, np.nan, np.nan], [0] * 4)
+    a["main_descent_y"] = np.array([[45.7, 0, 0, -0.9, 0, 0, 7200.0], [20.0, 0, 0, -0.9, 0, 0, 7100.0],
+                                    [0.0, 0, 0, -0.9, 0, 0, 7005.0]])
+    d, burn = OT.descent_check(a, nominal.veh)
+    assert d == pytest.approx(CL.descent_allowance(300.0 + 6855.0, nominal.veh), rel=1e-12)
+    assert burn == pytest.approx(195.0, abs=1e-9)
+    a["main_descent_y"] = np.zeros((0, 7))
+    assert OT.descent_check(a, nominal.veh) is None

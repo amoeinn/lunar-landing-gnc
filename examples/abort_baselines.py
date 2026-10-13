@@ -120,10 +120,34 @@ def flight_summary(f):
     return out
 
 
+# Aborts-disabled flights with history (PLAN.md baseline method revision): set name to
+# (fault, seed, draws generated); draws are prefix-stable, so draws(51) holds draws(50).
+HIST_SETS = {"nominal13": (None, FALSE_ALARM_SEED, 200), "nominal11": (None, 20261011, 200),
+             "leak": ("leak", FAULT_SEED, 51), "thrust": ("thrust", FAULT_SEED, 51), "state": ("state", FAULT_SEED, 51)}
+HIST_REVISION = 4
+
+
+def hist_path(name, draw, sub=None):
+    return (HISTORY / sub if sub else HISTORY) / f"{name}_{draw}.npz"
+
+
 def run_job(job):
     kind = job[0]
     nom = nominal()
     t0 = time.time()
+    if kind == "hist":
+        _, name, draw, sub = job
+        fault, seed, n = HIST_SETS[name]
+        kappa, isp, dr, dv = CL.draws(n, seed)[draw]
+        h = {}
+        f = CL.fly(nom, "closed", kappa, isp, dr, dv, revision=HIST_REVISION,
+                   fault=None if fault is None else CL.FAULTS[fault], aborts=False, history=h)
+        out = flight_summary(f)
+        out.update(set=name, seed=seed, draw=draw, landing=f.landing, t_guided=f.t_guided,
+                   t_touchdown=f.t_touchdown, revision=HIST_REVISION, aborts_disabled=True)
+        out["seconds"] = time.time() - t0
+        save_history(hist_path(name, draw, sub), h, out)
+        return job, plain(out)
     if kind == "boundary":
         _, branch, k, y = job
         out = ascent_summary(AB.abort_from_approach(np.asarray(y), branch=branch))
@@ -139,18 +163,55 @@ def run_job(job):
 
 
 def job_type(job):
-    """A job's cost class: the fault for flights (None for nominal), else its kind."""
+    """A job's cost class: the fault for flights (None for nominal), the
+    fault or "nominal" for history flights, else its kind."""
+    if job[0] == "hist":
+        return HIST_SETS[job[1]][0] or "nominal"
     return job[1] if job[0] == "flight" else job[0]
 
 
 def saved_seconds():
-    """Per job type, the job times saved by finished mixed stages."""
+    """Per job type, the job times saved by finished mixed and history stages."""
     out = {}
     for k in range(5):
         d = load(f"mixed_{k}")
         for r in (d or {}).get("rows", []):
             out.setdefault(r["fault"], []).append(r["seconds"])
+    for p in sorted(OUT.glob("hist_*.json")):
+        for r in json.loads(p.read_text()).get("rows", []):
+            out.setdefault(HIST_SETS[r["set"]][0] or "nominal", []).append(r["seconds"])
     return out
+
+
+def parse_hist(spec):
+    """hist:<label>:<set>=<lo>-<hi>,... to (label, [(set, draw)])."""
+    _, label, parts = spec.split(":", 2)
+    draws = []
+    for part in parts.split(","):
+        name, rng = part.split("=")
+        lo, hi = (int(v) for v in rng.split("-"))
+        if name not in HIST_SETS:
+            sys.exit(f"unknown set {name}")
+        draws += [(name, d) for d in range(lo, hi + 1)]
+    return label, draws
+
+
+def stage_hist(spec):
+    """Aborts-disabled flights with history, longest type first (thrust,
+    state, leak, nominal) so the stage packs; label "calib" keeps its
+    histories apart, under history/calib/."""
+    label, draws = parse_hist(spec)
+    sub = "calib" if label == "calib" else None
+    rank = {"thrust": 0, "state": 1, "leak": 2, "nominal": 3}
+    jobs = sorted([("hist", name, d, sub) for name, d in draws], key=lambda j: rank[job_type(j)])
+    res = run(jobs, f"hist {label}")
+    if res is None:
+        return None
+    stopped = bool(res.pop("_stopped", False))
+    chain = json.loads((OUT / "chain.json").read_text()) if (OUT / "chain.json").exists() else {}
+    return dict(stopped=stopped, planned=len(jobs), done=len(res), chain_start=chain.get("chain_start_epoch"),
+                rows=[res[j] for j in jobs if j in res],
+                unfinished=[dict(set=j[1], draw=j[2]) for j in jobs if j not in res])
 
 
 def estimate_s(batch_wall, batch, remaining, saved, workers=WORKERS):
@@ -189,7 +250,8 @@ def run(jobs, label):
         for i, batch in enumerate((jobs[:WORKERS], jobs[WORKERS:])):
             futs = [ex.submit(run_job, j) for j in batch]
             try:
-                for fu in as_completed(futs, timeout=max(1.0, deadline - time.time())):
+                left = deadline - time.time()
+                for fu in as_completed(futs, timeout=max(1.0, left) if np.isfinite(left) else None):
                     job, out = fu.result()
                     res[job] = out
             except FuturesTimeout:
@@ -307,7 +369,8 @@ def stage_refly_state():
     try:
         futs = [ex.submit(refly_job, j) for j in jobs]
         try:
-            for fu in as_completed(futs, timeout=max(1.0, deadline - time.time())):
+            left = deadline - time.time()
+            for fu in as_completed(futs, timeout=max(1.0, left) if np.isfinite(left) else None):
                 job, out = fu.result()
                 res[job[1]] = out
         except FuturesTimeout:
@@ -575,7 +638,11 @@ def gate(k):
     if not p.exists():
         return None
     chain = json.loads(p.read_text())
-    done = [load(f"mixed_{j}") for j in range(k)]
+    if k is None:                          # a history stage: those finished in this chain
+        done = [json.loads(q.read_text()) for q in OUT.glob("hist_*.json")]
+        done = [d for d in done if d.get("chain_start") == chain.get("chain_start_epoch")]
+    else:
+        done = [load(f"mixed_{j}") for j in range(k)]
     longest = max((d["runtime_s"] for d in done if d), default=0.0)
     left = chain["deadline_epoch"] - time.time()
     if left < chain["factor"] * longest:
@@ -645,8 +712,8 @@ def report_refly():
 def main(stage):
     t_all = time.time()
     OUT.mkdir(parents=True, exist_ok=True)
-    if stage.startswith("mixed:"):
-        why = gate(int(stage.split(":")[1]))
+    if stage.startswith("mixed:") or (stage.startswith("hist:") and not stage.startswith("hist:calib:")):
+        why = gate(int(stage.split(":")[1]) if stage.startswith("mixed:") else None)
         if why:
             print(f"gate: not starting {stage}: {why}", flush=True)
             return 4
@@ -664,6 +731,9 @@ def main(stage):
         out = stage_fault(stage, 0, N_FAULT - 1)
     elif stage == "refly_state":
         out = stage_refly_state()
+    elif stage.startswith("hist:"):
+        out = stage_hist(stage)
+        stage = f"hist_{stage.split(':')[1]}"
     elif stage.startswith("mixed:"):
         k = int(stage.split(":")[1])
         out = stage_mixed(k)

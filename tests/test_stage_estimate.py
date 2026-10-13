@@ -70,3 +70,56 @@ def test_stage_runner_uses_the_typed_estimate(monkeypatch):
     res = AB.run(jobs, "test")
     assert res is not None and len(res) == 20 and "_stopped" not in res
     assert 870.0 * 20 / 8 > 30 * 60                    # the old rule would have stopped this stage
+
+
+def test_history_stage_spec_and_cost_classes():
+    """Protects the history stages' parsing: every draw of every range, both
+    ends included, and the cost class of each set (both nominal seeds cost as
+    nominal)."""
+    label, draws = AB.parse_hist("hist:D:thrust=48-50,state=20-21")
+    assert label == "D" and draws == [("thrust", 48), ("thrust", 49), ("thrust", 50), ("state", 20), ("state", 21)]
+    assert AB.job_type(("hist", "nominal11", 3, None)) == "nominal"
+    assert AB.job_type(("hist", "nominal13", 3, None)) == "nominal"
+    assert AB.job_type(("hist", "leak", 3, None)) == "leak"
+    assert AB.HIST_SETS["nominal11"][1] == 20261011 and AB.HIST_SETS["thrust"][2] == 51
+
+
+def test_gate_counts_only_this_chains_history_stages(tmp_path, monkeypatch):
+    """Protects the gate for history stages: the longest stage is taken over
+    the stages finished in this chain only (a 5,000 s stage of an earlier
+    chain does not count); with 1,000 s the longest, 1,400 s left lets the
+    next stage start and 1,200 s does not."""
+    import json
+    monkeypatch.setattr(AB, "OUT", tmp_path)
+    now = [10000.0]
+    monkeypatch.setattr(AB.time, "time", lambda: now[0])
+    (tmp_path / "hist_a.json").write_text(json.dumps(dict(runtime_s=1000.0, chain_start=5.0)))
+    (tmp_path / "hist_b.json").write_text(json.dumps(dict(runtime_s=5000.0, chain_start=1.0)))
+    (tmp_path / "chain.json").write_text(json.dumps(dict(chain_start_epoch=5.0, deadline_epoch=11400.0, factor=1.3)))
+    assert AB.gate(None) is None
+    now[0] = 10200.0
+    assert AB.gate(None) is not None
+
+
+class _LaterExecutor(_NowExecutor):
+    """A process pool stand-in whose jobs finish shortly after submission, so
+    the runner really waits for them."""
+    def submit(self, fn, *args):
+        import threading
+        from concurrent.futures import Future
+        f = Future()
+        threading.Timer(0.02, lambda: f.set_result(fn(*args))).start()
+        return f
+
+
+def test_stage_runner_without_a_deadline(monkeypatch):
+    """Protects run() with no chain deadline set: it waits for every job,
+    each finishing only after it was submitted, instead of failing on an
+    infinite timeout."""
+    monkeypatch.setattr(AB, "ProcessPoolExecutor", _LaterExecutor)
+    monkeypatch.setattr(AB, "run_job", lambda job: (job, {"seconds": 1.0}))
+    monkeypatch.setattr(AB, "saved_seconds", lambda: {})
+    monkeypatch.delenv("STAGE_DEADLINE_S", raising=False)
+    jobs = [("flight", "state", 1, 50, i, 3, "resume") for i in range(10)]
+    res = AB.run(jobs, "test")
+    assert res is not None and len(res) == 10

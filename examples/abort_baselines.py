@@ -102,7 +102,9 @@ def ascent_summary(a):
     return dict(reached=a.reached, t_b=a.t_b, t_max=a.t_max, propellant=a.propellant,
                 perilune=lo, apolune=hi, err_perilune=lo - AB.ALT_PERILUNE,
                 err_apolune=hi - AB.ALT_APOLUNE, residual=a.residual,
-                fell=bool(a.free_fall and a.free_fall["crashed"]))
+                fell=bool(a.free_fall and a.free_fall["crashed"]), outcome=a.outcome,
+                dv_available=a.dv_available, dv_margin=a.dv_margin, min_altitude=a.min_altitude,
+                rise=None if a.rise is None else {k: a.rise[k] for k in ("duration", "ended", "min_altitude", "m")})
 
 
 def flight_summary(f):

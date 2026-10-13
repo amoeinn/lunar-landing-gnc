@@ -154,12 +154,14 @@ def test_free_fall_lasts_4_s_under_gravity_alone():
 
 
 def test_ascent_stage_from_high_gate_reaches_insertion():
-    """Protects the ascent-stage abort end to end: staged at high gate, after
-    the fall, the ascent engine reaches the insertion conditions within the
-    ascent propellant, vis-viva on the burnout state gives 9 and 45 nmi, and
-    the propellant left is the 2,376 kg less the engine's burn at 308.7 s."""
+    """Protects the ascent-stage abort end to end, as steps 9 and 10 flew it
+    (rise=False, kept reproducible): staged at high gate, after the fall, the
+    ascent engine reaches the insertion conditions within the ascent
+    propellant, vis-viva on the burnout state gives 9 and 45 nmi, and the
+    propellant left is the 2,376 kg less the engine's burn at 308.7 s."""
     y = np.concatenate([[2133.6, 0.0, -7441.0], [-43.7, 0.0, 152.4], [8359.77]])
-    a = AB.abort_from_approach(y, branch="ascent")
+    a = AB.abort_from_approach(y, branch="ascent", rise=False)
+    assert a.rise is None and a.outcome is None
     assert a.branch == "ascent" and a.reached and not a.free_fall["crashed"]
     lo, hi = VV.altitudes(a.burnout[0:2], a.burnout[2:4])
     assert abs(lo - 9 * 1852.0) < 2.0 and abs(hi - 45 * 1852.0) < 2.0, (lo, hi)

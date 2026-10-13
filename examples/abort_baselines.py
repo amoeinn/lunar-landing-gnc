@@ -125,7 +125,10 @@ def flight_summary(f):
 # Aborts-disabled flights with history (PLAN.md baseline method revision): set name to
 # (fault, seed, draws generated); draws are prefix-stable, so draws(51) holds draws(50).
 HIST_SETS = {"nominal13": (None, FALSE_ALARM_SEED, 200), "nominal11": (None, 20261011, 200),
-             "leak": ("leak", FAULT_SEED, 51), "thrust": ("thrust", FAULT_SEED, 51), "state": ("state", FAULT_SEED, 51)}
+             "leak": ("leak", FAULT_SEED, 51), "thrust": ("thrust", FAULT_SEED, 51), "state": ("state", FAULT_SEED, 51),
+             # the 2c-2 scored run (PLAN.md "Phase 2c-2 bars"): fresh seeds, never seen before it
+             "nominal15": (None, 20261015, 200), "leak16": ("leak", 20261016, 50),
+             "thrust16": ("thrust", 20261016, 50), "state16": ("state", 20261016, 50)}
 HIST_REVISION = 4
 
 

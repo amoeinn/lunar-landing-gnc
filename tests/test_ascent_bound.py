@@ -105,3 +105,29 @@ def test_bound_does_not_import_the_ascent():
     names = [a.name for n in ast.walk(tree) if isinstance(n, ast.Import) for a in n.names]
     froms = [(n.module, n.level) for n in ast.walk(tree) if isinstance(n, ast.ImportFrom)]
     assert names == ["numpy"] and froms == [], (names, froms)
+
+
+def test_combined_prediction_by_hand():
+    """Protects the combined prediction's two parts. (a) The LM at 7,900 kg
+    on 0.8 of the 44,482 N abort thrust has 4.5045 - g, about 2.880 m/s^2
+    net; sinking at 20 m/s it stops in 400 / 5.761, about 69.4 m, with no
+    fall: physics failure predicted from 69 m, not from 70 m. (b) A 20 kg/s
+    leak takes the engine's share of the outflow out of the descent
+    delta-v, Isp g0 mdot / (mdot + leak) ln(m0 / mf), the rise's outflow
+    including the leak; the ascent stage adds its full 2,055.35 m/s."""
+    thrust, isp = 0.8 * 44482.216152605, 304.0
+    acc = thrust / 7900.0 - B.G_SURFACE
+    assert abs(acc - 2.880) < 0.001
+    r = B.combined_predict(69.0, -20.0, 7900.0, 6855.0, thrust, isp, 20.0, 4821.0, 2445.0, 308.7)
+    assert abs(r["lost"] - 400.0 / (2.0 * acc)) < 1e-9 and abs(r["lost"] - 69.4) < 0.1 and r["ground"]
+    assert not B.combined_predict(70.0, -20.0, 7900.0, 6855.0, thrust, isp, 20.0, 4821.0, 2445.0, 308.7)["ground"]
+    mdot = thrust / (isp * 9.80665)
+    t_rise = (12.192 + 20.0) / acc
+    mf = 7900.0 - (mdot + 20.0) * t_rise
+    dv_d = isp * 9.80665 * mdot / (mdot + 20.0) * np.log(mf / 6855.0)
+    assert r["rise_s"] == pytest.approx(t_rise, rel=1e-12)
+    assert r["dv_descent"] == pytest.approx(dv_d, rel=1e-12) and abs(r["dv_ascent"] - 2055.35) < 0.01
+    assert r["margin"] == pytest.approx(dv_d + r["dv_ascent"] - B.insertion_speed(), rel=1e-12)
+    assert not r["exhausted"]
+    short = B.combined_predict(1000.0, -20.0, 6900.0, 6855.0, thrust, isp, 20.0, 4821.0, 2445.0, 308.7)
+    assert short["exhausted"] and short["dv_descent"] == 0.0

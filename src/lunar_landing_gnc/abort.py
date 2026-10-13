@@ -3,8 +3,14 @@
 Vehicle. From the state at the trigger the whole LM flies on the descent
 engine at the fixed throttle position, 10,000 lbf, Isp 304 s, on its
 remaining descent propellant: the mass above the 6,855 kg of everything but
-descent propellant. Faults injected in the descent do not carry into the
-ascent; it is flown as PLAN.md states it.
+descent propellant. Faults stay in force while the descent stage is
+attached (PLAN.md phase 2c-2, correction of 12 Oct 2026): the draw's thrust
+scale (its dispersion times the fault's, from the fault's time) multiplies
+the abort thrust, its Isp scales the abort Isp as its ratio to the 300 s the
+guidance assumes, and a leak keeps draining the descent tanks without
+thrust (descent_engine). They live on the descent engine's Engine, which
+leaves at staging: nothing carries into the ascent stage. Steps 9 to 11
+flew the abort fault-free; rise=False keeps the step 9 and 10 ascent so.
 
 Dynamics. A spherical Moon with central gravity, mu = 4902.8 km^3/s^2,
 R = 1737.4 km, motion in the orbit plane. State (x, y, vx, vy, m), Moon
@@ -62,6 +68,15 @@ solver steps, and one long step can span a whole excursion below the
 surface. The fall and the rise are classed as reaching the surface also when
 their lowest altitude is below zero, and end at the first crossing, found
 on the dense output of the same integration (free_fall, vertical_rise).
+
+Descent engine first, then staging (PLAN.md phase 2c-2 design addition,
+branch "combined"): the vertical rise on the descent engine, faults in
+force; then one linear tangent law, tan(pitch) = a + b t, flown on the
+descent engine until the descent propellant is gone (the leak draining it
+too), staging, the 4 s fall, and the ascent engine on the same law, its time
+running on through the fall, to the same insertion. The shooting solves a, b
+and the ascent-stage burn time; the ground is checked over both arcs and the
+fall (a fall's lowest point is an end, _coast).
 
 Outcome classes (PLAN.md, same revision), kept apart (outcome_of):
   physics: ground      the vehicle reaches the surface before the rise ends,
@@ -145,14 +160,30 @@ def radial_transverse(p, w):
 class Engine:
     thrust: float                  # N
     isp: float                     # s
+    leak: float = 0.0              # kg/s lost from its tanks without thrust (a leak fault)
 
     @property
     def mdot(self):
+        """The engine's own mass flow, kg/s."""
         return self.thrust / (self.isp * LV.G0)
+
+    @property
+    def outflow(self):
+        """Everything leaving the tanks, kg/s: the engine's flow and the leak."""
+        return self.mdot + self.leak
 
 
 DPS = Engine(THRUST_ABORT, ISP_ABORT)
 APS = Engine(THRUST_APS, ISP_APS)
+
+
+def descent_engine(kappa=1.0, isp=LV.ISP, leak=0.0):
+    """The descent engine at the abort thrust with the triggering flight's
+    conditions in force: kappa, the thrust scale in force at the trigger
+    (dispersion times fault); isp, the draw's true Isp, applied as its ratio
+    to the guidance's LV.ISP; leak, kg/s, the fault's leak in force. The
+    undispersed, fault-free engine is DPS."""
+    return Engine(THRUST_ABORT * kappa, ISP_ABORT * isp / LV.ISP, leak)
 
 
 def _rhs(t, s, a, b, e_t0, e_r0, mdot, thrust=THRUST_ABORT):
@@ -171,7 +202,7 @@ def fly(p0, w0, m0, a, b, t_b, engine=DPS):
     e_t0 = np.array([-e_r0[1], e_r0[0]])
     s0 = np.concatenate([p0, w0, [m0]])
     sol = solve_ivp(_rhs, (0.0, t_b), s0, method="DOP853", rtol=RTOL, atol=ATOL,
-                    args=(a, b, e_t0, e_r0, engine.mdot, engine.thrust), dense_output=True)
+                    args=(a, b, e_t0, e_r0, engine.outflow, engine.thrust), dense_output=True)
     tt = np.linspace(0.0, t_b, 200)
     alt = np.linalg.norm(sol.sol(tt)[0:2], axis=0) - R_MOON
     return sol.y[:, -1], float(alt.min())
@@ -195,12 +226,12 @@ class Ascent:
     dv_available: float = np.nan   # m/s, rocket equation on the propellant where the rise ends
     dv_margin: float = np.nan      # m/s, dv_available less the insertion speed
     apsides: tuple = (np.nan, np.nan)   # m, vis-viva perilune and apolune altitudes of the burnout state
+    staging: dict = None           # combined branch: where the descent stage left (fly_combined)
 
 
 def ascend(p0, w0, m0, m_empty=M_EMPTY, engine=DPS):
     """Shoot the linear tangent ascent from plane state (p0, w0), mass m0."""
-    mdot = engine.mdot
-    t_max = (m0 - m_empty) / mdot
+    t_max = (m0 - m_empty) / engine.outflow
     target = insertion_target()
     if t_max <= 1.0:
         s = np.concatenate([p0, w0, [m0]])
@@ -218,7 +249,7 @@ def ascend(p0, w0, m0, m_empty=M_EMPTY, engine=DPS):
     best = None
     for pitch0 in (20.0, 45.0, 70.0):
         for frac in (0.5, 0.9):
-            t0 = max(2.0, min(frac * t_max, t_max - 1e-6))
+            t0 = min(max(2.0, frac * t_max), t_max - 1e-6)    # inside the bounds; as before when t_max >= 2 s
             x0 = np.array([np.tan(np.radians(pitch0)), -np.tan(np.radians(pitch0)) / t0, t0])
             try:
                 r = least_squares(residual, x0, bounds=([-np.inf, -np.inf, 1.0], [np.inf, np.inf, t_max]),
@@ -302,7 +333,7 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
                min_altitude=float(rn - R_MOON), below_surface=None)
     if vr >= RISE_RATE:
         return out
-    t_max = (m0 - m_empty) / engine.mdot
+    t_max = (m0 - m_empty) / engine.outflow
     if t_max <= 0.0:
         out["ended"] = "propellant"
         return out
@@ -320,7 +351,7 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
     bottom.terminal, bottom.direction = False, 1.0
 
     sol = solve_ivp(_rise_rhs, (0.0, t_max), np.concatenate([p0, w0, [m0]]), method="DOP853", rtol=RTOL,
-                    atol=ATOL, args=(engine.thrust, engine.mdot), events=(rate, ground, bottom))
+                    atol=ATOL, args=(engine.thrust, engine.outflow), events=(rate, ground, bottom))
     if sol.t_events[0].size:
         end, t_end, ended = sol.y_events[0][0], float(sol.t_events[0][0]), "rate"
     elif sol.t_events[1].size:
@@ -349,7 +380,7 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
                 t_end, end = 0.0, np.concatenate([p0, w0, [m0]])
             else:
                 t_end, end = _contact(_rise_rhs, np.concatenate([p0, w0, [m0]]), (0.0, t_max),
-                                      (engine.thrust, engine.mdot), t_low, (rate, ground, bottom))
+                                      (engine.thrust, engine.outflow), t_low, (rate, ground, bottom))
             ended = "ground"
             low = min([out["min_altitude"]] + [float(np.linalg.norm(s[0:2]) - R_MOON)
                                                for t, s in zip(sol.t_events[2], sol.y_events[2]) if t <= t_end])
@@ -361,8 +392,9 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
 
 def rocket_margin(m, m_empty, engine):
     """(delta-v the propellant above m_empty gives, that less the insertion
-    speed), m/s: the rocket equation, Isp g0 ln(m / m_empty)."""
-    dv = engine.isp * LV.G0 * np.log(m / m_empty) if m > m_empty else 0.0
+    speed), m/s: the rocket equation, Isp g0 ln(m / m_empty), times the
+    engine's share of the outflow when a leak drains the tanks too."""
+    dv = engine.isp * LV.G0 * engine.mdot / engine.outflow * np.log(m / m_empty) if m > m_empty else 0.0
     return float(dv), float(dv - insertion_target()[2])
 
 
@@ -377,12 +409,12 @@ def outcome_of(ground, margin, converged):
     return ORBIT if converged else SHOOTING_FAILURE
 
 
-def _stopped(p, w, m, m_empty, branch, fall, rise):
+def _stopped(p, w, m, m_empty, branch, fall, rise, engine):
     """The Ascent of an abort that never reached the shooting: the surface
     came first."""
     rn, vr, vt = radial_transverse(p, w)
     target = insertion_target()
-    dv, margin = rocket_margin(m, m_empty, APS if branch == "ascent" else DPS)
+    dv, margin = rocket_margin(m, m_empty, engine)
     return Ascent(False, np.nan, np.nan, 0.0, 0.0, np.concatenate([p, w, [m]]),
                   (rn - target[0], vr - target[1], vt - target[2]), min(rn - R_MOON, 0.0), m - m_empty, branch,
                   fall, rise, PHYSICS_GROUND, dv, margin)
@@ -394,7 +426,7 @@ def rise_and_ascend(p, w, m, m_empty, engine, branch, fall=None):
     outcome_of. The rocket equation is taken where the rise ends."""
     rise = vertical_rise(p, w, m, m_empty, engine)
     if rise["ended"] == "ground":
-        return _stopped(rise["p"], rise["w"], rise["m"], m_empty, branch, fall, rise)
+        return _stopped(rise["p"], rise["w"], rise["m"], m_empty, branch, fall, rise, engine)
     dv, margin = rocket_margin(rise["m"], m_empty, engine)
     a = ascend(rise["p"], rise["w"], rise["m"], m_empty, engine)
     a.branch, a.free_fall, a.rise = branch, fall, rise
@@ -414,7 +446,7 @@ def ascent_stage_abort(p0, w0, m_lm, rise=True):
     fall = dict(p=p, w=w, crashed=hit, duration=FREE_FALL_S)
     if hit:
         if rise:
-            return _stopped(p, w, m, M_ASCENT_DRY, "ascent", fall, None)
+            return _stopped(p, w, m, M_ASCENT_DRY, "ascent", fall, None, APS)
         rn, vr, vt = radial_transverse(p, w)
         target = insertion_target()
         return Ascent(False, np.nan, np.nan, 0.0, 0.0, np.concatenate([p, w, [m]]),
@@ -427,14 +459,136 @@ def ascent_stage_abort(p0, w0, m_lm, rise=True):
     return a
 
 
-def abort_from_approach(y, m_empty=M_EMPTY, branch="descent", rise=True):
+def _coast(p, w, duration):
+    """Gravity alone for duration, no event: (position, velocity, lowest
+    altitude). Below circular speed the altitude in a fall is concave in
+    time, so its lowest point is an end: the lowest-point rule needs no
+    event, and a fall below the surface shows as a negative lowest altitude."""
+    sol = solve_ivp(_gravity, (0.0, duration), np.concatenate([p, w]), method="DOP853", rtol=RTOL, atol=ATOL)
+    q, u = sol.y[0:2, -1], sol.y[2:4, -1]
+    return q, u, float(min(np.linalg.norm(p), np.linalg.norm(q)) - R_MOON)
+
+
+def _arc(p, w, m, a, b, e_t0, e_r0, engine, t0, t1):
+    """One powered arc under the law tan(pitch) = a + b t, t the law's own
+    time from t0 to t1: (state at t1, lowest altitude, sampled densely)."""
+    sol = solve_ivp(_rhs, (t0, t1), np.concatenate([p, w, [m]]), method="DOP853", rtol=RTOL, atol=ATOL,
+                    args=(a, b, e_t0, e_r0, engine.outflow, engine.thrust), dense_output=True)
+    alt = np.linalg.norm(sol.sol(np.linspace(t0, t1, 200))[0:2], axis=0) - R_MOON
+    return sol.y[:, -1], float(alt.min())
+
+
+def fly_combined(p0, w0, m0, a, b, t_a, dps, m_empty=M_EMPTY):
+    """The combined abort's powered flight from plane state (p0, w0), mass
+    m0, under one law tan(pitch) = a + b t, pitch above the local horizontal
+    at (p0, w0), t from there: the descent engine dps until the descent
+    propellant is gone, at t_d = (m0 - m_empty) / outflow (the leak
+    included); staging to the ascent stage; FREE_FALL_S of fall; the ascent
+    engine for t_a, the law's time running on through the fall. Returns
+    (burnout state, lowest altitude of the arcs and the fall, staging
+    record)."""
+    rn = np.linalg.norm(p0)
+    e_r0 = p0 / rn
+    e_t0 = np.array([-e_r0[1], e_r0[0]])
+    t_d = max(0.0, (m0 - m_empty) / dps.outflow)
+    if t_d > 0.0:
+        s, low_d = _arc(p0, w0, m0, a, b, e_t0, e_r0, dps, 0.0, t_d)
+    else:
+        s, low_d = np.concatenate([p0, w0, [m0]]), float(rn - R_MOON)
+    staged = dict(t=t_d, p=s[0:2].copy(), w=s[2:4].copy(), m_before=float(s[4]), m_after=stage(s[4]))
+    q, u, low_f = _coast(s[0:2], s[2:4], FREE_FALL_S)
+    staged.update(fall_p=q, fall_w=u, fall_lowest=low_f)
+    t1 = t_d + FREE_FALL_S
+    burnout, low_a = _arc(q, u, M_ASCENT_STAGE, a, b, e_t0, e_r0, APS, t1, t1 + t_a)
+    return burnout, min(low_d, low_f, low_a), staged
+
+
+def combined_shoot(p0, w0, m0, dps, m_empty=M_EMPTY):
+    """Shoot the combined abort's law: a, b and the ascent-stage burn time,
+    on the insertion conditions and the ground (the lowest altitude of both
+    arcs and the fall must not be below zero), as ascend does."""
+    t_max = M_ASCENT_PROPELLANT / APS.outflow
+    t_d = max(0.0, (m0 - m_empty) / dps.outflow)
+    target = insertion_target()
+
+    def residual(x):
+        s, low, _ = fly_combined(p0, w0, m0, x[0], x[1], x[2], dps, m_empty)
+        rn, vr, vt = radial_transverse(s[0:2], s[2:4])
+        return np.array([(rn - target[0]) / SCALE[0], (vr - target[1]) / SCALE[1],
+                         (vt - target[2]) / SCALE[2], min(0.0, low) / GROUND_SCALE])
+
+    best = None
+    for pitch0 in (20.0, 45.0, 70.0):
+        for frac in (0.5, 0.9):
+            t0 = frac * t_max
+            x0 = np.array([np.tan(np.radians(pitch0)), -np.tan(np.radians(pitch0)) / (t_d + FREE_FALL_S + t0), t0])
+            try:
+                r = least_squares(residual, x0, bounds=([-np.inf, -np.inf, 1.0], [np.inf, np.inf, t_max]),
+                                  xtol=1e-12, ftol=1e-12, gtol=1e-12, max_nfev=400)
+            except ValueError:
+                continue
+            if best is None or r.cost < best.cost:
+                best = r
+    a, b, t_a = best.x
+    s, low, staged = fly_combined(p0, w0, m0, a, b, t_a, dps, m_empty)
+    rn, vr, vt = radial_transverse(s[0:2], s[2:4])
+    res = (rn - target[0], vr - target[1], vt - target[2])
+    reached = all(abs(e) <= tol for e, tol in zip(res, INSERT_TOL)) and low >= 0.0
+    out = Ascent(bool(reached), float(a), float(b), float(t_a), float(t_max), s, res, low,
+                 float(s[4] - M_ASCENT_DRY), "combined")
+    out.staging = staged
+    return out
+
+
+def combined_margin(m, m_empty, dps):
+    """(delta-v, that less the insertion speed), m/s: the descent propellant
+    above m_empty on the whole LM (rocket_margin, the leak's share left
+    out), plus the ascent stage's full propellant on the ascent stage."""
+    dv = rocket_margin(m, m_empty, dps)[0] + rocket_margin(M_ASCENT_STAGE, M_ASCENT_DRY, APS)[0]
+    return float(dv), float(dv - insertion_target()[2])
+
+
+def combined_abort(p0, w0, m_lm, dps, m_empty=M_EMPTY):
+    """Descent engine first, then staging (PLAN.md phase 2c-2 design
+    addition): the vertical rise on the descent engine with the triggering
+    flight's conditions in force, then the combined law (fly_combined,
+    combined_shoot). Physics failure at the ground if the rise meets the
+    surface; for propellant if combined_margin, taken where the rise ends,
+    is below zero; else the shooting decides. If the descent propellant runs
+    out before the rise ends, the LM stages there and the ascent-stage abort
+    (fall, rise, shooting) continues; staging records it."""
+    rise = vertical_rise(p0, w0, m_lm, m_empty, dps)
+    if rise["ended"] == "ground":
+        a = _stopped(rise["p"], rise["w"], rise["m"], m_empty, "combined", None, rise, dps)
+        a.dv_available, a.dv_margin = combined_margin(rise["m"], m_empty, dps)
+        return a
+    if rise["ended"] == "propellant":
+        a = ascent_stage_abort(rise["p"], rise["w"], rise["m"])
+        a.branch, a.staging = "combined", dict(t=rise["duration"], in_rise=True, descent_rise=rise)
+        return a
+    dv, margin = combined_margin(rise["m"], m_empty, dps)
+    a = combined_shoot(rise["p"], rise["w"], rise["m"], dps, m_empty)
+    a.rise, a.dv_available, a.dv_margin = rise, dv, margin
+    a.min_altitude = min(a.min_altitude, rise["min_altitude"])
+    a.outcome = outcome_of(False, margin, a.reached)
+    a.apsides = VV.altitudes(a.burnout[0:2], a.burnout[2:4])
+    return a
+
+
+def abort_from_approach(y, m_empty=M_EMPTY, branch="descent", rise=True, kappa=1.0, isp=LV.ISP, leak=0.0):
     """The abort from an approach-frame state y = (r, v, m): the
-    descent-engine ascent (branch "descent") or the ascent-stage abort
-    (branch "ascent"), each with the vertical rise, or with rise=False the
-    step 9 and step 10 ascent."""
+    descent-engine ascent (branch "descent"), the ascent-stage abort
+    (branch "ascent") or descent engine first, then staging (branch
+    "combined"), each with the vertical rise; with rise=False the step 9 and
+    step 10 ascent, fault-free as flown then. kappa, isp and leak are the
+    triggering flight's conditions (descent_engine); they act on the
+    descent engine only, and not at all on the ascent-stage branch."""
     p, w = approach_to_plane(y[0:3], y[3:6])
     if branch == "ascent":
         return ascent_stage_abort(p, w, float(y[6]), rise)
-    if rise:
-        return rise_and_ascend(p, w, float(y[6]), m_empty, DPS, "descent")
-    return ascend(p, w, float(y[6]), m_empty)
+    if not rise:
+        return ascend(p, w, float(y[6]), m_empty)
+    dps = descent_engine(kappa, isp, leak)
+    if branch == "combined":
+        return combined_abort(p, w, float(y[6]), dps, m_empty)
+    return rise_and_ascend(p, w, float(y[6]), m_empty, dps, "descent")

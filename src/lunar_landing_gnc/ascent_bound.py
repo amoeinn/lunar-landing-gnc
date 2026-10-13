@@ -20,6 +20,17 @@ which is conservative too, and so is ignoring the centrifugal relief of
 horizontal speed. Physics failure is predicted where the altitude lost
 exceeds h.
 
+Combined abort (PLAN.md phase 2c-2, design addition and correction of 12
+Oct 2026; combined_predict): (a) ground in the descent-engine rise, the
+stopping distance at the initial net vertical acceleration (the abort thrust
+with the thrust scale in force, over the LM's mass, minus g), no fall,
+against the altitude at the trigger; (b) the ideal delta-v of the descent
+propellant left after a point-mass rise at that acceleration, on the whole
+LM, counting only the engine's share of the outflow when a leak drains the
+tanks too, Isp g0 mdot / (mdot + leak) ln(m0 / mf), plus the ascent stage's
+full delta-v, against the insertion speed. Gravity and steering losses are
+not counted, so (b) is optimistic.
+
 Rocket-equation margin. Isp g0 ln(m / m_empty) less the insertion speed,
 the 9 x 45 nmi perilune speed sqrt(mu (2 / r_p - 2 / (r_p + r_a))). Taken at
 staging and after the predicted rise: the rise lasts until the altitude rate
@@ -88,3 +99,24 @@ def predict(alt, v0, mass, m_empty, thrust, isp, fall_s, v_transverse=0.0):
                 rise_s=t_rise, rise_propellant=float(mass - m_after), margin_staging=margin(mass, m_empty, isp),
                 margin_after_rise=after, margin_after_rise_credited=after + float(v_transverse),
                 propellant_short=bool(after < 0.0))
+
+
+def combined_predict(alt, v0, mass, m_empty, thrust, isp, leak, aps_mass, aps_empty, aps_isp):
+    """The combined abort's prediction for one state: (a) the altitude lost
+    stopping on the descent engine, no fall, and whether it exceeds the
+    altitude; (b) the descent propellant's delta-v after the predicted rise,
+    the leak's share left out, plus the ascent stage's full delta-v, less
+    the insertion speed. exhausted: the predicted rise uses up the descent
+    propellant (its delta-v is then zero)."""
+    acc = thrust / mass
+    lost = altitude_lost(v0, acc, 0.0)
+    t_rise = rise_time(v0, acc, 0.0)
+    mdot = thrust / (isp * G0)
+    flow = mdot + leak
+    left = mass - flow * t_rise if np.isfinite(t_rise) else -np.inf
+    m_after = max(m_empty, left)
+    dv_d = isp * G0 * mdot / flow * np.log(m_after / m_empty) if m_after > m_empty else 0.0
+    dv_a = aps_isp * G0 * np.log(aps_mass / aps_empty)
+    return dict(alt=float(alt), v_up=float(v0), net_accel=acc - G_SURFACE, lost=lost, ground=bool(lost > alt),
+                rise_s=t_rise, rise_outflow=float(mass - m_after), exhausted=bool(left <= m_empty),
+                dv_descent=float(dv_d), dv_ascent=float(dv_a), margin=float(dv_d + dv_a - insertion_speed()))

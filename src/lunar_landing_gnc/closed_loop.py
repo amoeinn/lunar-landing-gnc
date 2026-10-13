@@ -66,8 +66,8 @@ Faults (Fault, FAULTS), injected into the truth only, with sizes and times
 fixed here before any run: a propellant leak, mass lost without thrust; a
 thrust shortfall beyond the dispersion range; a state error, an
 instantaneous jump in position and velocity. Each acts from its time to
-touchdown; none acts in the abort ascent, which PLAN.md defines on the
-remaining propellant alone.
+touchdown, and stays in force in the abort while the descent stage is
+attached (abort_conditions; PLAN.md correction of 12 Oct 2026).
 
 Open loop, the baseline. The nominal plan's thrust, u_k times the plan's own
 mass at node k, held per step, never re-solved.
@@ -629,6 +629,16 @@ def fly_on(nom, ab, kappa, isp, dr0, dv0, revision, fault, history=None, traj=No
     return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault, traj)
 
 
+def abort_conditions(fault, kappa, isp, t):
+    """What the abort's descent engine carries from the flight that
+    triggered at t (PLAN.md phase 2c-2, faults stay in force): the thrust
+    scale in force (the draw's, times the fault's from its time), the draw's
+    Isp, and the fault's leak in force."""
+    if fault is None:
+        return dict(kappa=kappa, isp=isp, leak=0.0)
+    return dict(kappa=fault.kappa(kappa, t), isp=isp, leak=fault.leak_at(t))
+
+
 def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision=REVISION,
         fault=None, aborts=False, abort_branch="descent", counterfactual="resume", m0=None,
         history=None):
@@ -676,7 +686,8 @@ def fly(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), revision
         ab["cf_landing"] = cf.landing
         ab["condition"], ab["propellant_without_abort"] = condition_true(nom, ab, cf.end, revision)
         return Flight(end, end.copy(), np.nan, infeasible, first, False, *stats, ab,
-                      abort_from_approach(end, branch=abort_branch), **wide, t_guided=(len(log) - 1) * DT)
+                      abort_from_approach(end, branch=abort_branch, **abort_conditions(fault, kappa, isp, ab["t"])),
+                      **wide, t_guided=(len(log) - 1) * DT)
     return _finish(nom, end, infeasible, first, log, counts, kappa, isp, fault,
                    None if history is None else history["main_descent"])
 

@@ -57,6 +57,11 @@ same insertion, vis-viva checking it as before. R-567's other exit, altitude
 above 25,000 ft, is not part of PLAN.md's statement and is not modelled;
 the rise starts below 2,200 m here. rise=False flies the step 9 and step 10
 ascent (shooting at once), kept so their records stay reproducible.
+Ground backstop (step 11b): a surface event sees a sign change only between
+solver steps, and one long step can span a whole excursion below the
+surface. The fall and the rise are classed as reaching the surface also when
+their lowest altitude is below zero, and end at the first crossing, found
+on the dense output of the same integration (free_fall, vertical_rise).
 
 Outcome classes (PLAN.md, same revision), kept apart (outcome_of):
   physics: ground      the vehicle reaches the surface before the rise ends,
@@ -77,7 +82,7 @@ from dataclasses import dataclass
 
 import numpy as np
 from scipy.integrate import solve_ivp
-from scipy.optimize import least_squares
+from scipy.optimize import brentq, least_squares
 
 from . import vehicle as LV
 from . import visviva as VV
@@ -242,16 +247,38 @@ def _gravity(t, s):
     return np.concatenate([s[2:4], -MU * p / np.linalg.norm(p) ** 3])
 
 
+def _contact(fun, s0, t_span, args, t_low, events):
+    """The first zero crossing of the altitude between t = 0 and t_low, by
+    root finding on the dense output of the same integration (same span,
+    same settings, same events, so the same steps): (time, state)."""
+    sol = solve_ivp(fun, t_span, s0, method="DOP853", rtol=RTOL, atol=ATOL, args=args, events=events,
+                    dense_output=True)
+    t = brentq(lambda t: np.linalg.norm(sol.sol(t)[0:2]) - R_MOON, 0.0, t_low, xtol=1e-12)
+    return float(t), sol.sol(t)
+
+
 def free_fall(p0, w0, duration=FREE_FALL_S):
-    """Gravity alone for duration: (position, velocity, reached the surface)."""
-    def surface(t, s):
+    """Gravity alone for duration: (position, velocity, reached the surface).
+    Ground backstop (step 11b): the surface event looks for a sign change only
+    between solver steps; the fall is classed as reaching the surface also
+    when its lowest altitude is below zero, and the state returned is then
+    the first crossing. Below circular speed (every state here) the altitude
+    in a fall is concave in time, so its lowest point is an end of the fall."""
+    def surface(t, s, *_):
         return np.linalg.norm(s[0:2]) - R_MOON
     surface.terminal = True
     surface.direction = -1.0
-    sol = solve_ivp(_gravity, (0.0, duration), np.concatenate([p0, w0]), method="DOP853",
+    s0 = np.concatenate([p0, w0])
+    sol = solve_ivp(_gravity, (0.0, duration), s0, method="DOP853",
                     rtol=RTOL, atol=ATOL, events=surface)
     hit = bool(sol.t_events[0].size)
-    return sol.y[0:2, -1], sol.y[2:4, -1], hit
+    p, w = sol.y[0:2, -1], sol.y[2:4, -1]
+    if not hit and np.linalg.norm(p) - R_MOON < 0.0:
+        if np.linalg.norm(p0) - R_MOON <= 0.0:
+            return np.asarray(p0, float), np.asarray(w0, float), True
+        _, c = _contact(_gravity, s0, (0.0, duration), (), duration, surface)
+        return c[0:2], c[2:4], True
+    return p, w, hit
 
 
 def _rise_rhs(t, s, thrust, mdot):
@@ -266,10 +293,13 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
     RISE_RATE: dict(p, w, m, duration, ended, min_altitude). ended is "rate"
     (the rise is complete), "ground" (the surface came first) or "propellant"
     (the mass reached m_empty first). min_altitude is the lowest altitude on
-    the way: where the altitude rate crosses zero, else the start."""
+    the way: where the altitude rate crosses zero, else the start (0 when the
+    surface was reached). below_surface is the lowest altitude of a rise the
+    ground backstop ended (the depth its integration reached before the
+    backstop), else None."""
     rn, vr, _ = radial_transverse(p0, w0)
     out = dict(p=np.asarray(p0, float), w=np.asarray(w0, float), m=float(m0), duration=0.0, ended="rate",
-               min_altitude=float(rn - R_MOON))
+               min_altitude=float(rn - R_MOON), below_surface=None)
     if vr >= RISE_RATE:
         return out
     t_max = (m0 - m_empty) / engine.mdot
@@ -301,10 +331,32 @@ def vertical_rise(p0, w0, m0, m_empty, engine):
     for t, s in zip(sol.t_events[2], sol.y_events[2]):
         if t <= t_end:
             low = min(low, float(np.linalg.norm(s[0:2]) - R_MOON))
+    # Ground backstop (step 11b): the ground event looks for a sign change only
+    # between solver steps, and one step can span a whole excursion below the
+    # surface. The altitude rate rises monotonically in the rise (thrust over
+    # mass exceeds gravity), so the altitude has one lowest point, recorded
+    # by the bottom event, which no step can hide. Below zero there means the
+    # surface was reached: the rise ends at the first crossing before it.
+    under = None
+    if ended != "ground":
+        alt_end = float(np.linalg.norm(end[0:2]) - R_MOON)
+        t_low, a_low = min([(t, float(np.linalg.norm(s[0:2]) - R_MOON))
+                            for t, s in zip(sol.t_events[2], sol.y_events[2]) if t <= t_end]
+                           + [(t_end, alt_end), (0.0, out["min_altitude"])], key=lambda c: c[1])
+        if a_low < 0.0:
+            under = a_low
+            if out["min_altitude"] <= 0.0:
+                t_end, end = 0.0, np.concatenate([p0, w0, [m0]])
+            else:
+                t_end, end = _contact(_rise_rhs, np.concatenate([p0, w0, [m0]]), (0.0, t_max),
+                                      (engine.thrust, engine.mdot), t_low, (rate, ground, bottom))
+            ended = "ground"
+            low = min([out["min_altitude"]] + [float(np.linalg.norm(s[0:2]) - R_MOON)
+                                               for t, s in zip(sol.t_events[2], sol.y_events[2]) if t <= t_end])
     if ended == "ground":
         low = min(low, 0.0)
     return dict(p=end[0:2].copy(), w=end[2:4].copy(), m=float(end[4]), duration=t_end, ended=ended,
-                min_altitude=low)
+                min_altitude=low, below_surface=under)
 
 
 def rocket_margin(m, m_empty, engine):

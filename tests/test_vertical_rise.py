@@ -193,3 +193,117 @@ def test_flight_aborts_with_the_rise():
     f = CL.fly(nom, "closed", dr0=np.array([0.0, 0.0, -20000.0]), aborts=True, abort_branch="ascent")
     assert f.abort is not None and f.ascent.branch == "ascent"
     assert f.ascent.outcome is not None and (f.ascent.rise is not None or f.ascent.free_fall["crashed"])
+
+
+def _rise_events():
+    """The rise's events as vertical_rise defines them, for replicating its
+    integration exactly."""
+    def rate(t, s, *_):
+        return float(s[2:4] @ s[0:2]) / np.linalg.norm(s[0:2]) - AB.RISE_RATE
+    rate.terminal, rate.direction = True, 1.0
+
+    def ground(t, s, *_):
+        return np.linalg.norm(s[0:2]) - R
+    ground.terminal, ground.direction = True, -1.0
+
+    def bottom(t, s, *_):
+        return float(s[2:4] @ s[0:2])
+    bottom.terminal, bottom.direction = False, 1.0
+    return rate, ground, bottom
+
+
+def test_rise_backstop_catches_a_crossing_one_step_hides():
+    """Protects the ground backstop in the rise (the step 11b defect): the
+    ascent stage 200 m up sinking at 32.5 m/s, thrusting straight up, goes
+    some 123 m below the surface, and one solver step spans the whole
+    excursion, so the ground event never fires (asserted first, on the same
+    integration vertical_rise makes). The rise must still end at the
+    surface: at the first crossing, about 7.5916 s, sinking about 20.157
+    m/s, inside the closed form's bracket for gravity between its values at
+    0 and 200 m, with the mass flow for that long burned; lowest altitude
+    0, the depth the integration reached kept apart. The dense
+    re-integration that finds the crossing takes the same steps."""
+    from scipy.integrate import solve_ivp
+    p, w = _vertical(200.0, -32.5)
+    m0, t_max = 4821.0, (4821.0 - AB.M_ASCENT_DRY) / AB.APS.mdot
+    s0 = np.concatenate([p, w, [m0]])
+    kw = dict(method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, args=(AB.APS.thrust, AB.APS.mdot), events=_rise_events())
+    sol = solve_ivp(AB._rise_rhs, (0.0, t_max), s0, **kw)
+    dense = solve_ivp(AB._rise_rhs, (0.0, t_max), s0, dense_output=True, **kw)
+    assert np.array_equal(sol.t, dense.t)
+    tt = np.linspace(0.0, sol.t[-1], 20001)
+    alt = np.linalg.norm(dense.sol(tt)[0:2], axis=0) - R
+    t_in = tt[np.argmax(alt < 0.0)]
+    assert alt.min() < -100.0 and sol.t_events[1].size == 0, "the fixture must hide the crossing"
+    assert np.all(sol.t[:-1] < t_in), "one step must span the whole excursion"
+    r = AB.vertical_rise(p, w, m0, AB.M_ASCENT_DRY, AB.APS)
+    assert r["ended"] == "ground" and r["min_altitude"] == 0.0
+    assert r["below_surface"] == pytest.approx(alt.min(), abs=0.01) and abs(r["below_surface"] + 122.88) < 0.01
+    assert abs(np.linalg.norm(r["p"]) - R) < 1e-6
+    lo = _closed_form_contact(200.0, -32.5, 4821.0, MU / R ** 2)
+    hi = _closed_form_contact(200.0, -32.5, 4821.0, MU / (R + 200.0) ** 2)
+    assert lo[0] - 1e-6 <= r["duration"] <= hi[0] + 1e-6 and abs(r["duration"] - 7.5916) < 1e-4
+    _, vr, _ = AB.radial_transverse(r["p"], r["w"])
+    assert min(lo[1], hi[1]) - 1e-6 <= vr <= max(lo[1], hi[1]) + 1e-6 and abs(vr + 20.157) < 0.001
+    assert r["m"] == pytest.approx(m0 - AB.APS.mdot * r["duration"], abs=1e-6)
+
+
+def _closed_form_contact(h0, v0, m0, g):
+    """Straight-up ascent stage at constant g with mass loss: (time it
+    reaches the surface, its altitude rate there)."""
+    c, k = 308.7 * 9.80665, AB.APS.mdot / m0
+
+    def h(t):
+        return h0 + v0 * t + c * (t + (1.0 - k * t) * np.log(1.0 - k * t) / k) - g * t * t / 2.0
+    t = brentq(h, 0.1, 30.0)
+    return t, v0 + c * np.log(1.0 / (1.0 - k * t)) - g * t
+
+
+def test_fall_backstop_catches_a_missed_crossing(monkeypatch):
+    """Protects the ground backstop in the fall. In the fall a solver step
+    cannot hide a crossing: without thrust the altitude, once below zero,
+    stays below to the end of the fall, which is a step end. So the missed
+    event is simulated: the surface event is replaced by one that never
+    fires (asserted to have missed). From 30 m sinking at 10 m/s the fall
+    must still be classed as reaching the surface, at the first crossing:
+    the same state the real event finds, to a micrometre, and by hand
+    30 - 10 t - g t^2 / 2 = 0, t = (-10 + sqrt(100 + 60 g)) / g, about 2.4946
+    s, sinking about 14.052 m/s."""
+    from scipy.integrate import solve_ivp as real
+    p0, w0 = _vertical(30.0, -10.0)
+    p_ev, w_ev, hit_ev = AB.free_fall(p0, w0)
+    assert hit_ev
+    seen = []
+
+    def never(t, s, *_):
+        return 1.0
+    never.terminal, never.direction = True, -1.0
+
+    def blind(fun, span, y0, **kw):
+        if fun is AB._gravity:
+            kw["events"] = never
+        sol = real(fun, span, y0, **kw)
+        seen.append(sol)
+        return sol
+    monkeypatch.setattr(AB, "solve_ivp", blind)
+    p, w, hit = AB.free_fall(p0, w0)
+    assert seen[0].t_events[0].size == 0 and np.linalg.norm(seen[0].y[0:2, -1]) - R < -10.0, \
+        "the fixture must miss the event and end below the surface"
+    assert hit and np.allclose(p, p_ev, atol=1e-6) and np.allclose(w, w_ev, atol=1e-6)
+    g0, g30 = MU / R ** 2, MU / (R + 30.0) ** 2
+    t_lo = (-10.0 + np.sqrt(100.0 + 2.0 * g30 * 30.0)) / g30
+    t_hi = (-10.0 + np.sqrt(100.0 + 2.0 * g0 * 30.0)) / g0
+    _, vr, _ = AB.radial_transverse(p, w)
+    assert min(-10.0 - g0 * t_hi, -10.0 - g30 * t_lo) - 1e-6 <= vr <= max(-10.0 - g0 * t_hi, -10.0 - g30 * t_lo) + 1e-6
+    assert abs(t_hi - 2.4946) < 1e-3 and abs(vr + 14.052) < 0.001
+
+
+def test_ascent_stage_abort_classes_a_hidden_crossing_as_ground():
+    """Protects the backstop through the abort: from 320 m sinking at 26
+    m/s the fall ends near 203 m and the rise goes about 120 m below the
+    surface inside one step; the abort is physics failure at the ground,
+    with the contact on the surface, never a shooting from underground."""
+    a = AB.abort_from_approach(np.array([320.0, 0.0, 0.0, -26.0, 0.0, 0.0, 7500.0]), branch="ascent")
+    assert not a.free_fall["crashed"] and a.rise["below_surface"] is not None and a.rise["below_surface"] < -100.0
+    assert a.outcome == AB.PHYSICS_GROUND and a.rise["ended"] == "ground"
+    assert abs(np.linalg.norm(a.rise["p"]) - R) < 1e-6

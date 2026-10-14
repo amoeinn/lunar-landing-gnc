@@ -378,3 +378,57 @@ def seed_difference(a, b):
     """b minus a for every numeric field the two baselines share."""
     return {k: b[k] - a[k] for k in a if k not in ("gap", "t") and isinstance(a[k], (int, float))
             and isinstance(b.get(k), (int, float))}
+
+
+# The premise bar (PLAN.md, registered 14 Oct 2026 after commit 6fa464e).
+# A fix is a correlation that returned a position; dark templates and maps
+# dark over the whole search square give no fix and are not scored. H(g),
+# the hazard rate, is the fraction of the fixes at gap g, all fix times
+# pooled, whose error exceeds the constant predictor's on the same draw;
+# NaN with no fix, and a criterion that needs a NaN fails.
+
+def hazard(rows, gap):
+    """H(gap) over all fix times, with the number of fixes."""
+    fx = [r for r in rows if r["gap"] == gap and r["status"] == "fix"]
+    if not fx:
+        return float("nan"), 0
+    return float(np.mean([r["fix_error"] > r["prior_error"] for r in fx])), len(fx)
+
+
+def _draw(r):
+    return (r["seed"], r["epoch"], r["t"], r["pose"], r["prior"])
+
+
+def sign_test(rows, gap, base=0.0):
+    """The paired sign test of criterion 2 over draws with a fix at both gap
+    and base: b counts draws worse than the prior at gap but not at base, c
+    the reverse; the one-sided p is P(X >= b) for X binomial(b + c, 1/2), 1
+    when b + c is 0."""
+    from math import comb
+    at = {g: {_draw(r): r["fix_error"] > r["prior_error"] for r in rows if r["gap"] == g and r["status"] == "fix"}
+          for g in (gap, base)}
+    both = set(at[gap]) & set(at[base])
+    b = sum(at[gap][d] and not at[base][d] for d in both)
+    c = sum(at[base][d] and not at[gap][d] for d in both)
+    n = b + c
+    p = sum(comb(n, k) for k in range(b, n + 1)) / 2 ** n if n else 1.0
+    return dict(pairs=len(both), b=b, c=c, p=float(p))
+
+
+def criteria(rows):
+    """The four registered criteria on one seed's rows: each with its numbers
+    and pass."""
+    h = {g: hazard(rows, g) for g in SIGNED_GAPS_H}
+    fx0 = [r["fix_error"] for r in rows if r["gap"] == 0.0 and r["status"] == "fix"]
+    med0 = float(np.median(fx0)) if fx0 else float("nan")
+    c1 = dict(H0=h[0.0][0], fixes0=h[0.0][1], median0=med0,
+              pass_=bool(h[0.0][0] <= 0.01 and med0 <= 10.0))
+    st = {g: sign_test(rows, g) for g in (-24.0, 24.0)}
+    c2 = dict(minus=st[-24.0], plus=st[24.0], pass_=bool(st[-24.0]["p"] < 0.01 and st[24.0]["p"] < 0.01))
+    chain = {s: [h[s * g][0] for g in (24.0, 72.0, 168.0)] for s in (-1, 1)}
+    c3 = dict(minus=chain[-1], plus=chain[1],
+              pass_=bool(all(v[0] < v[1] < v[2] for v in chain.values())))
+    c4 = dict(minus=h[-168.0][0], plus=h[168.0][0], pass_=bool(h[-168.0][0] >= 0.5 and h[168.0][0] >= 0.5))
+    return dict(c1=c1, c2=c2, c3=c3, c4=c4, H={g: v[0] for g, v in h.items()},
+                fixes={g: v[1] for g, v in h.items()}, pass_=bool(c1["pass_"] and c2["pass_"] and c3["pass_"]
+                                                                   and c4["pass_"]))

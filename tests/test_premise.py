@@ -280,3 +280,111 @@ def test_seed_difference_is_second_minus_first():
     a = dict(gap=0.0, t=10.0, fix_median=3.0, worse=0.1, dark=2)
     b = dict(gap=0.0, t=10.0, fix_median=4.5, worse=0.05, dark=5)
     assert P.seed_difference(a, b) == pytest.approx(dict(fix_median=1.5, worse=-0.05, dark=3))
+
+
+def _fix(gap, fe, pe, pose=0, prior=0, t=10.0, epoch=0, status="fix"):
+    r = dict(seed=1, epoch=epoch, t=t, pose=pose, prior=prior, gap=gap, prior_error=pe, status=status)
+    if status == "fix":
+        r.update(fix_error=fe, ncc=0.9, second=0.5, edge=False)
+    return r
+
+
+def test_hazard_counts_fixes_only_and_is_strict():
+    """Protects H(g): worse means strictly above the same draw's predictor
+    (a tie is not), fix times pool, and dark or undefined draws are not in
+    the denominator; no fix at all is NaN."""
+    rows = [_fix(0.0, 5.0, 100.0), _fix(0.0, 100.0, 100.0, pose=1), _fix(0.0, 300.0, 100.0, pose=2, t=40.0),
+            _fix(0.0, 0.0, 100.0, pose=3, status="dark"), _fix(0.0, 0.0, 100.0, pose=4, status="undefined"),
+            _fix(24.0, 900.0, 100.0)]
+    h, n = P.hazard(rows, 0.0)
+    assert n == 3 and h == pytest.approx(1.0 / 3.0)
+    assert np.isnan(P.hazard(rows, 72.0)[0]) and P.hazard(rows, 72.0)[1] == 0
+    assert P.hazard(rows, 24.0) == (1.0, 1)
+
+
+def test_sign_test_pairs_draws_and_counts_discordant_ones():
+    """Protects criterion 2: only draws with a fix at both gaps pair; draws
+    worse at both, or at neither, do not count; 7 against 0 gives p = 1/128
+    below 0.01, 6 against 0 gives 1/64 above it; with discordant draws both
+    ways p is the binomial tail, 8 against 2 is 56 / 1024."""
+    def build(b, c, both=0, unpaired=0):
+        rows, k = [], 0
+        for _ in range(b):
+            rows += [_fix(24.0, 500.0, 100.0, pose=k), _fix(0.0, 5.0, 100.0, pose=k)]
+            k += 1
+        for _ in range(c):
+            rows += [_fix(24.0, 5.0, 100.0, pose=k), _fix(0.0, 500.0, 100.0, pose=k)]
+            k += 1
+        for _ in range(both):
+            rows += [_fix(24.0, 500.0, 100.0, pose=k), _fix(0.0, 500.0, 100.0, pose=k)]
+            k += 1
+        for _ in range(unpaired):
+            rows += [_fix(24.0, 500.0, 100.0, pose=k), _fix(0.0, 0.0, 100.0, pose=k, status="undefined")]
+            k += 1
+        return rows
+    s = P.sign_test(build(7, 0, both=3, unpaired=4), 24.0)
+    assert (s["pairs"], s["b"], s["c"]) == (10, 7, 0) and s["p"] == pytest.approx(1.0 / 128.0)
+    assert P.sign_test(build(6, 0), 24.0)["p"] == pytest.approx(1.0 / 64.0)
+    assert P.sign_test(build(8, 2), 24.0)["p"] == pytest.approx(56.0 / 1024.0)
+    assert P.sign_test(build(0, 3), 24.0)["p"] == 1.0
+    assert P.sign_test([], 24.0) == dict(pairs=0, b=0, c=0, p=1.0)
+
+
+def _sweep(h_by_gap, n=200, med0=4.0, b24=10):
+    """Rows for every gap with H(g) as given (n fixes each, the first H n
+    worse), the gap-0 fixes' median med0, and at +-24 h the worse draws
+    pairing with draws fine at 0."""
+    rows = []
+    for g in P.SIGNED_GAPS_H:
+        k = int(round(h_by_gap[g] * n))
+        for i in range(n):
+            worse = i < k
+            rows.append(_fix(g, 500.0 if worse else (med0 if g == 0.0 else 3.0), 100.0, pose=i))
+    return rows
+
+
+BASE_H = {-354.0: 0.9, -168.0: 0.8, -72.0: 0.3, -24.0: 0.1, -12.0: 0.0, -6.0: 0.0, -3.0: 0.0, -1.0: 0.0,
+          0.0: 0.0, 1.0: 0.0, 3.0: 0.0, 6.0: 0.0, 12.0: 0.0, 24.0: 0.15, 72.0: 0.4, 168.0: 0.85, 354.0: 0.9}
+
+
+def test_criteria_pass_on_a_clean_sweep_and_hold_their_boundaries():
+    """Protects the four criteria as registered: a sweep shaped like the
+    reference passes all; H(0) exactly 0.01 and a median of exactly 10 m
+    still pass (at most); 0.015 or 10.5 m fail; H(168 h) of exactly 0.5
+    passes and 0.495 fails. The median counts fixes only."""
+    c = P.criteria(_sweep(BASE_H))
+    assert c["pass_"] and c["c1"]["pass_"] and c["c2"]["pass_"] and c["c3"]["pass_"] and c["c4"]["pass_"]
+    assert c["c2"]["plus"]["b"] == 30 and c["c2"]["plus"]["c"] == 0
+    assert P.criteria(_sweep({**BASE_H, 0.0: 0.01}, med0=10.0))["c1"]["pass_"]
+    assert not P.criteria(_sweep({**BASE_H, 0.0: 0.015}))["c1"]["pass_"]
+    assert not P.criteria(_sweep(BASE_H, med0=10.5))["c1"]["pass_"]
+    # the median is over fixes: dark and undefined draws at gap 0 do not pull it
+    extra = [_fix(0.0, None, 100.0, pose=1000 + i, status="dark" if i % 2 else "undefined") for i in range(300)]
+    c = P.criteria(_sweep(BASE_H, med0=10.5) + extra)
+    assert c["c1"]["median0"] == 10.5 and not c["c1"]["pass_"] and c["c1"]["fixes0"] == 200
+    assert P.criteria(_sweep({**BASE_H, 168.0: 0.5}))["c4"]["pass_"]
+    assert not P.criteria(_sweep({**BASE_H, 168.0: 0.495}))["c4"]["pass_"]
+    assert not P.criteria(_sweep({**BASE_H, -168.0: 0.495}))["c4"]["pass_"]
+
+
+def test_rise_with_gap_is_strict_on_each_sign():
+    """Protects criterion 3: a tie between 24 h and 72 h fails, so does a
+    fall from 72 h to 168 h, on either sign alone; the other sign cannot
+    rescue it, and the whole verdict fails with it."""
+    c = P.criteria(_sweep({**BASE_H, 72.0: 0.15}))
+    assert not c["c3"]["pass_"] and c["c1"]["pass_"] and c["c2"]["pass_"] and c["c4"]["pass_"]
+    assert not c["pass_"]
+    assert not P.criteria(_sweep({**BASE_H, -168.0: 0.25, -72.0: 0.3}))["c3"]["pass_"]
+    assert not P.criteria(_sweep({**BASE_H, 24.0: 0.45}))["c3"]["pass_"]
+    assert P.criteria(_sweep(BASE_H))["c3"]["minus"] == pytest.approx([0.1, 0.3, 0.8])
+
+
+def test_sign_test_criterion_needs_both_signs_and_no_fix_fails():
+    """Protects criterion 2 and the NaN rule: too few worse draws at -24 h
+    alone fails it (6 against 0, p 1/64); a gap with no fix at all makes H
+    NaN and fails criteria 3 and 4."""
+    c = P.criteria(_sweep({**BASE_H, -24.0: 0.03}))
+    assert c["c2"]["minus"]["b"] == 6 and not c["c2"]["pass_"] and c["c2"]["plus"]["p"] < 0.01
+    rows = [r for r in _sweep(BASE_H) if r["gap"] != 168.0]
+    c = P.criteria(rows)
+    assert np.isnan(c["H"][168.0]) and not c["c3"]["pass_"] and not c["c4"]["pass_"]

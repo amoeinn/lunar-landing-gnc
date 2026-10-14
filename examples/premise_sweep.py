@@ -88,16 +88,16 @@ def save(path, rec):
     tmp.replace(path)
 
 
-def chain_left():
-    p = OUT / "chain.json"
+def chain_left(out=OUT):
+    p = out / "chain.json"
     if not p.exists():
         save(p, dict(chain_start_epoch=time.time(), deadline_epoch=time.time() + CHAIN_S, factor=FACTOR))
     c = json.loads(p.read_text())
     return c["deadline_epoch"] - time.time()
 
 
-def gate(name, estimate_s):
-    left = chain_left()
+def gate(name, estimate_s, out=OUT):
+    left = chain_left(out)
     budget = min(STAGE_S, left)
     ok = FACTOR * estimate_s <= budget
     print(f"[{name}] estimate {estimate_s / 60:.1f} min x {FACTOR} = {FACTOR * estimate_s / 60:.1f} min against "
@@ -106,7 +106,7 @@ def gate(name, estimate_s):
     return ok
 
 
-def run_stage(name, jobs, fn, done_path):
+def run_stage(name, jobs, fn, done_path, out=OUT):
     """Run fn over jobs on WORKERS processes with the watchdog; each result
     saved by done_path(job); jobs already saved are skipped."""
     todo = [j for j in jobs if not done_path(j).exists()]
@@ -136,7 +136,7 @@ def run_stage(name, jobs, fn, done_path):
     rec = dict(stage=name, planned=len(jobs), ran=len(todo), done=len(jobs) - len(unfinished),
                unfinished=unfinished, stopped=stopped, failed=failed, wall_s=time.time() - t0,
                start=time.strftime("%H:%M:%S", time.localtime(t0)))
-    save(OUT / f"stage_{name}.json", rec)
+    save(out / f"stage_{name}.json", rec)
     print(f"[{name}] {rec['done']} of {rec['planned']} done, wall {rec['wall_s'] / 60:.1f} min, stopped "
           f"{stopped}, unfinished {len(unfinished)}", flush=True)
     return rec
@@ -283,11 +283,12 @@ def _maps(e):
     return _CACHE["maps"]
 
 
-def sweep_job(seed, e, f, j):
+def sweep_job(seed, e, f, j, scoring=False):
     """One truth pose: its image at the landing epoch and both prior draws'
-    fixes against every map."""
+    fixes against every map. The scoring seed only with scoring=True
+    (examples/premise_scored.py)."""
     from lunar_landing_gnc.camera import Camera, Terrain, image, nadir
-    assert seed != SCORING_SEED
+    assert seed != SCORING_SEED or scoring
     t0 = time.time()
     st = _static()
     truth, prior = P.draws(seed, len(P.TARGETS_DEG), len(P.FIX_TIMES), N_POSE, N_PRIOR)

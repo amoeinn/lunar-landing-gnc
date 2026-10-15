@@ -432,3 +432,79 @@ def criteria(rows):
     return dict(c1=c1, c2=c2, c3=c3, c4=c4, H={g: v[0] for g, v in h.items()},
                 fixes={g: v[1] for g, v in h.items()}, pass_=bool(c1["pass_"] and c2["pass_"] and c3["pass_"]
                                                                    and c4["pass_"]))
+
+
+# The filter's TRN constants (PLAN.md phase 3.4 filter design), from the
+# premise reference seeds only: R = s^2 per axis, s = 1.4826 times the median
+# absolute deviation of the per-axis zero-gap fix errors; the peak-margin
+# gate, the 1st percentile (numpy's linear) of (best - second) / best over all
+# zero-gap fixes. A fix's per-axis error is fix minus truth, the prior error
+# plus the recovered offset in metres. A fix with no second peak has margin 1
+# (nothing competes with its peak).
+
+def robust_sigma(x):
+    """1.4826 times the median absolute deviation about the median."""
+    x = np.asarray(x, float)
+    return float(1.4826 * np.median(np.abs(x - np.median(x))))
+
+
+def peak_margin(ncc, second):
+    """(best - second) / best; 1 when there is no second peak."""
+    if second is None or not np.isfinite(second):
+        return 1.0
+    return float((ncc - second) / ncc)
+
+
+def trn_constants(tasks, cell_m=CELL_M):
+    """s per axis and the margin threshold from sweep task records (premise_
+    sweep.sweep_job), zero-gap fixes only."""
+    ex, ey, margins, n_no_second = [], [], [], 0
+    for task in tasks:
+        for pr in task["priors"]:
+            z = pr["rows"].get("+0")
+            if pr["dark"] or z is None or z["undefined"]:
+                continue
+            ex.append(pr["prior_err"][0] + z["offset"][0] * cell_m)
+            ey.append(pr["prior_err"][1] + z["offset"][1] * cell_m)
+            n_no_second += not (z["second"] is not None and np.isfinite(z["second"]))
+            margins.append(peak_margin(z["ncc"], z["second"]))
+    return dict(s_x=robust_sigma(ex), s_y=robust_sigma(ey), margin_threshold=float(np.percentile(margins, 1)),
+                fixes=len(ex), no_second_peak=n_no_second, median_error=[float(np.median(ex)), float(np.median(ey))],
+                margin_median=float(np.median(margins)), margin_min=float(np.min(margins)))
+
+
+# The TRN noise model of PLAN.md's filter design revision (15 Oct 2026): per
+# axis, R = s0^2 + k^2 trace(P_xy). Fitted from the premise reference zero-gap
+# fixes: the fixes sorted by prior distance d (the length of the prior error)
+# and split into n_bins bins of equal count (numpy array_split of the sorted
+# order); per bin and axis the variance is the robust sigma squared of the
+# per-axis fix errors, and the regressor is the bin's mean d^2, the sample
+# counterpart of trace(P_xy) for a Gaussian prior; s0^2 and k^2 are the
+# unweighted least-squares intercept and slope of variance on that regressor.
+# A negative intercept or slope is returned as is, with s0 or k NaN.
+
+def trn_noise_fit(tasks, n_bins=8, cell_m=CELL_M):
+    d, ex, ey = [], [], []
+    for task in tasks:
+        for pr in task["priors"]:
+            z = pr["rows"].get("+0")
+            if pr["dark"] or z is None or z["undefined"]:
+                continue
+            d.append(float(np.hypot(*pr["prior_err"])))
+            ex.append(pr["prior_err"][0] + z["offset"][0] * cell_m)
+            ey.append(pr["prior_err"][1] + z["offset"][1] * cell_m)
+    order = np.argsort(d, kind="stable")
+    d, ex, ey = np.asarray(d)[order], np.asarray(ex)[order], np.asarray(ey)[order]
+    bins = []
+    for idx in np.array_split(np.arange(len(d)), n_bins):
+        bins.append(dict(n=int(idx.size), d_min=float(d[idx].min()), d_max=float(d[idx].max()),
+                         mean_d2=float(np.mean(d[idx] ** 2)), var_x=robust_sigma(ex[idx]) ** 2,
+                         var_y=robust_sigma(ey[idx]) ** 2))
+    X = np.column_stack([np.ones(n_bins), [b["mean_d2"] for b in bins]])
+    out = dict(bins=bins, fixes=len(d), n_bins=n_bins)
+    for axis in ("x", "y"):
+        (a, c), *_ = np.linalg.lstsq(X, np.array([b[f"var_{axis}"] for b in bins]), rcond=None)
+        out[f"s0_sq_{axis}"], out[f"k_sq_{axis}"] = float(a), float(c)
+        out[f"s0_{axis}"] = float(np.sqrt(a)) if a >= 0 else float("nan")
+        out[f"k_{axis}"] = float(np.sqrt(c)) if c >= 0 else float("nan")
+    return out

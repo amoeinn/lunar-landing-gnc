@@ -65,3 +65,14 @@ def evaluate(rows, rules):
             if name is not None:
                 return dict(index=i, t=r["t"], trigger=name, y=r["y"].copy(), m=float(r["y"][6]))
     return None
+
+
+LOST_LOCK = "lost lock"
+
+
+def lost_lock_rule(accepted_fix_times, t_last=40.0):
+    """The lost navigation lock trigger (PLAN.md phase 3.4): when no TRN fix
+    was accepted by the last fix time t_last, it fires at the first re-solve
+    at or after t_last. A rule for evaluate(), after the registered ones."""
+    locked = any(t <= t_last + 1e-9 for t in accepted_fix_times)
+    return lambda r: LOST_LOCK if (not locked and r["t"] >= t_last - 1e-9) else None

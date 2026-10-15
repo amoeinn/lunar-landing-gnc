@@ -388,3 +388,82 @@ def test_sign_test_criterion_needs_both_signs_and_no_fix_fails():
     rows = [r for r in _sweep(BASE_H) if r["gap"] != 168.0]
     c = P.criteria(rows)
     assert np.isnan(c["H"][168.0]) and not c["c3"]["pass_"] and not c["c4"]["pass_"]
+
+
+def test_robust_sigma_and_margin_on_hand_values():
+    """Protects the filter's TRN constants: the MAD of 1, 2, 3, 4 and 100
+    about their median 3 is 1, so s is 1.4826; a margin is (best - second)
+    / best, 1 with no second peak."""
+    assert P.robust_sigma([1.0, 2.0, 3.0, 4.0, 100.0]) == pytest.approx(1.4826)
+    assert P.peak_margin(0.8, 0.6) == pytest.approx(0.25) and P.peak_margin(0.8, float("nan")) == 1.0
+
+
+def test_trn_constants_use_zero_gap_fixes_per_axis():
+    """Protects what the constants are made of: per-axis errors are prior
+    error plus offset times the cell, only at gap 0, dark and undefined draws
+    left out; the margin threshold is the 1st percentile over those fixes."""
+    def pr(prior, off_x, off_y, ncc=0.9, second=0.45, dark=False, undefined=False, other=None):
+        rows = {"+0": dict(undefined=True) if undefined else
+                dict(undefined=False, offset=[off_x, off_y], ncc=ncc, second=second)}
+        rows["+24"] = other or dict(undefined=False, offset=[50.0, 50.0], ncc=0.9, second=0.89)
+        return dict(dark=dark, prior_err=prior, rows=rows)
+    priors = [pr([100.0, -40.0], -5.0, 2.0), pr([20.0, 0.0], -1.0, 0.5, ncc=0.8, second=0.2),
+              pr([0.0, 0.0], 0.25, -0.25), pr([7.0, 7.0], 0.0, 0.0, dark=True), pr([7.0, 7.0], 0, 0, undefined=True)]
+    c = P.trn_constants([dict(priors=priors)])
+    ex, ey = [0.0, 0.0, 5.0], [0.0, 10.0, -5.0]
+    assert c["fixes"] == 3
+    assert c["s_x"] == pytest.approx(P.robust_sigma(ex)) and c["s_y"] == pytest.approx(P.robust_sigma(ey))
+    assert c["s_y"] == pytest.approx(1.4826 * 5.0)
+    assert c["margin_threshold"] == pytest.approx(np.percentile([0.5, 0.75, 0.5], 1))
+
+
+def test_margin_threshold_is_the_first_percentile():
+    """Protects the percentile: margins 0.1, 0.3, 0.5, 0.7 and 0.9 give a 1st
+    percentile of 0.108 (linear), not the 5th's 0.14 or the minimum."""
+    priors = [dict(dark=False, prior_err=[0.0, 0.0],
+                   rows={"+0": dict(undefined=False, offset=[0.0, 0.0], ncc=1.0, second=1.0 - m)})
+              for m in (0.1, 0.3, 0.5, 0.7, 0.9)]
+    assert P.trn_constants([dict(priors=priors)])["margin_threshold"] == pytest.approx(0.108)
+
+
+def _noise_tasks(s0, k, n=4000, seed=2):
+    """Zero-gap fixes whose per-axis error is Gaussian with variance s0^2 +
+    k^2 d^2, d the prior distance (s0 and k per axis)."""
+    rng = np.random.default_rng(seed)
+    priors = []
+    for _ in range(n):
+        pe = rng.normal(0.0, 333.0, 2)
+        d2 = float(pe @ pe)
+        err = rng.normal(0.0, np.sqrt(np.asarray(s0) ** 2 + np.asarray(k) ** 2 * d2))
+        off = (err - pe) / 20.0
+        priors.append(dict(dark=False, prior_err=pe.tolist(),
+                           rows={"+0": dict(undefined=False, offset=off.tolist(), ncc=0.9, second=0.5)}))
+    return [dict(priors=priors)]
+
+
+def test_trn_noise_fit_recovers_a_known_model():
+    """Protects the noise fit: errors drawn with variance s0^2 + k^2 d^2, s0
+    (3, 5) m and k (0.01, 0.02) on (x, y), come back within 15 pct, each
+    axis its own; 8 bins of equal count ordered by prior distance."""
+    f = P.trn_noise_fit(_noise_tasks((3.0, 5.0), (0.01, 0.02)))
+    assert f["s0_x"] == pytest.approx(3.0, rel=0.15) and f["s0_y"] == pytest.approx(5.0, rel=0.15)
+    assert f["k_x"] == pytest.approx(0.01, rel=0.15) and f["k_y"] == pytest.approx(0.02, rel=0.15)
+    b = f["bins"]
+    assert len(b) == 8 and sum(x["n"] for x in b) == 4000 and all(abs(x["n"] - 500) <= 1 for x in b)
+    assert all(b[i]["d_max"] <= b[i + 1]["d_min"] for i in range(7))
+    assert b[-1]["mean_d2"] > b[0]["mean_d2"] * 20
+    d = np.sort([np.hypot(*pr["prior_err"]) for pr in _noise_tasks((3.0, 5.0), (0.01, 0.02))[0]["priors"]])
+    assert b[0]["mean_d2"] == pytest.approx(np.mean(d[:500] ** 2), rel=1e-12)      # mean of d^2, not mean d squared
+    assert b[0]["mean_d2"] > 1.05 * np.mean(d[:500]) ** 2
+
+
+def test_trn_noise_fit_is_least_squares_on_bin_variances():
+    """Protects the regression itself: the intercept and slope equal a direct
+    least-squares line through the bins' (mean d^2, robust variance) points,
+    and a flat model gives k near zero, not a spurious slope."""
+    f = P.trn_noise_fit(_noise_tasks((4.0, 4.0), (0.0, 0.0), seed=5))
+    xs = np.array([b["mean_d2"] for b in f["bins"]])
+    ys = np.array([b["var_x"] for b in f["bins"]])
+    slope, icept = np.polyfit(xs, ys, 1)
+    assert f["s0_sq_x"] == pytest.approx(icept, rel=1e-9) and f["k_sq_x"] == pytest.approx(slope, rel=1e-6, abs=1e-15)
+    assert abs(f["k_sq_x"]) * 2 * 333.0 ** 2 < 0.3 * 16.0

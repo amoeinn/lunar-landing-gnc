@@ -80,7 +80,7 @@ def _run(cands, const=None, fix_times=(1.0,)):
     def trn_cb(ft, x, P, radius):
         seen.append(dict(x=x, P=P))
         return cands[ft](x)
-    const = const or dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488)
+    const = const or dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0)
     return NF.run(t, f, np.full(n, np.nan), x0, P0, dem, trn_cb, const, fix_times=fix_times), seen
 
 
@@ -115,7 +115,9 @@ def test_gates_see_only_the_first_pass():
 def test_update_uses_the_second_pass_with_r_s0_squared():
     """Protects the second pass's weight: the estimate moves by K (fix2 -
     x), K from R = diag(s0_x^2, s0_y^2), not by the first pass's offset nor
-    with the first pass's R; the logged R is s0^2."""
+    with the first pass's R; the logged R is s0^2, and the NIS logged for the
+    applied update is that of the second pass's innovation with that R (what
+    the step 3.5 bar scores), not the gate's."""
     def first(x):
         return dict(fix=(x[0] + 30.0, x[1] - 20.0), ncc=0.95, second=0.5,
                     refine=lambda xy: dict(fix=(x[0] + 12.0, x[1] - 7.0)))
@@ -129,6 +131,9 @@ def test_update_uses_the_second_pass_with_r_s0_squared():
     rec = log["fixes"][0]
     assert np.allclose(rec["posterior"], want[0:2], atol=1e-9)
     assert rec["R_used"] == pytest.approx([2.7 ** 2, 2.4 ** 2])
+    nu = np.array([12.0, -7.0])
+    assert rec["nis_applied"] == pytest.approx(float(nu @ np.linalg.solve(H @ P @ H.T + R, nu)), rel=1e-12)
+    assert abs(rec["nis_applied"] - rec["nis"]) > 1e-3
 
 
 def test_second_pass_without_a_position_falls_back_to_the_first():

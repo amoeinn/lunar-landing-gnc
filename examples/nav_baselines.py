@@ -164,10 +164,13 @@ def flight_done(job):
 
 def filter_constants():
     """The filter's recorded constants: the peak-margin threshold
-    (trn_constants.json) and s0, k per axis (trn_noise_fit.json)."""
+    (trn_constants.json), s0, k per axis (trn_noise_fit.json) and the
+    terrain offset's correlation length L (b_corr.json)."""
     c = json.loads((OUT / "trn_constants.json").read_text())
     f = json.loads((OUT / "trn_noise_fit.json").read_text())
-    return dict(margin_threshold=c["margin_threshold"], s0_x=f["s0_x"], k_x=f["k_x"], s0_y=f["s0_y"], k_y=f["k_y"])
+    b = json.loads(B_CORR.read_text())
+    return dict(margin_threshold=c["margin_threshold"], s0_x=f["s0_x"], k_x=f["k_x"], s0_y=f["s0_y"], k_y=f["k_y"],
+                L=float(b["L"]))
 
 
 def _static():
@@ -268,13 +271,19 @@ def prepare(seed, e, k):
         h, _ = st["dem"].at(pos[i, 0], pos[i, 1])
         rho = pos[i, 2] - h
         alt[i] = rho + NF.altimeter_sigma(rho) * noise[i]
+    # Doppler velocity, drawn after everything above so earlier draws are unchanged
+    dop = np.full((n, 3), np.nan)
+    dnoise = rng.normal(0.0, 1.0, (n, 3))
+    for i in range(0, n, NF.ALT_EVERY):
+        h, _ = st["dem"].at(pos[i, 0], pos[i, 1])
+        dop[i] = vel[i] + NF.doppler_sigma(pos[i, 2] - h) * dnoise[i]
     x0 = np.concatenate([pos[0] + e0[0:3], vel[0] + e0[3:6], np.zeros(3)])
     truth9 = np.concatenate([pos, vel, np.tile(bias, (n, 1))], axis=1)
     idx = {ft: int(round(ft / NF.DT)) for ft in NF.FIX_TIMES if int(round(ft / NF.DT)) < n}
     t1 = time.time()
     images = {ft: descent_image(e, pos[i]) for ft, i in idx.items()}
     return dict(seed=seed, epoch=e, k=k, kappa=kappa, isp=isp, dr0=list(dr0), dv0=list(dv0), bias=bias,
-                e0=e0, tr=tr, cut=cut, t=t, pos=pos, vel=vel, f_meas=f_meas, alt=alt, x0=x0,
+                e0=e0, tr=tr, cut=cut, t=t, pos=pos, vel=vel, f_meas=f_meas, alt=alt, dop=dop, x0=x0,
                 P0=np.diag(NF.P0_SIGMA ** 2), truth9=truth9, idx=idx, images=images,
                 fly_s=t_fly, image_s=time.time() - t1)
 
@@ -287,9 +296,12 @@ def run_gap(prep, g, x0=None):
     t, pos, idx = prep["t"], prep["pos"], prep["idx"]
     n = len(t)
     t2 = time.time()
+    from lunar_landing_gnc import navscore as SC
+    keys = SC.time_keys(n, NF.DT)
     log = NF.run(t, prep["f_meas"], prep["alt"], prep["x0"] if x0 is None else x0, prep["P0"], st["dem"],
                  make_trn(prep["epoch"], g, prep["images"], pos, idx), st["constants"],
-                 fix_times=tuple(ft for ft in NF.FIX_TIMES if ft in idx), nees_truth=prep["truth9"])
+                 fix_times=tuple(ft for ft in NF.FIX_TIMES if ft in idx), nees_truth=prep["truth9"],
+                 dop_meas=prep["dop"], report_idx=tuple(keys.values()))
     sec = log["second"]
     herr = {}
     for rt in REPORT_TIMES:
@@ -298,17 +310,24 @@ def run_gap(prep, g, x0=None):
         if row and j < n:
             herr[str(rt)] = float(np.hypot(row[0]["x"][0] - pos[j, 0], row[0]["x"][1] - pos[j, 1]))
     herr["end"] = float(np.hypot(sec[-1]["x"][0] - pos[-1, 0], sec[-1]["x"][1] - pos[-1, 1]))
-    accepted = [f["t"] for f in log["fixes"] if f.get("status") == "accepted"]
+    accepted = [f["t"] for f in log["fixes"] if f.get("status", "").startswith("accepted")]
     offline = OFF.evaluate(prep["tr"]["history_rows"], OFF.trigger_rules(NT.nominal().veh, NT.REVISION)
                            + [OFF.lost_lock_rule(accepted)])
     alt_nis = np.array([a[1] for a in log["alt"]]) if log["alt"] else np.zeros(0)
+    acc_t = [f["t"] for f in log["fixes"] if f.get("status", "").startswith("accepted")]
+    path = 0.0
+    if acc_t:
+        j0 = int(round(min(acc_t) / NF.DT))
+        path = float(np.hypot(*np.diff(pos[j0:, :2], axis=0).T).sum())
+    bar = SC.run_input(sec, log["alt"], log["dop"], log["fixes"], log["lost_lock"], 0.0, n, NF.DT)
     return dict(nees=[(r["t"], r["nees"]) for r in sec], nees_blocks=[(r["t"], r["nees_blocks"]) for r in sec],
                 est=[(r["t"], r["x"], r["Pdiag"]) for r in sec],
                 fixes=log["fixes"], lost_lock=log["lost_lock"],
                 offline=None if offline is None else dict(trigger=offline["trigger"], t=offline["t"]),
                 alt_nis_sum=float(alt_nis.sum()), alt_nis_n=int(alt_nis.size),
                 alt_nis_1hz=[(a[0], a[1]) for a in log["alt"] if abs(a[0] - round(a[0])) < 1e-6],
-                herr=herr, seconds=time.time() - t2)
+                herr=herr, bar=dict(bar, herr_end=herr["end"]), pointing_bound_m=2.2e-4 * path,
+                dop_nis_mean=bar["dop_nis"], seconds=time.time() - t2)
 
 
 def flight_job(seed, e, k):

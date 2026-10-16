@@ -20,7 +20,9 @@ Commands, writing under work/step3_4d/:
 
 Items 3 and 4 (TRN fix errors) read the committed baseline flights.
 
-Needs LLG_DATA. Usage: python examples/diagnose_nav_end.py COMMAND
+Runs against the revision 2 filter of commit 6076b8c (navfilter.terrain_tau
+and terrain_var, replaced in revision 3). Needs LLG_DATA. Usage: python
+examples/diagnose_nav_end.py COMMAND
 """
 import json
 import sys

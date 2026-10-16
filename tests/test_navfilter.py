@@ -105,80 +105,88 @@ def tilted_dem(a=0.08, b=-0.05, c=150.0, n=400):
     return NF.DEM(a * gx + b * gy + c, x0, y1, d)
 
 
-CONST = dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488)
-
-
-def textbook10(dt, q, tau, var_b):
-    """The 10-state textbook: A and B from the continuous model (terrain
-    offset decaying at 1 / tau) by a matrix exponential; Q from B for the
-    held acceleration noise plus var_b (1 - exp(-2 dt / tau)) on the offset."""
-    Fc = np.zeros((10, 10))
-    Fc[0:3, 3:6] = np.eye(3)
-    Fc[3:6, 6:9] = -np.eye(3)
-    Fc[9, 9] = -1.0 / tau
-    Bc = np.zeros((10, 3))
-    Bc[3:6, :] = np.eye(3)
-    M = np.zeros((13, 13))
-    M[:10, :10], M[:10, 10:] = Fc, Bc
-    E = expm(M * dt)
-    A, B = E[:10, :10], E[:10, 10:]
-    Q = B @ B.T * (q / dt)
-    Q[9, 9] += var_b * (1.0 - np.exp(-2.0 * dt / tau))
-    return A, B, Q
+CONST = dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0)
 
 
 def test_run_equals_a_textbook_10_state_filter():
-    """Protects the revised filter's arithmetic end to end on a linear case:
-    ground on a tilted plane H = 0.08 x - 0.05 y + 150; a TRN fix at 0.5 s
-    (R = s0^2 + k^2 trace(P_xy)); after it the height-only altimeter at 20 Hz
-    with the terrain offset (range = z - H at the estimate - b); the offset's
-    correlation time 20 m over the estimated horizontal speed and its
-    variance g' P_xy g + 0.25, both taken every 50 ms from the textbook's own
-    state. run() ends on the textbook's estimate and covariance to 1e-9, and
-    the offset was exercised (its variance far from its start)."""
+    """Protects the revision 3 filter's arithmetic end to end on a linear case:
+    ground on a tilted plane H = 0.08 x - 0.05 y + 150; Doppler velocity on
+    every 50 ms tick from the start (R from the measured range); a TRN fix at
+    0.5 s (R = s0^2 + k^2 trace(P_xy)) and the terrain offset's mean shifted
+    by H(before) - H(after); after it the height-only altimeter (range = z -
+    H at the estimate - b). The offset, over each 50 ms step: phi = exp(-ds /
+    L), ds the distance the textbook's own estimate moved horizontally;
+    process noise level (1 - phi^2) plus the level's growth over the step,
+    the level g' P_xy g + 0.25 (what the unscented transform gives on a
+    plane) from the textbook's propagated covariance. run() ends on the
+    textbook's estimate and covariance to 1e-9."""
     t, r, f, x0, P0, rng = scenario()
     a, b, c = 0.08, -0.05, 150.0
+    L = 408.0
+    g = np.array([a, b])
     alt = np.full(len(t), np.nan)
     rng_true = r[:, 2] - (a * r[:, 0] + b * r[:, 1] + c)
     alt[::10] = rng_true[::10] + rng.normal(0, 3.0, size=len(t[::10]))
+    v_true = np.array([5.0, 2.0, -20.0]) + np.outer(t, [0.3, -0.2, 1.1])
+    dop = np.full((len(t), 3), np.nan)
+    dop[::10] = v_true[::10] + rng.normal(0, 0.05, size=(len(t[::10]), 3))
     fix = r[100, 0:2] + np.array([1.5, -2.0])
-    const = dict(CONST)
+    const = dict(CONST, L=L)
 
     def trn(ft, x, P, radius):
         return dict(fix=(float(fix[0]), float(fix[1])), ncc=1.0, second=None)
-    log = NF.run(t, f, alt, x0, P0, tilted_dem(a, b, c), trn, const, fix_times=(0.5,))
+    log = NF.run(t, f, alt, x0, P0, tilted_dem(a, b, c), trn, const, fix_times=(0.5,), dop_meas=dop)
     assert log["fixes"][0]["status"] == "accepted"
-    g = np.array([a, b])
+    A, B, Q = textbook(DT, NF.Q_ACC)
     xb = np.concatenate([x0, [0.0]])
     Pb = np.zeros((10, 10))
     Pb[:9, :9] = P0
     Pb[9, 9] = g @ P0[0:2, 0:2] @ g + 0.25
+    level_prev = Pb[9, 9]
     H_alt = np.zeros((1, 10))
     H_alt[0, 2], H_alt[0, 9] = 1.0, -1.0
     H_fix = np.zeros((2, 10))
     H_fix[0, 0] = H_fix[1, 1] = 1.0
+    H_dop = np.zeros((3, 10))
+    H_dop[0, 3] = H_dop[1, 4] = H_dop[2, 5] = 1.0
     locked = False
-    for i in range(len(t)):
+    start = xb[0:2].copy()
+    n = len(t)
+    for i in range(n):
+        if i > 0 and (i % 10 == 0 or i == n - 1):
+            ds = np.hypot(*(xb[0:2] - start))
+            phi = np.exp(-ds / L)
+            level = g @ Pb[0:2, 0:2] @ g + 0.25
+            xb[9] *= phi
+            Pb[9, :9] *= phi
+            Pb[:9, 9] *= phi
+            Pb[9, 9] = phi * phi * Pb[9, 9] + level * (1 - phi * phi) + max(level - level_prev, 0.0)
+            level_prev = level
         if i % 10 == 0 and locked:
             sig = max(0.0038 * abs(alt[i]), 0.10)
             h = a * xb[0] + b * xb[1] + c
-            z = np.array([alt[i] + h])                       # z - H - b = range: measure z - b
-            xb, Pb = tb_update10(xb, Pb, z, H_alt, np.array([[sig * sig]]))
+            xb, Pb = tb_update10(xb, Pb, np.array([alt[i] + h]), H_alt, np.array([[sig * sig]]))
+        if i % 10 == 0:
+            sd = 0.0386 if abs(alt[i]) <= 1000 else 0.0386 + (0.162 - 0.0386) * (abs(alt[i]) - 1000) / 5500
+            xb, Pb = tb_update10(xb, Pb, dop[i], H_dop, np.eye(3) * sd * sd)
         if i == 100:
             tr = Pb[0, 0] + Pb[1, 1]
             R = np.diag([const["s0_x"] ** 2 + const["k_x"] ** 2 * tr, const["s0_y"] ** 2 + const["k_y"] ** 2 * tr])
+            before = xb[0:2].copy()
             xb, Pb = tb_update10(xb, Pb, fix, H_fix, R)
+            xb[9] += g @ (before - xb[0:2])
             locked = True
         if i % 10 == 0:
-            speed = np.hypot(xb[3], xb[4])
-            tau = min(20.0 / speed, 1000.0) if speed > 0 else 1000.0
-            A, B, Q = textbook10(DT, NF.Q_ACC, tau, g @ Pb[0:2, 0:2] @ g + 0.25)
-        if i < len(t) - 1:
-            xb = A @ xb + B @ (f[i] + G)
-            Pb = A @ Pb @ A.T + Q
+            start = xb[0:2].copy()
+        if i < n - 1:
+            xb[:9] = A @ xb[:9] + B @ (f[i] + G)
+            Pb[:9, :9] = A @ Pb[:9, :9] @ A.T + Q
+            Pb[:9, 9] = A @ Pb[:9, 9]
+            Pb[9, :9] = Pb[:9, 9]
     assert np.allclose(log["final"]["x"], xb, rtol=1e-9, atol=1e-9)
     assert np.allclose(log["final"]["P"], Pb, rtol=1e-9, atol=1e-9 * np.abs(Pb).max())
-    assert len(log["alt"]) == 109 and abs(Pb[9, 9] - (g @ P0[0:2, 0:2] @ g + 0.25)) > 100.0
+    assert len(log["alt"]) == 109 and len(log["dop"]) == 120
+    assert abs(log["fixes"][0]["b_shift"]) > 0.05
 
 
 def tb_update10(x, P, z, H, R):
@@ -424,16 +432,126 @@ def test_gate_boundaries_and_precedence():
 
 
 
-def test_terrain_offset_time_and_variance():
-    """Protects the offset's model: correlation time 20 m over the horizontal
-    speed (0.2 s at 100 m/s, vertical speed ignored), at most 1,000 s (a
-    hover); variance g' P_xy g + 0.25, the floor alone off the DEM."""
-    assert NF.terrain_tau([100.0, 0.0, -50.0]) == pytest.approx(0.2)
-    assert NF.terrain_tau([3.0, 4.0]) == pytest.approx(4.0)
-    assert NF.terrain_tau([0.0, 0.0]) == 1000.0 and NF.terrain_tau([0.01, 0.0]) == 1000.0
-    Pxy = np.array([[100.0, 20.0], [20.0, 50.0]])
-    assert NF.terrain_var([0.1, -0.2], Pxy) == pytest.approx(0.01 * 100 + 0.04 * 50 - 2 * 0.02 * 20 + 0.25)
-    assert NF.terrain_var([float("nan"), 0.0], Pxy) == 0.25
+def test_unscented_level_on_a_plane_is_g_P_g_plus_the_floor():
+    """Protects the level on a plane, where the transform is exact: g' P_xy g
+    + 0.25 for a correlated P_xy (Cholesky columns, not the axes)."""
+    P = np.array([[900.0, 300.0], [300.0, 400.0]])
+    gx, gy = 0.12, -0.07
+    lev = NF.terrain_level(lambda x, y: gx * x + gy * y + 40.0, (120.0, -30.0), P)
+    g = np.array([gx, gy])
+    assert lev == pytest.approx(g @ P @ g + 0.25, rel=1e-12)
+
+
+def test_unscented_level_matches_the_analytic_variance_on_a_quadratic():
+    """Protects the transform's points and weights: on H = a x^2 + b x + c y
+    with P_xy diagonal the five-point transform is exact, so the level equals
+    2 a^2 sx^4 + (2 a mx + b)^2 sx^2 + c^2 sy^2 + 0.25. Wrong weights or a
+    spread other than sqrt(3) break the fourth moment and the match."""
+    a, b, c = 0.002, 0.03, -0.04
+    mx, my, sx, sy = 40.0, -15.0, 60.0, 35.0
+    lev = NF.terrain_level(lambda x, y: a * x * x + b * x + c * y, (mx, my), np.diag([sx * sx, sy * sy]))
+    want = 2 * a * a * sx ** 4 + (2 * a * mx + b) ** 2 * sx ** 2 + c * c * sy * sy + 0.25
+    assert lev == pytest.approx(want, rel=1e-12)
+    assert 2 * a * a * sx ** 4 > 0.2 * want                  # the quadratic term matters here
+
+
+def test_unscented_level_off_the_dem():
+    """Protects the off-DEM choice: points off the DEM are dropped and the
+    rest reweighted; with the estimate itself off it, the floor alone."""
+    P = np.diag([100.0, 100.0])
+    k = np.sqrt(3.0) * 10.0
+
+    def h(x, y):
+        return float("nan") if x > 5.0 else 0.2 * y
+    lev = NF.terrain_level(h, (0.0, 0.0), P)
+    w = np.array([1 / 3, 1 / 6, 1 / 6, 1 / 6]) / (5 / 6)
+    vals = np.array([0.0, 0.0, 0.2 * k, -0.2 * k])
+    assert lev == pytest.approx(w @ (vals - w @ vals) ** 2 + 0.25, rel=1e-12)
+
+    def hole(x, y):
+        # only the estimate itself is off the DEM; its four other points are on it
+        return float("nan") if abs(x - 10.0) < 1.0 and abs(y) < 1.0 else 0.2 * y
+    assert NF.terrain_level(hole, (10.0, 0.0), P) == 0.25
+
+
+def test_terrain_step_without_motion_adds_only_the_growth():
+    """Protects the offset's decorrelation in distance: no horizontal motion,
+    phi = 1 and no decorrelation noise; 408 m flown, phi = 1 / e."""
+    assert NF.terrain_step(4.0, 4.0, 0.0, 408.0) == (1.0, 0.0)
+    assert NF.terrain_step(4.0, 3.0, 0.0, 408.0) == (1.0, 1.0)
+    assert NF.terrain_step(4.0, 5.0, 0.0, 408.0) == (1.0, 0.0)
+    phi, q = NF.terrain_step(4.0, 4.0, 408.0, 408.0)
+    assert phi == pytest.approx(np.exp(-1.0)) and q == pytest.approx(4.0 * (1 - np.exp(-2.0)))
+
+
+def _drift(speed, n=20 * 200 + 1):
+    """No fix, no altimeter, no Doppler over a tilted plane: the estimate
+    moves at speed along x and P_xy grows from the IMU alone."""
+    t = np.arange(n) * DT
+    f = np.tile(-G, (n - 1, 1))
+    x0 = np.concatenate([[0.0, 0.0, 800.0], [speed, 0.0, 0.0], np.zeros(3)])
+    P0 = np.diag(np.concatenate([[5.0, 5.0, 1.0], [0.2, 0.2, 0.1], [NF.BIAS_SIGMA] * 3]) ** 2)
+    log = NF.run(t, f, np.full(n, np.nan), x0, P0, tilted_dem(0.3, 0.2, 50.0), None, CONST, fix_times=())
+    return [(r["Pdiag"][9], 0.09 * r["Pdiag"][0] + 0.04 * r["Pdiag"][1] + 0.25) for r in log["second"]]
+
+
+def test_growth_keeps_the_offset_variance_at_the_level():
+    """Protects the growth term: with P_xy growing and nothing updating, P_bb
+    stays at or above the level g' P_xy g + 0.25 at every logged second; in a
+    hover (no decorrelation) exactly on it, which also shows zero horizontal
+    motion adds no decorrelation noise; moving at 60 m/s it sits above."""
+    hover = _drift(0.0)
+    assert hover[-1][1] > 1.5 * hover[0][1]                  # the level grew
+    assert all(abs(pb - lev) < 1e-9 * lev for pb, lev in hover)
+    moving = _drift(60.0)
+    assert all(pb >= lev - 1e-9 * lev for pb, lev in moving)
+    assert moving[-1][0] > moving[-1][1] * (1 + 1e-4)
+
+
+def test_predicted_range_is_continuous_across_a_fix_that_moves_the_estimate():
+    """Protects b's mean shift at a fix: a fix 30 m east and 20 m south of
+    the estimate over a tilted plane moves H under the estimate by over 2 m;
+    with z untouched by the fix (uncorrelated with x, y before the first
+    fix), the predicted range z - H - b is the same before and after."""
+    n = 401
+    t = np.arange(n) * DT
+    f = np.tile(-G, (n - 1, 1))
+    x0 = np.concatenate([[0.0, 0.0, 800.0], np.zeros(6)])
+    P0 = np.diag(NF.P0_SIGMA ** 2)
+
+    def trn(ft, x, P, radius):
+        return dict(fix=(x[0] + 30.0, x[1] - 20.0), ncc=1.0, second=None)
+    log = NF.run(t, f, np.full(n, np.nan), x0, P0, tilted_dem(0.08, -0.05, 50.0), trn, CONST, fix_times=(1.0,))
+    fx = log["fixes"][0]
+    assert fx["status"] == "accepted" and abs(fx["b_shift"]) > 2.0
+    assert fx["range_pred_after"] == pytest.approx(fx["range_pred_before"], abs=1e-9)
+
+
+@pytest.mark.parametrize("rng_m, want", [(500.0, 0.0386), (1000.0, 0.0386), (3750.0, 0.1003), (6500.0, 0.162),
+                                          (-500.0, 0.0386)])
+def test_doppler_noise_by_range(rng_m, want):
+    """Protects the Doppler noise: 3.86 cm/s up to 1,000 m, linear to 16.2
+    cm/s at 6,500 m."""
+    assert NF.doppler_sigma(rng_m) == pytest.approx(want, abs=1e-12)
+
+
+def test_doppler_pulls_the_velocity_estimate_to_the_measurement():
+    """Protects the Doppler update's sign and axes: a hover with the
+    estimate's velocity 1 m/s off on x, -0.5 on y and 0.3 on z, measured
+    velocity zero: after 2 s each axis is within 5 cm of zero, and without
+    Doppler it stays off."""
+    n = 401
+    t = np.arange(n) * DT
+    f = np.tile(-G, (n - 1, 1))
+    x0 = np.concatenate([[0.0, 0.0, 800.0], [1.0, -0.5, 0.3], np.zeros(3)])
+    P0 = np.diag(NF.P0_SIGMA ** 2)
+    alt = np.full(n, 800.0)
+    dop = np.zeros((n, 3))
+    on = NF.run(t, f, alt, x0, P0, flat_dem(), None, CONST, fix_times=(), dop_meas=dop)
+    off = NF.run(t, f, alt, x0, P0, flat_dem(), None, CONST, fix_times=())
+    assert np.all(np.abs(np.asarray(on["final"]["x"][3:6])) < 0.05)
+    assert np.allclose(off["final"]["x"][3:6], [1.0, -0.5, 0.3], atol=1e-6)
+    assert len(on["dop"]) == 41 and len(off["dop"]) == 0
 
 
 def test_terrain_offset_absorbs_a_constant_offset_in_a_hover():
@@ -442,7 +560,7 @@ def test_terrain_offset_absorbs_a_constant_offset_in_a_hover():
     cm at the start, a noise-free altimeter. The altimeter fixes z - b, so z
     - b ends on the truth's to 1 cm; the offset takes at least 0.9 m of the
     metre (z, known better than b, keeps the rest, within its own sigma);
-    and with the correlation time at its 1,000 s cap the offset holds, moving
+    and with no horizontal motion (phi = 1, revision 3) the offset holds, moving
     under 5 cm from 30 s to 60 s. Without the offset state the whole metre
     would land in z."""
     n = 60 * 200 + 1

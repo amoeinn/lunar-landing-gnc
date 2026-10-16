@@ -353,6 +353,142 @@ def cmd_noisefit():
     print(f"sha256 {hashlib.sha256(NOISE_FIT.read_bytes()).hexdigest()}")
 
 
+B_CORR = OUT / "b_corr.json"
+TRN_CORR = OUT / "trn_corr.json"
+DIAG = WORK / "step3_4d"
+B_CORR_MAX_LAG = 600
+
+
+def cmd_bcorr():
+    """L, the terrain offset's correlation length, from the DEM alone
+    (navconst.terrain_corr_length): the nominal flight's ground track from its
+    position at the first fix time to touchdown, every 1 m; saved once."""
+    import hashlib
+    from lunar_landing_gnc import navconst as NC
+    from lunar_landing_gnc import navfilter as NF
+    assert not B_CORR.exists(), "L already recorded"
+    ter, h_site = terrain()
+    dem = _static()["dem"]
+    tr = NT.fly()
+    pos, _ = NT.on_map(tr, P.SITE, h_site)
+    i0 = int(round(NF.FIX_TIMES[0] / NF.DT))
+    track = NC.resample_track(pos[i0:, :2])
+    r = NC.terrain_corr_length(lambda x, y: dem.at(x, y)[0], track, B_CORR_MAX_LAG)
+    rec = dict(L=r["L"], L_interp=r["L_interp"], points=r["points"], start=pos[i0, :2].tolist(),
+               end=pos[-1, :2].tolist(), site=list(P.SITE), path_m=float(r["points"] - 1),
+               offsets_m=list(NC.OFFSET_SIZES_M), directions=NC.N_DIRECTIONS, max_lag=B_CORR_MAX_LAG,
+               per_size_L={str(k): v for k, v in r["per_size_L"].items()},
+               pooled=r["pooled"].tolist(), per_size={str(k): v.tolist() for k, v in r["per_size"].items()},
+               source="DEM alone (the filter's bilinear 20 m DEM); nominal phase 2 flight from t = 10 s to "
+                      "touchdown; PLAN.md filter design revision 3",
+               recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
+    save(B_CORR, rec)
+    lags = (1, 2, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200, 300, 400, 600)
+    print(f"track {rec['start']} to {rec['end']} (site {P.SITE}), {r['points']} points, {rec['path_m']:.0f} m")
+    print(f"{'lag m':>6} {'pooled':>8} " + " ".join(f"{f'{s:g} m':>8}" for s in NC.OFFSET_SIZES_M))
+    for k in lags:
+        print(f"{k:6d} {r['pooled'][k]:8.4f} " + " ".join(f"{r['per_size'][s][k]:8.4f}" for s in NC.OFFSET_SIZES_M))
+    print("first below 1/e: pooled " + f"{r['L']} m (interpolated {r['L_interp']:.2f}); "
+          + "; ".join(f"{s:g} m offsets {v[0]} m ({v[1]:.2f})" for s, v in r["per_size_L"].items()))
+    print(f"sha256 {hashlib.sha256(B_CORR.read_bytes()).hexdigest()}")
+
+
+def diag_pairs():
+    """s per axis and the consecutive pairs of accepted fixes from the step
+    3.4d gap-0 records (both reference seeds), with each pair's footprint
+    overlap from the filter's estimated poses at the two fix times: the
+    estimate the fix was taken from (map x, y before the update; z before the
+    update, the logged z after it less the update's change, which is zero at
+    a flight's first accepted fix, where z is uncorrelated with x and y)."""
+    from lunar_landing_gnc import navconst as NC
+    from lunar_landing_gnc import navfilter as NF
+    dem = _static()["dem"]
+    errs, pairs = [], []
+    for seed in SEEDS:
+        for job in flight_jobs(seed):
+            _, e, k = job
+            f = json.loads((DIAG / f"seed{seed}" / f"e{e}_k{k}.json").read_text())
+            z = np.load(DIAG / f"seed{seed}" / f"e{e}_k{k}.npz")
+            acc = [fx for fx in f["fixes"] if fx["status"] == "accepted"]
+            assert all(fx.get("pass2", {}).get("fix") is not None for fx in acc)
+            poses = []
+            for n_acc, fx in enumerate(acc):
+                i = int(round(fx["t"] / NF.DT))
+                row = int(np.nonzero(np.abs(z["log1hz_t"] - fx["t"]) < 1e-6)[0][0])
+                z_post = float(z["log1hz_x"][row, 2])
+                at_i = np.nonzero(z["u_i"] == i)[0]
+                kinds = z["u_kind"][at_i]
+                trn_row = at_i[kinds == 1]
+                alt_row = at_i[kinds == 0]
+                assert trn_row.size == 1
+                if n_acc == 0:
+                    assert alt_row.size == 0
+                    srow = int(np.nonzero(z["sec_i"] == i)[0][0])
+                    assert z["sec_P"][srow][2, 0] == 0.0 and z["sec_P"][srow][2, 1] == 0.0
+                    dz = 0.0
+                else:
+                    assert alt_row.size == 1
+                    dz = float(z["u_ez"][trn_row[0]] - z["u_ez"][alt_row[0]])
+                xp, yp = fx["prior"]
+                h = (z_post - dz) - dem.at(xp, yp)[0]
+                poses.append(NC.footprint(xp, yp, h))
+                errs.append(fx["pass2"]["error_xy"])
+            for a in range(1, len(acc)):
+                pairs.append(dict(seed=seed, epoch=e, k=k, t0=acc[a - 1]["t"], t1=acc[a]["t"],
+                                  overlap=NC.overlap(poses[a - 1], poses[a]),
+                                  e0=acc[a - 1]["pass2"]["error_xy"], e1=acc[a]["pass2"]["error_xy"]))
+    errs = np.array(errs)
+    return errs, pairs
+
+
+def cmd_trncorr():
+    """s and f from the step 3.4d accepted gap-0 fixes (navconst.trn_corr_fit),
+    saved once with the registered test's outcome."""
+    import hashlib
+    from lunar_landing_gnc import navconst as NC
+    assert not TRN_CORR.exists(), "f already recorded"
+    errs, pairs = diag_pairs()
+    s = errs.std(axis=0, ddof=1)
+    fit = NC.trn_corr_fit(pairs)
+    by_times = {}
+    for p in pairs:
+        key = f"{p['t0']:.0f}-{p['t1']:.0f}"
+        by_times.setdefault(key, []).append(p["overlap"])
+    corr_by_times = {}
+    for key in sorted(by_times):
+        sel = [p for p in pairs if f"{p['t0']:.0f}-{p['t1']:.0f}" == key]
+        a = np.concatenate([[p["e0"][0] for p in sel], [p["e0"][1] for p in sel]])
+        c = np.concatenate([[p["e1"][0] for p in sel], [p["e1"][1] for p in sel]])
+        corr_by_times[key] = float(np.corrcoef(a, c)[0, 1]) if len(sel) > 1 else None
+    rec = dict(s_x=float(s[0]), s_y=float(s[1]), fixes=int(len(errs)), pairs=len(pairs), **fit,
+               corr_by_times=corr_by_times, zero_overlap_pairs=int(sum(p["overlap"] == 0.0 for p in pairs)),
+               overlap_by_times={k: dict(n=len(v), mean=float(np.mean(v)), min=float(np.min(v)),
+                                         max=float(np.max(v))) for k, v in sorted(by_times.items())},
+               source="step 3.4d gap-0 records (commit 6076b8c), seeds 20261030 and 20261031, accepted fixes, "
+                      "second-pass errors; PLAN.md filter design revision 3",
+               recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
+    save(TRN_CORR, rec)
+    print(f"s: x {rec['s_x']:.4f} m, y {rec['s_y']:.4f} m over {rec['fixes']} accepted gap-0 fixes; {len(pairs)} pairs")
+    print(f"{'bin':>3} {'pairs':>5} {'overlap min':>11} {'max':>6} {'mean':>6} {'corr':>7}")
+    for i, b in enumerate(fit["bins"]):
+        if b["corr"] is None:
+            print(f"{i:3d} {b['pairs']:5d}   (empty)")
+            continue
+        print(f"{i:3d} {b['pairs']:5d} {b['overlap_min']:11.3f} {b['overlap_max']:6.3f} {b['overlap_mean']:6.3f} "
+              f"{b['corr']:+7.3f}")
+    print(f"pairs with zero overlap {rec['zero_overlap_pairs']} of {len(pairs)}")
+    print("by fix times: " + "; ".join(f"{k} s n {v['n']} overlap mean {v['mean']:.3f} ({v['min']:.3f} to "
+                                       f"{v['max']:.3f}), correlation {rec['corr_by_times'][k]:+.3f}"
+                                       for k, v in rec["overlap_by_times"].items()))
+    if fit["spearman"] is None:
+        print(f"quartiles of overlap {[round(q, 4) for q in fit['quartiles']]}: {fit['reason']}; test FAILED")
+    else:
+        print(f"Spearman {fit['spearman']:.3f} (test: at least {NC.SPEARMAN_MIN}); f fitted {fit['f_fit']:.4f} (test: "
+              f"at most {NC.F_MAX}); test {'PASSED' if fit['passed'] else 'FAILED'}; f used "
+              f"{fit['f'] if fit['f'] is None else round(fit['f'], 4)}")
+    print(f"sha256 {hashlib.sha256(TRN_CORR.read_bytes()).hexdigest()}")
+
+
 # staged runs and the report
 
 def _stage(name, jobs):
@@ -502,4 +638,4 @@ if __name__ == "__main__":
         cmd_run(int(sys.argv[2]))
     else:
         dict(clearance=cmd_clearance, constants=cmd_constants, noisefit=cmd_noisefit, calibrate=cmd_calibrate,
-             report=cmd_report)[cmd]()
+             report=cmd_report, bcorr=cmd_bcorr, trncorr=cmd_trncorr)[cmd]()

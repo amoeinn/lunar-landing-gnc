@@ -252,7 +252,7 @@ def make_trn(e, gap, images, pos, idx):
     return cb
 
 
-def prepare(seed, e, k):
+def prepare(seed, e, k, with_images=True):
     """One flight's truth, sensors, initial estimate and descent images."""
     from lunar_landing_gnc import navfilter as NF
     t0 = time.time()
@@ -276,18 +276,22 @@ def prepare(seed, e, k):
         rho = pos[i, 2] - h
         alt[i] = rho + NF.altimeter_sigma(rho) * noise[i]
     # Doppler velocity, drawn after everything above so earlier draws are unchanged
-    dop = np.full((n, 3), np.nan)
+    dop0 = np.full((n, 3), np.nan)
     dnoise = rng.normal(0.0, 1.0, (n, 3))
     for i in range(0, n, NF.ALT_EVERY):
         h, _ = st["dem"].at(pos[i, 0], pos[i, 1])
-        dop[i] = vel[i] + NF.doppler_sigma(pos[i, 2] - h) * dnoise[i]
+        dop0[i] = vel[i] + NF.doppler_sigma(pos[i, 2] - h) * dnoise[i]
+    # the pointing bias (revision 3e), drawn after every earlier draw: v + theta x v + noise
+    theta = rng.normal(0.0, NF.THETA_SIGMA, 3)
+    dop = dop0 + np.cross(theta, vel)
     x0 = np.concatenate([pos[0] + e0[0:3], vel[0] + e0[3:6], np.zeros(3)])
     truth9 = np.concatenate([pos, vel, np.tile(bias, (n, 1))], axis=1)
     idx = {ft: int(round(ft / NF.DT)) for ft in NF.FIX_TIMES if int(round(ft / NF.DT)) < n}
     t1 = time.time()
-    images = {ft: descent_image(e, pos[i]) for ft, i in idx.items()}
+    images = {ft: descent_image(e, pos[i]) for ft, i in idx.items()} if with_images else {}
     return dict(seed=seed, epoch=e, k=k, kappa=kappa, isp=isp, dr0=list(dr0), dv0=list(dv0), bias=bias,
-                e0=e0, tr=tr, cut=cut, t=t, pos=pos, vel=vel, f_meas=f_meas, alt=alt, dop=dop, x0=x0,
+                e0=e0, tr=tr, cut=cut, t=t, pos=pos, vel=vel, f_meas=f_meas, alt=alt, dop0=dop0, dop=dop,
+                theta=theta, x0=x0,
                 P0=np.diag(NF.P0_SIGMA ** 2), truth9=truth9, idx=idx, images=images,
                 fly_s=t_fly, image_s=time.time() - t1)
 
@@ -305,7 +309,7 @@ def run_gap(prep, g, x0=None):
     log = NF.run(t, prep["f_meas"], prep["alt"], prep["x0"] if x0 is None else x0, prep["P0"], st["dem"],
                  make_trn(prep["epoch"], g, prep["images"], pos, idx), st["constants"],
                  fix_times=tuple(ft for ft in NF.FIX_TIMES if ft in idx), nees_truth=prep["truth9"],
-                 dop_meas=prep["dop"], report_idx=tuple(keys.values()))
+                 dop_meas=prep["dop"], report_idx=tuple(keys.values()), theta_truth=prep["theta"])
     sec = log["second"]
     herr = {}
     for rt in REPORT_TIMES:
@@ -326,13 +330,15 @@ def run_gap(prep, g, x0=None):
     bar = SC.run_input(sec, log["alt"], log["dop"], log["fixes"], log["lost_lock"], 0.0, n, NF.DT)
     by_i = {r["i"]: r for r in sec}
     toff_at = {key: by_i[i]["nees_blocks"]["toff"] for key, i in keys.items() if i in by_i and "nees_blocks" in by_i[i]}
+    theta_at = {key: by_i[i]["nees_theta"] for key, i in keys.items() if i in by_i and "nees_theta" in by_i[i]}
     return dict(nees=[(r["t"], r["nees"]) for r in sec], nees_blocks=[(r["t"], r["nees_blocks"]) for r in sec],
                 est=[(r["t"], r["x"], r["Pdiag"]) for r in sec],
                 fixes=log["fixes"], lost_lock=log["lost_lock"],
                 offline=None if offline is None else dict(trigger=offline["trigger"], t=offline["t"]),
                 alt_nis_sum=float(alt_nis.sum()), alt_nis_n=int(alt_nis.size),
                 alt_nis_1hz=[(a[0], a[1]) for a in log["alt"] if abs(a[0] - round(a[0])) < 1e-6],
-                herr=herr, bar=dict(bar, herr_end=herr["end"]), toff_at=toff_at, pointing_bound_m=2.2e-4 * path,
+                herr=herr, bar=dict(bar, herr_end=herr["end"]), toff_at=toff_at, theta_at=theta_at,
+                theta=prep["theta"].tolist(), pointing_bound_m=2.2e-4 * path,
                 dop_nis_mean=bar["dop_nis"], seconds=time.time() - t2)
 
 

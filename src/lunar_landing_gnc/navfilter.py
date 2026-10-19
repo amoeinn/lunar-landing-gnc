@@ -5,8 +5,8 @@ noise).
 
 Frame and state. The map frame of navtruth.py: x, y the stereographic map
 coordinates, z height above the 1737.4 km sphere, flat and Cartesian over the
-approach. State, 10: position r (3), velocity v (3), accelerometer bias (3)
-and a terrain offset b (1). Attitude is known exactly (3DOF), so the IMU gives
+approach. State, 13: position r (3), velocity v (3), accelerometer bias (3),
+a terrain offset b (1) and the Doppler pointing bias theta (3). Attitude is known exactly (3DOF), so the IMU gives
 specific force in the map frame; gravity g = (0, 0, -1.62) m/s^2, constant, as
 phase 2.
 
@@ -78,9 +78,17 @@ used with revision 2's second-pass R, s0^2 of trn_noise_fit.json (logged as
 "accepted, second pass parabola"). The search radius the
 callback is given is 3 sigma of the horizontal covariance (the larger axis),
 in 20 m cells, rounded up, clamped to 5 to 50. Revision 3's c states are
-replaced by revision 3d's second pass and noise; 10 states.
+replaced by revision 3d's second pass and noise.
 
 Order at a 50 ms tick: propagate, altimeter, Doppler, TRN.
+
+Pointing bias (revision 3e): a constant small rotation theta between the
+Doppler frame and the map frame, 3 states (13 in all), initial sigma 2.2e-4
+rad per axis (the NDL source's 4.80 cm/s at its 218 m/s line-of-sight limit,
+read as 1 sigma), no process noise. The Doppler measurement is v + theta x v
++ noise; its rows are the identity on velocity and -[v x] on theta, at the
+estimate (the second-order [theta x] on velocity is left out). Theta's NEES is logged when its truth is given; the NEES for the
+bar stays over the 9 navigation states.
 
 Lost lock: no fix accepted by the last fix time.
 
@@ -109,8 +117,10 @@ FIX_TIMES = (10.0, 20.0, 30.0, 40.0)
 NIS_GATE = 13.82
 SEARCH_CELLS = (5, 50)
 CELL_M = 20.0
-N_STATES = 10
+N_STATES = 13
 IB = 9                                  # index of the terrain offset
+IT = slice(10, 13)                      # the Doppler pointing bias theta (revision 3e)
+THETA_SIGMA = 2.2e-4                    # rad per axis
 TERRAIN_FLOOR = 0.5                     # m
 UT_W0, UT_WI = 1.0 / 3.0, 1.0 / 6.0
 DOPPLER_NEAR, DOPPLER_FAR = 0.0386, 0.162   # m/s per axis
@@ -294,13 +304,20 @@ def trn_R5(constants, sigma_z):
                     constants["r5_s0_y"] ** 2 + (constants["r5_j_y"] * sigma_z) ** 2])
 
 
-def augment(x0, P0, dem):
+def skew(a):
+    """[a x], the matrix with [a x] b = a x b."""
+    return np.array([[0.0, -a[2], a[1]], [a[2], 0.0, -a[0]], [-a[1], a[0], 0.0]])
+
+
+def augment(x0, P0, dem, theta_sigma=THETA_SIGMA):
     """The 9-state initial estimate and covariance with the terrain offset
-    added: value 0, variance its level at the estimate."""
-    x = np.concatenate([np.asarray(x0, float)[:9], [0.0]])
+    added (value 0, variance its level at the estimate) and the pointing
+    bias (value 0, sigma theta_sigma per axis)."""
+    x = np.concatenate([np.asarray(x0, float)[:9], [0.0], np.zeros(3)])
     P = np.zeros((N_STATES, N_STATES))
     P[:9, :9] = np.asarray(P0, float)[:9, :9]
     P[IB, IB] = terrain_level(height_fn(dem), x[0:2], P[0:2, 0:2])
+    P[IT, IT] = np.eye(3) * theta_sigma ** 2
     return x, P
 
 
@@ -309,7 +326,7 @@ BLOCKS = (("hpos", slice(0, 2)), ("vpos", slice(2, 3)), ("hvel", slice(3, 5)), (
 
 
 def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, nees_truth=None, dop_meas=None,
-        report_idx=()):
+        report_idx=(), theta_truth=None):
     """The filter over one record.
 
     t: sample times (N); f_meas: IMU specific force for each period (N - 1, 3);
@@ -335,9 +352,7 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
     H_trn[0, 0] = H_trn[1, 1] = 1.0
     H_alt = np.zeros(N_STATES)
     H_alt[2], H_alt[IB] = 1.0, -1.0
-    H_dop = np.zeros((3, N_STATES))
-    H_dop[0, 3] = H_dop[1, 4] = H_dop[2, 5] = 1.0
-    x, P = augment(x0, P0, dem)
+    x, P = augment(x0, P0, dem, constants.get("theta_sigma", THETA_SIGMA))
     level_prev = float(P[IB, IB])
     n = len(t)
     fix_idx = {int(round(ft / DT)): ft for ft in fix_times}
@@ -359,6 +374,7 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
             x9 = propagate_mean(x[:9], f_meas[last:i])
             F = np.zeros((N_STATES, N_STATES))
             F[:9, :9] = F9
+            F[IT, IT] = np.eye(3)
             F[IB, IB] = math.exp(-math.hypot(x9[0] - x[0], x9[1] - x[1]) / L)
             Q = np.zeros((N_STATES, N_STATES))
             Q[:9, :9] = Q9
@@ -367,7 +383,7 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
             phi_b, q_b = terrain_step(level, level_prev, math.hypot(x9[0] - x[0], x9[1] - x[1]), L)
             P[IB, IB] += q_b
             level_prev = level
-            x = np.concatenate([x9, [x[IB] * phi_b]])
+            x = np.concatenate([x9, [x[IB] * phi_b], x[IT]])
         last = i
         if due_alt:
             h = height(x[0], x[1])
@@ -377,7 +393,12 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
                 log["alt"].append((float(t[i]), nis, float(alt_meas[i])))
         if due_dop:
             sd = doppler_sigma(alt_meas[i])
-            x, P, _, nis, _ = update(x, P, np.asarray(dop_meas[i], float) - x[3:6], H_dop, np.eye(3) * sd * sd)
+            v, th = x[3:6], x[IT]
+            H_dop = np.zeros((3, N_STATES))
+            H_dop[:, 3:6] = np.eye(3)
+            H_dop[:, IT] = -skew(v)
+            nu = np.asarray(dop_meas[i], float) - (v + np.cross(th, v))
+            x, P, _, nis, _ = update(x, P, nu, H_dop, np.eye(3) * sd * sd)
             log["dop"].append((float(t[i]), nis))
         if due_fix:
             ft = fix_idx[i]
@@ -438,6 +459,9 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
                 row["nees_blocks"] = {name: float(e[sl] @ np.linalg.solve(P9[sl, sl], e[sl])) for name, sl in BLOCKS}
                 b_true = height(nees_truth[i][0], nees_truth[i][1]) - height(x[0], x[1])
                 row["nees_blocks"]["toff"] = float((x[IB] - b_true) ** 2 / P[IB, IB])
+            if theta_truth is not None and np.all(np.diag(P[IT, IT]) > 0.0):
+                et = x[IT] - np.asarray(theta_truth, float)
+                row["nees_theta"] = float(et @ np.linalg.solve(P[IT, IT], et))
             log["second"].append(row)
     log["lost_lock"] = lost_lock
     log["final"] = dict(x=x.tolist(), P=P.tolist(), t=float(t[-1]))

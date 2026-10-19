@@ -132,7 +132,7 @@ def test_run_equals_a_textbook_10_state_filter():
     dop = np.full((len(t), 3), np.nan)
     dop[::10] = v_true[::10] + rng.normal(0, 0.05, size=(len(t[::10]), 3))
     fix = r[100, 0:2] + np.array([1.5, -2.0])
-    const = dict(CONST, L=L)
+    const = dict(CONST, L=L, theta_sigma=0.0)
 
     def trn(ft, x, P, radius):
         return dict(fix=(float(fix[0]), float(fix[1])), ncc=1.0, second=None)
@@ -184,8 +184,12 @@ def test_run_equals_a_textbook_10_state_filter():
             Pb[:9, :9] = A @ Pb[:9, :9] @ A.T + Q
             Pb[:9, 9] = A @ Pb[:9, 9]
             Pb[9, :9] = Pb[:9, 9]
-    assert np.allclose(log["final"]["x"], xb, rtol=1e-9, atol=1e-9)
-    assert np.allclose(log["final"]["P"], Pb, rtol=1e-9, atol=1e-9 * np.abs(Pb).max())
+    # revision 3e: with the pointing bias held at zero (sigma 0) the 13-state
+    # filter's first 10 states are revision 3d's exactly as before
+    xf, Pf = np.asarray(log["final"]["x"]), np.asarray(log["final"]["P"])
+    assert xf.shape == (13,) and np.all(xf[10:13] == 0.0) and np.all(Pf[10:13, :] == 0.0)
+    assert np.allclose(xf[:10], xb, rtol=1e-9, atol=1e-9)
+    assert np.allclose(Pf[:10, :10], Pb, rtol=1e-9, atol=1e-9 * np.abs(Pb).max())
     assert len(log["alt"]) == 109 and len(log["dop"]) == 120
     assert abs(log["fixes"][0]["b_shift"]) > 0.05
 
@@ -220,7 +224,7 @@ def test_trn_fix_moves_the_estimate_by_the_gain_times_the_offset():
     fx = log["fixes"][0]
     assert fx["status"] == "accepted"
     P = seen["P"]
-    H = np.zeros((2, 10))
+    H = np.zeros((2, NF.N_STATES))
     H[0, 0] = H[1, 1] = 1.0
     tr = P[0, 0] + P[1, 1]
     R = np.diag([2.7 ** 2 + 0.006 ** 2 * tr, 2.4 ** 2 + 0.005 ** 2 * tr])
@@ -411,12 +415,12 @@ def test_trn_noise_is_per_axis_in_the_posterior():
     and swapping the axes' constants would exchange them."""
     log, seen = _trn_run((5.0, -5.0))
     P = seen["P"]
-    H = np.zeros((2, 10))
+    H = np.zeros((2, NF.N_STATES))
     H[0, 0] = H[1, 1] = 1.0
     tr = P[0, 0] + P[1, 1]
     R = np.diag([2.7 ** 2 + 0.006 ** 2 * tr, 2.4 ** 2 + 0.005 ** 2 * tr])
     K = P @ H.T @ np.linalg.inv(H @ P @ H.T + R)
-    A = np.eye(10) - K @ H
+    A = np.eye(NF.N_STATES) - K @ H
     post = A @ P @ A.T + K @ R @ K.T
     row = [r for r in log["second"] if r["t"] == pytest.approx(1.0)][0]
     assert np.allclose(row["Pdiag"][0:2], np.diag(post)[0:2], rtol=1e-9)
@@ -584,3 +588,101 @@ def test_terrain_offset_absorbs_a_constant_offset_in_a_hover():
     assert x[NF.IB] > 0.9 and abs(x[2] - r0[2]) < 2.0 * np.sqrt(Pd[2])
     b30 = [r for r in log["second"] if abs(r["t"] - 30.0) < 1e-6][0]["x"][NF.IB]
     assert abs(x[NF.IB] - b30) < 0.05
+
+
+
+def _straight(theta, theta_sigma, fixes=True, n=60 * 200 + 1):
+    """A straight constant-velocity flight, v = (100, 0, -10) m/s, over a
+    level plane; Doppler measures v + theta x v without noise; with fixes,
+    noiseless TRN fixes of x and y every second (no second pass, R from s0 =
+    0.1 m) and the altimeter after the first; without, neither."""
+    t = np.arange(n) * DT
+    v = np.array([100.0, 0.0, -10.0])
+    r = np.array([-3000.0, 0.0, 2000.0]) + np.outer(t, v)
+    f = np.tile(-G, (n - 1, 1))
+    alt = np.full(n, np.nan)
+    dop = np.full((n, 3), np.nan)
+    dop[::10] = v + np.cross(theta, v)
+    alt[::10] = r[::10, 2] - 50.0
+    x0 = np.concatenate([r[0], v, np.zeros(3)])
+    P0 = np.diag(np.concatenate([[1.0, 1.0, 1.0], [0.05, 0.05, 0.05], [1e-6] * 3]) ** 2)
+    const = dict(CONST, s0_x=0.1, k_x=0.0, s0_y=0.1, k_y=0.0, margin_threshold=0.0, theta_sigma=theta_sigma)
+
+    def trn(ft, x, P, radius):
+        j = int(round(ft / DT))
+        return dict(fix=(float(r[j, 0]), float(r[j, 1])), ncc=1.0, second=None)
+    log = NF.run(t, f, alt, x0, P0, tilted_dem(0.0, 0.0, 50.0), trn, const,
+                 fix_times=tuple(float(s) for s in range(1, 60)) if fixes else (), dop_meas=dop, theta_truth=theta)
+    return np.asarray(log["final"]["x"]), np.asarray(log["final"]["P"]), v, log
+
+
+def test_pointing_bias_gives_the_predicted_velocity_error_and_is_estimated():
+    """Protects the pointing bias in truth and filter (revision 3e): Doppler
+    reads v + theta x v. With theta held at zero and nothing else measuring
+    velocity, the estimate takes exactly the predicted error theta x v. With
+    theta's three states and position fixes, the combination the fixes
+    observe best (100 theta_z + 10 theta_x, through the y velocity) is
+    recovered to 5 pct, every component lies within 3 sigma of the truth,
+    the horizontal velocity error falls below a tenth of theta x v's, and
+    theta's NEES is logged."""
+    theta = np.array([1.0e-4, 2.0e-4, -1.5e-4])
+    x0, _, v, _ = _straight(theta, 0.0, fixes=False)
+    pred = np.cross(theta, v)
+    assert np.linalg.norm((x0[3:6] - v) - pred) < 0.02 * np.linalg.norm(pred)
+    x1, P1, _, log = _straight(theta, NF.THETA_SIGMA)
+    th, sd = x1[10:13], np.sqrt(np.diag(P1)[10:13])
+    combo, want = 100 * th[2] + 10 * th[0], 100 * theta[2] + 10 * theta[0]
+    assert abs(combo - want) < 0.05 * abs(want)
+    assert np.all(np.abs(th - theta) < 3 * sd)
+    assert np.linalg.norm(x1[3:5] - v[0:2]) < 0.1 * np.linalg.norm(pred[0:2])
+    last = log["second"][-1]
+    et = th - theta
+    assert last["nees_theta"] == pytest.approx(float(et @ np.linalg.solve(P1[10:13, 10:13], et)), rel=1e-9)
+
+
+def test_pointing_bias_starts_at_zero_with_the_registered_sigma():
+    """Protects theta's prior: value 0, sigma 2.2e-4 rad per axis,
+    uncorrelated with everything else."""
+    x, P = NF.augment(np.zeros(9), np.diag(NF.P0_SIGMA ** 2), flat_dem())
+    assert np.all(x[10:13] == 0.0)
+    assert np.allclose(np.diag(P)[10:13], (2.2e-4) ** 2, rtol=1e-12)
+    assert np.all(P[10:13, :10] == 0.0)
+
+
+def test_doppler_rows_on_theta_are_minus_v_cross():
+    """Protects the measurement rows' sign: [a x] b = a x b, so theta x v =
+    -[v x] theta."""
+    a, b = np.array([0.3, -1.2, 2.0]), np.array([4.0, 0.5, -1.0])
+    assert np.allclose(NF.skew(a) @ b, np.cross(a, b))
+    assert np.allclose(-NF.skew(b) @ a, np.cross(a, b))
+
+
+@pytest.mark.skipif(not os.environ.get("LLG_DATA"), reason="needs LLG_DATA")
+@pytest.mark.parametrize("job, want", [
+    ((20261030, 0, 0), dict(t="63ab6f33f228a9de", pos="9bb7548508cd552e", vel="a9ef43724ad9ddf5",
+                            f_meas="07f3ea4cc0d9ea17", alt="7c257f9e6d57c0c7", dop0="aaeb2bff26b11444",
+                            x0="656370ffc879a980", bias="a99cfe155f7872ca")),
+    ((20261031, 3, 24), dict(t="128de8ea19478299", pos="8501b8bbc70a3feb", vel="61ab4b38ec217c07",
+                             f_meas="2bab071d4f627e99", alt="29df2000bab606a8", dop0="b1f13cfac3683930",
+                             x0="ce576306fbfa06a1", bias="bdb007aadcee0248"))])
+def test_pointing_bias_leaves_each_seeds_existing_truth_unchanged(job, want):
+    """Protects the draw order: theta is drawn after every earlier draw, so
+    the truth, the IMU and altimeter measurements, the Doppler noise and the
+    initial estimate of a seed are byte for byte those of revision 3d
+    (sha256 prefixes pinned from commit 5af1bec's prepare), and theta enters
+    the Doppler measurement as theta x v."""
+    import hashlib
+    import importlib.util
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    import sys
+    sys.path.insert(0, str(root / "examples"))
+    spec = importlib.util.spec_from_file_location("nav_baselines", root / "examples" / "nav_baselines.py")
+    NB = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(NB)
+    p = NB.prepare(*job, with_images=False)
+    got = {k: hashlib.sha256(np.ascontiguousarray(p[k]).tobytes()).hexdigest()[:16] for k in want}
+    assert got == want
+    ok = np.isfinite(p["dop"][:, 0])
+    assert np.allclose(p["dop"][ok] - p["dop0"][ok], np.cross(p["theta"], p["vel"][ok]), rtol=0, atol=1e-12)
+    assert np.all(np.abs(p["theta"]) < 5 * NF.THETA_SIGMA) and np.any(p["theta"] != 0.0)

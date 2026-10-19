@@ -125,7 +125,7 @@ def test_update_uses_the_second_pass_with_r_s0_squared():
                     refine=lambda xy: dict(fix=(x[0] + 12.0, x[1] - 7.0)))
     log, seen = _run({1.0: first})
     P = seen[0]["P"]
-    H = np.zeros((2, 10))
+    H = np.zeros((2, NF.N_STATES))
     H[0, 0] = H[1, 1] = 1.0
     R = np.diag([2.7 ** 2, 2.4 ** 2])
     K = P @ H.T @ np.linalg.inv(H @ P @ H.T + R)
@@ -204,7 +204,7 @@ def test_update_uses_r5_noise_at_the_vertical_sigma_of_the_fix():
     log, seen = _run({1.0: first})
     P = seen[0]["P"]
     R = NF.trn_R5(CONST3D, np.sqrt(P[2, 2]))
-    H = np.zeros((2, 10))
+    H = np.zeros((2, NF.N_STATES))
     H[0, 0] = H[1, 1] = 1.0
     K = P @ H.T @ np.linalg.inv(H @ P @ H.T + R)
     rec = log["fixes"][0]

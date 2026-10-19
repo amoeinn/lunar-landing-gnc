@@ -48,7 +48,7 @@ from lunar_landing_gnc import premise as P  # noqa: E402
 from lunar_landing_gnc.paths import WORK  # noqa: E402
 
 OUT = WORK / "step3_4"
-RUN = WORK / "step3_5f"         # revision 3f's runs (3d's are in step3_5); OUT keeps the constants and revision 2's
+RUN = WORK / "step3_5g"         # revision 3g's runs (3d's in step3_5, 3f's in step3_5f); OUT keeps the constants
 WORKERS = 8
 SPAWN = multiprocessing.get_context("spawn")
 _C = {}
@@ -166,16 +166,15 @@ def flight_done(job):
 def filter_constants():
     """The filter's recorded constants: the peak-margin threshold
     (trn_constants.json), s0, k per axis (trn_noise_fit.json) and the
-    terrain offset's correlation length L (b_corr.json), the second pass's
-    remedy (trn_remedy.json, revision 3d) and its noise s0 and j measured in
-    the closed loop (trn_closedloop.json, revision 3f)."""
+    terrain offset's correlation length L (b_corr.json), and the second
+    pass, R5 from a three-point dither, with its noise s0 and j
+    (trn_dither.json, revision 3g)."""
     c = json.loads((OUT / "trn_constants.json").read_text())
     f = json.loads((OUT / "trn_noise_fit.json").read_text())
     b = json.loads(B_CORR.read_text())
-    r = json.loads(TRN_REMEDY.read_text())
-    n = json.loads(TRN_CLOSEDLOOP.read_text())
+    n = json.loads(TRN_DITHER.read_text())
     return dict(margin_threshold=c["margin_threshold"], s0_x=f["s0_x"], k_x=f["k_x"], s0_y=f["s0_y"], k_y=f["k_y"],
-                L=float(b["L"]), remedy=r["remedy"], r5_s0_x=n["s0_x"], r5_s0_y=n["s0_y"], r5_j_x=n["j_x"],
+                L=float(b["L"]), remedy=n["remedy"], r5_s0_x=n["s0_x"], r5_s0_y=n["s0_y"], r5_j_x=n["j_x"],
                 r5_j_y=n["j_y"])
 
 
@@ -390,6 +389,7 @@ B_CORR = OUT / "b_corr.json"
 TRN_CORR = OUT / "trn_corr.json"
 TRN_REMEDY = OUT / "trn_remedy.json"
 TRN_CLOSEDLOOP = OUT / "trn_closedloop.json"
+TRN_DITHER = OUT / "trn_dither.json"
 DIAG = WORK / "step3_4d"
 B_CORR_MAX_LAG = 600
 
@@ -806,8 +806,9 @@ def cmd_report():
     at gap 0 (navscore), and the bar's reported-regardless list."""
     from lunar_landing_gnc import navscore as SC
     res = {}
-    consts = dict(L=json.loads(B_CORR.read_text())["L"], remedy=json.loads(TRN_REMEDY.read_text())["remedy"],
-                  **{k: v for k, v in json.loads(TRN_CLOSEDLOOP.read_text()).items() if k in ("s0_x", "s0_y", "j_x", "j_y")})
+    consts = dict(L=json.loads(B_CORR.read_text())["L"],
+                  **{k: v for k, v in json.loads(TRN_DITHER.read_text()).items()
+                     if k in ("remedy", "s0_x", "s0_y", "j_x", "j_y")})
     for seed in SEEDS:
         flights = [json.loads(flight_done(j).read_text()) for j in flight_jobs(seed) if flight_done(j).exists()]
         g0 = [f["gaps"]["0.0"] for f in flights]
@@ -815,14 +816,12 @@ def cmd_report():
         toff = {t: SC.average([r["toff_at"].get(t) for r in g0], 1) for t in SC.TIMES}
         gate = [fx["nis"] for r in g0 for fx in r["fixes"] if fx.get("status", "").startswith("accepted")]
         low = np.array([f["contact"]["lowest_guided"] for f in flights])
-        pb = np.array([r["pointing_bound_m"] for r in g0])
         theta = {t: SC.average([r["theta_at"].get(t) for r in g0], 3) for t in SC.TIMES}
         res[str(seed)] = dict(flights=len(flights), score=sc, toff=toff, theta=theta, gate_nis=float(np.mean(gate)),
                               start_bins=start_bins(g0), consecutive=consecutive(g0),
                               strikes=sum(f["contact"]["kind"] == "terrain strike" for f in flights),
                               touchdown_on_slope=sum(f["contact"]["kind"] == "touchdown on slope" for f in flights),
                               lowest_guided=dict(min=float(low.min()), median=float(np.median(low))),
-                              pointing_bound=dict(median=float(np.median(pb)), max=float(pb.max())),
                               gaps={str(g): gap_summary(flights, g) for g in GAPS})
     res["constants"] = consts
     save(RUN / "report.json", res)
@@ -862,12 +861,11 @@ def cmd_report():
         p("  TRN applied NIS: " + "; ".join(f"{ft} s {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f})"
                                             f"{'' if v['inside'] else ' *'}" for ft, v in sc["trn"].items()))
         p(f"  terrain strikes {r['strikes']}; touchdown on slope {r['touchdown_on_slope']}; lowest guided clearance "
-          f"{r['lowest_guided']['min']:.1f} m (median {r['lowest_guided']['median']:.1f}); pointing-bias bound median "
-          f"{r['pointing_bound']['median']:.2f} m, max {r['pointing_bound']['max']:.2f} m")
+          f"{r['lowest_guided']['min']:.1f} m (median {r['lowest_guided']['median']:.1f})")
         for g in GAPS:
             q = r["gaps"][str(g)]
             p(f"  gap {g:+5.0f} h: accepted {q['accepted']} of {q['fixes']}; lost lock {q['lost_lock']}; offline "
-              f"{q['offline']}; R5 left its cell {q['left']}; horizontal error 45 s median {q['herr']['45.0']['median']:.2f}"
+              f"{q['offline']}; second pass fell back to the parabola {q['left']}; horizontal error 45 s median {q['herr']['45.0']['median']:.2f}"
               f" p95 {q['herr']['45.0']['p95']:.2f}, end median {q['herr']['end']['median']:.2f} p95 "
               f"{q['herr']['end']['p95']:.2f} m")
             for name in ("first", "second"):

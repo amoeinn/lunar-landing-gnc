@@ -227,10 +227,10 @@ def test_r5_leaving_its_cell_falls_back_to_the_parabola_with_revision_2_noise():
 
 
 
-def test_filter_constants_take_r5_noise_from_the_closed_loop_file(tmp_path):
-    """Protects revision 3f's wiring: s0 and j come from trn_closedloop.json,
-    not from trn_remedy.json (which still names the remedy), x's on x and
-    y's on y; R at sigma_z = 0 is s0^2."""
+def test_filter_constants_take_the_second_pass_and_its_noise_from_the_dither_file(tmp_path):
+    """Protects revision 3g's wiring: the second pass and its s0 and j come
+    from trn_dither.json, not from the earlier records, x's on x and y's on
+    y; R at sigma_z = 0 is s0^2."""
     import importlib.util
     import json
     import sys
@@ -242,7 +242,8 @@ def test_filter_constants_take_r5_noise_from_the_closed_loop_file(tmp_path):
     spec.loader.exec_module(NB)
     files = dict(CONSTANTS=dict(margin_threshold=0.05), NOISE_FIT=dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005),
                  B_CORR=dict(L=408), TRN_REMEDY=dict(remedy="R5", s0_x=0.13, s0_y=0.12, j_x=0.059, j_y=0.044),
-                 TRN_CLOSEDLOOP=dict(s0_x=0.29, s0_y=0.27, j_x=0.054, j_y=0.042))
+                 TRN_CLOSEDLOOP=dict(s0_x=0.29, s0_y=0.27, j_x=0.054, j_y=0.042),
+                 TRN_DITHER=dict(remedy="R5D", s0_x=0.04, s0_y=0.053, j_x=0.048, j_y=0.035))
     for name, rec in files.items():
         path = tmp_path / f"{name}.json"
         path.write_text(json.dumps(rec))
@@ -251,9 +252,9 @@ def test_filter_constants_take_r5_noise_from_the_closed_loop_file(tmp_path):
     (tmp_path / "trn_constants.json").write_text(json.dumps(files["CONSTANTS"]))
     (tmp_path / "trn_noise_fit.json").write_text(json.dumps(files["NOISE_FIT"]))
     c = NB.filter_constants()
-    assert (c["r5_s0_x"], c["r5_s0_y"], c["r5_j_x"], c["r5_j_y"]) == (0.29, 0.27, 0.054, 0.042)
-    assert c["remedy"] == "R5"
-    assert np.allclose(np.diag(NF.trn_R5(c, 0.0)), [0.29 ** 2, 0.27 ** 2], rtol=1e-12)
+    assert (c["r5_s0_x"], c["r5_s0_y"], c["r5_j_x"], c["r5_j_y"]) == (0.04, 0.053, 0.048, 0.035)
+    assert c["remedy"] == "R5D"
+    assert np.allclose(np.diag(NF.trn_R5(c, 0.0)), [0.04 ** 2, 0.053 ** 2], rtol=1e-12)
 
 
 

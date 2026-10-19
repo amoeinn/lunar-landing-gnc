@@ -48,7 +48,7 @@ from lunar_landing_gnc import premise as P  # noqa: E402
 from lunar_landing_gnc.paths import WORK  # noqa: E402
 
 OUT = WORK / "step3_4"
-RUN = WORK / "step3_5"          # revision 3d's runs; OUT keeps the constants and revision 2's runs
+RUN = WORK / "step3_5f"         # revision 3f's runs (3d's are in step3_5); OUT keeps the constants and revision 2's
 WORKERS = 8
 SPAWN = multiprocessing.get_context("spawn")
 _C = {}
@@ -572,6 +572,7 @@ def cmd_accept():
         for b, d in SC.BLOCK_DOF.items():
             row[b] = SC.average([r["bar"]["blocks"][t][b] if t in r["bar"]["blocks"] else None for r in runs], d)
         row["toff"] = SC.average([r["toff_at"].get(t) for r in runs], 1)
+        row["theta"] = SC.average([r["theta_at"].get(t) for r in runs], 3)
         inside += int(row["nees"]["inside"])
         rows[t] = row
     nis = nis_rows(runs)
@@ -589,11 +590,11 @@ def cmd_accept():
     lo, hi = SC.bounds(9, n)
     print(f"{n} flights of seed {ACCEPT_SEED}, gap 0; overall NEES bounds {lo:.2f} to {hi:.2f}; block bounds "
           + ", ".join(f"{b} {SC.bounds(d, n)[0]:.2f} to {SC.bounds(d, n)[1]:.2f}" for b, d in
-                      list(SC.BLOCK_DOF.items()) + [("toff", 1)]) + " (* outside)")
-    print(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff"]))
+                      list(SC.BLOCK_DOF.items()) + [("toff", 1), ("theta", 3)]) + " (* outside)")
+    print(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff", "theta"]))
     for t, row in rows.items():
         print(f"  {t:>7} {row['nees']['mean']:8.2f}{' ' if row['nees']['inside'] else '*'}" + "".join(
-            f" {row[b]['mean']:7.2f}{' ' if row[b]['inside'] else '*'}" for b in list(SC.BLOCK_DOF) + ["toff"]))
+            f" {row[b]['mean']:7.2f}{' ' if row[b]['inside'] else '*'}" for b in list(SC.BLOCK_DOF) + ["toff", "theta"]))
     print("altimeter NIS by band: " + "; ".join(
         f"{bd} {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f}){'' if v['inside'] else ' *'}"
         if v["n"] else f"{bd} none" for bd, v in nis["alt"].items()))
@@ -760,13 +761,53 @@ def gap_summary(flights, g):
                 left=sum(fx.get("status") == "accepted, second pass parabola" for fx in acc))
 
 
+START_EDGES = (0.0, 0.25, 0.5, 1.0, 2.0, 5.0, np.inf)
+
+
+def start_bins(runs):
+    """R5's gap-0 error at 20 to 40 s by its start's distance from the truth
+    (the first pass's error), the bins of step 3.4i."""
+    d, e = [], []
+    for r in runs:
+        for fx in r["fixes"]:
+            if fx["t"] in (20.0, 30.0, 40.0) and fx.get("status", "").startswith("accepted") \
+                    and fx.get("pass2", {}).get("fix") is not None:
+                d.append(float(np.hypot(*fx["error_xy"])))
+                e.append(float(np.hypot(*fx["pass2"]["error_xy"])))
+    d, e = np.array(d), np.array(e)
+    out = []
+    for a, b in zip(START_EDGES[:-1], START_EDGES[1:]):
+        m = (d >= a) & (d < b)
+        out.append(dict(lo=a, hi=b, n=int(m.sum()), median=float(np.median(e[m])) if m.any() else None,
+                        p90=float(np.quantile(e[m], 0.9)) if m.any() else None))
+    return dict(bins=out, start_median=float(np.median(d)), n=int(len(d)))
+
+
+def consecutive(runs):
+    """Correlation, per axis, of the second-pass errors of a flight's fixes at
+    consecutive fix times."""
+    out = {}
+    for a, b in ((10.0, 20.0), (20.0, 30.0), (30.0, 40.0)):
+        u, v = [], []
+        for r in runs:
+            d = {fx["t"]: fx["pass2"]["error_xy"] for fx in r["fixes"]
+                 if fx.get("status", "").startswith("accepted") and fx.get("pass2", {}).get("fix") is not None}
+            if a in d and b in d:
+                u.append(d[a])
+                v.append(d[b])
+        u, v = np.array(u), np.array(v)
+        out[f"{a:.0f}/{b:.0f}"] = dict(n=int(len(u)), x=float(np.corrcoef(u[:, 0], v[:, 0])[0, 1]),
+                                       y=float(np.corrcoef(u[:, 1], v[:, 1])[0, 1]))
+    return out
+
+
 def cmd_report():
-    """Revision 3d baselines: the step 3.5 bar scored on each reference seed
+    """Revision 3d and 3f baselines: the step 3.5 bar scored on each reference seed
     at gap 0 (navscore), and the bar's reported-regardless list."""
     from lunar_landing_gnc import navscore as SC
     res = {}
-    consts = dict(L=json.loads(B_CORR.read_text())["L"], **{k: v for k, v in json.loads(TRN_REMEDY.read_text()).items()
-                                                            if k in ("remedy", "s0_x", "s0_y", "j_x", "j_y")})
+    consts = dict(L=json.loads(B_CORR.read_text())["L"], remedy=json.loads(TRN_REMEDY.read_text())["remedy"],
+                  **{k: v for k, v in json.loads(TRN_CLOSEDLOOP.read_text()).items() if k in ("s0_x", "s0_y", "j_x", "j_y")})
     for seed in SEEDS:
         flights = [json.loads(flight_done(j).read_text()) for j in flight_jobs(seed) if flight_done(j).exists()]
         g0 = [f["gaps"]["0.0"] for f in flights]
@@ -775,7 +816,9 @@ def cmd_report():
         gate = [fx["nis"] for r in g0 for fx in r["fixes"] if fx.get("status", "").startswith("accepted")]
         low = np.array([f["contact"]["lowest_guided"] for f in flights])
         pb = np.array([r["pointing_bound_m"] for r in g0])
-        res[str(seed)] = dict(flights=len(flights), score=sc, toff=toff, gate_nis=float(np.mean(gate)),
+        theta = {t: SC.average([r["theta_at"].get(t) for r in g0], 3) for t in SC.TIMES}
+        res[str(seed)] = dict(flights=len(flights), score=sc, toff=toff, theta=theta, gate_nis=float(np.mean(gate)),
+                              start_bins=start_bins(g0), consecutive=consecutive(g0),
                               strikes=sum(f["contact"]["kind"] == "terrain strike" for f in flights),
                               touchdown_on_slope=sum(f["contact"]["kind"] == "touchdown on slope" for f in flights),
                               lowest_guided=dict(min=float(low.min()), median=float(np.median(low))),
@@ -793,15 +836,24 @@ def cmd_report():
         p(f"\nseed {seed}: {r['flights']} flights; bar {'PASSED' if sc['passed'] else 'NOT PASSED'}")
         for c, v in sc["criteria"].items():
             p(f"  criterion {c}: {'met' if v['met'] else 'NOT MET'}; value {v['value']}; bar {v['bar']}")
-        p(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff"]) + "   (* outside)")
+        p(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff", "theta"])
+          + "   (* outside)")
         for t in SC.TIMES:
             row = sc["nees"][t]
             p(f"  {t:>7} {row['mean']:8.2f}{' ' if row['inside'] else '*'}" + "".join(
                 f" {sc['blocks'][t][b]['mean']:7.2f}{' ' if sc['blocks'][t][b]['inside'] else '*'}" for b in SC.BLOCK_DOF)
-              + f" {r['toff'][t]['mean']:7.2f}{' ' if r['toff'][t]['inside'] else '*'}")
+              + f" {r['toff'][t]['mean']:7.2f}{' ' if r['toff'][t]['inside'] else '*'}"
+              + f" {r['theta'][t]['mean']:7.2f}{' ' if r['theta'][t]['inside'] else '*'}")
         p(f"  bounds (n {sc['nees']['end']['n']}): NEES {sc['nees']['end']['lo']:.2f} to {sc['nees']['end']['hi']:.2f}; "
           + ", ".join(f"{b} {sc['blocks']['end'][b]['lo']:.2f} to {sc['blocks']['end'][b]['hi']:.2f}" for b in SC.BLOCK_DOF)
-          + f", toff {r['toff']['end']['lo']:.2f} to {r['toff']['end']['hi']:.2f}")
+          + f", toff {r['toff']['end']['lo']:.2f} to {r['toff']['end']['hi']:.2f}, theta {r['theta']['end']['lo']:.2f} "
+            f"to {r['theta']['end']['hi']:.2f}")
+        p(f"  R5 gap-0 error at 20 to 40 s by start distance (n {r['start_bins']['n']}, start median "
+          f"{r['start_bins']['start_median']:.3f} m): " + "; ".join(
+              f"{q['lo']:g} to {q['hi']:g} m n {q['n']}" + (f" median {q['median']:.3f} p90 {q['p90']:.3f}" if q["n"] else "")
+              for q in r["start_bins"]["bins"]))
+        p("  consecutive-fix second-pass error correlation, x / y: " + "; ".join(
+            f"{k} s n {v['n']} {v['x']:+.3f} / {v['y']:+.3f}" for k, v in r["consecutive"].items()))
         p("  altimeter NIS: " + "; ".join(f"{bd} {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f})"
                                           f"{'' if v['inside'] else ' *'}" for bd, v in sc["alt"].items()))
         d = sc["doppler"]

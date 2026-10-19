@@ -1,0 +1,3 @@
+[submodule "src/extern/Clarabel.cpp"]
+	path = src/extern/Clarabel.cpp
+	url = https://github.com/oxfordcontrol/Clarabel.cpp.git

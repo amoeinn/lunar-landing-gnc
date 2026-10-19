@@ -224,3 +224,33 @@ def test_r5_leaving_its_cell_falls_back_to_the_parabola_with_revision_2_noise():
     rec = log["fixes"][0]
     assert rec["status"] == "accepted, second pass parabola"
     assert rec["R_used"] == pytest.approx([2.7 ** 2, 2.4 ** 2])
+
+
+
+def test_filter_constants_take_r5_noise_from_the_closed_loop_file(tmp_path):
+    """Protects revision 3f's wiring: s0 and j come from trn_closedloop.json,
+    not from trn_remedy.json (which still names the remedy), x's on x and
+    y's on y; R at sigma_z = 0 is s0^2."""
+    import importlib.util
+    import json
+    import sys
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / "examples"))
+    spec = importlib.util.spec_from_file_location("nav_baselines_t", root / "examples" / "nav_baselines.py")
+    NB = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(NB)
+    files = dict(CONSTANTS=dict(margin_threshold=0.05), NOISE_FIT=dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005),
+                 B_CORR=dict(L=408), TRN_REMEDY=dict(remedy="R5", s0_x=0.13, s0_y=0.12, j_x=0.059, j_y=0.044),
+                 TRN_CLOSEDLOOP=dict(s0_x=0.29, s0_y=0.27, j_x=0.054, j_y=0.042))
+    for name, rec in files.items():
+        path = tmp_path / f"{name}.json"
+        path.write_text(json.dumps(rec))
+        setattr(NB, name, path)
+    NB.OUT = tmp_path
+    (tmp_path / "trn_constants.json").write_text(json.dumps(files["CONSTANTS"]))
+    (tmp_path / "trn_noise_fit.json").write_text(json.dumps(files["NOISE_FIT"]))
+    c = NB.filter_constants()
+    assert (c["r5_s0_x"], c["r5_s0_y"], c["r5_j_x"], c["r5_j_y"]) == (0.29, 0.27, 0.054, 0.042)
+    assert c["remedy"] == "R5"
+    assert np.allclose(np.diag(NF.trn_R5(c, 0.0)), [0.29 ** 2, 0.27 ** 2], rtol=1e-12)

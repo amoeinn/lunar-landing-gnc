@@ -251,9 +251,49 @@ def cmd_record():
     print(f"s {rec['s_x']:.4f} / {rec['s_y']:.4f} m; sha256 {hashlib.sha256(HEIGHT.read_bytes()).hexdigest()}")
 
 
+CLOSEDLOOP = WORK / "step3_4" / "trn_closedloop.json"
+
+
+def cmd_closedloop():
+    """Revision 3f TRN noise from the step 3.4i logs (the closed loop R5 runs
+    in), recorded once: per axis s0, the pooled plain SD of R5's errors as
+    flown at 20, 30 and 40 s, both seeds; j = sqrt(max(0, SD at 10 s ^ 2 -
+    s0 ^ 2)) / RMS sigma_z at the 10 s fixes. The source logs' hashes are
+    recorded: each file's sha256, and one over them in job order."""
+    import hashlib
+    assert not CLOSEDLOOP.exists(), "already recorded"
+    rs, same = rows()
+    assert all(same)
+    e = {t: np.array([q["e"] for q in rs if q["t"] == t]) for t in (10.0, 20.0, 30.0, 40.0)}
+    late = np.concatenate([e[t] for t in RULE_TIMES])
+    s0 = late.std(axis=0, ddof=1)
+    sd10 = e[10.0].std(axis=0, ddof=1)
+    sz = np.array([q["sigma_z"] for q in rs if q["t"] == 10.0])
+    rms_sz = float(np.sqrt(np.mean(sz ** 2)))
+    j = np.sqrt(np.maximum(0.0, sd10 ** 2 - s0 ** 2)) / rms_sz
+    files = [done_path(jb) for s in SEEDS for jb in jobs(s)]
+    per = {str(f.relative_to(WORK)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
+    combined = hashlib.sha256("".join(per.values()).encode()).hexdigest()
+    rec = dict(s0_x=float(s0[0]), s0_y=float(s0[1]), j_x=float(j[0]), j_y=float(j[1]),
+               inputs=dict(late_fixes=int(len(late)), late_times=list(RULE_TIMES), sd_late=s0.tolist(),
+                           fixes_10s=int(len(e[10.0])), sd_10s=sd10.tolist(), sigma_z_10s_rms=rms_sz,
+                           sigma_z_10s_min=float(sz.min()), sigma_z_10s_max=float(sz.max())),
+               model="per axis R = s0^2 + (j sigma_z)^2, sigma_z the filter's vertical sigma at the fix (as 3d)",
+               source_logs=dict(n=len(files), combined_sha256=combined, files=per),
+               source="step 3.4i logs (commit 5af1bec): revision 3d gap-0 accepted fixes, R5 as flown, seeds "
+                      "20261030 and 20261031; PLAN.md filter design revision 3f",
+               recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
+    NB.save(CLOSEDLOOP, rec)
+    print(f"s0 {rec['s0_x']:.4f} / {rec['s0_y']:.4f} m over {len(late)} fixes at 20 to 40 s; SD at 10 s "
+          f"{sd10[0]:.4f} / {sd10[1]:.4f} m over {len(e[10.0])}; RMS sigma_z at 10 s {rms_sz:.4f} m "
+          f"({sz.min():.4f} to {sz.max():.4f}); j {rec['j_x']:.5f} / {rec['j_y']:.5f}")
+    print(f"source logs: {len(files)} files, combined sha256 {combined}")
+    print(f"sha256 {hashlib.sha256(CLOSEDLOOP.read_bytes()).hexdigest()}")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "run":
         cmd_run(int(sys.argv[2]))
     else:
-        dict(calibrate=cmd_calibrate, report=cmd_report, record=cmd_record)[cmd]()
+        dict(calibrate=cmd_calibrate, report=cmd_report, record=cmd_record, closedloop=cmd_closedloop)[cmd]()

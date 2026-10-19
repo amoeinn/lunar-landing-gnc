@@ -166,15 +166,17 @@ def flight_done(job):
 def filter_constants():
     """The filter's recorded constants: the peak-margin threshold
     (trn_constants.json), s0, k per axis (trn_noise_fit.json) and the
-    terrain offset's correlation length L (b_corr.json), and the second
-    pass's remedy with its s0 and j (trn_remedy.json, revision 3d)."""
+    terrain offset's correlation length L (b_corr.json), the second pass's
+    remedy (trn_remedy.json, revision 3d) and its noise s0 and j measured in
+    the closed loop (trn_closedloop.json, revision 3f)."""
     c = json.loads((OUT / "trn_constants.json").read_text())
     f = json.loads((OUT / "trn_noise_fit.json").read_text())
     b = json.loads(B_CORR.read_text())
     r = json.loads(TRN_REMEDY.read_text())
+    n = json.loads(TRN_CLOSEDLOOP.read_text())
     return dict(margin_threshold=c["margin_threshold"], s0_x=f["s0_x"], k_x=f["k_x"], s0_y=f["s0_y"], k_y=f["k_y"],
-                L=float(b["L"]), remedy=r["remedy"], r5_s0_x=r["s0_x"], r5_s0_y=r["s0_y"], r5_j_x=r["j_x"],
-                r5_j_y=r["j_y"])
+                L=float(b["L"]), remedy=r["remedy"], r5_s0_x=n["s0_x"], r5_s0_y=n["s0_y"], r5_j_x=n["j_x"],
+                r5_j_y=n["j_y"])
 
 
 def _static():
@@ -387,6 +389,7 @@ def cmd_noisefit():
 B_CORR = OUT / "b_corr.json"
 TRN_CORR = OUT / "trn_corr.json"
 TRN_REMEDY = OUT / "trn_remedy.json"
+TRN_CLOSEDLOOP = OUT / "trn_closedloop.json"
 DIAG = WORK / "step3_4d"
 B_CORR_MAX_LAG = 600
 

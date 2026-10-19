@@ -78,6 +78,8 @@ R1_PASSES = 5
 DITHER_M = 10.0
 REMEDIES = ("current", "R1", "R2", "R3", "R4", "R1+R2", "R1+R3", "R1+R4")
 REMEDIES_3C = ("current", "R5", "R1+R5")
+DITHER3_M = 3.0
+DITHER3_DEG = (90.0, 210.0, 330.0)
 
 
 def _bounded(r, start, cell=CELL_M):
@@ -107,12 +109,38 @@ def _single(method, img, cam, xy, z, grid, heights, reference):
     raise ValueError(method)
 
 
+def dither_starts(xy, radius_m=DITHER3_M, angles_deg=DITHER3_DEG):
+    """Revision 3g's three starts: xy offset by radius_m in each direction
+    (degrees from map +x toward map +y)."""
+    return [(float(xy[0]) + radius_m * np.cos(np.radians(a)), float(xy[1]) + radius_m * np.sin(np.radians(a)))
+            for a in angles_deg]
+
+
+def _dither3(img, cam, xy, z, grid, heights, reference):
+    """R5D (revision 3g): R5 from the three dither starts, each with R5's own
+    fallback (the parabola from that start if it leaves its cell), and the
+    per-axis median of the fixes that have a position. register is "ok" only
+    when all three runs registered (a choice made here: otherwise the fix
+    is treated as a parabola fix and gets revision 2's second-pass R)."""
+    runs = [_single("R5", img, cam, st, z, grid, heights, reference) for st in dither_starts(xy)]
+    got = [r for r in runs if r["fix"] is not None]
+    if not got:
+        return dict(runs[0], fix=None)
+    out = dict(got[0])
+    out["fix"] = (float(np.median([r["fix"][0] for r in got])), float(np.median([r["fix"][1] for r in got])))
+    out["register"] = "ok" if len(got) == 3 and all(r.get("register") == "ok" for r in got) else "left"
+    out["dithers"] = [None if r["fix"] is None else list(r["fix"]) for r in runs]
+    out["dither_registers"] = [r.get("register") for r in runs]
+    return out
+
+
 def second_pass(method, img, cam, xy, z, grid, heights, reference):
     """The second pass from xy by a revision 3b or 3c method: "current",
     "R1" (the current pass repeated from its own result until it moves less
     than 1 m, at most 5 passes), "R2", "R3", "R4", "R5" (2D registration
-    against the map's bilinear interpolant, revision 3c), or "R1+X" (X
-    repeated so)."""
+    against the map's bilinear interpolant, revision 3c), "R5D" (R5 from a
+    three-point dither, per-axis median, revision 3g) or "R1+X" (X repeated
+    so)."""
     start = (float(xy[0]), float(xy[1]))
     if method == "R1" or method.startswith("R1+"):
         inner = "current" if method == "R1" else method[3:]
@@ -128,6 +156,8 @@ def second_pass(method, img, cam, xy, z, grid, heights, reference):
             if moved < R1_TOL_M:
                 break
         r = dict(r, passes=passes)
+    elif method == "R5D":
+        r = _dither3(img, cam, start, z, grid, heights, reference)
     else:
         r = _single(method, img, cam, start, z, grid, heights, reference)
     return _bounded(r, start)

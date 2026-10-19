@@ -254,3 +254,85 @@ def test_filter_constants_take_r5_noise_from_the_closed_loop_file(tmp_path):
     assert (c["r5_s0_x"], c["r5_s0_y"], c["r5_j_x"], c["r5_j_y"]) == (0.29, 0.27, 0.054, 0.042)
     assert c["remedy"] == "R5"
     assert np.allclose(np.diag(NF.trn_R5(c, 0.0)), [0.29 ** 2, 0.27 ** 2], rtol=1e-12)
+
+
+
+# revision 3g: R5 from a three-point dither
+
+def test_dither_starts_are_three_metres_out_at_90_210_330_degrees():
+    """Protects where the dither starts: 3 m from the first pass's position
+    at 90, 210 and 330 deg from map +x toward +y, so 5.2 m apart."""
+    st = navtrn.dither_starts((100.0, -50.0))
+    want = [(100.0, -47.0), (100.0 - 1.5 * np.sqrt(3.0), -51.5), (100.0 + 1.5 * np.sqrt(3.0), -51.5)]
+    assert np.allclose(st, want, atol=1e-12)
+    d = [np.hypot(st[i][0] - st[j][0], st[i][1] - st[j][1]) for i, j in ((0, 1), (1, 2), (0, 2))]
+    assert np.allclose(d, 3.0 * np.sqrt(3.0))
+
+
+def test_dither_median_discards_the_run_started_in_the_dead_zone(monkeypatch):
+    """Protects the per-axis median: with R5 replaced by a stand-in that is
+    0.4 m off (on both axes) when started within 0.5 m of the truth and 0.02
+    m off otherwise, a first-pass position that puts one dither start on the
+    truth gives a fix 0.02 m off: the dead-zone run is outvoted."""
+    truth = np.array([500.0, 200.0])
+
+    def stand_in(method, img, cam, xy, z, grid, heights, reference):
+        near = np.hypot(xy[0] - truth[0], xy[1] - truth[1]) < 0.5
+        off = 0.4 if near else 0.02
+        return dict(fix=(truth[0] + off, truth[1] - off), register="ok")
+    monkeypatch.setattr(navtrn, "_single", stand_in)
+    start = (truth[0], truth[1] - 3.0)                  # the 90 deg start lands on the truth
+    r = navtrn.second_pass("R5D", None, None, start, 1000.0, None, None, None)
+    assert np.allclose(r["fix"], (truth[0] + 0.02, truth[1] - 0.02), atol=1e-12)
+    assert r["register"] == "ok" and np.allclose(r["dithers"][0], (truth[0] + 0.4, truth[1] - 0.4))
+
+
+def test_dither_with_a_run_that_left_its_cell_is_flagged(monkeypatch):
+    """Protects the dither's fallback flag: if any run fell back to the
+    parabola the fix is flagged "left" (so the filter uses revision 2's
+    second-pass R); a run with no position is dropped from the median."""
+    regs = iter(["ok", "left", "ok"])
+
+    def stand_in(method, img, cam, xy, z, grid, heights, reference):
+        return dict(fix=(xy[0], xy[1]), register=next(regs))
+    monkeypatch.setattr(navtrn, "_single", stand_in)
+    assert navtrn.second_pass("R5D", None, None, (0.0, 0.0), 1.0, None, None, None)["register"] == "left"
+    fixes = iter([(1.0, 2.0), None, (3.0, 6.0)])
+
+    def stand_in2(method, img, cam, xy, z, grid, heights, reference):
+        f = next(fixes)
+        return dict(fix=f, register="ok")
+    monkeypatch.setattr(navtrn, "_single", stand_in2)
+    r = navtrn.second_pass("R5D", None, None, (0.0, 0.0), 1.0, None, None, None)
+    assert r["fix"] == (2.0, 4.0) and r["register"] == "left"
+
+
+def test_r5_itself_is_unchanged_by_the_dither():
+    """Protects R5: from fixed starts on this scene it returns exactly what
+    commit b94fb58's code returned (pinned)."""
+    cam, img, heights, field, z = SCENE
+    for start, fix in (((XC + 7.0, YC - 4.0), (999.5610718049455, 6000.0392093582295)),
+                       ((XC + 2.0, YC + 1.0), (999.8361193265084, 5999.976944826552))):
+        r = navtrn.second_pass("R5", img, cam, start, z, GRID, heights, field)
+        assert r["fix"] == fix and r["register"] == "ok"
+
+
+def test_first_pass_is_bit_identical_with_the_dither():
+    """Protects the first pass with R5D as the second pass (values pinned
+    from commit d7149cd, as for R5)."""
+    cam, img, heights, field, z = SCENE
+    c = navtrn.candidate(img, cam, np.array([XC + 400.0, YC - 300.0, z]), GRID, heights, field, 35, second="R5D")
+    assert c["fix"] == (974.4671610785988, 5995.421596508979)
+
+
+def test_dither_is_the_median_of_r5_from_the_three_starts():
+    """Protects what the dither runs: on this scene its fix is the per-axis
+    median of R5 (not the parabola) from each of the three starts."""
+    cam, img, heights, field, z = SCENE
+    start = (XC + 5.0, YC - 2.0)
+    runs = [navtrn.second_pass("R5", img, cam, st, z, GRID, heights, field) for st in navtrn.dither_starts(start)]
+    want = (float(np.median([r["fix"][0] for r in runs])), float(np.median([r["fix"][1] for r in runs])))
+    para = [navtrn.second_pass("current", img, cam, st, z, GRID, heights, field) for st in navtrn.dither_starts(start)]
+    para_med = (float(np.median([r["fix"][0] for r in para])), float(np.median([r["fix"][1] for r in para])))
+    assert np.hypot(want[0] - para_med[0], want[1] - para_med[1]) > 0.05
+    assert navtrn.second_pass("R5D", img, cam, start, z, GRID, heights, field)["fix"] == want

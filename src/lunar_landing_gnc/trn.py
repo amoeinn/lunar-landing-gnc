@@ -161,3 +161,88 @@ def correlate(template, reference, radius):
 def fix(p_est_xy, offset_cells, cell_m):
     """The fixed map position: the estimate plus the recovered offset."""
     return (p_est_xy[0] + offset_cells[0] * cell_m, p_est_xy[1] + offset_cells[1] * cell_m)
+
+
+# Second-pass sub-cell remedies (PLAN.md filter design revision 3b). The
+# parabola above is unchanged; these are alternatives the second pass may use.
+
+def _gauss_vertex(cm, c0, cp):
+    """Three-point Gaussian (log-parabola) vertex; the parabola's where a
+    value is not positive or the log-parabola has no maximum."""
+    if min(cm, c0, cp) <= 0.0:
+        return _vertex(cm, c0, cp)
+    lm, l0, lp = np.log(cm), np.log(c0), np.log(cp)
+    den = lm - 2.0 * l0 + lp
+    if not den < 0.0:
+        return _vertex(cm, c0, cp)
+    return 0.5 * (lm - lp) / den
+
+
+def peak_gaussian(surface):
+    """peak() with the three-point Gaussian sub-cell fit per axis."""
+    s = np.asarray(surface, float)
+    out = peak(s)
+    if out["edge"]:
+        return out
+    radius = (s.shape[0] - 1) // 2
+    ix, iy = out["dx_int"] + radius, out["dy_int"] + radius
+    out.update(dx=out["dx_int"] + _gauss_vertex(s[iy, ix - 1], s[iy, ix], s[iy, ix + 1]),
+               dy=out["dy_int"] + _gauss_vertex(s[iy - 1, ix], s[iy, ix], s[iy + 1, ix]))
+    return out
+
+
+FINE_STEP = 0.05
+
+
+def _window(a, r0, r1, c0, c1):
+    """a[r0:r1, c0:c1] with NaN outside a."""
+    out = np.full((r1 - r0, c1 - c0), np.nan)
+    rr0, rr1, cc0, cc1 = max(r0, 0), min(r1, a.shape[0]), max(c0, 0), min(c1, a.shape[1])
+    if rr1 > rr0 and cc1 > cc0:
+        out[rr0 - r0:rr1 - r0, cc0 - c0:cc1 - c0] = a[rr0:rr1, cc0:cc1]
+    return out
+
+
+def _ncc(a, b, need):
+    ok = np.isfinite(a) & np.isfinite(b)
+    if ok.sum() < need:
+        return np.nan
+    a, b = a[ok] - a[ok].mean(), b[ok] - b[ok].mean()
+    den = np.sqrt((a * a).sum() * (b * b).sum())
+    return np.nan if den == 0.0 else float((a * b).sum() / den)
+
+
+def fine_peak(template, reference, coarse, radius, step=FINE_STEP):
+    """The NCC maximum over offsets within one cell of the integer peak, in
+    steps of step cells, the template shifted bilinearly: for offset n + f
+    (n the integer peak), template(g - f) against reference(g + n). Offsets
+    beyond the search radius are not tried. Returns peak()'s dict with dx,
+    dy the best offset and ncc its value."""
+    from scipy.ndimage import map_coordinates
+    out = dict(coarse)
+    if coarse["dx_int"] is None:
+        return out
+    t = np.asarray(template, float)
+    ref = np.asarray(reference, float)
+    rows, cols = np.nonzero(np.isfinite(t))
+    need = max(3, int(np.ceil(MIN_OVERLAP * rows.size)))
+    r0, r1, c0, c1 = rows.min() - 2, rows.max() + 3, cols.min() - 2, cols.max() + 3
+    tw = _window(t, r0, r1, c0, c1)
+    nx, ny = coarse["dx_int"], coarse["dy_int"]
+    rw = _window(ref, r0 - ny, r1 - ny, c0 + nx, c1 + nx)
+    gr, gc = np.mgrid[0:tw.shape[0], 0:tw.shape[1]].astype(float)
+    fs = np.round(np.arange(-1.0, 1.0 + 1e-9, step), 10)
+    best = (-np.inf, 0.0, 0.0)
+    for fy in fs:
+        if abs(ny + fy) > radius:
+            continue
+        for fx in fs:
+            if abs(nx + fx) > radius:
+                continue
+            shifted = map_coordinates(tw, [gr + fy, gc - fx], order=1, mode="constant", cval=np.nan)
+            v = _ncc(shifted, rw, need)
+            if np.isfinite(v) and v > best[0]:
+                best = (v, fx, fy)
+    if np.isfinite(best[0]):
+        out.update(dx=nx + best[1], dy=ny + best[2], ncc=best[0], edge=False)
+    return out

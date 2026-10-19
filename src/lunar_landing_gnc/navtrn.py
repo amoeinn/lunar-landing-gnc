@@ -45,11 +45,16 @@ def fix_pass(img, cam, xy, z, grid, heights, reference, radius, subcell="parabol
         p = dict(trn.peak_gaussian(p["surface"]), surface=p["surface"])
     elif subcell == "fine":
         p = dict(trn.fine_peak(ortho, reference, p, radius), surface=p["surface"])
+    elif subcell == "register":
+        p = dict(trn.register_peak(ortho, reference, p, radius), surface=p["surface"])
     elif subcell != "parabola":
         raise ValueError(subcell)
     second, _, _ = second_peak(p["surface"], p["dx_int"], p["dy_int"])
-    return dict(fix=(float(xy[0] + p["dx"] * CELL_M), float(xy[1] + p["dy"] * CELL_M)), ncc=p["ncc"],
-                second=second, edge=bool(p["edge"]), offset=[p["dx"], p["dy"]], cells=cells, radius=radius)
+    out = dict(fix=(float(xy[0] + p["dx"] * CELL_M), float(xy[1] + p["dy"] * CELL_M)), ncc=p["ncc"],
+               second=second, edge=bool(p["edge"]), offset=[p["dx"], p["dy"]], cells=cells, radius=radius)
+    if "register" in p:
+        out.update(register=p["register"], iterations=p["iterations"])
+    return out
 
 
 def candidate(img, cam, x, grid, heights, reference, radius):
@@ -71,6 +76,7 @@ R1_TOL_M = 1.0
 R1_PASSES = 5
 DITHER_M = 10.0
 REMEDIES = ("current", "R1", "R2", "R3", "R4", "R1+R2", "R1+R3", "R1+R4")
+REMEDIES_3C = ("current", "R5", "R1+R5")
 
 
 def _bounded(r, start, cell=CELL_M):
@@ -84,8 +90,8 @@ def _single(method, img, cam, xy, z, grid, heights, reference):
     """One remedy pass without iteration: the current pass (parabola), R2
     (Gaussian), R4 (fine search) or R3 (two passes dithered by plus and
     minus (10, 10) m, their fixes averaged)."""
-    if method in ("current", "R2", "R4"):
-        sub = dict(current="parabola", R2="gaussian", R4="fine")[method]
+    if method in ("current", "R2", "R4", "R5"):
+        sub = dict(current="parabola", R2="gaussian", R4="fine", R5="register")[method]
         return fix_pass(img, cam, xy, z, grid, heights, reference, SECOND_PASS_CELLS, subcell=sub)
     if method == "R3":
         rs = [fix_pass(img, cam, (xy[0] + sgn * DITHER_M, xy[1] + sgn * DITHER_M), z, grid, heights, reference,
@@ -101,9 +107,11 @@ def _single(method, img, cam, xy, z, grid, heights, reference):
 
 
 def second_pass(method, img, cam, xy, z, grid, heights, reference):
-    """The second pass from xy by a revision 3b method: "current", "R1"
-    (the current pass repeated from its own result until it moves less than
-    1 m, at most 5 passes), "R2", "R3", "R4", or "R1+X" (X repeated so)."""
+    """The second pass from xy by a revision 3b or 3c method: "current",
+    "R1" (the current pass repeated from its own result until it moves less
+    than 1 m, at most 5 passes), "R2", "R3", "R4", "R5" (2D registration
+    against the map's bilinear interpolant, revision 3c), or "R1+X" (X
+    repeated so)."""
     start = (float(xy[0]), float(xy[1]))
     if method == "R1" or method.startswith("R1+"):
         inner = "current" if method == "R1" else method[3:]

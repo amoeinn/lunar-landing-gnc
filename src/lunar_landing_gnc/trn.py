@@ -246,3 +246,94 @@ def fine_peak(template, reference, coarse, radius, step=FINE_STEP):
     if np.isfinite(best[0]):
         out.update(dx=nx + best[1], dy=ny + best[2], ncc=best[0], edge=False)
     return out
+
+
+# Revision 3c (PLAN.md, 16 Oct 2026): R5, 2D sub-cell registration against
+# the map's own bilinear interpolant.
+
+LK_TOL = 1e-3
+LK_ITERS = 20
+
+
+def _bilinear(ref, row, col):
+    """The reference's bilinear value and its derivatives along row and
+    column at fractional (row, col); NaN where a corner is outside or NaN."""
+    r0, c0 = np.floor(row).astype(int), np.floor(col).astype(int)
+    fr, fc = row - r0, col - c0
+    ok = (r0 >= 0) & (c0 >= 0) & (r0 + 1 < ref.shape[0]) & (c0 + 1 < ref.shape[1])
+    v = np.full(row.shape, np.nan)
+    dr = np.full(row.shape, np.nan)
+    dc = np.full(row.shape, np.nan)
+    r0, c0, fr, fc = r0[ok], c0[ok], fr[ok], fc[ok]
+    m00, m01 = ref[r0, c0], ref[r0, c0 + 1]
+    m10, m11 = ref[r0 + 1, c0], ref[r0 + 1, c0 + 1]
+    v[ok] = (1 - fr) * ((1 - fc) * m00 + fc * m01) + fr * ((1 - fc) * m10 + fc * m11)
+    dc[ok] = (1 - fr) * (m01 - m00) + fr * (m11 - m10)
+    dr[ok] = (1 - fc) * (m10 - m00) + fc * (m11 - m01)
+    return v, dr, dc
+
+
+LK_STARTS = ((0.0, 0.0), (0.5, 0.5), (-0.5, 0.5), (0.5, -0.5), (-0.5, -0.5))
+
+
+def _register_from(rows, cols, tv, ref, nx, ny, s0, radius, tol, iters):
+    """One Gauss-Newton run from s0: (s, gain, offset, mean squared residual,
+    iterations), or None if s leaves one cell of the integer peak or the
+    search radius."""
+    s = np.asarray(s0, float).copy()
+    m, _, _ = _bilinear(ref, rows - (ny + s[1]), cols + (nx + s[0]))
+    ok = np.isfinite(m)
+    if ok.sum() < 4:
+        return None
+    a, b = np.linalg.lstsq(np.column_stack([m[ok], np.ones(ok.sum())]), tv[ok], rcond=None)[0]
+    n_it = 0
+    for n_it in range(1, iters + 1):
+        m, dr, dc = _bilinear(ref, rows - (ny + s[1]), cols + (nx + s[0]))
+        ok = np.isfinite(m) & np.isfinite(dr) & np.isfinite(dc)
+        if ok.sum() < 4:
+            return None
+        r = tv[ok] - a * m[ok] - b
+        # r = T - a M(row - (ny + sy), col + (nx + sx)) - b
+        J = np.column_stack([-a * dc[ok], a * dr[ok], -m[ok], -np.ones(ok.sum())])
+        step = np.linalg.lstsq(J, -r, rcond=None)[0]
+        s = s + step[0:2]
+        a, b = a + step[2], b + step[3]
+        if np.max(np.abs(s)) > 1.0 or abs(nx + s[0]) > radius or abs(ny + s[1]) > radius:
+            return None
+        if np.max(np.abs(step[0:2])) < tol:
+            break
+    m, _, _ = _bilinear(ref, rows - (ny + s[1]), cols + (nx + s[0]))
+    ok = np.isfinite(m)
+    return s, float(a), float(b), float(np.mean((tv[ok] - a * m[ok] - b) ** 2)), n_it
+
+
+def register_peak(template, reference, coarse, radius, tol=LK_TOL, iters=LK_ITERS, starts=LK_STARTS):
+    """R5: from the integer peak n, the continuous shift s (cells, map +x and
+    +y), gain a and offset b minimising sum (T(g) - a M(g + n + s) - b)^2
+    over the template's cells, M the reference evaluated bilinearly; Gauss-
+    Newton (Lucas-Kanade) until the step in s is below tol cell or iters
+    iterations. The bilinear interpolant is a different smooth function in
+    each of the four quadrants round the node, so Gauss-Newton is run from
+    the node and from the centre of each quadrant (s = +-0.5, +-0.5) and the
+    lowest final cost kept (a choice made here: from the node alone it can
+    stop in the wrong quadrant). A run is dropped if s leaves one cell of n
+    or the total leaves the search radius; if every run is dropped, the
+    parabola's result is returned, flagged register="left". Returns peak()'s
+    dict with dx = n_x + s_x, dy = n_y + s_y, plus register ("ok" or
+    "left") and iterations (summed over the runs)."""
+    out = dict(coarse)
+    if coarse["dx_int"] is None:
+        return out
+    t = np.asarray(template, float)
+    ref = np.asarray(reference, float)
+    rows, cols = np.nonzero(np.isfinite(t))
+    tv = t[rows, cols]
+    nx, ny = coarse["dx_int"], coarse["dy_int"]
+    runs = [_register_from(rows, cols, tv, ref, nx, ny, s0, radius, tol, iters) for s0 in starts]
+    total = sum(r[4] for r in runs if r is not None)
+    runs = [r for r in runs if r is not None]
+    if not runs:
+        return dict(out, register="left", iterations=total)
+    s, a, b, _, _ = min(runs, key=lambda r: r[3])
+    return dict(out, dx=nx + float(s[0]), dy=ny + float(s[1]), edge=False, register="ok", iterations=total,
+                gain=a, bias=b)

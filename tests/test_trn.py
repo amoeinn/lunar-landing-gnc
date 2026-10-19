@@ -245,3 +245,82 @@ def test_displaced_estimate_returns_the_correction():
     assert (p["dx_int"], p["dy_int"]) == (-3, 5)
     fx, fy = trn.fix((XC + 60.0, YC - 100.0), (p["dx"], p["dy"]), CELL)
     assert np.hypot(fx - XC, fy - YC) < 0.25 * CELL
+
+
+def _bilinear_template(ref, sx, sy, gain=1.7, offset=0.3, half=15):
+    """The map evaluated bilinearly at g + s (map +x and +y, cells), with a
+    gain and an offset, on a block at the grid centre: how the simulation's
+    templates relate to the map (revision 3c). Independent of trn's own
+    interpolation: scipy's map_coordinates."""
+    from scipy.ndimage import map_coordinates
+    x, y = centres()
+    rr, cc = np.mgrid[0:N, 0:N].astype(float)
+    v = map_coordinates(ref, [rr - sy, cc + sx], order=1, mode="constant", cval=np.nan)
+    keep = (np.abs(x - XC) < (half + 0.5) * CELL) & (np.abs(y - YC) < (half + 0.5) * CELL)
+    return np.where(keep, gain * v + offset, np.nan)
+
+
+def _rough_map(lo=25.0, hi=50.0, seed=7, n=24):
+    rng = np.random.default_rng(seed)
+    k = 2 * np.pi / rng.uniform(lo, hi, n)
+    th, ph = rng.uniform(0, 2 * np.pi, n), rng.uniform(0, 2 * np.pi, n)
+    x, y = centres()
+    return np.cos(k * (np.cos(th) * x[..., None] + np.sin(th) * y[..., None]) + ph).sum(-1)
+
+
+SHIFTS = [(s, 0.0) for s in (0.1, 0.3, 0.5, 0.7, 0.9)] + [(0.0, -s) for s in (0.2, 0.4, 0.6, 0.8)] \
+    + [(s, s) for s in (0.1, 0.3, 0.5, 0.7, 0.9)] + [(-s, s) for s in (0.2, 0.4, 0.6, 0.8)] + [(0.45, -0.25)]
+
+
+@pytest.mark.parametrize("rough", [False, True])
+def test_registration_recovers_bilinear_shifts_single_axis_and_diagonal(rough):
+    """Protects R5 (revision 3c): a template that is the map evaluated
+    bilinearly at a known shift of 0.1 to 0.9 cell, on one axis or both, with
+    a gain and an offset, is recovered to 0.01 cell, where the parabola is
+    pulled toward whole cells (shown on the same cases). On a rough map the
+    bilinear interpolant's quadrants round the node give Gauss-Newton started
+    at the node alone a false minimum; the quadrant starts must find the
+    true one."""
+    x, y = centres()
+    ref = _rough_map() if rough else field_fn()(x, y)
+    worst, parab = 0.0, 0.0
+    for sx, sy in SHIFTS:
+        t = _bilinear_template(ref, sx, sy)
+        c = trn.correlate(t, ref, 3)
+        p = trn.register_peak(t, ref, c, 3)
+        assert p["register"] == "ok"
+        worst = max(worst, abs(p["dx"] - sx), abs(p["dy"] - sy))
+        parab = max(parab, abs(c["dx"] - sx), abs(c["dy"] - sy))
+    assert worst < 0.01 and parab > 0.05
+
+
+def test_registration_from_the_node_alone_misses_on_a_rough_map():
+    """Shows the rough-map fixture can express the false minimum: with the
+    node as the only start some shifts are missed by more than 0.05 cell."""
+    ref = _rough_map()
+    misses = 0
+    for sx, sy in SHIFTS:
+        t = _bilinear_template(ref, sx, sy)
+        p = trn.register_peak(t, ref, trn.correlate(t, ref, 3), 3, starts=((0.0, 0.0),))
+        misses += max(abs(p["dx"] - sx), abs(p["dy"] - sy)) > 0.05
+    assert misses >= 3
+
+
+def test_registration_falls_back_to_the_parabola_when_it_leaves_its_cell():
+    """Protects the registered fallback: told the integer peak is (0, 0)
+    when the shift is 2.4 cells on x, the registration must go more than a
+    cell to fit and is refused; the parabola's result (the coarse dict) comes
+    back, flagged "left". The same when the fit would leave the search
+    radius: a shift of 2.7 cells from an integer peak of 2 with radius 2."""
+    x, y = centres()
+    ref = field_fn()(x, y)
+    t = _bilinear_template(ref, 2.4, 0.0)
+    c = dict(trn.correlate(t, ref, 3))
+    forced = dict(c, dx_int=0, dy_int=0, dx=0.1, dy=-0.05)
+    p = trn.register_peak(t, ref, forced, 3)
+    assert p["register"] == "left" and (p["dx"], p["dy"]) == (0.1, -0.05)
+    t = _bilinear_template(ref, 2.7, 0.0)
+    c2 = dict(trn.correlate(t, ref, 2))
+    assert c2["dx_int"] == 2
+    p2 = trn.register_peak(t, ref, c2, 2)
+    assert p2["register"] == "left" and abs(p2["dx"]) <= 2.0

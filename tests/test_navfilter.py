@@ -105,7 +105,8 @@ def tilted_dem(a=0.08, b=-0.05, c=150.0, n=400):
     return NF.DEM(a * gx + b * gy + c, x0, y1, d)
 
 
-CONST = dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0)
+CONST = dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0,
+             r5_s0_x=0.13, r5_s0_y=0.12, r5_j_x=0.059, r5_j_y=0.044)
 
 
 def test_run_equals_a_textbook_10_state_filter():

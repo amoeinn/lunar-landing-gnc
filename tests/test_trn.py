@@ -280,7 +280,8 @@ def test_registration_recovers_bilinear_shifts_single_axis_and_diagonal(rough):
     pulled toward whole cells (shown on the same cases). On a rough map the
     bilinear interpolant's quadrants round the node give Gauss-Newton started
     at the node alone a false minimum; the quadrant starts must find the
-    true one."""
+    true one. On exact data the registered stopping step, 0.001 cell, leaves
+    far less than 1e-4 cell; a loose stop would not."""
     x, y = centres()
     ref = _rough_map() if rough else field_fn()(x, y)
     worst, parab = 0.0, 0.0
@@ -292,6 +293,7 @@ def test_registration_recovers_bilinear_shifts_single_axis_and_diagonal(rough):
         worst = max(worst, abs(p["dx"] - sx), abs(p["dy"] - sy))
         parab = max(parab, abs(c["dx"] - sx), abs(c["dy"] - sy))
     assert worst < 0.01 and parab > 0.05
+    assert worst < 1e-4
 
 
 def test_registration_from_the_node_alone_misses_on_a_rough_map():

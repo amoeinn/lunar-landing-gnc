@@ -33,6 +33,8 @@ def scene(amp=150.0):
 
 
 SCENE = scene()
+CONST3D = dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0,
+               r5_s0_x=0.13, r5_s0_y=0.12, r5_j_x=0.059, r5_j_y=0.044)
 
 
 @pytest.mark.parametrize("d", [(400.0, -300.0), (-500.0, 200.0), (300.0, 350.0)])
@@ -80,7 +82,7 @@ def _run(cands, const=None, fix_times=(1.0,)):
     def trn_cb(ft, x, P, radius):
         seen.append(dict(x=x, P=P))
         return cands[ft](x)
-    const = const or dict(s0_x=2.7, k_x=0.006, s0_y=2.4, k_y=0.005, margin_threshold=0.0488, L=408.0)
+    const = const or CONST3D
     return NF.run(t, f, np.full(n, np.nan), x0, P0, dem, trn_cb, const, fix_times=fix_times), seen
 
 
@@ -150,3 +152,75 @@ def test_second_pass_without_a_position_falls_back_to_the_first():
     assert rec["status"] == "accepted, first pass only"
     assert rec["used"] == pytest.approx([seen[0]["x"][0] + 6.0, seen[0]["x"][1] - 4.0])
     assert rec["R_used"] == pytest.approx([2.7 ** 2 + 0.006 ** 2 * tr, 2.4 ** 2 + 0.005 ** 2 * tr])
+
+
+# revision 3d: the R5 second pass and its noise
+
+def test_first_pass_is_bit_identical_to_before_r5():
+    """Protects the first pass and so the gates and the premise: with R5 as
+    the second pass the first pass's fix and offset are exactly what the
+    code before revision 3d returned (values pinned from commit d7149cd's
+    navtrn.candidate on this scene)."""
+    cam, img, heights, field, z = SCENE
+    for d, fix, off in (((400.0, -300.0), (974.4671610785988, 5995.421596508979),
+                         (-21.27664194607006, 14.771079825448956)),
+                        ((37.0, -22.0), (997.4765252682821, 6000.166900120053),
+                         (-1.9761737365858956, 1.108345006002628))):
+        c = navtrn.candidate(img, cam, np.array([XC + d[0], YC + d[1], z]), GRID, heights, field, 35, second="R5")
+        assert c["fix"] == fix and tuple(float(o) for o in c["offset"]) == off
+
+
+def test_r5_second_pass_never_moves_more_than_three_cells():
+    """Protects R5's reach: refined from 6 cells off the truth it stays
+    within the 3-cell search of its start; from 8 m off it registers and
+    lands within 1 m of the truth."""
+    cam, img, heights, field, z = SCENE
+    c = navtrn.candidate(img, cam, np.array([XC, YC, z]), GRID, heights, field, 10, second="R5")
+    for start in ((XC + 6 * CELL, YC), (XC, YC - 6 * CELL), (XC + 5 * CELL, YC + 5 * CELL)):
+        r = c["refine"](start)
+        if r["fix"] is not None:
+            assert max(abs(r["fix"][0] - start[0]), abs(r["fix"][1] - start[1])) <= 3 * CELL + 1e-9
+    near = c["refine"]((XC + 7.0, YC - 4.0))
+    assert near["register"] == "ok" and np.hypot(near["fix"][0] - XC, near["fix"][1] - YC) < 1.0
+
+
+def test_r5_noise_is_s0_at_zero_sigma_z_and_grows_with_it():
+    """Protects revision 3d's R: per axis s0^2 + (j sigma_z)^2, s0 alone at
+    sigma_z = 0, x's constants on x and y's on y."""
+    R0 = NF.trn_R5(CONST3D, 0.0)
+    assert np.allclose(np.diag(R0), [0.13 ** 2, 0.12 ** 2], rtol=1e-12) and R0[0, 1] == 0.0
+    R30 = NF.trn_R5(CONST3D, 30.0)
+    assert np.allclose(np.diag(R30), [0.13 ** 2 + (0.059 * 30) ** 2, 0.12 ** 2 + (0.044 * 30) ** 2], rtol=1e-12)
+    assert NF.trn_R5(CONST3D, 1.0)[0, 0] < NF.trn_R5(CONST3D, 2.0)[0, 0] < R30[0, 0]
+
+
+def test_update_uses_r5_noise_at_the_vertical_sigma_of_the_fix():
+    """Protects where R5's R is used: a second pass that registered ("ok")
+    is applied with s0^2 + (j sigma_z)^2, sigma_z from the covariance the
+    fix saw; the estimate moves by that gain."""
+    def first(x):
+        return dict(fix=(x[0] + 30.0, x[1] - 20.0), ncc=0.95, second=0.5,
+                    refine=lambda xy: dict(fix=(x[0] + 12.0, x[1] - 7.0), register="ok"))
+    log, seen = _run({1.0: first})
+    P = seen[0]["P"]
+    R = NF.trn_R5(CONST3D, np.sqrt(P[2, 2]))
+    H = np.zeros((2, 10))
+    H[0, 0] = H[1, 1] = 1.0
+    K = P @ H.T @ np.linalg.inv(H @ P @ H.T + R)
+    rec = log["fixes"][0]
+    assert rec["status"] == "accepted" and rec["R_used"] == pytest.approx(np.diag(R).tolist(), rel=1e-12)
+    assert np.allclose(rec["posterior"], (seen[0]["x"] + K @ np.array([12.0, -7.0]))[0:2], atol=1e-9)
+    assert np.sqrt(P[2, 2]) > 20.0                       # the height term matters here
+
+
+def test_r5_leaving_its_cell_falls_back_to_the_parabola_with_revision_2_noise():
+    """Protects the first registered fallback: when R5 left its cell the
+    parabola's position (what the second pass returns then) is applied with
+    revision 2's second-pass R, s0^2, and logged."""
+    def first(x):
+        return dict(fix=(x[0] + 30.0, x[1] - 20.0), ncc=0.95, second=0.5,
+                    refine=lambda xy: dict(fix=(x[0] + 12.0, x[1] - 7.0), register="left"))
+    log, _ = _run({1.0: first})
+    rec = log["fixes"][0]
+    assert rec["status"] == "accepted, second pass parabola"
+    assert rec["R_used"] == pytest.approx([2.7 ** 2, 2.4 ** 2])

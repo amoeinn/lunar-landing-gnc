@@ -48,6 +48,7 @@ from lunar_landing_gnc import premise as P  # noqa: E402
 from lunar_landing_gnc.paths import WORK  # noqa: E402
 
 OUT = WORK / "step3_4"
+RUN = WORK / "step3_5"          # revision 3d's runs; OUT keeps the constants and revision 2's runs
 WORKERS = 8
 SPAWN = multiprocessing.get_context("spawn")
 _C = {}
@@ -159,18 +160,21 @@ def flight_jobs(seed):
 
 def flight_done(job):
     seed, e, k = job
-    return OUT / f"seed{seed}" / f"e{e}_k{k}.json"
+    return RUN / f"seed{seed}" / f"e{e}_k{k}.json"
 
 
 def filter_constants():
     """The filter's recorded constants: the peak-margin threshold
     (trn_constants.json), s0, k per axis (trn_noise_fit.json) and the
-    terrain offset's correlation length L (b_corr.json)."""
+    terrain offset's correlation length L (b_corr.json), and the second
+    pass's remedy with its s0 and j (trn_remedy.json, revision 3d)."""
     c = json.loads((OUT / "trn_constants.json").read_text())
     f = json.loads((OUT / "trn_noise_fit.json").read_text())
     b = json.loads(B_CORR.read_text())
+    r = json.loads(TRN_REMEDY.read_text())
     return dict(margin_threshold=c["margin_threshold"], s0_x=f["s0_x"], k_x=f["k_x"], s0_y=f["s0_y"], k_y=f["k_y"],
-                L=float(b["L"]))
+                L=float(b["L"]), remedy=r["remedy"], r5_s0_x=r["s0_x"], r5_s0_y=r["s0_y"], r5_j_x=r["j_x"],
+                r5_j_y=r["j_y"])
 
 
 def _static():
@@ -228,7 +232,7 @@ def make_trn(e, gap, images, pos, idx):
         cam, img = images[ft]
         truth = pos[idx[ft]]
         prior_err = float(np.hypot(x[0] - truth[0], x[1] - truth[1]))
-        cand = navtrn.candidate(img, cam, x, st["grid"], st["dem"].h, ref, radius)
+        cand = navtrn.candidate(img, cam, x, st["grid"], st["dem"].h, ref, radius, second=st["constants"]["remedy"])
         cand.update(prior_error=prior_err, image_lit=float((img[np.isfinite(img)] > 0).mean()))
         if cand["fix"] is None:
             return cand
@@ -320,13 +324,15 @@ def run_gap(prep, g, x0=None):
         j0 = int(round(min(acc_t) / NF.DT))
         path = float(np.hypot(*np.diff(pos[j0:, :2], axis=0).T).sum())
     bar = SC.run_input(sec, log["alt"], log["dop"], log["fixes"], log["lost_lock"], 0.0, n, NF.DT)
+    by_i = {r["i"]: r for r in sec}
+    toff_at = {key: by_i[i]["nees_blocks"]["toff"] for key, i in keys.items() if i in by_i and "nees_blocks" in by_i[i]}
     return dict(nees=[(r["t"], r["nees"]) for r in sec], nees_blocks=[(r["t"], r["nees_blocks"]) for r in sec],
                 est=[(r["t"], r["x"], r["Pdiag"]) for r in sec],
                 fixes=log["fixes"], lost_lock=log["lost_lock"],
                 offline=None if offline is None else dict(trigger=offline["trigger"], t=offline["t"]),
                 alt_nis_sum=float(alt_nis.sum()), alt_nis_n=int(alt_nis.size),
                 alt_nis_1hz=[(a[0], a[1]) for a in log["alt"] if abs(a[0] - round(a[0])) < 1e-6],
-                herr=herr, bar=dict(bar, herr_end=herr["end"]), pointing_bound_m=2.2e-4 * path,
+                herr=herr, bar=dict(bar, herr_end=herr["end"]), toff_at=toff_at, pointing_bound_m=2.2e-4 * path,
                 dop_nis_mean=bar["dop_nis"], seconds=time.time() - t2)
 
 
@@ -374,6 +380,7 @@ def cmd_noisefit():
 
 B_CORR = OUT / "b_corr.json"
 TRN_CORR = OUT / "trn_corr.json"
+TRN_REMEDY = OUT / "trn_remedy.json"
 DIAG = WORK / "step3_4d"
 B_CORR_MAX_LAG = 600
 
@@ -508,18 +515,104 @@ def cmd_trncorr():
     print(f"sha256 {hashlib.sha256(TRN_CORR.read_bytes()).hexdigest()}")
 
 
+# acceptance (revision 3d): the 8 diagnostic flights at gap 0
+
+ACCEPT_SEED = 20261030
+ACCEPT_FLIGHTS = [(e, k) for e in range(4) for k in (0, 1)]
+ACCEPT_MIN = 7
+
+
+def accept_job(e, k):
+    t0 = time.time()
+    prep = prepare(ACCEPT_SEED, e, k)
+    r = run_gap(prep, 0.0)
+    return dict(epoch=e, k=k, contact=prep["cut"], t_end=float(prep["t"][-1]), run=r, seconds=time.time() - t0)
+
+
+def nis_rows(runs):
+    """Every NIS of a set of gap-0 runs: altimeter per band, Doppler, TRN
+    applied update per fix time (the bar's way: each run's mean, then the
+    average over runs, bounds for N d dof), and the gate NIS of accepted
+    fixes (no bar)."""
+    from lunar_landing_gnc import navscore as SC
+    out = dict(alt={bd: SC.average([r["bar"]["alt_nis"].get(bd) for r in runs], 1) for bd in SC.BANDS},
+               doppler=SC.average([r["bar"]["dop_nis"] for r in runs], 3),
+               trn={ft: SC.average([r["bar"]["trn_nis"].get(ft) for r in runs], 2) for ft in SC.FIX_TIMES})
+    gate = [fx["nis"] for r in runs for fx in r["fixes"] if fx.get("status", "").startswith("accepted")]
+    out["gate"] = dict(n=len(gate), mean=float(np.mean(gate)) if gate else None)
+    return out
+
+
+def cmd_accept():
+    """Revision 3d acceptance: overall NEES inside its bounds for 8 runs at
+    7 or more of the 10 reporting times; per-block NEES, b's NEES, every
+    NIS, fixes, lost lock, horizontal error at 45 s and the end."""
+    from lunar_landing_gnc import navscore as SC
+    out = RUN / "accept"
+    out.mkdir(parents=True, exist_ok=True)
+    t0 = time.time()
+    with ProcessPoolExecutor(WORKERS, mp_context=SPAWN) as ex:
+        recs = list(ex.map(accept_job, *zip(*ACCEPT_FLIGHTS)))
+    wall = time.time() - t0
+    save(out / "flights.json", recs)
+    runs = [rec["run"] for rec in recs]
+    n = len(runs)
+    rows, inside = {}, 0
+    for t in SC.TIMES:
+        row = dict(nees=SC.average([r["bar"]["nees"].get(t) for r in runs], 9))
+        for b, d in SC.BLOCK_DOF.items():
+            row[b] = SC.average([r["bar"]["blocks"][t][b] if t in r["bar"]["blocks"] else None for r in runs], d)
+        row["toff"] = SC.average([r["toff_at"].get(t) for r in runs], 1)
+        inside += int(row["nees"]["inside"])
+        rows[t] = row
+    nis = nis_rows(runs)
+    st = {}
+    for r in runs:
+        for fx in r["fixes"]:
+            st[fx["status"]] = st.get(fx["status"], 0) + 1
+    h45 = [r["herr"].get("45.0") for r in runs]
+    hend = [r["herr"]["end"] for r in runs]
+    lost = sum(r["lost_lock"] is not None for r in runs)
+    met = inside >= ACCEPT_MIN
+    res = dict(rows=rows, inside=inside, met=met, nis=nis, fixes=st, lost=lost, h45=h45, hend=hend, wall_s=wall,
+               pointing_bound_m=[r["pointing_bound_m"] for r in runs])
+    save(out / "summary.json", res)
+    lo, hi = SC.bounds(9, n)
+    print(f"{n} flights of seed {ACCEPT_SEED}, gap 0; overall NEES bounds {lo:.2f} to {hi:.2f}; block bounds "
+          + ", ".join(f"{b} {SC.bounds(d, n)[0]:.2f} to {SC.bounds(d, n)[1]:.2f}" for b, d in
+                      list(SC.BLOCK_DOF.items()) + [("toff", 1)]) + " (* outside)")
+    print(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff"]))
+    for t, row in rows.items():
+        print(f"  {t:>7} {row['nees']['mean']:8.2f}{' ' if row['nees']['inside'] else '*'}" + "".join(
+            f" {row[b]['mean']:7.2f}{' ' if row[b]['inside'] else '*'}" for b in list(SC.BLOCK_DOF) + ["toff"]))
+    print("altimeter NIS by band: " + "; ".join(
+        f"{bd} {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f}){'' if v['inside'] else ' *'}"
+        if v["n"] else f"{bd} none" for bd, v in nis["alt"].items()))
+    d = nis["doppler"]
+    print(f"Doppler NIS {d['mean']:.3f} ({d['lo']:.3f} to {d['hi']:.3f}){'' if d['inside'] else ' *'}")
+    print("TRN applied-update NIS by fix time: " + "; ".join(
+        f"{ft} s {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f}){'' if v['inside'] else ' *'}"
+        if v["n"] else f"{ft} s none" for ft, v in nis["trn"].items()))
+    print(f"gate NIS {nis['gate']['mean']:.3f} over {nis['gate']['n']} accepted fixes (no bar)")
+    print(f"fixes {st}; lost lock {lost} of {n}")
+    print(f"horizontal error at 45 s: median {np.median(h45):.2f} m, max {np.max(h45):.2f}; at the end: median "
+          f"{np.median(hend):.2f} m, max {np.max(hend):.2f}")
+    print(f"wall {wall:.0f} s; overall NEES inside its bounds at {inside} of {len(SC.TIMES)} times: acceptance "
+          f"{'MET' if met else 'NOT MET'}")
+
+
 # staged runs and the report
 
 def _stage(name, jobs):
     import premise_sweep as S
-    return S.run_stage(name, jobs, flight_job, flight_done, OUT)
+    return S.run_stage(name, jobs, flight_job, flight_done, RUN)
 
 
 def cmd_calibrate():
     jobs = flight_jobs(SEEDS[0])[:WORKERS]
     rec = _stage("calibrate", jobs)
     ts = [json.loads(flight_done(j).read_text())["task_s"] for j in jobs]
-    save(OUT / "calibration.json", dict(per_task_s=ts, mean_s=float(np.mean(ts)), max_s=float(np.max(ts)),
+    save(RUN / "calibration.json", dict(per_task_s=ts, mean_s=float(np.mean(ts)), max_s=float(np.max(ts)),
                                          batch_wall_s=rec["wall_s"]))
     print(f"calibration: per flight {np.mean(ts):.1f} s mean, {np.max(ts):.1f} s max, batch wall {rec['wall_s']:.1f} s; "
           f"a seed of {len(flight_jobs(SEEDS[0]))} flights on {WORKERS} workers: "
@@ -529,11 +622,11 @@ def cmd_calibrate():
 def cmd_run(seed):
     import premise_sweep as S
     assert seed in SEEDS and seed != SCORING_SEED, f"seed {seed} is not a baseline seed"
-    cal = json.loads((OUT / "calibration.json").read_text())
+    cal = json.loads((RUN / "calibration.json").read_text())
     jobs = flight_jobs(seed)
     left = [j for j in jobs if not flight_done(j).exists()]
     est = np.ceil(len(left) / WORKERS) * max(cal["mean_s"], cal["batch_wall_s"])
-    if not S.gate(f"seed{seed}", est, OUT):
+    if not S.gate(f"seed{seed}", est, RUN):
         return
     _stage(f"seed{seed}", jobs)
 
@@ -617,39 +710,115 @@ def summarise(flights, g):
     return out
 
 
+def fix_classes(fxs, key):
+    v = np.array([fx[key] for fx in fxs], float)
+    if not v.size:
+        return dict(n=0)
+    return dict(n=int(v.size), median=float(np.median(v)), p95=float(np.quantile(v, 0.95)),
+                over10=int((v > 10).sum()), over50=int((v > 50).sum()), over100=int((v > 100).sum()))
+
+
+def gap_summary(flights, g):
+    """One seed's stale-map (or gap-0) numbers at one gap, as step 3.4 plus
+    revision 3: fixes accepted, lost lock, accepted-fix error classes first
+    and second pass, horizontal error at 45 s and the end, and the second
+    pass's errors by fix time."""
+    runs = [f["gaps"][str(g)] for f in flights]
+    acc = [fx for r in runs for fx in r["fixes"] if fx.get("status", "").startswith("accepted")]
+    second = [dict(fx, e2=fx["pass2"]["fix_error"]) for fx in acc if fx.get("pass2", {}).get("fix") is not None]
+    statuses = {}
+    for r in runs:
+        for fx in r["fixes"]:
+            statuses[fx["status"]] = statuses.get(fx["status"], 0) + 1
+    by_t = {}
+    for ft in (10.0, 20.0, 30.0, 40.0):
+        e = np.array([fx["pass2"]["error_xy"] for fx in acc if fx["t"] == ft and fx.get("pass2", {}).get("fix")])
+        if len(e):
+            mag = np.hypot(e[:, 0], e[:, 1])
+            by_t[f"{ft:.0f}"] = dict(n=int(len(e)), median=float(np.median(mag)), p95=float(np.quantile(mag, 0.95)),
+                                     sd=[float(e[:, 0].std(ddof=1)) if len(e) > 1 else None,
+                                         float(e[:, 1].std(ddof=1)) if len(e) > 1 else None])
+    herr = {}
+    for key in ("45.0", "end"):
+        v = np.array([r["herr"][key] for r in runs if key in r["herr"]])
+        herr[key] = dict(median=float(np.median(v)), p95=float(np.quantile(v, 0.95)), max=float(v.max()))
+    return dict(accepted=len(acc), fixes=sum(len(r["fixes"]) for r in runs), statuses=statuses,
+                lost_lock=sum(r["lost_lock"] is not None for r in runs),
+                offline={k: sum((r["offline"]["trigger"] if r["offline"] else "none") == k for r in runs)
+                         for k in {(r["offline"]["trigger"] if r["offline"] else "none") for r in runs}},
+                first=fix_classes([fx for fx in acc if "fix_error" in fx], "fix_error"),
+                second=fix_classes(second, "e2"), second_by_t=by_t, herr=herr,
+                left=sum(fx.get("status") == "accepted, second pass parabola" for fx in acc))
+
+
 def cmd_report():
+    """Revision 3d baselines: the step 3.5 bar scored on each reference seed
+    at gap 0 (navscore), and the bar's reported-regardless list."""
+    from lunar_landing_gnc import navscore as SC
     res = {}
+    consts = dict(L=json.loads(B_CORR.read_text())["L"], **{k: v for k, v in json.loads(TRN_REMEDY.read_text()).items()
+                                                            if k in ("remedy", "s0_x", "s0_y", "j_x", "j_y")})
     for seed in SEEDS:
         flights = [json.loads(flight_done(j).read_text()) for j in flight_jobs(seed) if flight_done(j).exists()]
-        strikes = [f for f in flights if f["contact"]["kind"] == "terrain strike"]
+        g0 = [f["gaps"]["0.0"] for f in flights]
+        sc = SC.score([r["bar"] for r in g0])
+        toff = {t: SC.average([r["toff_at"].get(t) for r in g0], 1) for t in SC.TIMES}
+        gate = [fx["nis"] for r in g0 for fx in r["fixes"] if fx.get("status", "").startswith("accepted")]
         low = np.array([f["contact"]["lowest_guided"] for f in flights])
-        res[seed] = dict(flights=len(flights), strikes=len(strikes),
-                         strike_list=[(f["epoch"], f["k"], f["contact"]["t_contact"]) for f in strikes],
-                         touchdown_on_slope=sum(f["contact"]["kind"] == "touchdown on slope" for f in flights),
-                         lowest_guided=dict(min=float(low.min()), p05=float(np.quantile(low, 0.05)),
-                                            median=float(np.median(low))),
-                         gaps={str(g): summarise(flights, g) for g in GAPS})
-    save(OUT / "report.json", res)
-    for seed, r in res.items():
-        print(f"\nseed {seed}: {r['flights']} flights; terrain strikes {r['strikes']} {r['strike_list']}; touchdown on "
-              f"slope {r['touchdown_on_slope']}; lowest guided clearance min {r['lowest_guided']['min']:.1f} m, "
-              f"p05 {r['lowest_guided']['p05']:.1f}, median {r['lowest_guided']['median']:.1f}")
+        pb = np.array([r["pointing_bound_m"] for r in g0])
+        res[str(seed)] = dict(flights=len(flights), score=sc, toff=toff, gate_nis=float(np.mean(gate)),
+                              strikes=sum(f["contact"]["kind"] == "terrain strike" for f in flights),
+                              touchdown_on_slope=sum(f["contact"]["kind"] == "touchdown on slope" for f in flights),
+                              lowest_guided=dict(min=float(low.min()), median=float(np.median(low))),
+                              pointing_bound=dict(median=float(np.median(pb)), max=float(pb.max())),
+                              gaps={str(g): gap_summary(flights, g) for g in GAPS})
+    res["constants"] = consts
+    save(RUN / "report.json", res)
+    lines = []
+    p = lines.append
+    p(f"constants: L {consts['L']} m; second pass {consts['remedy']}, s0 {consts['s0_x']:.4f} / {consts['s0_y']:.4f} m, "
+      f"j {consts['j_x']:.5f} / {consts['j_y']:.5f}")
+    for seed in SEEDS:
+        r = res[str(seed)]
+        sc = r["score"]
+        p(f"\nseed {seed}: {r['flights']} flights; bar {'PASSED' if sc['passed'] else 'NOT PASSED'}")
+        for c, v in sc["criteria"].items():
+            p(f"  criterion {c}: {'met' if v['met'] else 'NOT MET'}; value {v['value']}; bar {v['bar']}")
+        p(f"  {'time':>7} {'NEES':>9} " + " ".join(f"{b:>8}" for b in list(SC.BLOCK_DOF) + ["toff"]) + "   (* outside)")
+        for t in SC.TIMES:
+            row = sc["nees"][t]
+            p(f"  {t:>7} {row['mean']:8.2f}{' ' if row['inside'] else '*'}" + "".join(
+                f" {sc['blocks'][t][b]['mean']:7.2f}{' ' if sc['blocks'][t][b]['inside'] else '*'}" for b in SC.BLOCK_DOF)
+              + f" {r['toff'][t]['mean']:7.2f}{' ' if r['toff'][t]['inside'] else '*'}")
+        p(f"  bounds (n {sc['nees']['end']['n']}): NEES {sc['nees']['end']['lo']:.2f} to {sc['nees']['end']['hi']:.2f}; "
+          + ", ".join(f"{b} {sc['blocks']['end'][b]['lo']:.2f} to {sc['blocks']['end'][b]['hi']:.2f}" for b in SC.BLOCK_DOF)
+          + f", toff {r['toff']['end']['lo']:.2f} to {r['toff']['end']['hi']:.2f}")
+        p("  altimeter NIS: " + "; ".join(f"{bd} {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f})"
+                                          f"{'' if v['inside'] else ' *'}" for bd, v in sc["alt"].items()))
+        d = sc["doppler"]
+        p(f"  Doppler NIS {d['mean']:.3f} ({d['lo']:.3f} to {d['hi']:.3f}){'' if d['inside'] else ' *'}; gate NIS "
+          f"{r['gate_nis']:.3f} (no bar)")
+        p("  TRN applied NIS: " + "; ".join(f"{ft} s {v['mean']:.3f} (n {v['n']}, {v['lo']:.3f} to {v['hi']:.3f})"
+                                            f"{'' if v['inside'] else ' *'}" for ft, v in sc["trn"].items()))
+        p(f"  terrain strikes {r['strikes']}; touchdown on slope {r['touchdown_on_slope']}; lowest guided clearance "
+          f"{r['lowest_guided']['min']:.1f} m (median {r['lowest_guided']['median']:.1f}); pointing-bias bound median "
+          f"{r['pointing_bound']['median']:.2f} m, max {r['pointing_bound']['max']:.2f} m")
         for g in GAPS:
-            s_ = r["gaps"][str(g)]
-            print(f"  gap {g:+5.0f} h: NEES inside at {sum(v['inside'] for v in s_['nees'].values())} of 8 report times, "
-                  f"{s_['seconds_inside']} of {s_['seconds_all_flights']} whole seconds; altimeter NIS "
-                  f"{s_['alt_nis']['mean']:.3f} ({s_['alt_nis']['lo']:.3f} to {s_['alt_nis']['hi']:.3f}); TRN NIS "
-                  f"{s_['trn_nis']['mean']:.3f} over {s_['trn_nis']['n']} ({s_['trn_nis']['lo']:.3f} to "
-                  f"{s_['trn_nis']['hi']:.3f}); lost lock {s_['lost_lock']}; offline {s_['offline']}")
-            print("     NEES " + "  ".join(f"{t}: {v['nees']:.2f}{'' if v['inside'] else '*'}"
-                                         for t, v in s_["nees"].items()))
-            print("     blocks out (time: block value): " + "; ".join(
-                f"{t}: " + ", ".join(f"{b} {v[b]:.2f}" for b in BLOCK_DOF if not v[b + '_in'])
-                for t, v in s_["nees"].items() if any(not v[b + '_in'] for b in BLOCK_DOF)))
-            print(f"     gates {s_['gates']}; hazardous {s_['hazardous']}")
-            print("     horizontal error median/p95/max: " + "  ".join(
-                f"{k}: {v['median']:.1f}/{v['p95']:.1f}/{v['max']:.1f}" for k, v in s_["herr"].items()))
-
+            q = r["gaps"][str(g)]
+            p(f"  gap {g:+5.0f} h: accepted {q['accepted']} of {q['fixes']}; lost lock {q['lost_lock']}; offline "
+              f"{q['offline']}; R5 left its cell {q['left']}; horizontal error 45 s median {q['herr']['45.0']['median']:.2f}"
+              f" p95 {q['herr']['45.0']['p95']:.2f}, end median {q['herr']['end']['median']:.2f} p95 "
+              f"{q['herr']['end']['p95']:.2f} m")
+            for name in ("first", "second"):
+                v = q[name]
+                p(f"     {name} pass: " + (f"n {v['n']} median {v['median']:.2f} p95 {v['p95']:.2f} m; over 10 / 50 / 100 "
+                                           f"m {v['over10']} / {v['over50']} / {v['over100']}" if v["n"] else "none"))
+            p("     second pass by fix time: " + "; ".join(
+                f"{ft} s n {v['n']} median {v['median']:.2f} p95 {v['p95']:.2f} sd {v['sd'][0]:.2f}/{v['sd'][1]:.2f}"
+                if v["sd"][0] is not None else f"{ft} s n {v['n']}" for ft, v in q["second_by_t"].items()))
+    txt = "\n".join(lines)
+    (RUN / "report.txt").write_text(txt + "\n")
+    print(txt)
 
 if __name__ == "__main__":
     cmd = sys.argv[1]
@@ -657,4 +826,4 @@ if __name__ == "__main__":
         cmd_run(int(sys.argv[2]))
     else:
         dict(clearance=cmd_clearance, constants=cmd_constants, noisefit=cmd_noisefit, calibrate=cmd_calibrate,
-             report=cmd_report, bcorr=cmd_bcorr, trncorr=cmd_trncorr)[cmd]()
+             report=cmd_report, bcorr=cmd_bcorr, trncorr=cmd_trncorr, accept=cmd_accept)[cmd]()

@@ -57,13 +57,14 @@ def fix_pass(img, cam, xy, z, grid, heights, reference, radius, subcell="parabol
     return out
 
 
-def candidate(img, cam, x, grid, heights, reference, radius):
+def candidate(img, cam, x, grid, heights, reference, radius, second="current"):
     """The filter's fix candidate: the first pass from estimate x (map x, y
     and height z) and, when it gave a fix, refine(position) for the second
-    pass from that position at the same height."""
+    pass from that position at the same height, by second_pass's method
+    second ("current", the parabola; "R5" in the filter from revision 3d)."""
     first = fix_pass(img, cam, (x[0], x[1]), x[2], grid, heights, reference, radius)
     if first["fix"] is not None:
-        first["refine"] = lambda xy: fix_pass(img, cam, xy, x[2], grid, heights, reference, SECOND_PASS_CELLS)
+        first["refine"] = lambda xy: second_pass(second, img, cam, xy, x[2], grid, heights, reference)
     return first
 
 

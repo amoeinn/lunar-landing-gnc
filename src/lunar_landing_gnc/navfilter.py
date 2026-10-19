@@ -1,7 +1,7 @@
 """The navigation filter of PLAN.md phase 3.4 (filter design fixed 14 Oct 2026,
-revised 15 Oct 2026; revision 3 in part, 16 Oct 2026: Doppler velocity and
-the terrain offset's model, the TRN error model still revision 2's until it
-is registered).
+revised 15 Oct 2026; revision 3, 16 Oct 2026: Doppler velocity and the
+terrain offset's model; revision 3d, 18 Oct 2026: the R5 second pass and its
+noise).
 
 Frame and state. The map frame of navtruth.py: x, y the stereographic map
 coordinates, z height above the 1737.4 km sphere, flat and Cartesian over the
@@ -69,10 +69,16 @@ horizontal covariance at the fix, s0 and k from work/step3_4/trn_noise_fit.json
 candidate's refine(position) called at the first pass's fix, and the update
 uses the second pass's fix with R = s0^2 per axis. Should the second pass give
 no position the first pass is used with its revision 1 R (registered in
-revision 3; logged as "accepted, first pass only"). The search radius the
+revision 3; logged as "accepted, first pass only"). Revision 3d: the second
+pass is R5 (2D sub-cell registration against the map's bilinear interpolant,
+navtrn.second_pass) and its fix has R = s0^2 + (j sigma_z)^2 per axis, sigma_z
+the filter's vertical sigma at the fix, s0 and j from
+work/step3_4/trn_remedy.json; if R5 leaves its cell the parabola's result is
+used with revision 2's second-pass R, s0^2 of trn_noise_fit.json (logged as
+"accepted, second pass parabola"). The search radius the
 callback is given is 3 sigma of the horizontal covariance (the larger axis),
-in 20 m cells, rounded up, clamped to 5 to 50. Revision 3's TRN error model
-(the c states) is not yet in: it waits on its registration.
+in 20 m cells, rounded up, clamped to 5 to 50. Revision 3's c states are
+replaced by revision 3d's second pass and noise; 10 states.
 
 Order at a 50 ms tick: propagate, altimeter, Doppler, TRN.
 
@@ -281,6 +287,13 @@ def height_fn(dem):
     return lambda x, y: dem.at(x, y)[0]
 
 
+def trn_R5(constants, sigma_z):
+    """Revision 3d second-pass noise per axis, s0^2 + (j sigma_z)^2, sigma_z
+    the filter's vertical sigma at the fix."""
+    return np.diag([constants["r5_s0_x"] ** 2 + (constants["r5_j_x"] * sigma_z) ** 2,
+                    constants["r5_s0_y"] ** 2 + (constants["r5_j_y"] * sigma_z) ** 2])
+
+
 def augment(x0, P0, dem):
     """The 9-state initial estimate and covariance with the terrain offset
     added: value 0, variance its level at the estimate."""
@@ -303,7 +316,8 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
     alt_meas: measured range at each sample (N), NaN where none; x0, P0: the
     9-state initial estimate and covariance (augment adds the terrain
     offset); trn(t, x, P, radius) returns None or dict(fix=(x, y), ncc,
-    second, ...); constants: dict(s0_x, k_x, s0_y, k_y, margin_threshold, L);
+    second, ...); constants: dict(s0_x, k_x, s0_y, k_y, margin_threshold, L,
+    r5_s0_x, r5_s0_y, r5_j_x, r5_j_y);
     nees_truth: optional (N, 9) truth; dop_meas: optional (N, 3) measured
     velocity, NaN where none, its R from the measured range at the same
     sample; report_idx: samples logged besides the whole seconds and the
@@ -391,7 +405,12 @@ def run(t, f_meas, alt_meas, x0, P0, dem, trn, constants, fix_times=FIX_TIMES, n
                     second = cand["refine"](tuple(cand["fix"])) if "refine" in cand else None
                     if second is not None and second.get("fix") is not None:
                         used = np.asarray(second["fix"], float)
-                        R_used = np.diag([constants["s0_x"] ** 2, constants["s0_y"] ** 2])
+                        if second.get("register") == "ok":
+                            R_used = trn_R5(constants, math.sqrt(P[2, 2]))
+                        else:
+                            R_used = np.diag([constants["s0_x"] ** 2, constants["s0_y"] ** 2])
+                            if second.get("register") == "left":
+                                rec["status"] = "accepted, second pass parabola"
                         rec["pass2"] = {k: v for k, v in second.items() if k != "refine"}
                     elif second is not None:
                         rec["pass2"] = dict(second, fix=None)

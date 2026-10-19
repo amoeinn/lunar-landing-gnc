@@ -261,9 +261,57 @@ def cmd_select():
     print(f"sha256 {hashlib.sha256(REMEDY.read_bytes()).hexdigest()}")
 
 
+def cmd_noise():
+    """Revision 3d TRN noise, recorded once in trn_remedy.json: per axis s0,
+    the plain SD of R5's as-flown errors at 20, 30 and 40 s, both reference
+    seeds pooled; j = sqrt(max(0, SD at 10 s ^ 2 - s0 ^ 2)) / RMS sigma_z at
+    the 10 s fixes, sigma_z the filter's vertical sigma there from the step
+    3.4d logs (the logged value after the fix equals the one before: at a
+    flight's first accepted fix z is uncorrelated with x and y, checked)."""
+    import hashlib
+    from lunar_landing_gnc import navfilter as NF
+    assert not REMEDY.exists(), "remedy already recorded"
+    rows = flown_rows()
+    err = {t: np.array([np.subtract(q["methods"]["R5"]["fix"], q["truth"]) for q in rows if q["t"] == t])
+           for t in (10.0, 20.0, 30.0, 40.0)}
+    late = np.concatenate([err[20.0], err[30.0], err[40.0]])
+    s0 = late.std(axis=0, ddof=1)
+    sd10 = err[10.0].std(axis=0, ddof=1)
+    sig_z = []
+    for q in rows:
+        if q["t"] != 10.0:
+            continue
+        z = np.load(DIAG / f"seed{q['seed']}" / f"e{q['epoch']}_k{q['k']}.npz")
+        row = int(np.nonzero(np.abs(z["log1hz_t"] - 10.0) < 1e-6)[0][0])
+        srow = int(np.nonzero(z["sec_i"] == int(round(10.0 / NF.DT)))[0][0])
+        assert z["sec_P"][srow][2, 0] == 0.0 and z["sec_P"][srow][2, 1] == 0.0
+        sig_z.append(float(np.sqrt(z["log1hz_Pdiag"][row][2])))
+    rms_sz = float(np.sqrt(np.mean(np.square(sig_z))))
+    j = np.sqrt(np.maximum(0.0, sd10 ** 2 - s0 ** 2)) / rms_sz
+    res = json.loads((OUT / "report.json").read_text())
+    from lunar_landing_gnc import trn
+    rec = dict(remedy="R5", multi_start=True, starts=[list(s) for s in trn.LK_STARTS],
+               s0_x=float(s0[0]), s0_y=float(s0[1]), j_x=float(j[0]), j_y=float(j[1]),
+               inputs=dict(late_fixes=int(len(late)), sd_late=s0.tolist(), fixes_10s=int(len(err[10.0])),
+                           sd_10s=sd10.tolist(), sigma_z_10s_rms=rms_sz, sigma_z_10s_n=len(sig_z),
+                           sigma_z_10s_min=float(np.min(sig_z)), sigma_z_10s_max=float(np.max(sig_z))),
+               model="per axis R = s0^2 + (j sigma_z)^2, sigma_z the filter's vertical sigma at the fix",
+               table=res["stats"], k=res["k"], reproduction=res["reproduction"],
+               limit="the image is made from the same map by bilinear sampling, so at gap 0 R5 matches how the "
+                     "data was generated and the fresh-map fix floor is optimistic",
+               source="R5 as-flown second passes of the step 3.4d gap-0 accepted fixes (commit d7149cd), seeds "
+                      "20261030 and 20261031; sigma_z from the step 3.4d logs; PLAN.md filter design revision 3d",
+               recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
+    NB.save(REMEDY, rec)
+    print(f"s0 {rec['s0_x']:.4f} / {rec['s0_y']:.4f} m over {len(late)} fixes at 20 to 40 s; SD at 10 s "
+          f"{sd10[0]:.4f} / {sd10[1]:.4f} m over {len(err[10.0])}; RMS sigma_z at 10 s {rms_sz:.3f} m "
+          f"({np.min(sig_z):.3f} to {np.max(sig_z):.3f}); j {rec['j_x']:.5f} / {rec['j_y']:.5f}")
+    print(f"sha256 {hashlib.sha256(REMEDY.read_bytes()).hexdigest()}")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "run":
         cmd_run(sys.argv[2], int(sys.argv[3]))
     else:
-        dict(calibrate=cmd_calibrate, report=cmd_report, select=cmd_select)[cmd]()
+        dict(calibrate=cmd_calibrate, report=cmd_report, select=cmd_select, noise=cmd_noise)[cmd]()

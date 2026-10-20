@@ -12,6 +12,8 @@
 
 namespace py = pybind11;
 
+void bind_nav(py::module_& top);
+
 namespace {
 
 using IndexArray = py::array_t<long long, py::array::c_style | py::array::forcecast>;
@@ -71,6 +73,8 @@ PYBIND11_MODULE(_flight, m) {
 
     m.def("scale_rows", &llg::scale_rows, py::arg("a"), py::arg("w"),
           "out[i, j] = w[i] a[i, j], an Eigen matrix in and out.");
+
+    bind_nav(m);
 
     m.def("build_info", []() {
         auto info = llg::build_info();

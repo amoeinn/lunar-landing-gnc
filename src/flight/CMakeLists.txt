@@ -72,7 +72,8 @@ add_dependencies(clarabel_static clarabel_cargo)
 add_library(llg_flight STATIC
   src/socp.cpp
   src/roundtrip.cpp
-  src/build_info.cpp)
+  src/build_info.cpp
+  src/nav_filter.cpp)
 target_include_directories(llg_flight PUBLIC include)
 target_compile_options(llg_flight PRIVATE ${LLG_FLIGHT_FLAGS})
 target_compile_definitions(llg_flight PRIVATE
@@ -92,7 +93,7 @@ if(NOT pyb_rc EQUAL 0)
 endif()
 set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 2.12 REQUIRED CONFIG)
-pybind11_add_module(_flight NO_EXTRAS python/module.cpp)
+pybind11_add_module(_flight NO_EXTRAS python/module.cpp python/nav_module.cpp)
 target_compile_options(_flight PRIVATE ${LLG_FLIGHT_FLAGS})
 target_link_libraries(_flight PRIVATE llg_flight)
 target_compile_definitions(_flight PRIVATE LLG_PYBIND11_VERSION="${pybind11_VERSION}")
@@ -101,12 +102,13 @@ set_target_properties(_flight PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${REPO_ROOT}/
 # GoogleTest unit tests against hand-computed cases.
 find_package(GTest 1.14 REQUIRED CONFIG)
 enable_testing()
-add_executable(llg_flight_tests "${REPO_ROOT}/tests/cpp/test_skeleton.cpp")
+add_executable(llg_flight_tests "${REPO_ROOT}/tests/cpp/test_skeleton.cpp" "${REPO_ROOT}/tests/cpp/test_nav_filter.cpp")
 target_compile_options(llg_flight_tests PRIVATE ${LLG_FLIGHT_FLAGS})
 target_link_libraries(llg_flight_tests PRIVATE llg_flight GTest::gtest_main)
 add_test(NAME llg_flight_tests COMMAND llg_flight_tests)
 
 # Single-thread timing of the flight-step calls (PLAN.md phase 4 bar 4).
 add_executable(llg_flight_bench bench/bench.cpp)
+# examples/compare_n1.py bench-input writes the recorded flight it times.
 target_compile_options(llg_flight_bench PRIVATE ${LLG_FLIGHT_FLAGS})
 target_link_libraries(llg_flight_bench PRIVATE llg_flight)

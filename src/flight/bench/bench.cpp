@@ -7,6 +7,11 @@
 //   llg_flight_bench trn FILE [reps]  every recorded fix of one flight
 //     (examples/compare_n2.py bench-input writes FILE): the first pass and,
 //     where the filter asked, the dithered second pass, timed together.
+//   llg_flight_bench gnc FILE [reps]  the recorded re-solves of one flight
+//     (examples/compare_g1.py bench-input writes FILE), timed by path:
+//     window (8 final times) and widened (every final time the propellant
+//     allows); PLAN.md bar 4 is scored per path.
+#include "llg/guidance.hpp"
 #include "llg/nav_filter.hpp"
 #include "llg/socp.hpp"
 #include "llg/trn.hpp"
@@ -205,6 +210,45 @@ int trn(const char* file, int reps) {
     return 0;
 }
 
+int gnc(const char* file, int reps) {
+    using namespace llg::gnc;
+    std::ifstream in(file, std::ios::binary);
+    if (!in) {
+        std::printf("cannot read %s\n", file);
+        return 1;
+    }
+    in.seekg(0, std::ios::end);
+    std::vector<double> v(static_cast<size_t>(in.tellg()) / sizeof(double));
+    in.seekg(0);
+    in.read(reinterpret_cast<char*>(v.data()), static_cast<std::streamsize>(v.size() * sizeof(double)));
+    int nrec = static_cast<int>(v[0]), len = static_cast<int>(v[1]);
+    std::vector<double> window, widened;
+    for (int rr = 0; rr < reps; ++rr)
+        for (int k = 0; k < nrec; ++k) {
+            const double* e = &v[2 + static_cast<size_t>(k) * len];
+            std::array<double, 7> y;
+            for (int j = 0; j < 7; ++j) y[j] = e[j];
+            Vehicle veh;
+            veh.g = {e[9], e[10], e[11]};
+            veh.m_dry = e[12];
+            veh.m_wet = e[13];
+            veh.isp = e[14];
+            veh.n_thrusters = static_cast<int>(e[15]);
+            veh.thrust_max = e[16];
+            veh.throttle_min = e[17];
+            veh.throttle_max = e[18];
+            veh.cant_deg = e[19];
+            veh.g_e = e[20];
+            auto t0 = clk::now();
+            Resolve r = resolve(veh, y, static_cast<int>(e[7]), 4);
+            double ms = std::chrono::duration<double, std::milli>(clk::now() - t0).count();
+            (r.widened ? widened : window).push_back(ms);
+        }
+    report("re-solve, window path (8 final times)", window);
+    report("re-solve, widened path", widened);
+    return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -212,6 +256,7 @@ int main(int argc, char** argv) {
     if (mode == "socp") return socp(argc > 2 ? std::atoi(argv[2]) : 1000);
     if (mode == "nav" && argc > 2) return nav(argv[2], argc > 3 ? std::atoi(argv[3]) : 5);
     if (mode == "trn" && argc > 2) return trn(argv[2], argc > 3 ? std::atoi(argv[3]) : 3);
-    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps]\n");
+    if (mode == "gnc" && argc > 2) return gnc(argv[2], argc > 3 ? std::atoi(argv[3]) : 1);
+    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps] | gnc FILE [reps]\n");
     return 2;
 }

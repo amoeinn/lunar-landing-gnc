@@ -14,6 +14,7 @@ namespace py = pybind11;
 
 void bind_nav(py::module_& top);
 void bind_trn(py::module_& top);
+void bind_gnc(py::module_& top);
 
 namespace {
 
@@ -77,6 +78,7 @@ PYBIND11_MODULE(_flight, m) {
 
     bind_nav(m);
     bind_trn(m);
+    bind_gnc(m);
 
     m.def("build_info", []() {
         auto info = llg::build_info();

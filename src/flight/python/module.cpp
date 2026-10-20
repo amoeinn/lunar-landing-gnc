@@ -13,6 +13,7 @@
 namespace py = pybind11;
 
 void bind_nav(py::module_& top);
+void bind_trn(py::module_& top);
 
 namespace {
 
@@ -75,6 +76,7 @@ PYBIND11_MODULE(_flight, m) {
           "out[i, j] = w[i] a[i, j], an Eigen matrix in and out.");
 
     bind_nav(m);
+    bind_trn(m);
 
     m.def("build_info", []() {
         auto info = llg::build_info();

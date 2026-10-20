@@ -4,8 +4,12 @@
 //   llg_flight_bench nav FILE [reps]  the filter over one recorded flight
 //     (examples/compare_n1.py bench-input writes FILE): every tick timed,
 //     the record run reps times.
+//   llg_flight_bench trn FILE [reps]  every recorded fix of one flight
+//     (examples/compare_n2.py bench-input writes FILE): the first pass and,
+//     where the filter asked, the dithered second pass, timed together.
 #include "llg/nav_filter.hpp"
 #include "llg/socp.hpp"
+#include "llg/trn.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -136,12 +140,78 @@ int nav(const char* file, int reps) {
     return 0;
 }
 
+int trn(const char* file, int reps) {
+    using namespace llg::trn;
+    std::ifstream in(file, std::ios::binary);
+    if (!in) {
+        std::printf("cannot read %s\n", file);
+        return 1;
+    }
+    in.seekg(0, std::ios::end);
+    std::vector<double> v(static_cast<size_t>(in.tellg()) / sizeof(double));
+    in.seekg(0);
+    in.read(reinterpret_cast<char*>(v.data()), static_cast<std::streamsize>(v.size() * sizeof(double)));
+    size_t p = 0;
+    auto grid2 = [&](int rows, int cols) {
+        Grid2 g(rows, cols);
+        for (int r = 0; r < rows; ++r)
+            for (int c = 0; c < cols; ++c) g(r, c) = v[p++];
+        return g;
+    };
+    int nmaps = static_cast<int>(v[0]), nimg = static_cast<int>(v[1]), nfix = static_cast<int>(v[2]);
+    Grid g{v[3], v[4], v[5], static_cast<int>(v[6]), static_cast<int>(v[7])};
+    int ih = static_cast<int>(v[8]), iw = static_cast<int>(v[9]);
+    p = 10;
+    Grid2 heights = grid2(g.ny, g.nx);
+    std::vector<Grid2> refs;
+    for (int k = 0; k < nmaps; ++k) refs.push_back(grid2(g.ny, g.nx));
+    std::vector<Grid2> imgs;
+    std::vector<Camera> cams;
+    for (int k = 0; k < nimg; ++k) {
+        imgs.push_back(grid2(ih, iw));
+        Camera c;
+        c.position = Vec3(v[p], v[p + 1], v[p + 2]);
+        p += 3;
+        for (int r = 0; r < 3; ++r)
+            for (int q = 0; q < 3; ++q) c.attitude(r, q) = v[p++];
+        c.focal_px = v[p++];
+        c.width = static_cast<int>(v[p++]);
+        c.height = static_cast<int>(v[p++]);
+        cams.push_back(c);
+    }
+    auto t0 = clk::now();
+    std::vector<MapContext> maps;
+    for (int k = 0; k < nmaps; ++k) maps.emplace_back(g, heights, refs[k]);
+    double setup = std::chrono::duration<double, std::milli>(clk::now() - t0).count() / nmaps;
+    std::vector<double> all, first, second;
+    for (int rr = 0; rr < reps; ++rr)
+        for (int k = 0; k < nfix; ++k) {
+            const double* e = &v[p + static_cast<size_t>(k) * 7];
+            const MapContext& m = maps[static_cast<int>(e[0])];
+            int im = static_cast<int>(e[1]);
+            auto a = clk::now();
+            FixPass f = fix_pass(imgs[im], cams[im], e[2], e[3], e[4], m, static_cast<int>(e[5]));
+            auto b = clk::now();
+            if (f.has_fix && e[6] == 1.0) second_pass_r5d(imgs[im], cams[im], f.fix_x, f.fix_y, e[4], m);
+            auto c = clk::now();
+            first.push_back(std::chrono::duration<double, std::milli>(b - a).count());
+            if (e[6] == 1.0) second.push_back(std::chrono::duration<double, std::milli>(c - b).count());
+            all.push_back(std::chrono::duration<double, std::milli>(c - a).count());
+        }
+    std::printf("map setup (cell points), per map: %.2f ms\n", setup);
+    report("TRN fix with the dither (first pass + second pass)", all);
+    report("first pass", first);
+    report("second pass (R5D)", second);
+    return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
     std::string mode = argc > 1 ? argv[1] : "socp";
     if (mode == "socp") return socp(argc > 2 ? std::atoi(argv[2]) : 1000);
     if (mode == "nav" && argc > 2) return nav(argv[2], argc > 3 ? std::atoi(argv[3]) : 5);
-    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps]\n");
+    if (mode == "trn" && argc > 2) return trn(argv[2], argc > 3 ? std::atoi(argv[3]) : 3);
+    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps]\n");
     return 2;
 }

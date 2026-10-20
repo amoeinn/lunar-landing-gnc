@@ -1455,7 +1455,7 @@ def sha256(path):
     return h.hexdigest()
 
 
-def manifest():
+def manifest(recording_commit=None):
     import clarabel
     import cvxpy
     import scipy
@@ -1472,6 +1472,10 @@ def manifest():
     m = dict(
         seed=SEED, created=time.strftime("%Y-%m-%d %H:%M:%S"),
         code=dict(head=git("rev-parse", "HEAD"), dirty=git("status", "--porcelain", "--", "src", "examples"),
+                  recording_commit=recording_commit,
+                  recorder_changed_since=None if recording_commit is None else [
+                      l for l in git("diff", "-U0", recording_commit, "HEAD", "--", "examples/golden_traces.py").splitlines()
+                      if l.startswith("@@")],
                   recorder_sha256=sha256(Path(__file__)),
                   src_sha256={str(p.relative_to(ROOT)): sha256(p) for p in sorted((ROOT / "src/lunar_landing_gnc").glob("*.py"))},
                   nav_baselines_sha256=sha256(ROOT / "examples/nav_baselines.py")),
@@ -1489,6 +1493,7 @@ def manifest():
                     tight_rule="tightest power of ten at which every probe solve kept its default status "
                                "(work/step4_2/tight_probe.txt)"),
         files={p.name: dict(sha256=sha256(p), bytes=p.stat().st_size) for p in files},
+        summary_sha256=sha256(OUT.parent / "summary.json") if (OUT.parent / "summary.json").exists() else None,
         jobs=done)
     (OUT / "manifest.json").write_text(json.dumps(m, indent=1, default=str))
     return m
@@ -1516,6 +1521,7 @@ def summary():
     resolve, solve_status, flights = Counter(), Counter(), []
     g4_branch = Counter()
     disagree = defaultdict(Counter)
+    where = []
     spread = defaultdict(lambda: defaultdict(list))
     tight = defaultdict(list)
     for p in files:
@@ -1531,10 +1537,10 @@ def summary():
                 fixes[(g, st)] += 1
             lost[(g, meta["lost_lock"] is not None)] += 1
             ll = t.get("offline.lost_lock_rule", {})
-            fired = [v for v in ll.get("out", []) if v]
+            fired = [v for v in ll.get("out.", []) if v]
             nav_trig[(g, "lost lock" if fired else "none")] += 1
             for name in ("navtrn._dither3",):
-                for regs in zip(*[t[name].get(f"out.dither_registers.{j}", []) for j in range(3)]):
+                for regs in zip(*[t.get(name, {}).get(f"out.dither_registers.{j}", []) for j in range(3)]):
                     dithers[tuple(regs)] += 1
             for v in t.get("trn.register_peak", {}).get("out.register", []):
                 registers[v] += 1
@@ -1564,6 +1570,11 @@ def summary():
                     n = sum(int(v) for v in vals if v is not None)
                     if n:
                         disagree[name][col[9:]] += n
+                        for j, v in enumerate(vals):
+                            if v:
+                                where.append(dict(file=p.name, table=name, row=j, field=col[9:], copies=int(v),
+                                                  parent=cols.get("parent", [None] * (j + 1))[j],
+                                                  tick=(cols.get("i") or [None] * (j + 1))[j]))
                 elif col.startswith("spread#"):
                     q = col[7:]
                     groups = [(name, vals)] if path is None else [
@@ -1591,7 +1602,8 @@ def summary():
                register=dict(registers), dither_registers={json.dumps(k): n for k, n in dithers.items()},
                resolves={" ".join(k): n for k, n in resolve.items()}, solve_status=dict(solve_status),
                flights=flights, g4_branch=dict(g4_branch),
-               disagreements={n: dict(c) for n, c in disagree.items()}, spread=sp, tight_change=tg)
+               disagreements={n: dict(c) for n, c in disagree.items()}, disagreement_calls=where, spread=sp,
+               tight_change=tg)
     (OUT.parent / "summary.json").write_text(json.dumps(out, indent=1, default=str))
     return out
 
@@ -1626,6 +1638,6 @@ if __name__ == "__main__":
     elif cmd == "gnc2":
         stage([j for j in gnc_jobs() if j not in GNC_STAGE1], "guidance stage 2")
     elif cmd == "manifest":
-        manifest()
+        manifest(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "summary":
         print(json.dumps(summary(), indent=1, default=str)[:20000])

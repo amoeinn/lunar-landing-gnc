@@ -16,6 +16,7 @@ void bind_nav(py::module_& top);
 void bind_trn(py::module_& top);
 void bind_gnc(py::module_& top);
 void bind_num(py::module_& top);
+void bind_abort(py::module_& top);
 
 namespace {
 
@@ -81,6 +82,7 @@ PYBIND11_MODULE(_flight, m) {
     bind_trn(m);
     bind_gnc(m);
     bind_num(m);
+    bind_abort(m);
 
     m.def("build_info", []() {
         auto info = llg::build_info();

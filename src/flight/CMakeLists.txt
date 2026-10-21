@@ -75,7 +75,8 @@ add_library(llg_flight STATIC
   src/build_info.cpp
   src/nav_filter.cpp
   src/trn.cpp
-  src/guidance.cpp)
+  src/guidance.cpp
+  src/triggers.cpp)
 target_include_directories(llg_flight PUBLIC include)
 target_compile_options(llg_flight PRIVATE ${LLG_FLIGHT_FLAGS})
 target_compile_definitions(llg_flight PRIVATE
@@ -106,7 +107,8 @@ find_package(GTest 1.14 REQUIRED CONFIG)
 enable_testing()
 add_executable(llg_flight_tests "${REPO_ROOT}/tests/cpp/test_skeleton.cpp" "${REPO_ROOT}/tests/cpp/test_nav_filter.cpp"
   "${REPO_ROOT}/tests/cpp/test_trn.cpp"
-  "${REPO_ROOT}/tests/cpp/test_guidance.cpp")
+  "${REPO_ROOT}/tests/cpp/test_guidance.cpp"
+  "${REPO_ROOT}/tests/cpp/test_triggers.cpp")
 target_compile_options(llg_flight_tests PRIVATE ${LLG_FLIGHT_FLAGS})
 target_link_libraries(llg_flight_tests PRIVATE llg_flight GTest::gtest_main)
 add_test(NAME llg_flight_tests COMMAND llg_flight_tests)

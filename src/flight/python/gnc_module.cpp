@@ -1,6 +1,8 @@
 // lunar_landing_gnc._flight.gnc: G1 (guidance), one for one with guidance.py,
-// dynamics.py and closed_loop.py's re-solve.
+// dynamics.py and closed_loop.py's re-solve; G2 (the abort triggers), with
+// closed_loop.py's triggers and offline.py's lost-lock rule.
 #include "llg/guidance.hpp"
+#include "llg/triggers.hpp"
 
 #include <pybind11/eigen.h>
 #include <pybind11/numpy.h>
@@ -118,6 +120,9 @@ std::array<double, 7> a7(const py::object& o) {
     return a;
 }
 
+// the Python's None for a trigger that did not fire
+py::object fired(const std::string& s) { return s.empty() ? py::object(py::none()) : py::object(py::str(s)); }
+
 }  // namespace
 
 void bind_gnc(py::module_& top) {
@@ -181,4 +186,19 @@ void bind_gnc(py::module_& top) {
     }, py::arg("veh"), py::arg("y"), py::arg("n_remaining"), py::arg("revision") = 4);
     m.def("py_floordiv", &py_floordiv);
     m.def("cvxpy_status", &cvxpy_status);
+    // G2
+    m.def("predicted_reserve", &predicted_reserve);
+    m.def("descent_allowance", [](double m_end, const py::dict& veh) { return descent_allowance(m_end, vehicle(veh)); });
+    m.def("predicted_touchdown",
+          [](double predicted_end, const py::dict& veh) { return predicted_touchdown(predicted_end, vehicle(veh)); });
+    m.def("trigger_from", [](bool found, double predicted_end, const py::dict& veh, int revision) {
+        return fired(trigger_from(found, predicted_end, vehicle(veh), revision));
+    });
+    m.def("trigger", [](const py::object& fuel, double m, const py::dict& veh, int revision) {
+        double f = fuel.is_none() ? 0.0 : fuel.cast<double>();
+        return fired(trigger(fuel.is_none() ? nullptr : &f, m, vehicle(veh), revision));
+    });
+    m.def("lost_lock", [](const std::vector<double>& accepted_fix_times, double t, double t_last) {
+        return fired(lost_lock(accepted_fix_times, t, t_last));
+    }, py::arg("accepted_fix_times"), py::arg("t"), py::arg("t_last") = 40.0);
 }

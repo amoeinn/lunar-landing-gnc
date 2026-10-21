@@ -11,7 +11,12 @@
 //     (examples/compare_g1.py bench-input writes FILE), timed by path:
 //     window (8 final times) and widened (every final time the propellant
 //     allows); PLAN.md bar 4 is scored per path.
+//   llg_flight_bench triggers FILE [reps]  every recorded trigger_from call of
+//     the guidance flights (examples/compare_g2.py bench-input writes FILE),
+//     the touchdown reserve included; each call timed over reps repetitions
+//     (the clock's resolution is coarser than one call).
 #include "llg/guidance.hpp"
+#include "llg/triggers.hpp"
 #include "llg/nav_filter.hpp"
 #include "llg/socp.hpp"
 #include "llg/trn.hpp"
@@ -249,6 +254,43 @@ int gnc(const char* file, int reps) {
     return 0;
 }
 
+int triggers(const char* file, int reps) {
+    using namespace llg::gnc;
+    std::ifstream in(file, std::ios::binary);
+    if (!in) {
+        std::printf("cannot read %s\n", file);
+        return 1;
+    }
+    in.seekg(0, std::ios::end);
+    std::vector<double> v(static_cast<size_t>(in.tellg()) / sizeof(double));
+    in.seekg(0);
+    in.read(reinterpret_cast<char*>(v.data()), static_cast<std::streamsize>(v.size() * sizeof(double)));
+    int nrec = static_cast<int>(v[0]), len = static_cast<int>(v[1]);
+    std::vector<double> ns;
+    size_t fired = 0;
+    for (int k = 0; k < nrec; ++k) {
+        const double* e = &v[2 + static_cast<size_t>(k) * len];
+        Vehicle veh;
+        veh.g = {e[3], e[4], e[5]};
+        veh.m_dry = e[6];
+        veh.m_wet = e[7];
+        veh.isp = e[8];
+        veh.n_thrusters = static_cast<int>(e[9]);
+        veh.thrust_max = e[10];
+        veh.throttle_min = e[11];
+        veh.throttle_max = e[12];
+        veh.cant_deg = e[13];
+        veh.g_e = e[14];
+        auto t0 = clk::now();
+        for (int rr = 0; rr < reps; ++rr) fired += !trigger_from(e[0] != 0.0, e[1], veh, static_cast<int>(e[2])).empty();
+        ns.push_back(std::chrono::duration<double, std::nano>(clk::now() - t0).count() / reps);
+    }
+    std::sort(ns.begin(), ns.end());
+    std::printf("trigger_from: %zu calls, median %.1f ns, max %.1f ns (%zu fired over all repetitions)\n", ns.size(),
+                ns[ns.size() / 2], ns.back(), fired);
+    return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -257,6 +299,8 @@ int main(int argc, char** argv) {
     if (mode == "nav" && argc > 2) return nav(argv[2], argc > 3 ? std::atoi(argv[3]) : 5);
     if (mode == "trn" && argc > 2) return trn(argv[2], argc > 3 ? std::atoi(argv[3]) : 3);
     if (mode == "gnc" && argc > 2) return gnc(argv[2], argc > 3 ? std::atoi(argv[3]) : 1);
-    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps] | gnc FILE [reps]\n");
+    if (mode == "triggers" && argc > 2) return triggers(argv[2], argc > 3 ? std::atoi(argv[3]) : 1000);
+    std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps] | gnc FILE [reps] | "
+                "triggers FILE [reps]\n");
     return 2;
 }

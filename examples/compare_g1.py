@@ -260,21 +260,29 @@ def cmd_compare():
         print(f"time {k}: {v['calls']} calls, median {v['median_ms']:.2f} ms, max {v['max_ms']:.2f} ms")
 
 
-def cmd_bench_input():
-    """The recorded re-solves of one weak-engine flight (window and widened),
-    for llg_flight_bench gnc: per re-solve the state, the remaining steps and
-    the vehicle."""
-    t, _ = GT.load(GT.OUT / "gnc_thrust_0.npz")
+def bench_input(path, out_file):
+    """The recorded re-solves of one flight (window and widened), for
+    llg_flight_bench gnc: per re-solve the state, the remaining steps and the
+    vehicle. Returns the number of re-solves (none: nothing written)."""
+    t, _ = GT.load(path)
     recs = []
-    for r in rows(t["closed_loop.resolve"]):
+    for r in rows(t.get("closed_loop.resolve", {})):
         v = json.loads(r["in.veh"])
         recs.append(list(map(float, r["in.y"])) + [float(r["in.n_remaining"]), 1.0 if r["widened"] else 0.0] +
                     list(map(float, v["g"])) + [v["m_dry"], v["m_wet"], v["isp"], v["n_thrusters"], v["thrust_max"],
                                                 v["throttle_min"], v["throttle_max"], v["cant_deg"], v["g_e"]])
+    if not recs:
+        return 0
     blob = np.concatenate([[len(recs), len(recs[0])], np.ravel(recs)]).astype("<f8")
+    blob.tofile(out_file)
+    return len(recs)
+
+
+def cmd_bench_input():
+    """One weak-engine flight (bench_input)."""
     OUT.mkdir(parents=True, exist_ok=True)
-    blob.tofile(OUT / "bench_gnc.bin")
-    print("wrote", OUT / "bench_gnc.bin", len(recs), "re-solves")
+    n = bench_input(GT.OUT / "gnc_thrust_0.npz", OUT / "bench_gnc.bin")
+    print("wrote", OUT / "bench_gnc.bin", n, "re-solves")
 
 
 if __name__ == "__main__":

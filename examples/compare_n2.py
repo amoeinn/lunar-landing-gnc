@@ -335,12 +335,13 @@ def cmd_compare():
     return res
 
 
-def cmd_bench_input():
-    """Every recorded fix of flight e1 k1 at each gap, for llg_flight_bench
-    trn: the heights, the three maps, the four images and cameras, and per
-    fix the map, image, estimate (x, y, z), search radius and whether the
-    filter asked for a second pass, as a flat binary of doubles."""
-    runs = [Run(GT.OUT / f"nav_e1_k1_g{g}.npz") for g in ("+0", "+24", "+168")]
+def bench_input(paths, out_file):
+    """Every recorded fix of one flight's runs (paths, one per gap), for
+    llg_flight_bench trn: the heights, the maps, the flight's images and
+    cameras, and per fix the map, image, estimate (x, y, z), search radius and
+    whether the filter asked for a second pass, as a flat binary of doubles.
+    Returns the number of fixes."""
+    runs = [Run(p) for p in paths]
     imgs = list(runs[0].images.items())
     shas = [k for k, _ in imgs]
     recs = []
@@ -358,9 +359,15 @@ def cmd_bench_input():
     for _, (img, cam) in imgs:
         parts += [img.ravel(), cam["position"], cam["attitude"].ravel(), [cam["focal_px"], cam["width"], cam["height"]]]
     parts.append(np.asarray(recs, float))
+    np.concatenate([np.asarray(p, float) for p in parts]).astype("<f8").tofile(out_file)
+    return len(recs) // 7
+
+
+def cmd_bench_input():
+    """Flight e1 k1 at each gap (bench_input)."""
     OUT.mkdir(parents=True, exist_ok=True)
-    np.concatenate([np.asarray(p, float) for p in parts]).astype("<f8").tofile(OUT / "bench_trn.bin")
-    print("wrote", OUT / "bench_trn.bin", len(recs) // 7, "fixes")
+    n = bench_input([GT.OUT / f"nav_e1_k1_g{g}.npz" for g in ("+0", "+24", "+168")], OUT / "bench_trn.bin")
+    print("wrote", OUT / "bench_trn.bin", n, "fixes")
 
 
 if __name__ == "__main__":

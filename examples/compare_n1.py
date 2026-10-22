@@ -330,10 +330,9 @@ def cmd_gate():
           "gate ties", sum(f["gate_ties"] for r in res for f in r["fixes"]))
 
 
-def cmd_bench_input():
+def bench_input(path, out_file):
     """One recorded flight's inputs for llg_flight_bench, as a flat binary:
-    the record's arrays and the candidates."""
-    path = GT.OUT / "nav_e1_k1_g+0.npz"
+    the record's arrays and the candidates. Returns the number of values."""
     s = setup(path)
     inp = s["inp"]
     c = s["constants"]
@@ -354,9 +353,14 @@ def cmd_bench_input():
     blob = np.concatenate([head, consts, np.asarray(s["fix_times"], float), np.asarray(s["report"], float),
                            inp["t"], inp["x0"], inp["P0"].ravel(), inp["f_meas"].ravel(), inp["alt"],
                            inp["dop"].ravel(), s["dem"].h.ravel(), np.asarray(cands, float)])
+    blob.astype("<f8").tofile(out_file)
+    return blob.size
+
+
+def cmd_bench_input():
     OUT.mkdir(parents=True, exist_ok=True)
-    blob.astype("<f8").tofile(OUT / "bench_nav.bin")
-    print("wrote", OUT / "bench_nav.bin", blob.size)
+    n = bench_input(GT.OUT / "nav_e1_k1_g+0.npz", OUT / "bench_nav.bin")
+    print("wrote", OUT / "bench_nav.bin", n)
 
 
 if __name__ == "__main__":

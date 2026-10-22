@@ -1,0 +1,2416 @@
+{
+ "item2": {
+  "ok": true,
+  "failed": [],
+  "rows": [
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "prop_x",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "prop_P",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "level",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "phi_b",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "q_b",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "alt_x",
+    "scored": 5.551115123125783e-17,
+    "bar": 5.551115123125783e-16,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "alt_P",
+    "scored": 2.220446049250313e-16,
+    "bar": 2.220446049250313e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "alt_S",
+    "scored": 7.105427357601002e-15,
+    "bar": 7.105427357601002e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "alt_nis",
+    "scored": 8.881784197001252e-16,
+    "bar": 8.881784197001252e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "dop_x",
+    "scored": 9.094947017729282e-13,
+    "bar": 9.094947017729282e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "dop_P",
+    "scored": 2.220446049250313e-16,
+    "bar": 2.220446049250313e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "dop_S",
+    "scored": 5.293955920339377e-23,
+    "bar": 5.293955920339377e-22,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "dop_nis",
+    "scored": 3.552713678800501e-15,
+    "bar": 3.552713678800501e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "trn_x",
+    "scored": 9.094947017729282e-13,
+    "bar": 9.094947017729282e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "trn_P",
+    "scored": 1.734723475976807e-18,
+    "bar": 1.734723475976807e-17,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "trn_S",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "trn_nis",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "end_x",
+    "scored": 9.094947017729282e-13,
+    "bar": 9.094947017729282e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "end_P",
+    "scored": 2.220446049250313e-16,
+    "bar": 2.220446049250313e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "gate_nis",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "margin",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "used",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "R_used",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "R",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.orthorectify",
+    "quantity": "crop",
+    "scored": 1.6486811915683575e-14,
+    "bar": 1.6486811915683575e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.correlate",
+    "quantity": "dx",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.correlate",
+    "quantity": "dy",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.correlate",
+    "quantity": "ncc",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.correlate",
+    "quantity": "surface",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.register_peak",
+    "quantity": "dx",
+    "scored": 3.5674791315498666e-08,
+    "bar": 3.5674791315498666e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.register_peak",
+    "quantity": "dy",
+    "scored": 6.007459987800168e-08,
+    "bar": 6.007459987800168e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.register_peak",
+    "quantity": "ncc",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.register_peak",
+    "quantity": "gain",
+    "scored": 2.814340405166149e-08,
+    "bar": 2.814340405166149e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "trn.register_peak",
+    "quantity": "bias",
+    "scored": 7.014544500805187e-11,
+    "bar": 7.014544500805187e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_peak",
+    "quantity": "value",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.fix_pass",
+    "quantity": "fix",
+    "scored": 1.201491613755934e-06,
+    "bar": 1.201491613755934e-05,
+    "rule": "amended: tie calls left out",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.fix_pass",
+    "quantity": "ncc",
+    "scored": 1.887379141862766e-15,
+    "bar": 1.887379141862766e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.fix_pass",
+    "quantity": "second",
+    "scored": 1.3600232051658168e-15,
+    "bar": 1.3600232051658168e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.fix_pass",
+    "quantity": "offset",
+    "scored": 6.007459826817829e-08,
+    "bar": 6.007459826817829e-07,
+    "rule": "amended: tie calls left out",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "fix",
+    "scored": 3.696573003253434e-08,
+    "bar": 3.696573003253434e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "ncc",
+    "scored": 8.881784197001252e-16,
+    "bar": 8.881784197001252e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "second",
+    "scored": 3.3306690738754696e-16,
+    "bar": 3.3306690738754696e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "offset",
+    "scored": 6.007459826817829e-08,
+    "bar": 6.007459826817829e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "dithers.0",
+    "scored": 1.201491613755934e-06,
+    "bar": 1.201491613755934e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "dithers.1",
+    "scored": 1.6290323401335627e-07,
+    "bar": 1.6290323401335627e-06,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn._dither3",
+    "quantity": "dithers.2",
+    "scored": 7.767084753140807e-10,
+    "bar": 7.767084753140807e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "fix",
+    "scored": 3.696573003253434e-08,
+    "bar": 3.696573003253434e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "ncc",
+    "scored": 8.881784197001252e-16,
+    "bar": 8.881784197001252e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "second",
+    "scored": 3.3306690738754696e-16,
+    "bar": 3.3306690738754696e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "offset",
+    "scored": 6.007459826817829e-08,
+    "bar": 6.007459826817829e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "dithers.0",
+    "scored": 1.201491613755934e-06,
+    "bar": 1.201491613755934e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "dithers.1",
+    "scored": 1.6290323401335627e-07,
+    "bar": 1.6290323401335627e-06,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.second_pass",
+    "quantity": "dithers.2",
+    "scored": 7.767084753140807e-10,
+    "bar": 7.767084753140807e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.candidate",
+    "quantity": "fix",
+    "scored": 1.8189894035458565e-12,
+    "bar": 1.8189894035458565e-11,
+    "rule": "amended: tie calls left out",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.candidate",
+    "quantity": "ncc",
+    "scored": 1.2212453270876722e-15,
+    "bar": 1.2212453270876722e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.candidate",
+    "quantity": "second",
+    "scored": 1.3600232051658168e-15,
+    "bar": 1.3600232051658168e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "navtrn.candidate",
+    "quantity": "offset",
+    "scored": 5.684341886080802e-14,
+    "bar": 5.684341886080801e-13,
+    "rule": "amended: tie calls left out",
+    "ok": true
+   },
+   {
+    "component": "N2",
+    "function": "margin",
+    "quantity": "margin",
+    "scored": 5.773159728050814e-15,
+    "bar": 5.773159728050814e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "cone program",
+    "quantity": "A",
+    "scored": 8.881784197001252e-15,
+    "bar": 8.881784197001252e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "cone program",
+    "quantity": "b",
+    "scored": 8.526512829121202e-14,
+    "bar": 8.526512829121202e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "cone program",
+    "quantity": "q",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "beta",
+    "scored": 0.0007376182908558349,
+    "bar": 0.007376182908558349,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "fuel",
+    "scored": 0.0019234611725096329,
+    "bar": 0.01923461172509633,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "lossless_gap",
+    "scored": 0.0009604910197009708,
+    "bar": 0.009604910197009708,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "r",
+    "scored": 48.731488815232524,
+    "bar": 487.31488815232524,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "v",
+    "scored": 2.9182510117183558,
+    "bar": 29.182510117183558,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "z",
+    "scored": 0.001246200035657452,
+    "bar": 0.01246200035657452,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "u",
+    "scored": 1.3256865337851058,
+    "bar": 13.256865337851059,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [nominal plan]",
+    "quantity": "sigma",
+    "scored": 1.6579874006089321,
+    "bar": 16.57987400608932,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "m_hg",
+    "scored": 1.1004885891452432e-09,
+    "bar": 1.1004885891452432e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "dv_guided",
+    "scored": 4.119442564842757e-10,
+    "bar": 4.119442564842757e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "dv_approach",
+    "scored": 4.119442564842757e-10,
+    "bar": 4.119442564842757e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.beta",
+    "scored": 4.119442564842757e-10,
+    "bar": 4.119442564842757e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.fuel",
+    "scored": 9.953282642527483e-10,
+    "bar": 9.953282642527483e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.lossless_gap",
+    "scored": 6.550875397692835e-10,
+    "bar": 6.550875397692835e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.r",
+    "scored": 7.424273462675046e-08,
+    "bar": 7.424273462675046e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.v",
+    "scored": 1.1562271140519442e-08,
+    "bar": 1.1562271140519442e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.z",
+    "scored": 4.8974158062264905e-12,
+    "bar": 4.8974158062264905e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.u",
+    "scored": 6.877938441007814e-09,
+    "bar": 6.877938441007814e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "nominal plan",
+    "quantity": "plan.sigma",
+    "scored": 9.433973824357622e-09,
+    "bar": 9.433973824357622e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "beta",
+    "scored": 0.0029562667886864347,
+    "bar": 0.029562667886864347,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "fuel",
+    "scored": 0.007740029453884745,
+    "bar": 0.07740029453884745,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "lossless_gap",
+    "scored": 0.002569906253455656,
+    "bar": 0.02569906253455656,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "r",
+    "scored": 74.26599411260406,
+    "bar": 742.6599411260406,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "v",
+    "scored": 5.698850348347335,
+    "bar": 56.98850348347335,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "z",
+    "scored": 0.0026288218087380244,
+    "bar": 0.026288218087380244,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "u",
+    "scored": 1.517645616106657,
+    "bar": 15.17645616106657,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [window]",
+    "quantity": "sigma",
+    "scored": 2.022393570418504,
+    "bar": 20.223935704185042,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "beta",
+    "scored": 0.0005080543655822112,
+    "bar": 0.005080543655822112,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "fuel",
+    "scored": 0.0013331155656715055,
+    "bar": 0.013331155656715055,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "lossless_gap",
+    "scored": 0.00150436709028412,
+    "bar": 0.0150436709028412,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "r",
+    "scored": 4.877362546733252,
+    "bar": 48.77362546733252,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "v",
+    "scored": 0.39368004685934466,
+    "bar": 3.9368004685934466,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "z",
+    "scored": 0.00018925242453882163,
+    "bar": 0.0018925242453882163,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "u",
+    "scored": 0.21474443516837094,
+    "bar": 2.1474443516837094,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "re-solve",
+    "quantity": "sigma",
+    "scored": 0.303694281805703,
+    "bar": 3.03694281805703,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "beta",
+    "scored": 0.010102228940013447,
+    "bar": 0.10102228940013447,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "fuel",
+    "scored": 0.0239826694905787,
+    "bar": 0.239826694905787,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "lossless_gap",
+    "scored": 0.0005622804108491586,
+    "bar": 0.005622804108491586,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "r",
+    "scored": 11.267662175631585,
+    "bar": 112.67662175631585,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "v",
+    "scored": 0.6111801096579299,
+    "bar": 6.111801096579299,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "z",
+    "scored": 0.00029405806141191704,
+    "bar": 0.0029405806141191704,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "u",
+    "scored": 0.1805157645148261,
+    "bar": 1.805157645148261,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G1",
+    "function": "solve [widened]",
+    "quantity": "sigma",
+    "scored": 0.25528721666354626,
+    "bar": 2.5528721666354626,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G2",
+    "function": "closed_loop.predicted_reserve",
+    "quantity": "out",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G2",
+    "function": "closed_loop.descent_allowance",
+    "quantity": "out",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G2",
+    "function": "closed_loop.predicted_touchdown",
+    "quantity": "out",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.approach_to_plane",
+    "quantity": "p",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.approach_to_plane",
+    "quantity": "w",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "a",
+    "scored": 0.002728973932026313,
+    "bar": 0.02728973932026313,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "apsides",
+    "scored": 11.764430928509682,
+    "bar": 117.64430928509682,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "b",
+    "scored": 9.402620303769309e-05,
+    "bar": 0.0009402620303769309,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "burnout",
+    "scored": 2.609499000780488,
+    "bar": 26.09499000780488,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "dv_available",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "dv_margin",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "min_altitude",
+    "scored": 0.020779018523171544,
+    "bar": 0.20779018523171544,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "propellant",
+    "scored": 0.005376633362175198,
+    "bar": 0.05376633362175198,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "residual",
+    "scored": 0.4877756856690212,
+    "bar": 4.877756856690212,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.duration",
+    "scored": 1.120170622925798e-11,
+    "bar": 1.120170622925798e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.m",
+    "scored": 5.820766091346741e-11,
+    "bar": 5.820766091346741e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.min_altitude",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.p",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.w",
+    "scored": 1.8278711877428577e-11,
+    "bar": 1.8278711877428577e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.fall_lowest",
+    "scored": 3.4924596548080444e-09,
+    "bar": 3.4924596548080444e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.fall_p",
+    "scored": 3.725290298461914e-09,
+    "bar": 3.725290298461914e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.fall_w",
+    "scored": 1.0174971976084635e-11,
+    "bar": 1.0174971976084635e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.m_after",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.m_before",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.p",
+    "scored": 3.725290298461914e-09,
+    "bar": 3.725290298461914e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.t",
+    "scored": 6.110667527536862e-13,
+    "bar": 6.110667527536862e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "staging.w",
+    "scored": 1.0203393685515039e-11,
+    "bar": 1.0203393685515039e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "t_b",
+    "scored": 0.0004540312355771903,
+    "bar": 0.004540312355771903,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "t_max",
+    "scored": 6.110667527536862e-13,
+    "bar": 6.110667527536862e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "free_fall.duration",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "free_fall.p",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "free_fall.w",
+    "scored": 2.4868995751603507e-14,
+    "bar": 2.4868995751603507e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.abort_from_approach",
+    "quantity": "rise.below_surface",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "a",
+    "scored": 3.907985046680551e-14,
+    "bar": 3.907985046680551e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "apsides",
+    "scored": 3.3527612686157227e-08,
+    "bar": 3.3527612686157227e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "b",
+    "scored": 1.8084492237058214e-16,
+    "bar": 1.8084492237058214e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "burnout",
+    "scored": 6.984919309616089e-10,
+    "bar": 6.984919309616089e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "dv_available",
+    "scored": 3.637978807091713e-12,
+    "bar": 3.637978807091713e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "dv_margin",
+    "scored": 3.637978807091713e-12,
+    "bar": 3.637978807091713e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "min_altitude",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "propellant",
+    "scored": 4.092726157978177e-12,
+    "bar": 4.092726157978177e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "residual",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "rise.duration",
+    "scored": 5.755396159656812e-13,
+    "bar": 5.7553961596568115e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "rise.m",
+    "scored": 9.094947017729282e-12,
+    "bar": 9.094947017729282e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "rise.min_altitude",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "rise.p",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "rise.w",
+    "scored": 5.684341886080802e-14,
+    "bar": 5.684341886080801e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.fall_lowest",
+    "scored": 3.4924596548080444e-09,
+    "bar": 3.4924596548080444e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.fall_p",
+    "scored": 3.725290298461914e-09,
+    "bar": 3.725290298461914e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.fall_w",
+    "scored": 1.0174971976084635e-11,
+    "bar": 1.0174971976084635e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.m_after",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.m_before",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.p",
+    "scored": 3.725290298461914e-09,
+    "bar": 3.725290298461914e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.t",
+    "scored": 6.110667527536862e-13,
+    "bar": 6.110667527536862e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "staging.w",
+    "scored": 1.0203393685515039e-11,
+    "bar": 1.0203393685515039e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "t_b",
+    "scored": 8.526512829121202e-13,
+    "bar": 8.526512829121202e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_abort",
+    "quantity": "t_max",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "a",
+    "scored": 4.0523140398818214e-14,
+    "bar": 4.0523140398818214e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "apsides",
+    "scored": 2.9569491744041443e-08,
+    "bar": 2.9569491744041443e-07,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "b",
+    "scored": 1.6306400674181987e-16,
+    "bar": 1.6306400674181987e-15,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "burnout",
+    "scored": 9.069367479241919e-10,
+    "bar": 9.069367479241919e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "dv_available",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "dv_margin",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "free_fall.duration",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "free_fall.p",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "free_fall.w",
+    "scored": 2.4868995751603507e-14,
+    "bar": 2.4868995751603507e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "min_altitude",
+    "scored": 1.1641532182693481e-09,
+    "bar": 1.1641532182693481e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "propellant",
+    "scored": 5.820766091346741e-11,
+    "bar": 5.820766091346741e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "residual",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.duration",
+    "scored": 1.120170622925798e-11,
+    "bar": 1.120170622925798e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.m",
+    "scored": 5.820766091346741e-11,
+    "bar": 5.820766091346741e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.min_altitude",
+    "scored": 1.1641532182693481e-09,
+    "bar": 1.1641532182693481e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.p",
+    "scored": 3.026798367500305e-09,
+    "bar": 3.026798367500305e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.w",
+    "scored": 1.8278711877428577e-11,
+    "bar": 1.8278711877428577e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "t_b",
+    "scored": 1.2505552149377763e-12,
+    "bar": 1.2505552149377763e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "t_max",
+    "scored": 5.684341886080801e-13,
+    "bar": 5.6843418860808015e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascent_stage_abort",
+    "quantity": "rise.below_surface",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "a",
+    "scored": 0.002728973932026313,
+    "bar": 0.02728973932026313,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "apsides",
+    "scored": 11.764430928509682,
+    "bar": 117.64430928509682,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "b",
+    "scored": 9.402620303769309e-05,
+    "bar": 0.0009402620303769309,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "burnout",
+    "scored": 2.609499000780488,
+    "bar": 26.09499000780488,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "dv_available",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "dv_margin",
+    "scored": 3.660716174636036e-11,
+    "bar": 3.660716174636036e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "free_fall.duration",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "free_fall.p",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "free_fall.w",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "min_altitude",
+    "scored": 0.020779018523171544,
+    "bar": 0.20779018523171544,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "propellant",
+    "scored": 0.005376633362175198,
+    "bar": 0.05376633362175198,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "residual",
+    "scored": 0.4877756856690212,
+    "bar": 4.877756856690212,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.duration",
+    "scored": 1.120170622925798e-11,
+    "bar": 1.120170622925798e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.m",
+    "scored": 5.820766091346741e-11,
+    "bar": 5.820766091346741e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.min_altitude",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.p",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.w",
+    "scored": 1.8278711877428577e-11,
+    "bar": 1.8278711877428577e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "t_b",
+    "scored": 0.0004540312355771903,
+    "bar": 0.004540312355771903,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "t_max",
+    "scored": 6.110667527536862e-13,
+    "bar": 6.110667527536862e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.rise_and_ascend",
+    "quantity": "rise.below_surface",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "duration",
+    "scored": 1.120170622925798e-11,
+    "bar": 1.120170622925798e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "m",
+    "scored": 5.820766091346741e-11,
+    "bar": 5.820766091346741e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "min_altitude",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "p",
+    "scored": 3.958120942115784e-09,
+    "bar": 3.958120942115784e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "w",
+    "scored": 1.8278711877428577e-11,
+    "bar": 1.8278711877428577e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.vertical_rise",
+    "quantity": "below_surface",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "a",
+    "scored": 5.88418203051333e-15,
+    "bar": 5.88418203051333e-14,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "b",
+    "scored": 2.42861286636753e-17,
+    "bar": 2.42861286636753e-16,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "burnout",
+    "scored": 6.984919309616089e-10,
+    "bar": 6.984919309616089e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "min_altitude",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "propellant",
+    "scored": 2.2737367544323206e-12,
+    "bar": 2.2737367544323206e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "residual",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.fall_lowest",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.fall_p",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.fall_w",
+    "scored": 1.0800249583553523e-12,
+    "bar": 1.0800249583553523e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.m_after",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.m_before",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.p",
+    "scored": 4.3655745685100555e-11,
+    "bar": 4.3655745685100555e-10,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.t",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "staging.w",
+    "scored": 1.0942358130705543e-12,
+    "bar": 1.0942358130705543e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "t_b",
+    "scored": 3.979039320256561e-13,
+    "bar": 3.979039320256561e-12,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.combined_shoot",
+    "quantity": "t_max",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "a",
+    "scored": 0.0027124181773746647,
+    "bar": 0.027124181773746647,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "b",
+    "scored": 9.347401864391938e-05,
+    "bar": 0.0009347401864391938,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "burnout",
+    "scored": 2.6889311333397927,
+    "bar": 26.889311333397927,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "min_altitude",
+    "scored": 0.02032714383676648,
+    "bar": 0.20327143836766481,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "propellant",
+    "scored": 0.02470295079274365,
+    "bar": 0.2470295079274365,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "residual",
+    "scored": 0.4848155213229077,
+    "bar": 4.848155213229077,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "t_b",
+    "scored": 0.0020797439912882965,
+    "bar": 0.020797439912882965,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend",
+    "quantity": "t_max",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.free_fall",
+    "quantity": "0",
+    "scored": 2.3283064365386963e-10,
+    "bar": 2.3283064365386963e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.free_fall",
+    "quantity": "1",
+    "scored": 2.4868995751603507e-14,
+    "bar": 2.4868995751603507e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "0",
+    "scored": 5.7645083870738745e-06,
+    "bar": 5.7645083870738745e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "1",
+    "scored": 3.2619573175907135e-06,
+    "bar": 3.2619573175907135e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.fall_lowest",
+    "scored": 6.984919309616089e-10,
+    "bar": 6.984919309616089e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.fall_p",
+    "scored": 9.313225746154785e-10,
+    "bar": 9.313225746154785e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.fall_w",
+    "scored": 3.808509063674137e-12,
+    "bar": 3.808509063674137e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.m_after",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.m_before",
+    "scored": 1.8189894035458565e-12,
+    "bar": 1.8189894035458565e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.p",
+    "scored": 9.313225746154785e-10,
+    "bar": 9.313225746154785e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.t",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly_combined",
+    "quantity": "2.w",
+    "scored": 3.808509063674137e-12,
+    "bar": 3.808509063674137e-11,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort._coast",
+    "quantity": "0",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort._coast",
+    "quantity": "1",
+    "scored": 5.684341886080802e-14,
+    "bar": 5.684341886080801e-13,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort._coast",
+    "quantity": "2",
+    "scored": 4.656612873077393e-10,
+    "bar": 4.6566128730773926e-09,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort._arc",
+    "quantity": "0",
+    "scored": 5.764479283243418e-06,
+    "bar": 5.764479283243418e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort._arc",
+    "quantity": "1",
+    "scored": 3.2619573175907135e-06,
+    "bar": 3.2619573175907135e-05,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly",
+    "quantity": "0",
+    "scored": 3.3061951398849487e-07,
+    "bar": 3.3061951398849487e-06,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G3",
+    "function": "abort.fly",
+    "quantity": "1",
+    "scored": 6.28642737865448e-09,
+    "bar": 6.28642737865448e-08,
+    "rule": "10 x reference",
+    "ok": true
+   },
+   {
+    "component": "G4",
+    "function": "G4.thrust_cmd",
+    "quantity": "thrust",
+    "scored": 0.0,
+    "bar": 0.0,
+    "rule": "bit for bit",
+    "ok": true
+   }
+  ],
+  "reported_only": [
+   {
+    "component": "N1",
+    "function": "",
+    "quantity": "b_shift",
+    "scored": 1.1368683772161603e-13
+   },
+   {
+    "component": "G3",
+    "function": "abort.ascend, abort.combined_shoot",
+    "quantity": "which start won",
+    "scored": {
+     "shootings": 40,
+     "winner same": 19,
+     "winner differs": 21,
+     "start status same": 240,
+     "start nfev same": 236
+    }
+   }
+  ]
+ },
+ "item3": {
+  "ok": true,
+  "disagreements": 4,
+  "at_ties": 4,
+  "not_at_ties": 0,
+  "not_compared": [],
+  "rows": [
+   {
+    "file": "nav_e1_k0_g+168.npz",
+    "function": "navtrn.fix_pass",
+    "call": 1,
+    "what": "integer peak (recorded tie)",
+    "python": "[ 18. -48.]",
+    "cpp": [
+     31.0,
+     -32.0
+    ],
+    "recorded_tie": true,
+    "component": "N2"
+   },
+   {
+    "file": "nav_e1_k1_g+168.npz",
+    "function": "navtrn.fix_pass",
+    "call": 1,
+    "what": "integer peak (recorded tie)",
+    "python": "[ 39. -29.]",
+    "cpp": [
+     26.0,
+     -43.0
+    ],
+    "recorded_tie": true,
+    "component": "N2"
+   },
+   {
+    "file": "gnc_state_4.npz",
+    "solve": 323,
+    "n": 124,
+    "path": "widened",
+    "what": "status",
+    "python": "infeasible",
+    "cpp": "optimal",
+    "recorded_tie": true,
+    "component": "G1"
+   },
+   {
+    "file": "gnc_thrust_2.npz",
+    "solve": 295,
+    "n": 136,
+    "path": "widened",
+    "what": "status",
+    "python": "optimal",
+    "cpp": "infeasible",
+    "recorded_tie": true,
+    "component": "G1"
+   }
+  ],
+  "scored_seed_ties": {
+   "guidance.solve": {
+    "status": 15,
+    "beta": 10,
+    "fuel": 10,
+    "lossless_gap": 10,
+    "r": 10,
+    "v": 10,
+    "z": 10,
+    "u": 10,
+    "sigma": 10
+   },
+   "closed_loop.resolve": {
+    "n": 1,
+    "r": 1,
+    "v": 1,
+    "z": 1,
+    "u": 1,
+    "sigma": 1
+   },
+   "trn.correlate": {
+    "dx_int": 12,
+    "dy_int": 12
+   }
+  }
+ },
+ "item4": {
+  "ok": false,
+  "paths": {
+   "filter tick with an update": {
+    "ok": true,
+    "calls": 424620,
+    "max_ms": 0.1584,
+    "file": "nav_e1_k1_g+24.npz",
+    "bar_ms": 5.0,
+    "predicted_to_fail": false,
+    "as_predicted": null
+   },
+   "TRN fix with the dither": {
+    "ok": true,
+    "calls": 360,
+    "max_ms": 344.0399,
+    "file": "nav_e2_k0",
+    "bar_ms": 10000.0,
+    "predicted_to_fail": false,
+    "as_predicted": null
+   },
+   "re-solve, window": {
+    "ok": true,
+    "calls": 798,
+    "max_ms": 78.3142,
+    "file": "gnc_nominal_7.npz",
+    "bar_ms": 2000.0,
+    "predicted_to_fail": false,
+    "as_predicted": null
+   },
+   "re-solve, widened": {
+    "ok": false,
+    "calls": 21,
+    "max_ms": 16026.1958,
+    "file": "gnc_state_4.npz",
+    "bar_ms": 2000.0,
+    "predicted_to_fail": true,
+    "as_predicted": true
+   }
+  }
+ },
+ "amended_bars": {
+  "N2 / navtrn.fix_pass / fix": 1.201491613755934e-05,
+  "N2 / navtrn.fix_pass / offset": 6.007459826817829e-07,
+  "N2 / navtrn.candidate / fix": 1.8189894035458565e-11,
+  "N2 / navtrn.candidate / offset": 5.684341886080801e-13
+ }
+}

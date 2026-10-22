@@ -1,0 +1,314 @@
+{
+ "epoch": 2,
+ "k": 0,
+ "prep_s": 20.562312126159668,
+ "gaps": {
+  "0.0": {
+   "live_is_record": {
+    "statuses": true,
+    "lost_lock": true,
+    "final_x": true,
+    "herr_definition": true
+   },
+   "python": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       11,
+       -4
+      ]
+     },
+     {
+      "t": 20.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 30.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 40.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     }
+    ],
+    "lost_lock": null,
+    "herr": {
+     "45": 0.057389155479521316,
+     "end": 0.09548805916706424
+    },
+    "seconds": 6.052563905715942
+   },
+   "cpp": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       11,
+       -4
+      ]
+     },
+     {
+      "t": 20.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 30.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 40.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     }
+    ],
+    "lost_lock": null,
+    "herr": {
+     "45": 0.05738915548215518,
+     "end": 0.09548805916923131
+    },
+    "seconds": 0.7826211452484131,
+    "ticks": 2791
+   },
+   "recorded_ties": [],
+   "ticks_python": 2791,
+   "ticks_common": 2791,
+   "max_dpos_m": 5.449488739636215e-12,
+   "max_dvel_ms": 1.738794992767313e-13,
+   "max_dstate": 4.547473508864641e-12,
+   "seconds": 7.141817092895508
+  },
+  "24.0": {
+   "live_is_record": {
+    "statuses": true,
+    "lost_lock": true,
+    "final_x": true,
+    "herr_definition": true
+   },
+   "python": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       11,
+       -4
+      ]
+     },
+     {
+      "t": 20.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 30.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 40.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     }
+    ],
+    "lost_lock": null,
+    "herr": {
+     "45": 0.45943987292732685,
+     "end": 0.7718628425873436
+    },
+    "seconds": 5.001518487930298
+   },
+   "cpp": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       11,
+       -4
+      ]
+     },
+     {
+      "t": 20.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 30.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     },
+     {
+      "t": 40.0,
+      "status": "accepted",
+      "gate": null,
+      "peak": [
+       0,
+       0
+      ]
+     }
+    ],
+    "lost_lock": null,
+    "herr": {
+     "45": 0.45943987292883154,
+     "end": 0.7718628425891279
+    },
+    "seconds": 0.8452539443969727,
+    "ticks": 2791
+   },
+   "recorded_ties": [],
+   "ticks_python": 2791,
+   "ticks_common": 2791,
+   "max_dpos_m": 2.2687575032563365e-12,
+   "max_dvel_ms": 8.760159180054893e-14,
+   "max_dstate": 1.8189894035458565e-12,
+   "seconds": 6.13759183883667
+  },
+  "168.0": {
+   "live_is_record": {
+    "statuses": true,
+    "lost_lock": true,
+    "final_x": true,
+    "herr_definition": true
+   },
+   "python": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 20.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 30.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 40.0,
+      "status": "rejected by nis",
+      "gate": "nis",
+      "peak": [
+       50,
+       -50
+      ]
+     }
+    ],
+    "lost_lock": 40.0,
+    "herr": {
+     "45": 228.2328178910232,
+     "end": 228.85083318655515
+    },
+    "seconds": 3.3456740379333496
+   },
+   "cpp": {
+    "fixes": [
+     {
+      "t": 10.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 20.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 30.0,
+      "status": "undefined",
+      "gate": null,
+      "peak": null
+     },
+     {
+      "t": 40.0,
+      "status": "rejected by nis",
+      "gate": "nis",
+      "peak": [
+       50,
+       -50
+      ]
+     }
+    ],
+    "lost_lock": 40.0,
+    "herr": {
+     "45": 228.2328178910232,
+     "end": 228.85083318655526
+    },
+    "seconds": 0.8530890941619873,
+    "ticks": 2791
+   },
+   "recorded_ties": [],
+   "ticks_python": 2791,
+   "ticks_common": 2791,
+   "max_dpos_m": 1.1869254318424454e-12,
+   "max_dvel_ms": 7.574877708339096e-15,
+   "max_dstate": 1.1368683772161603e-12,
+   "seconds": 4.441991090774536
+  }
+ },
+ "seconds": 38.3438401222229
+}

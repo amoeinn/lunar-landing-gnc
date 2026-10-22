@@ -1,6 +1,8 @@
 // lunar_landing_gnc._flight.gnc: G1 (guidance), one for one with guidance.py,
 // dynamics.py and closed_loop.py's re-solve; G2 (the abort triggers), with
-// closed_loop.py's triggers and offline.py's lost-lock rule.
+// closed_loop.py's triggers and offline.py's lost-lock rule; G4 (the terminal
+// descent's thrust command), with closed_loop.descend's thrust_cmd.
+#include "llg/descent.hpp"
 #include "llg/guidance.hpp"
 #include "llg/triggers.hpp"
 
@@ -201,4 +203,27 @@ void bind_gnc(py::module_& top) {
     m.def("lost_lock", [](const std::vector<double>& accepted_fix_times, double t, double t_last) {
         return fired(lost_lock(accepted_fix_times, t, t_last));
     }, py::arg("accepted_fix_times"), py::arg("t"), py::arg("t_last") = 40.0);
+    // G4: descend's closure for a vehicle, and its thrust command on a
+    // closure given value by value (the recorded one, or this one), with the
+    // branch taken
+    m.def("descent_law", [](const py::dict& veh) {
+        DescentLaw l = descent_law(vehicle(veh));
+        py::dict d;
+        d["veh"] = vehicle_dict(l.veh);
+        d["v_ref"] = py::make_tuple(l.v_ref[0], l.v_ref[1], l.v_ref[2]);
+        d["g"] = py::make_tuple(l.g[0], l.g[1], l.g[2]);
+        d["cos_p"] = l.cos_p;
+        d["sin_p"] = l.sin_p;
+        d["K"] = l.K;
+        return d;
+    });
+    m.def("thrust_cmd", [](const std::vector<double>& yy, const py::dict& veh, const py::object& v_ref,
+                           const py::object& g, double cos_p, double sin_p, double K) {
+        if (yy.size() != 7) throw py::value_error("yy is (r, v, m), 7 values");
+        DescentLaw l{vehicle(veh), a3(v_ref), a3(g), cos_p, sin_p, K};
+        ThrustBranch b;
+        auto t = thrust_cmd(l, yy.data(), &b);
+        return py::make_tuple(py::make_tuple(t[0], t[1], t[2]), branch_name(b));
+    }, py::arg("yy"), py::arg("veh"), py::arg("v_ref"), py::arg("g"), py::arg("cos_p"), py::arg("sin_p"),
+          py::arg("K") = 0.5);
 }

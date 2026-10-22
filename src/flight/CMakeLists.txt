@@ -79,7 +79,8 @@ add_library(llg_flight STATIC
   src/triggers.cpp
   src/ode.cpp
   src/lsq.cpp
-  src/abort.cpp)
+  src/abort.cpp
+  src/descent.cpp)
 target_include_directories(llg_flight PUBLIC include)
 target_compile_options(llg_flight PRIVATE ${LLG_FLIGHT_FLAGS})
 target_compile_definitions(llg_flight PRIVATE
@@ -115,7 +116,8 @@ add_executable(llg_flight_tests "${REPO_ROOT}/tests/cpp/test_skeleton.cpp" "${RE
   "${REPO_ROOT}/tests/cpp/test_triggers.cpp"
   "${REPO_ROOT}/tests/cpp/test_ode.cpp"
   "${REPO_ROOT}/tests/cpp/test_lsq.cpp"
-  "${REPO_ROOT}/tests/cpp/test_abort.cpp")
+  "${REPO_ROOT}/tests/cpp/test_abort.cpp"
+  "${REPO_ROOT}/tests/cpp/test_descent.cpp")
 target_compile_options(llg_flight_tests PRIVATE ${LLG_FLIGHT_FLAGS})
 target_link_libraries(llg_flight_tests PRIVATE llg_flight GTest::gtest_main)
 add_test(NAME llg_flight_tests COMMAND llg_flight_tests)

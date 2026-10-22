@@ -15,6 +15,10 @@
 //     the guidance flights (examples/compare_g2.py bench-input writes FILE),
 //     the touchdown reserve included; each call timed over reps repetitions
 //     (the clock's resolution is coarser than one call).
+//   llg_flight_bench descent FILE [reps]  every recorded thrust command of
+//     the terminal descent (examples/compare_g4.py bench-input writes FILE),
+//     on its recorded closure; each call timed over reps repetitions.
+#include "llg/descent.hpp"
 #include "llg/guidance.hpp"
 #include "llg/triggers.hpp"
 #include "llg/nav_filter.hpp"
@@ -291,6 +295,47 @@ int triggers(const char* file, int reps) {
     return 0;
 }
 
+int descent(const char* file, int reps) {
+    using namespace llg::gnc;
+    std::ifstream in(file, std::ios::binary);
+    if (!in) {
+        std::printf("cannot read %s\n", file);
+        return 1;
+    }
+    in.seekg(0, std::ios::end);
+    std::vector<double> v(static_cast<size_t>(in.tellg()) / sizeof(double));
+    in.seekg(0);
+    in.read(reinterpret_cast<char*>(v.data()), static_cast<std::streamsize>(v.size() * sizeof(double)));
+    int nrec = static_cast<int>(v[0]), len = static_cast<int>(v[1]);
+    std::vector<double> ns;
+    double sink = 0.0;
+    for (int k = 0; k < nrec; ++k) {
+        const double* e = &v[2 + static_cast<size_t>(k) * len];
+        // yy (7), the vehicle (g, m_dry, m_wet, isp, n_thrusters, thrust_max,
+        // throttle_min, throttle_max, cant_deg, g_e), v_ref, g, cos_p, sin_p
+        const double* c = e + 7;
+        Vehicle veh;
+        veh.g = {c[0], c[1], c[2]};
+        veh.m_dry = c[3];
+        veh.m_wet = c[4];
+        veh.isp = c[5];
+        veh.n_thrusters = static_cast<int>(c[6]);
+        veh.thrust_max = c[7];
+        veh.throttle_min = c[8];
+        veh.throttle_max = c[9];
+        veh.cant_deg = c[10];
+        veh.g_e = c[11];
+        DescentLaw law{veh, {c[12], c[13], c[14]}, {c[15], c[16], c[17]}, c[18], c[19], 0.5};
+        auto t0 = clk::now();
+        for (int rr = 0; rr < reps; ++rr) sink += thrust_cmd(law, e)[0];
+        ns.push_back(std::chrono::duration<double, std::nano>(clk::now() - t0).count() / reps);
+    }
+    std::sort(ns.begin(), ns.end());
+    std::printf("thrust_cmd: %zu calls, median %.1f ns, max %.1f ns (sum %.6g)\n", ns.size(), ns[ns.size() / 2],
+                ns.back(), sink);
+    return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -300,7 +345,8 @@ int main(int argc, char** argv) {
     if (mode == "trn" && argc > 2) return trn(argv[2], argc > 3 ? std::atoi(argv[3]) : 3);
     if (mode == "gnc" && argc > 2) return gnc(argv[2], argc > 3 ? std::atoi(argv[3]) : 1);
     if (mode == "triggers" && argc > 2) return triggers(argv[2], argc > 3 ? std::atoi(argv[3]) : 1000);
+    if (mode == "descent" && argc > 2) return descent(argv[2], argc > 3 ? std::atoi(argv[3]) : 1000);
     std::printf("usage: llg_flight_bench socp [reps] | nav FILE [reps] | trn FILE [reps] | gnc FILE [reps] | "
-                "triggers FILE [reps]\n");
+                "triggers FILE [reps] | descent FILE [reps]\n");
     return 2;
 }

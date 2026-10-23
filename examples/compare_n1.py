@@ -37,6 +37,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "examples"))
 
 import golden_traces as GT  # noqa: E402
+import tie_amendment as TA  # noqa: E402
 
 OUT = ROOT / "work" / "step4_3"
 GUARD = 1000.0
@@ -108,20 +109,37 @@ def diff(a, b):
     return float(d.max()) if d.size else 0.0
 
 
-def compare_run(path):
-    """Every tick of one recorded run replayed in C++."""
+def compare_run(path, gate_ties=()):
+    """Every tick of one recorded run replayed in C++. gate_ties: the fix
+    ticks at which the gate replay's copies disagree on the gate; with the
+    ticks whose copies disagree on accepted, they are held back from item 2's
+    worst (worst2) and folded in unless the C++ took the other side (the
+    amendment of 22 Oct 2026, tie_amendment)."""
     s = setup(path)
     t, inp = s["t"], s["inp"]
     T, start = t["N1.tick"], t["N1.start"]
     filt = cpp_filter(s)
     f_meas, alt, dop = inp["f_meas"], inp["alt"], inp["dop"]
     worst = {q: 0.0 for q in TICK_Q + ("gate_nis", "margin", "b_shift", "used", "R_used", "R")}
+    worst2, stash = dict(worst), {}
+    ties = {int(i): ["gate"] for i in gate_ties}
+    for j, i in enumerate(T["i"]):
+        if TA._set((T.get("disagree#accepted") or [None] * len(T["i"]))[j]):
+            ties.setdefault(int(i), []).append("accepted")
     discrete = []
     state = dict(x=np.asarray(start["x"][0]), P=np.asarray(start["P"][0]), level_prev=float(start["level_prev"][0]),
                  accepted=False, last=0, lost_lock=None)
     fx = t["N1.fix"]
     fixrow = {int(round(float(fx["t"][j]) / 0.005)): j for j in range(len(fx["t"]))}
     secs = []
+
+    def upd(q, v):
+        worst[q] = max(worst[q], v)
+        if i in ties:
+            stash.setdefault(i, {})
+            stash[i][q] = max(stash[i].get(q, 0.0), v)
+        else:
+            worst2[q] = max(worst2[q], v)
     for j in range(len(T["i"])):
         i = int(T["i"][j])
         last = int(T["last"][j])
@@ -137,7 +155,7 @@ def compare_run(path):
                 discrete.append(dict(file=path.name, i=i, what=f"{q} present", python=have_rec, cpp=q in k))
                 continue
             if have_rec:
-                worst[q] = max(worst[q], diff(k[q], rec))
+                upd(q, diff(k[q], rec))
         for flag in FLAGS:
             if bool(T[flag][j]) != bool(k[flag]):
                 discrete.append(dict(file=path.name, i=i, what=flag, python=bool(T[flag][j]), cpp=bool(k[flag])))
@@ -158,18 +176,29 @@ def compare_run(path):
             if "gate" in cf and pg != cf["gate"]:
                 discrete.append(dict(file=path.name, i=i, what="gate", python=pg, cpp=cf["gate"]))
             if "nis" in cf:
-                worst["gate_nis"] = max(worst["gate_nis"], diff(cf["nis"], fx["nis"][r]))
-                worst["margin"] = max(worst["margin"], diff(cf["margin"], fx["margin"][r]))
-            worst["R"] = max(worst["R"], diff(cf["R"], fx["R"][r]))
+                upd("gate_nis", diff(cf["nis"], fx["nis"][r]))
+                upd("margin", diff(cf["margin"], fx["margin"][r]))
+            upd("R", diff(cf["R"], fx["R"][r]))
             if "used" in cf:
-                worst["used"] = max(worst["used"], diff(cf["used"], fx["used"][r]))
-                worst["R_used"] = max(worst["R_used"], diff(cf["R_used"], fx["R_used"][r]))
-                worst["b_shift"] = max(worst["b_shift"], diff(cf["b_shift"], fx["b_shift"][r]))
+                upd("used", diff(cf["used"], fx["used"][r]))
+                upd("R_used", diff(cf["R_used"], fx["R_used"][r]))
+                upd("b_shift", diff(cf["b_shift"], fx["b_shift"][r]))
         state = dict(x=np.asarray(T["end_x"][j], float), P=np.asarray(T["end_P"][j], float),
                      level_prev=float(T["level"][j]) if T["level"][j] is not None and np.isfinite(T["level"][j])
                      else state["level_prev"],
                      accepted=bool(T["accepted"][j]), last=i, lost_lock=ll_py)
-    return dict(file=path.name, ticks=len(T["i"]), worst=worst, discrete=discrete, seconds=secs)
+    amendment = []
+    keys = [(d["i"], d["what"]) for d in discrete]
+    for i in sorted(ties):
+        ev = TA.n1_flipped(i, keys)
+        for q, v in stash.get(i, {}).items():
+            if not (ev and q in TA.N1_FOLLOWS):
+                worst2[q] = max(worst2[q], v)
+        amendment.append(dict(file=path.name, tick=i, tie=ties[i], cpp_other_side=bool(ev), evidence=ev,
+                              left_out={q: v for q, v in stash.get(i, {}).items() if q in TA.N1_FOLLOWS}
+                              if ev else {}))
+    return dict(file=path.name, ticks=len(T["i"]), worst=worst, discrete=discrete, seconds=secs, worst2=worst2,
+                amendment=amendment)
 
 
 def free_run(path):
@@ -282,7 +311,8 @@ def cmd_compare():
     spread["margin"] = max(f["margin"] for r in gate for f in r["fixes"])
     ties = sum(f["gate_ties"] for r in gate for f in r["fixes"])
     t0 = time.time()
-    runs = [compare_run(p) for p in nav_files()]
+    gate_ties = {r["file"]: [f["i"] for f in r["fixes"] if f["gate_ties"]] for r in gate}
+    runs = [compare_run(p, gate_ties.get(p.name, ())) for p in nav_files()]
     tick_s = time.time() - t0
     t1 = time.time()
     free = [free_run(p) for p in nav_files()]
@@ -303,7 +333,10 @@ def cmd_compare():
         table.append(dict(quantity=q, cpp_minus_python=w, python_spread=sp, guard=rule, ok=ok if ok is None else bool(ok)))
     discrete = [d for r in runs for d in r["discrete"]]
     secs = np.concatenate([np.asarray(r["seconds"]) for r in runs])
+    worst2 = {q: max(r["worst2"][q] for r in runs) for q in runs[0]["worst2"]}
     res = dict(table=table, discrete=discrete, gate_ties=ties, ticks=int(sum(r["ticks"] for r in runs)),
+               item2=[dict(quantity=q, cpp_minus_python=v) for q, v in worst2.items()],
+               amendment=[a for r in runs for a in r["amendment"]],
                module_tick_ms=dict(median=float(np.median(secs) * 1e3), max=float(secs.max() * 1e3)),
                free=free, tick_compare_s=tick_s, free_run_s=free_s)
     (OUT / "compare.json").write_text(json.dumps(res, indent=1, default=str))

@@ -14,12 +14,19 @@ timing bench (llg_flight_bench, Release) on every flight of the traces.
 score: the registered bar.
   Item 2: every quantity of work/step4_7/bar.json within its bar (a bar of 0:
     bit for bit), a quantity not compared or compared without a bar failing.
-    The registered amendment: navtrn.fix_pass and navtrn.candidate, fix and
+    The first amendment: navtrn.fix_pass and navtrn.candidate, fix and
     offset, are held to 10 times their reference difference with the tie
     calls left out (work/step4_7/n2_without_ties.json), on the scored calls
     that are not at a tie (an integer peak on which the scored seed's own
-    one-ulp copies disagree); their tie calls belong to item 3. Reported
-    only: which shooting start won, and the b shift.
+    one-ulp copies disagree); their tie calls belong to item 3. The
+    amendment of 22 Oct 2026 (examples/tie_amendment.py): at a call where
+    the C++ takes the other side of a tie of the traces' own copies, what
+    follows from that outcome there goes to item 3 and leaves item 2; every
+    such call is reported with its tie and the quantities left out. N1 and
+    N2 apply both in their comparisons (their item 2 worst); G1 compares no
+    continuous quantity at a solve whose status, or a re-solve whose final
+    time, differs, so its tie calls are reported from its disagreements.
+    Reported only: which shooting start won, and the b shift.
   Item 3: every discrete outcome identical except at the scored seed's own
     ties, which are counted and reported.
   Item 4: per path, the largest time over the traces: a filter tick with an
@@ -74,8 +81,9 @@ def amended_bars(ties_reference):
 
 
 def compared(results):
-    """Every compared quantity's largest C++ minus Python difference:
-    (component, function, quantity) -> difference."""
+    """Every compared quantity's largest C++ minus Python difference for item
+    2: (component, function, quantity) -> difference; a comparison's amended
+    worst (item2) where it gives one."""
     out = {}
     for short, (comp, _, _) in COMPONENTS.items():
         d = results.get(short)
@@ -84,7 +92,7 @@ def compared(results):
         if comp == "G4":
             out[(comp, "G4.thrust_cmd", "thrust")] = float(d["worst"])
             continue
-        for r in d["table"]:
+        for r in d.get("item2", d["table"]):
             out[(comp, r.get("function", ""), r.get("quantity", "out"))] = float(r["cpp_minus_python"])
     return out
 
@@ -99,14 +107,16 @@ def within(diff, bar):
 def item2(bar, amended, results):
     got = compared(results)
     ties_scored = results.get("n2_without_ties", {})
+    per_call = results.get("n2") is not None and "item2" in results["n2"]
     rows, failed = [], []
     barred = set()
     for q in bar["quantities"]:
         key = (q["component"], q["function"], q["quantity"])
         barred.add(key)
         if key in AMENDED:
-            name = AMENDED[key] + " / not tie"
-            diff = ties_scored.get(name)
+            # per call in compare_n2 (both amendments) where it ran so, else
+            # from bar_ties_n2 (the first amendment alone)
+            diff = got.get(key) if per_call else ties_scored.get(AMENDED[key] + " / not tie")
             limit, rule = amended[key], "amended: tie calls left out"
         else:
             diff = got.get(key)
@@ -132,7 +142,33 @@ def item2(bar, amended, results):
         reported.append(dict(component="G3", function="abort.ascend, abort.combined_shoot", quantity="which start won",
                              scored={k: st.get(k) for k in ("shootings", "winner same", "winner differs",
                                                            "start status same", "start nfev same")}))
-    return dict(ok=not failed, failed=[list(k) for k in failed], rows=rows, reported_only=reported)
+    cross = [dict(component=k[0], function=k[1], quantity=k[2], per_call=got.get(k),
+                  bar_ties_n2=ties_scored.get(AMENDED[k] + " / not tie")) for k in AMENDED] if per_call else []
+    return dict(ok=not failed, failed=[list(k) for k in failed], rows=rows, reported_only=reported,
+                first_amendment_cross_check=cross)
+
+
+G1_FOLLOWS = ("beta", "fuel", "lossless_gap", "r", "v", "z", "u", "sigma")
+
+
+def excluded_calls(results):
+    """Every call left out of item 2 under the amendment of 22 Oct 2026: the
+    N1 and N2 comparisons' own (where the C++ took the other side), and G1's
+    tie disagreements on a solve status, a re-solve's final time or its
+    finding a plan (where compare_g1 compares nothing continuous)."""
+    out = []
+    for short in ("n1", "n2"):
+        d = results.get(short) or {}
+        for a in d.get("amendment", []):
+            if a["cpp_other_side"]:
+                out.append(dict(a, component=COMPONENTS[short][0]))
+    for x in (results.get("g1") or {}).get("discrete", []):
+        if x.get("recorded_tie") and x.get("what") in ("status", "final time chosen", "found"):
+            where = f"solve [{x.get('path')}] {x.get('solve')}" if "solve" in x else f"re-solve {x.get('resolve')}"
+            out.append(dict(component="G1", file=x.get("file"), tie=[x.get("what")], cpp_other_side=True,
+                            evidence=[f"{x.get('what')}: Python {x.get('python')}, C++ {x.get('cpp')}"],
+                            left_out={where: list(G1_FOLLOWS)}))
+    return out
 
 
 def item3(results, scored_ties):
@@ -149,6 +185,13 @@ def item3(results, scored_ties):
             rows.append(dict(x, component=COMPONENTS[short][0], recorded_tie=tie))
             at_ties += tie
             not_ties += not tie
+    # a flip seen only as a value present on one side (no disagreement entry)
+    # is a discrete outcome too: it goes to item 3 as the tie it is
+    for a in (results.get("n2") or {}).get("amendment", []):
+        if a["cpp_other_side"] and all("present on one side only" in e for e in a["evidence"]):
+            rows.append(dict(component="N2", file=a["file"], tie=a["tie"], what="; ".join(a["evidence"]),
+                             recorded_tie=True))
+            at_ties += 1
     missing = [COMPONENTS[s][0] for s in COMPONENTS if results.get(s) is None]
     return dict(ok=not_ties == 0 and not missing, disagreements=len(rows), at_ties=at_ties, not_at_ties=not_ties,
                 not_compared=missing, rows=rows, scored_seed_ties=scored_ties)
@@ -183,7 +226,8 @@ def item4(bench):
 def score(bar, ties_reference, results):
     amended = amended_bars(ties_reference)
     return dict(item2=item2(bar, amended, results), item3=item3(results, results.get("scored_ties")),
-                item4=item4(results.get("bench", [])), amended_bars={" / ".join(k): v for k, v in amended.items()})
+                item4=item4(results.get("bench", [])), amended_bars={" / ".join(k): v for k, v in amended.items()},
+                excluded_calls=excluded_calls(results))
 
 
 # ---------------------------------------------------------------------------
@@ -393,6 +437,12 @@ def cmd_score(out_dir):
             print(f"  {r['component']} {r['function']} {r['quantity']}: scored {r['scored']} bar {r['bar']} ({r['rule']})")
     for r in i2["reported_only"]:
         print(f"  reported only: {r['component']} {r['function']} {r['quantity']}: {r['scored']}")
+    for r in i2["first_amendment_cross_check"]:
+        print(f"  first amendment, {r['function']} {r['quantity']}: per call {r['per_call']}, "
+              f"bar_ties_n2 {r['bar_ties_n2']}")
+    print(f"calls left out of item 2 under the amendment of 22 Oct 2026: {len(s['excluded_calls'])}")
+    for e in s["excluded_calls"]:
+        print(f"  {e['component']} {e.get('file')} tie {e.get('tie')}: {e.get('evidence')}; left out {e.get('left_out')}")
     print(f"item 3: {'PASS' if i3['ok'] else 'FAIL'}: {i3['disagreements']} disagreements, {i3['at_ties']} at ties, "
           f"{i3['not_at_ties']} not; not compared {i3['not_compared']}; the scored seed's ties {i3['scored_seed_ties']}")
     for r in i3["rows"]:

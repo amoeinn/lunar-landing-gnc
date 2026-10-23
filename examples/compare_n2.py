@@ -30,6 +30,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "examples"))
 
 import golden_traces as GT  # noqa: E402
+import tie_amendment as TA  # noqa: E402
 
 OUT = ROOT / "work" / "step4_4"
 GUARD = 1000.0
@@ -162,9 +163,21 @@ def compare_run(path):
     worst, disc, secs = {}, [], {}
     ties = set()
 
-    def w(name, q, v):
+    # the amendment of 22 Oct 2026: a call in a tie's family is held back,
+    # every other call goes straight to item 2's worst (worst2)
+    fams = TA.n2_families(R.t)
+    fam_calls = {c for f in fams for c in f["calls"]}
+    stash, worst2 = {}, {}
+
+    def w(name, q, v, j):
         worst.setdefault(name, {})
         worst[name][q] = max(worst[name].get(q, 0.0), v)
+        if (("navtrn.candidate", j) if name == "margin" else (name, j)) in fam_calls:
+            stash.setdefault((name, j), {})
+            stash[(name, j)][q] = max(stash[(name, j)].get(q, 0.0), v)
+        else:
+            worst2.setdefault(name, {})
+            worst2[name][q] = max(worst2[name].get(q, 0.0), v)
 
     def d(name, j, what, py, cpp):
         disc.append(dict(file=path.name, function=name, call=j, what=what, python=py, cpp=cpp))
@@ -190,12 +203,12 @@ def compare_run(path):
         rec = R.templates[r["out.template_sha"]]
         if not np.array_equal(np.isnan(out), np.isnan(rec)):
             d("trn.orthorectify", j, "cells in view", int(np.isfinite(rec).sum()), int(np.isfinite(out).sum()))
-        w("trn.orthorectify", "crop", nd(np.where(np.isnan(rec), np.nan, out), rec))
+        w("trn.orthorectify", "crop", nd(np.where(np.isnan(rec), np.nan, out), rec), j)
     for j, r in enumerate(rows(T.get("trn.correlate", {}))):
         tmpl = R.templates[r["in.template_sha"]]
         out = timed(f"correlate r={int(r['in.radius'])}", lambda: F.correlate(tmpl, R.ref, int(r["in.radius"])))
         for q in ("dx", "dy", "ncc", "surface"):
-            w("trn.correlate", q, nd(out[q], r["out." + q]))
+            w("trn.correlate", q, nd(out[q], r["out." + q]), j)
         for q in ("dx_int", "dy_int", "edge"):
             if not _same(out[q], r["out." + q]):
                 d("trn.correlate", j, q, r["out." + q], out[q])
@@ -205,7 +218,7 @@ def compare_run(path):
                       dy=float(r["in.coarse.dy"]), ncc=float(r["in.coarse.ncc"]), edge=bool(r["in.coarse.edge"]))
         out = timed("register_peak", lambda: F.register_peak(tmpl, R.ref, coarse, int(r["in.radius"])))
         for q in ("dx", "dy", "ncc", "gain", "bias"):
-            w("trn.register_peak", q, nd(out.get(q), r.get("out." + q)))
+            w("trn.register_peak", q, nd(out.get(q), r.get("out." + q)), j)
         for q in ("register", "iterations", "edge"):
             if not _same(out.get(q), r.get("out." + q)):
                 d("trn.register_peak", j, q, r.get("out." + q), out.get(q))
@@ -217,7 +230,7 @@ def compare_run(path):
             rec = (float(whole[0]), int(whole[1]), int(whole[2]))      # stored as one array when found
         else:
             rec = (r.get("out.0"), r.get("out.1"), r.get("out.2"))    # (nan, None, None): none found
-        w("navtrn.second_peak", "value", nd(out[0], rec[0]))
+        w("navtrn.second_peak", "value", nd(out[0], rec[0]), j)
         for k in (1, 2):
             if not _same(out[k], rec[k]):
                 d("navtrn.second_peak", j, f"place {k}", rec[k], out[k])
@@ -242,7 +255,7 @@ def compare_run(path):
         a, da = pass_fields(out)
         b, db = rec_pass(r)
         for q in PASS_Q:
-            w("navtrn.fix_pass", q, nd(a[q], b[q]))
+            w("navtrn.fix_pass", q, nd(a[q], b[q]), j)
         if nd(a["offset"], b["offset"]) >= 0.5:
             d("navtrn.fix_pass", j, "integer peak" + (" (recorded tie)" if tie_under(j) else ""), b["offset"], a["offset"])
         for q in da:
@@ -260,7 +273,7 @@ def compare_run(path):
             a, da = pass_fields(out)
             b, db = rec_pass(r, dither=True)
             for q in DITHER_Q:
-                w(name, q, nd(a.get(q), b.get(q)))
+                w(name, q, nd(a.get(q), b.get(q)), j)
             for q in da:
                 if not _same(da[q], db.get(q)):
                     d(name, j, q, db.get(q), da[q])
@@ -273,12 +286,34 @@ def compare_run(path):
         a, da = pass_fields(out)
         b, db = rec_pass(r)
         for q in PASS_Q:
-            w("navtrn.candidate", q, nd(a[q], b[q]))
+            w("navtrn.candidate", q, nd(a[q], b[q]), j)
         if out.get("fix") is not None:
             m_c = F.peak_margin(out["ncc"], np.nan if out["second"] is None else out["second"])
             k = [i for i in range(len(fx["t"])) if fx["status"][i] not in ("no fix",)][j] if False else j
-            w("margin", "margin", nd(m_c, fx["margin"][k]))
-    return dict(file=path.name, worst=worst, discrete=disc, ties=sorted(ties), seconds=secs)
+            w("margin", "margin", nd(m_c, fx["margin"][k]), j)
+    # the C++'s side of each tie; what follows from it left out where it
+    # took the other side; the first amendment (the four quantities, every
+    # call at an integer-peak tie) left out whatever the C++ did
+    keys = [(x["function"], x["call"], x["what"]) for x in disc if "call" in x]
+    excluded, amendment = set(), []
+    for f in fams:
+        ev = TA.n2_flipped(f, keys, stash)
+        fol = TA.n2_follows(f)
+        if ev:
+            excluded |= {(fn, jj, q) for (fn, jj), qs in fol.items() for q in qs}
+        amendment.append(dict(file=path.name, tie=list(f["tie"]), kind=f["kind"], cpp_other_side=bool(ev),
+                              evidence=ev, left_out={f"{fn} {jj}": {q: stash[(fn, jj)][q] for q in qs
+                                                                     if q in stash.get((fn, jj), {})}
+                                                     for (fn, jj), qs in fol.items()} if ev else {}))
+    tie_fp = {f["calls"][1][1] for f in fams if f["kind"] == "integer peak" and len(f["calls"]) > 1}
+    tie_cand = {f["calls"][2][1] for f in fams if f["kind"] == "integer peak" and len(f["calls"]) > 2
+                and f["calls"][2][0] == "navtrn.candidate"}
+    first = {("navtrn.fix_pass", jj, q) for jj in tie_fp for q in ("fix", "offset")} | \
+            {("navtrn.candidate", jj, q) for jj in tie_cand for q in ("fix", "offset")}
+    TA.fold(worst2, stash, excluded | first)
+    return dict(file=path.name, worst=worst, discrete=disc, ties=sorted(ties), seconds=secs, worst2=worst2,
+                amendment=amendment, first_amendment=[dict(file=path.name, call=[fn, jj], quantity=q)
+                                                      for fn, jj, q in sorted(first)])
 
 
 def cmd_compare():
@@ -320,7 +355,16 @@ def cmd_compare():
             secs.setdefault(k, []).extend(v)
     times = {k: dict(calls=len(v), median_ms=float(np.median(v) * 1e3), max_ms=float(np.max(v) * 1e3))
              for k, v in secs.items()}
-    res = dict(table=table, discrete=discrete, recorded_ties=ties, times=times, seconds=took)
+    worst2 = {}
+    for r in runs:
+        for name, qs in r["worst2"].items():
+            for q, v in qs.items():
+                worst2.setdefault(name, {})
+                worst2[name][q] = max(worst2[name].get(q, 0.0), v)
+    item2 = [dict(function=name, quantity=q, cpp_minus_python=v) for name, qs in worst2.items() for q, v in qs.items()]
+    res = dict(table=table, discrete=discrete, recorded_ties=ties, times=times, seconds=took, item2=item2,
+               amendment=[a for r in runs for a in r["amendment"]],
+               first_amendment=[a for r in runs for a in r["first_amendment"]])
     (OUT / "compare.json").write_text(json.dumps(res, indent=1, default=str))
     for row in table:
         print(f"{row['function']:20s} {row['quantity']:10s} C++-Python {row['cpp_minus_python']:.3g}  spread "

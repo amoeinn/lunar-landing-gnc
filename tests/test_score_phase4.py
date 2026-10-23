@@ -270,3 +270,95 @@ def test_score_carries_every_item():
     assert s["item2"]["ok"] and s["item3"]["ok"] and set(s["item4"]["paths"]) == set(S.PATHS)
     assert s["item3"]["scored_seed_ties"] == {"guidance.solve": {"status": 3}}
     assert len(s["amended_bars"]) == 4
+    assert s["excluded_calls"] == S.excluded_calls(res) and len(s["excluded_calls"]) == 2   # G1's two status ties
+
+
+def with_item2(res):
+    """The reference as the amended comparisons write it: an item 2 table
+    for N1 and N2 (here a copy of the table, the integer-peak tie calls'
+    fix and offset at their values off the ties), the amendment lists."""
+    res["n1"]["item2"] = [dict(quantity=r["quantity"], cpp_minus_python=r["cpp_minus_python"])
+                          for r in res["n1"]["table"]]
+    off = res["n2_without_ties"]
+    res["n2"]["item2"] = [dict(function=r["function"], quantity=r["quantity"],
+                               cpp_minus_python=off.get(f"{r['function']} / {r['quantity']} / not tie",
+                                                        r["cpp_minus_python"]))
+                          for r in res["n2"]["table"]]
+    res["n1"]["amendment"], res["n2"]["amendment"] = [], []
+    return res
+
+
+def test_item2_reads_the_amended_worst():
+    """Invariant (the amendment of 22 Oct 2026): item 2 reads N1's and N2's
+    amended worst where the comparison gives one, not the table over every
+    call: a call left out there cannot fail item 2 through the table, and
+    a difference in the amended worst over its bar fails."""
+    b, a = bar(), S.amended_bars(ties_ref())
+    res = with_item2(reference())
+    row_of(res, "N2", "navtrn._dither3", "fix")["cpp_minus_python"] = 1e9
+    row_of(res, "N1", "", "end_x")["cpp_minus_python"] = 1e9
+    assert S.item2(b, a, res)["ok"]
+    next(r for r in res["n1"]["item2"] if r["quantity"] == "end_x")["cpp_minus_python"] = 1e-9
+    assert S.item2(b, a, res)["failed"] == [["N1", "", "end_x"]]
+
+
+def test_amended_four_per_call_when_given():
+    """Invariant: with N2 compared per call, the four first-amendment
+    quantities are scored from its item 2 worst (both amendments), not from
+    bar_ties_n2, and both are reported beside each other; over the amended
+    bar fails."""
+    b, a = bar(), S.amended_bars(ties_ref())
+    res = with_item2(reference())
+    res["n2_without_ties"]["navtrn.candidate / fix / not tie"] = 1e9
+    s = S.item2(b, a, res)
+    assert s["ok"]
+    cross = {(r["function"], r["quantity"]): r for r in s["first_amendment_cross_check"]}
+    assert cross[("navtrn.candidate", "fix")]["bar_ties_n2"] == 1e9 and len(cross) == 4
+    next(r for r in res["n2"]["item2"] if (r["function"], r["quantity"]) == ("navtrn.candidate", "fix"))[
+        "cpp_minus_python"] = math.nextafter(a[("N2", "navtrn.candidate", "fix")], math.inf)
+    assert S.item2(b, a, res)["failed"] == [["N2", "navtrn.candidate", "fix"]]
+
+
+def test_excluded_calls_are_reported():
+    """Invariant: every call left out under the amendment is reported with
+    its tie and the quantities left out: N1's and N2's where the C++ took
+    the other side (not where it agreed), and G1's tie disagreements on a
+    solve status, a final time or finding a plan (not a G1 disagreement off
+    the ties, nor another outcome)."""
+    res = with_item2(reference())
+    res["n2"]["amendment"] = [dict(file="f", tie=["trn.correlate", 1, "dx_int"], cpp_other_side=True, evidence=["x"],
+                                   left_out={"navtrn.fix_pass 1": {"fix": 320.0}}),
+                              dict(file="f", tie=["trn.correlate", 3, "dx_int"], cpp_other_side=False, evidence=None,
+                                   left_out={})]
+    res["n1"]["amendment"] = [dict(file="g", tick=400, tie=["gate"], cpp_other_side=True, evidence=["gate"],
+                                   left_out={"end_x": 1.0})]
+    res["g1"]["discrete"] += [dict(file="h", resolve=3, what="final time chosen", python=22, cpp=21,
+                                   recorded_tie=True),
+                              dict(file="h", resolve=4, what="final time chosen", python=22, cpp=21,
+                                   recorded_tie=False),
+                              dict(file="h", resolve=5, what="widened", python=True, cpp=False, recorded_tie=True)]
+    ex = S.excluded_calls(res)
+    comps = [(e["component"], e.get("file")) for e in ex]
+    assert ("N2", "f") in comps and ("N1", "g") in comps and ("G1", "h") in comps
+    assert sum(e["component"] == "N2" for e in ex) == 1
+    g1 = [e for e in ex if e["component"] == "G1"]
+    # the reference's own two solve-status ties, and the re-solve 3 tie
+    assert len(g1) == 3 and {"re-solve 3"} <= {k for e in g1 for k in e["left_out"]}
+    assert all(set(S.G1_FOLLOWS) == set(v) for e in g1 for v in e["left_out"].values())
+
+
+def test_presence_flips_go_to_item3_as_ties():
+    """Invariant: a flip seen only as a value present on one side (no
+    disagreement entry) is counted under item 3 as a tie; a flip with a
+    disagreement entry is not counted twice; a family where the C++ agreed
+    adds nothing."""
+    res = with_item2(reference())
+    base = S.item3(res, None)
+    res["n2"]["amendment"] = [
+        dict(file="f", tie=["navtrn.fix_pass", 1, "second"], cpp_other_side=True,
+             evidence=["navtrn.fix_pass 1: second present on one side only"], left_out={}),
+        dict(file="f", tie=["trn.correlate", 1, "dx_int"], cpp_other_side=True,
+             evidence=["navtrn.fix_pass 1: integer peak (recorded tie)"], left_out={}),
+        dict(file="f", tie=["navtrn.dark", 2, ""], cpp_other_side=False, evidence=None, left_out={})]
+    s = S.item3(res, None)
+    assert s["ok"] and s["at_ties"] == base["at_ties"] + 1 and s["disagreements"] == base["disagreements"] + 1

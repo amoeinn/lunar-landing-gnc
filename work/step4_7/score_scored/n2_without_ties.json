@@ -1,0 +1,8 @@
+{
+ "navtrn.fix_pass / fix / not tie": 1.1782503861468285e-08,
+ "navtrn.fix_pass / offset / not tie": 5.891377628797212e-10,
+ "navtrn.candidate / fix / not tie": 2.2737367544323206e-12,
+ "navtrn.candidate / offset / not tie": 9.947598300641403e-14,
+ "navtrn.fix_pass / fix / tie": 1.8189894035458565e-12,
+ "navtrn.fix_pass / offset / tie": 8.1601392309949e-14
+}

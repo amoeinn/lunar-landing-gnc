@@ -1,0 +1,32 @@
+{
+ "calls": 1862,
+ "worst": 0.0,
+ "per_component": [
+  0.0,
+  0.0,
+  0.0
+ ],
+ "guard": 5.4569682106375694e-09,
+ "spread": 5.4569682106375694e-12,
+ "ok": true,
+ "bit_for_bit_calls": 1862,
+ "per_file": {
+  "gnc_nominal_0.npz": 0.0,
+  "gnc_nominal_1.npz": 0.0,
+  "gnc_nominal_2.npz": 0.0,
+  "gnc_nominal_3.npz": 0.0,
+  "gnc_nominal_4.npz": 0.0,
+  "gnc_nominal_5.npz": 0.0,
+  "gnc_nominal_6.npz": 0.0,
+  "gnc_nominal_7.npz": 0.0,
+  "gnc_nominal_8.npz": 0.0,
+  "gnc_nominal_9.npz": 0.0
+ },
+ "branches": {
+  "python inside the cone / c++ inside the cone": 1862
+ },
+ "discrete": [],
+ "replay_not_recorded": 0,
+ "law_not_recorded": [],
+ "seconds": 5.670821905136108
+}

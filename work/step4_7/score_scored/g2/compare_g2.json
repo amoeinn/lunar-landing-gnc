@@ -1,0 +1,993 @@
+{
+ "table": [
+  {
+   "function": "closed_loop.predicted_reserve",
+   "cpp_minus_python": 0.0,
+   "guard": 2.7284841053187847e-09,
+   "rule": "1000 x one-ulp spread 2.73e-12",
+   "ok": true,
+   "calls": 817
+  },
+  {
+   "function": "closed_loop.descent_allowance",
+   "cpp_minus_python": 0.0,
+   "guard": 1.9895196601282805e-10,
+   "rule": "1000 x one-ulp spread 1.99e-13",
+   "ok": true,
+   "calls": 812
+  },
+  {
+   "function": "closed_loop.predicted_touchdown",
+   "cpp_minus_python": 0.0,
+   "guard": 3.410605131648481e-10,
+   "rule": "1000 x one-ulp spread 3.41e-13",
+   "ok": true,
+   "calls": 812
+  }
+ ],
+ "discrete": [],
+ "firings": [
+  {
+   "file": "gnc_leak_0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_0.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "reserve",
+    19
+   ],
+   "cpp": [
+    "reserve",
+    19
+   ]
+  },
+  {
+   "file": "gnc_nominal_0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_0.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_1.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_1.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_2.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_2.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_3.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_3.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_4.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_4.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_5.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_5.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_6.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_6.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_7.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_7.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_8.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_8.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_9.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_nominal_9.npz",
+   "function": "closed_loop.trigger",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    25
+   ],
+   "cpp": [
+    "infeasible",
+    25
+   ]
+  },
+  {
+   "file": "gnc_thrust_0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    31
+   ],
+   "cpp": [
+    "infeasible",
+    31
+   ]
+  },
+  {
+   "file": "gnc_thrust_0.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    31
+   ],
+   "cpp": [
+    "infeasible",
+    31
+   ]
+  },
+  {
+   "file": "gnc_thrust_1.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    30
+   ],
+   "cpp": [
+    "infeasible",
+    30
+   ]
+  },
+  {
+   "file": "gnc_thrust_1.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    30
+   ],
+   "cpp": [
+    "infeasible",
+    30
+   ]
+  },
+  {
+   "file": "gnc_thrust_2.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    33
+   ],
+   "cpp": [
+    "infeasible",
+    33
+   ]
+  },
+  {
+   "file": "gnc_thrust_2.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    33
+   ],
+   "cpp": [
+    "infeasible",
+    33
+   ]
+  },
+  {
+   "file": "gnc_thrust_3.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    29
+   ],
+   "cpp": [
+    "infeasible",
+    29
+   ]
+  },
+  {
+   "file": "gnc_thrust_3.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    29
+   ],
+   "cpp": [
+    "infeasible",
+    29
+   ]
+  },
+  {
+   "file": "gnc_thrust_4.npz",
+   "function": "closed_loop.trigger_from",
+   "python": [
+    "infeasible",
+    29
+   ],
+   "cpp": [
+    "infeasible",
+    29
+   ]
+  },
+  {
+   "file": "gnc_thrust_4.npz",
+   "function": "closed_loop.trigger",
+   "python": [
+    "infeasible",
+    29
+   ],
+   "cpp": [
+    "infeasible",
+    29
+   ]
+  },
+  {
+   "file": "nav_e0_k0_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k0_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k0_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k0_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e0_k0_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k0_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k1_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k1_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k1_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k1_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e0_k1_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k1_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e0_k2_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k0_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k1_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e1_k2_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k0_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k0_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k0_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k0_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e2_k0_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k0_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k1_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k1_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k1_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k1_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e2_k1_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e2_k1_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k0_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k0_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k0_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k0_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e3_k0_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k0_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k1_g+0.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k1_g+0.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k1_g+168.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k1_g+168.npz",
+   "function": "offline.lost_lock_rule",
+   "python": [
+    "lost lock",
+    40.0
+   ],
+   "cpp": [
+    "lost lock",
+    40.0
+   ]
+  },
+  {
+   "file": "nav_e3_k1_g+24.npz",
+   "function": "closed_loop.trigger_from",
+   "python": null,
+   "cpp": null
+  },
+  {
+   "file": "nav_e3_k1_g+24.npz",
+   "function": "offline.lost_lock_rule",
+   "python": null,
+   "cpp": null
+  }
+ ],
+ "fired": [
+  [
+   "closed_loop.trigger_from",
+   "reserve",
+   5
+  ],
+  [
+   "closed_loop.trigger",
+   "reserve",
+   5
+  ],
+  [
+   "closed_loop.trigger_from",
+   null,
+   40
+  ],
+  [
+   "closed_loop.trigger",
+   null,
+   10
+  ],
+  [
+   "closed_loop.trigger_from",
+   "infeasible",
+   10
+  ],
+  [
+   "closed_loop.trigger",
+   "infeasible",
+   10
+  ],
+  [
+   "offline.lost_lock_rule",
+   null,
+   24
+  ],
+  [
+   "offline.lost_lock_rule",
+   "lost lock",
+   6
+  ]
+ ],
+ "stats": {
+  "closed_loop.predicted_reserve": 817,
+  "closed_loop.descent_allowance": 812,
+  "closed_loop.predicted_touchdown": 812,
+  "closed_loop.trigger_from": 1996,
+  "trigger without a plan": 10,
+  "closed_loop.trigger": 822,
+  "offline.lost_lock_rule": 1174,
+  "lost lock fired": 6
+ },
+ "times": {
+  "predicted_reserve": {
+   "calls": 817,
+   "median_us": 0.21999994714860804,
+   "max_us": 12.953999885212397
+  },
+  "descent_allowance": {
+   "calls": 812,
+   "median_us": 0.9079999472305644,
+   "max_us": 21.114999981364235
+  },
+  "predicted_touchdown": {
+   "calls": 812,
+   "median_us": 0.9140003385255113,
+   "max_us": 7.932000244181836
+  },
+  "trigger_from": {
+   "calls": 1996,
+   "median_us": 0.9529999260848854,
+   "max_us": 9.657999726186972
+  },
+  "trigger": {
+   "calls": 822,
+   "median_us": 0.9589998626324814,
+   "max_us": 9.348000276077073
+  },
+  "lost_lock": {
+   "calls": 1174,
+   "median_us": 0.3440000000409782,
+   "max_us": 2.5829999685811345
+  }
+ },
+ "files": 56,
+ "seconds": 9.920836925506592
+}

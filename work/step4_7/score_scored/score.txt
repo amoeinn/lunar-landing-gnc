@@ -1,0 +1,22 @@
+item 2: FAIL: 251 quantities, failed [['N1', '', 'dop_S'], ['N2', 'trn.register_peak', 'dx'], ['N2', 'trn.register_peak', 'gain'], ['G3', 'abort.abort_from_approach', 'staging.m_before'], ['G3', 'abort.combined_abort', 'staging.m_before'], ['G3', 'abort.combined_shoot', 'staging.fall_lowest'], ['G3', 'abort.fly', '1']]
+  N1  dop_S: scored 8.470329472543003e-22 bar 5.293955920339377e-22 (10 x reference)
+  N2 trn.register_peak dx: scored 0.38326863219192187 bar 3.5674791315498666e-07 (10 x reference)
+  N2 trn.register_peak gain: scored 297.3100627317532 bar 2.814340405166149e-07 (10 x reference)
+  G3 abort.abort_from_approach staging.m_before: scored 9.094947017729282e-13 bar 0.0 (bit for bit)
+  G3 abort.combined_abort staging.m_before: scored 9.094947017729282e-13 bar 0.0 (bit for bit)
+  G3 abort.combined_shoot staging.fall_lowest: scored 2.3283064365386963e-10 bar 0.0 (bit for bit)
+  G3 abort.fly 1: scored 3.371387720108032e-07 bar 6.28642737865448e-08 (10 x reference)
+  reported only: N1  b_shift: 0.0
+  reported only: G3 abort.ascend, abort.combined_shoot which start won: {'shootings': 40, 'winner same': 19, 'winner differs': 21, 'start status same': 239, 'start nfev same': 236}
+  first amendment, navtrn.fix_pass fix: per call 1.1782503861468285e-08, bar_ties_n2 1.1782503861468285e-08
+  first amendment, navtrn.fix_pass offset: per call 5.891377628797212e-10, bar_ties_n2 5.891377628797212e-10
+  first amendment, navtrn.candidate fix: per call 2.2737367544323206e-12, bar_ties_n2 2.2737367544323206e-12
+  first amendment, navtrn.candidate offset: per call 9.947598300641403e-14, bar_ties_n2 9.947598300641403e-14
+calls left out of item 2 under the amendment of 22 Oct 2026: 2
+  N2 nav_e1_k1_g+168.npz tie ['navtrn.fix_pass', 1, 'second']: ['navtrn.fix_pass 1: second present on one side only', 'navtrn.candidate 1: second present on one side only']; left out {'navtrn.fix_pass 1': {'second': inf}, 'navtrn.candidate 1': {'second': inf}, 'margin 1': {'margin': 1.0}}
+  N2 nav_e1_k1_g+168.npz tie ['navtrn.second_peak', 0, ',0,1,2']: ['navtrn.fix_pass 1: second present on one side only']; left out {'navtrn.second_peak 0': {'value': 0.0}, 'navtrn.fix_pass 1': {'second': inf}, 'navtrn.candidate 1': {'second': inf}, 'margin 1': {'margin': 1.0}}
+item 3: PASS: 2 disagreements, 2 at ties, 0 not; not compared []; the scored seed's ties {'guidance.solve': {'status': 3, 'beta': 3, 'fuel': 3, 'lossless_gap': 3, 'r': 3, 'v': 3, 'z': 3, 'u': 3, 'sigma': 3}, 'closed_loop.resolve': {'n': 2, 'r': 2, 'v': 2, 'z': 2, 'u': 2, 'sigma': 2}, 'navtrn.fix_pass': {'status': 15, 'second': 1}, 'navtrn.dark': {'': 15}, 'trn.correlate': {'dx_int': 5, 'dy_int': 5}, 'navtrn.second_peak': {'1': 2, '2': 2, '0': 2, '': 2}}
+item 4, filter tick with an update: PASS: max 0.2155 ms over 424065 calls (nav_e2_k1_g+168.npz), bar 5.0 ms
+item 4, TRN fix with the dither: PASS: max 372.0311 ms over 360 calls (nav_e2_k1), bar 10000.0 ms
+item 4, re-solve, window: PASS: max 77.5575 ms over 802 calls (gnc_thrust_3.npz), bar 2000.0 ms
+item 4, re-solve, widened: FAIL (predicted): max 18153.8583 ms over 20 calls (gnc_state_0.npz), bar 2000.0 ms

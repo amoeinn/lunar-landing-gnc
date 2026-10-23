@@ -1,0 +1,1288 @@
+{
+ "trace_dir": "work/step4_7/seed20261041",
+ "bench": [
+  {
+   "file": "nav_e0_k0_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14760,
+     0.031,
+     0.174
+    ],
+    "filter tick with an update": [
+     14745,
+     0.031,
+     0.174
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.045,
+     0.0867
+    ]
+   },
+   "text": "filter tick, every processed sample: 14760 calls, median 0.0310 ms, max 0.1740 ms\nfilter tick with an update: 14745 calls, median 0.0310 ms, max 0.1740 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0450 ms, max 0.0867 ms\n"
+  },
+  {
+   "file": "nav_e0_k0_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14760,
+     0.021,
+     0.0734
+    ],
+    "filter tick with an update": [
+     14745,
+     0.021,
+     0.0734
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0245,
+     0.0299
+    ]
+   },
+   "text": "filter tick, every processed sample: 14760 calls, median 0.0210 ms, max 0.0734 ms\nfilter tick with an update: 14745 calls, median 0.0210 ms, max 0.0734 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0245 ms, max 0.0299 ms\n"
+  },
+  {
+   "file": "nav_e0_k0_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14760,
+     0.0309,
+     0.0935
+    ],
+    "filter tick with an update": [
+     14745,
+     0.0309,
+     0.0935
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0432,
+     0.06
+    ]
+   },
+   "text": "filter tick, every processed sample: 14760 calls, median 0.0309 ms, max 0.0935 ms\nfilter tick with an update: 14745 calls, median 0.0309 ms, max 0.0935 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0432 ms, max 0.0600 ms\n"
+  },
+  {
+   "file": "nav_e0_k1_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14405,
+     0.0301,
+     0.1745
+    ],
+    "filter tick with an update": [
+     14390,
+     0.0301,
+     0.1745
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0452,
+     0.1745
+    ]
+   },
+   "text": "filter tick, every processed sample: 14405 calls, median 0.0301 ms, max 0.1745 ms\nfilter tick with an update: 14390 calls, median 0.0301 ms, max 0.1745 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0452 ms, max 0.1745 ms\n"
+  },
+  {
+   "file": "nav_e0_k1_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14405,
+     0.0207,
+     0.1079
+    ],
+    "filter tick with an update": [
+     14390,
+     0.0207,
+     0.1079
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0245,
+     0.0323
+    ]
+   },
+   "text": "filter tick, every processed sample: 14405 calls, median 0.0207 ms, max 0.1079 ms\nfilter tick with an update: 14390 calls, median 0.0207 ms, max 0.1079 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0245 ms, max 0.0323 ms\n"
+  },
+  {
+   "file": "nav_e0_k1_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14405,
+     0.0308,
+     0.1012
+    ],
+    "filter tick with an update": [
+     14390,
+     0.0308,
+     0.1012
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0373,
+     0.0722
+    ]
+   },
+   "text": "filter tick, every processed sample: 14405 calls, median 0.0308 ms, max 0.1012 ms\nfilter tick with an update: 14390 calls, median 0.0308 ms, max 0.1012 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0373 ms, max 0.0722 ms\n"
+  },
+  {
+   "file": "nav_e0_k2_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14555,
+     0.03,
+     0.0981
+    ],
+    "filter tick with an update": [
+     14540,
+     0.03,
+     0.0981
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0447,
+     0.0771
+    ]
+   },
+   "text": "filter tick, every processed sample: 14555 calls, median 0.0300 ms, max 0.0981 ms\nfilter tick with an update: 14540 calls, median 0.0300 ms, max 0.0981 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0447 ms, max 0.0771 ms\n"
+  },
+  {
+   "file": "nav_e0_k2_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14555,
+     0.0298,
+     0.109
+    ],
+    "filter tick with an update": [
+     14540,
+     0.0298,
+     0.109
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.026,
+     0.0428
+    ]
+   },
+   "text": "filter tick, every processed sample: 14555 calls, median 0.0298 ms, max 0.1090 ms\nfilter tick with an update: 14540 calls, median 0.0298 ms, max 0.1090 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0260 ms, max 0.0428 ms\n"
+  },
+  {
+   "file": "nav_e0_k2_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14555,
+     0.0301,
+     0.1014
+    ],
+    "filter tick with an update": [
+     14540,
+     0.0301,
+     0.1014
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0424,
+     0.0628
+    ]
+   },
+   "text": "filter tick, every processed sample: 14555 calls, median 0.0301 ms, max 0.1014 ms\nfilter tick with an update: 14540 calls, median 0.0301 ms, max 0.1014 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0424 ms, max 0.0628 ms\n"
+  },
+  {
+   "file": "nav_e1_k0_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13940,
+     0.0301,
+     0.119
+    ],
+    "filter tick with an update": [
+     13925,
+     0.0301,
+     0.119
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0453,
+     0.0944
+    ]
+   },
+   "text": "filter tick, every processed sample: 13940 calls, median 0.0301 ms, max 0.1190 ms\nfilter tick with an update: 13925 calls, median 0.0301 ms, max 0.1190 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0453 ms, max 0.0944 ms\n"
+  },
+  {
+   "file": "nav_e1_k0_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13940,
+     0.0299,
+     0.1146
+    ],
+    "filter tick with an update": [
+     13925,
+     0.0299,
+     0.1146
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0321,
+     0.0411
+    ]
+   },
+   "text": "filter tick, every processed sample: 13940 calls, median 0.0299 ms, max 0.1146 ms\nfilter tick with an update: 13925 calls, median 0.0299 ms, max 0.1146 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0321 ms, max 0.0411 ms\n"
+  },
+  {
+   "file": "nav_e1_k0_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13940,
+     0.0301,
+     0.1363
+    ],
+    "filter tick with an update": [
+     13925,
+     0.0301,
+     0.1363
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.044,
+     0.0594
+    ]
+   },
+   "text": "filter tick, every processed sample: 13940 calls, median 0.0301 ms, max 0.1363 ms\nfilter tick with an update: 13925 calls, median 0.0301 ms, max 0.1363 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0440 ms, max 0.0594 ms\n"
+  },
+  {
+   "file": "nav_e1_k1_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13805,
+     0.0302,
+     0.08
+    ],
+    "filter tick with an update": [
+     13790,
+     0.0302,
+     0.08
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0447,
+     0.0559
+    ]
+   },
+   "text": "filter tick, every processed sample: 13805 calls, median 0.0302 ms, max 0.0800 ms\nfilter tick with an update: 13790 calls, median 0.0302 ms, max 0.0800 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0447 ms, max 0.0559 ms\n"
+  },
+  {
+   "file": "nav_e1_k1_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13805,
+     0.0298,
+     0.1324
+    ],
+    "filter tick with an update": [
+     13790,
+     0.0298,
+     0.1324
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0308,
+     0.0421
+    ]
+   },
+   "text": "filter tick, every processed sample: 13805 calls, median 0.0298 ms, max 0.1324 ms\nfilter tick with an update: 13790 calls, median 0.0298 ms, max 0.1324 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0308 ms, max 0.0421 ms\n"
+  },
+  {
+   "file": "nav_e1_k1_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13805,
+     0.0301,
+     0.1093
+    ],
+    "filter tick with an update": [
+     13790,
+     0.0301,
+     0.1093
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0434,
+     0.0604
+    ]
+   },
+   "text": "filter tick, every processed sample: 13805 calls, median 0.0301 ms, max 0.1093 ms\nfilter tick with an update: 13790 calls, median 0.0301 ms, max 0.1093 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0434 ms, max 0.0604 ms\n"
+  },
+  {
+   "file": "nav_e1_k2_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13765,
+     0.0304,
+     0.0927
+    ],
+    "filter tick with an update": [
+     13765,
+     0.0304,
+     0.0927
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0445,
+     0.0621
+    ]
+   },
+   "text": "filter tick, every processed sample: 13765 calls, median 0.0304 ms, max 0.0927 ms\nfilter tick with an update: 13765 calls, median 0.0304 ms, max 0.0927 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0445 ms, max 0.0621 ms\n"
+  },
+  {
+   "file": "nav_e1_k2_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13765,
+     0.0297,
+     0.1143
+    ],
+    "filter tick with an update": [
+     13765,
+     0.0297,
+     0.1143
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0326,
+     0.0435
+    ]
+   },
+   "text": "filter tick, every processed sample: 13765 calls, median 0.0297 ms, max 0.1143 ms\nfilter tick with an update: 13765 calls, median 0.0297 ms, max 0.1143 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0326 ms, max 0.0435 ms\n"
+  },
+  {
+   "file": "nav_e1_k2_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13765,
+     0.0306,
+     0.0875
+    ],
+    "filter tick with an update": [
+     13765,
+     0.0306,
+     0.0875
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0443,
+     0.0687
+    ]
+   },
+   "text": "filter tick, every processed sample: 13765 calls, median 0.0306 ms, max 0.0875 ms\nfilter tick with an update: 13765 calls, median 0.0306 ms, max 0.0875 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0443 ms, max 0.0687 ms\n"
+  },
+  {
+   "file": "nav_e2_k0_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14095,
+     0.03,
+     0.1588
+    ],
+    "filter tick with an update": [
+     14080,
+     0.03,
+     0.1588
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0452,
+     0.0637
+    ]
+   },
+   "text": "filter tick, every processed sample: 14095 calls, median 0.0300 ms, max 0.1588 ms\nfilter tick with an update: 14080 calls, median 0.0300 ms, max 0.1588 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0452 ms, max 0.0637 ms\n"
+  },
+  {
+   "file": "nav_e2_k0_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14095,
+     0.0205,
+     0.0713
+    ],
+    "filter tick with an update": [
+     14080,
+     0.0205,
+     0.0713
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0227,
+     0.0273
+    ]
+   },
+   "text": "filter tick, every processed sample: 14095 calls, median 0.0205 ms, max 0.0713 ms\nfilter tick with an update: 14080 calls, median 0.0205 ms, max 0.0713 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0227 ms, max 0.0273 ms\n"
+  },
+  {
+   "file": "nav_e2_k0_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14095,
+     0.0301,
+     0.127
+    ],
+    "filter tick with an update": [
+     14080,
+     0.0301,
+     0.127
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0437,
+     0.0616
+    ]
+   },
+   "text": "filter tick, every processed sample: 14095 calls, median 0.0301 ms, max 0.1270 ms\nfilter tick with an update: 14080 calls, median 0.0301 ms, max 0.1270 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0437 ms, max 0.0616 ms\n"
+  },
+  {
+   "file": "nav_e2_k1_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14330,
+     0.0304,
+     0.0997
+    ],
+    "filter tick with an update": [
+     14330,
+     0.0304,
+     0.0997
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0458,
+     0.0654
+    ]
+   },
+   "text": "filter tick, every processed sample: 14330 calls, median 0.0304 ms, max 0.0997 ms\nfilter tick with an update: 14330 calls, median 0.0304 ms, max 0.0997 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0458 ms, max 0.0654 ms\n"
+  },
+  {
+   "file": "nav_e2_k1_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14330,
+     0.021,
+     0.2155
+    ],
+    "filter tick with an update": [
+     14330,
+     0.021,
+     0.2155
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0242,
+     0.0361
+    ]
+   },
+   "text": "filter tick, every processed sample: 14330 calls, median 0.0210 ms, max 0.2155 ms\nfilter tick with an update: 14330 calls, median 0.0210 ms, max 0.2155 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0242 ms, max 0.0361 ms\n"
+  },
+  {
+   "file": "nav_e2_k1_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14330,
+     0.0301,
+     0.1215
+    ],
+    "filter tick with an update": [
+     14330,
+     0.0301,
+     0.1215
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0461,
+     0.0754
+    ]
+   },
+   "text": "filter tick, every processed sample: 14330 calls, median 0.0301 ms, max 0.1215 ms\nfilter tick with an update: 14330 calls, median 0.0301 ms, max 0.1215 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0461 ms, max 0.0754 ms\n"
+  },
+  {
+   "file": "nav_e3_k0_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14080,
+     0.0302,
+     0.1091
+    ],
+    "filter tick with an update": [
+     14065,
+     0.0302,
+     0.1091
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0447,
+     0.058
+    ]
+   },
+   "text": "filter tick, every processed sample: 14080 calls, median 0.0302 ms, max 0.1091 ms\nfilter tick with an update: 14065 calls, median 0.0302 ms, max 0.1091 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0447 ms, max 0.0580 ms\n"
+  },
+  {
+   "file": "nav_e3_k0_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14080,
+     0.0204,
+     0.0788
+    ],
+    "filter tick with an update": [
+     14065,
+     0.0204,
+     0.0788
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0222,
+     0.0278
+    ]
+   },
+   "text": "filter tick, every processed sample: 14080 calls, median 0.0204 ms, max 0.0788 ms\nfilter tick with an update: 14065 calls, median 0.0204 ms, max 0.0788 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0222 ms, max 0.0278 ms\n"
+  },
+  {
+   "file": "nav_e3_k0_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     14080,
+     0.0298,
+     0.1215
+    ],
+    "filter tick with an update": [
+     14065,
+     0.0298,
+     0.1215
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0233,
+     0.0556
+    ]
+   },
+   "text": "filter tick, every processed sample: 14080 calls, median 0.0298 ms, max 0.1215 ms\nfilter tick with an update: 14065 calls, median 0.0298 ms, max 0.1215 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0233 ms, max 0.0556 ms\n"
+  },
+  {
+   "file": "nav_e3_k1_g+0.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13740,
+     0.03,
+     0.1382
+    ],
+    "filter tick with an update": [
+     13725,
+     0.03,
+     0.1382
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0449,
+     0.0913
+    ]
+   },
+   "text": "filter tick, every processed sample: 13740 calls, median 0.0300 ms, max 0.1382 ms\nfilter tick with an update: 13725 calls, median 0.0300 ms, max 0.1382 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0449 ms, max 0.0913 ms\n"
+  },
+  {
+   "file": "nav_e3_k1_g+168.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13740,
+     0.0204,
+     0.1056
+    ],
+    "filter tick with an update": [
+     13725,
+     0.0204,
+     0.1056
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.021,
+     0.0326
+    ]
+   },
+   "text": "filter tick, every processed sample: 13740 calls, median 0.0204 ms, max 0.1056 ms\nfilter tick with an update: 13725 calls, median 0.0204 ms, max 0.1056 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0210 ms, max 0.0326 ms\n"
+  },
+  {
+   "file": "nav_e3_k1_g+24.npz",
+   "mode": "nav",
+   "lines": {
+    "filter tick, every processed sample": [
+     13740,
+     0.0297,
+     0.1727
+    ],
+    "filter tick with an update": [
+     13725,
+     0.0297,
+     0.1727
+    ],
+    "filter tick with a TRN fix (filter side)": [
+     20,
+     0.0235,
+     0.0503
+    ]
+   },
+   "text": "filter tick, every processed sample: 13740 calls, median 0.0297 ms, max 0.1727 ms\nfilter tick with an update: 13725 calls, median 0.0297 ms, max 0.1727 ms\nfilter tick with a TRN fix (filter side): 20 calls, median 0.0235 ms, max 0.0503 ms\n"
+  },
+  {
+   "file": "nav_e0_k0",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     67.5849,
+     305.2091
+    ],
+    "first pass": [
+     36,
+     15.5479,
+     252.6796
+    ],
+    "second pass (R5D)": [
+     18,
+     52.3186,
+     60.7825
+    ]
+   },
+   "text": "map setup (cell points), per map: 37.69 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 67.5849 ms, max 305.2091 ms\nfirst pass: 36 calls, median 15.5479 ms, max 252.6796 ms\nsecond pass (R5D): 18 calls, median 52.3186 ms, max 60.7825 ms\n"
+  },
+  {
+   "file": "nav_e0_k1",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     78.5277,
+     307.6845
+    ],
+    "first pass": [
+     36,
+     78.5268,
+     251.6225
+    ],
+    "second pass (R5D)": [
+     18,
+     53.6101,
+     57.3623
+    ]
+   },
+   "text": "map setup (cell points), per map: 34.04 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 78.5277 ms, max 307.6845 ms\nfirst pass: 36 calls, median 78.5268 ms, max 251.6225 ms\nsecond pass (R5D): 18 calls, median 53.6101 ms, max 57.3623 ms\n"
+  },
+  {
+   "file": "nav_e0_k2",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     133.0742,
+     324.7976
+    ],
+    "first pass": [
+     36,
+     89.8345,
+     269.194
+    ],
+    "second pass (R5D)": [
+     24,
+     51.9576,
+     63.0313
+    ]
+   },
+   "text": "map setup (cell points), per map: 34.76 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 133.0742 ms, max 324.7976 ms\nfirst pass: 36 calls, median 89.8345 ms, max 269.1940 ms\nsecond pass (R5D): 24 calls, median 51.9576 ms, max 63.0313 ms\n"
+  },
+  {
+   "file": "nav_e1_k0",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     67.6176,
+     326.3031
+    ],
+    "first pass": [
+     36,
+     15.1903,
+     267.1391
+    ],
+    "second pass (R5D)": [
+     27,
+     50.3305,
+     59.164
+    ]
+   },
+   "text": "map setup (cell points), per map: 32.88 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 67.6176 ms, max 326.3031 ms\nfirst pass: 36 calls, median 15.1903 ms, max 267.1391 ms\nsecond pass (R5D): 27 calls, median 50.3305 ms, max 59.1640 ms\n"
+  },
+  {
+   "file": "nav_e1_k1",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     68.3417,
+     367.3293
+    ],
+    "first pass": [
+     36,
+     15.9858,
+     275.5796
+    ],
+    "second pass (R5D)": [
+     27,
+     49.4666,
+     91.7497
+    ]
+   },
+   "text": "map setup (cell points), per map: 33.84 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 68.3417 ms, max 367.3293 ms\nfirst pass: 36 calls, median 15.9858 ms, max 275.5796 ms\nsecond pass (R5D): 27 calls, median 49.4666 ms, max 91.7497 ms\n"
+  },
+  {
+   "file": "nav_e1_k2",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     67.8794,
+     338.6182
+    ],
+    "first pass": [
+     36,
+     15.5589,
+     281.944
+    ],
+    "second pass (R5D)": [
+     27,
+     49.147,
+     59.9465
+    ]
+   },
+   "text": "map setup (cell points), per map: 34.75 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 67.8794 ms, max 338.6182 ms\nfirst pass: 36 calls, median 15.5589 ms, max 281.9440 ms\nsecond pass (R5D): 27 calls, median 49.1470 ms, max 59.9465 ms\n"
+  },
+  {
+   "file": "nav_e2_k0",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     79.8886,
+     295.7198
+    ],
+    "first pass": [
+     36,
+     79.8885,
+     236.162
+    ],
+    "second pass (R5D)": [
+     21,
+     52.6519,
+     70.3224
+    ]
+   },
+   "text": "map setup (cell points), per map: 31.92 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 79.8886 ms, max 295.7198 ms\nfirst pass: 36 calls, median 79.8885 ms, max 236.1620 ms\nsecond pass (R5D): 21 calls, median 52.6519 ms, max 70.3224 ms\n"
+  },
+  {
+   "file": "nav_e2_k1",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     83.31,
+     372.0311
+    ],
+    "first pass": [
+     36,
+     77.3386,
+     311.0574
+    ],
+    "second pass (R5D)": [
+     24,
+     54.9846,
+     75.4835
+    ]
+   },
+   "text": "map setup (cell points), per map: 34.97 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 83.3100 ms, max 372.0311 ms\nfirst pass: 36 calls, median 77.3386 ms, max 311.0574 ms\nsecond pass (R5D): 24 calls, median 54.9846 ms, max 75.4835 ms\n"
+  },
+  {
+   "file": "nav_e3_k0",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     145.9278,
+     335.191
+    ],
+    "first pass": [
+     36,
+     145.9276,
+     275.6852
+    ],
+    "second pass (R5D)": [
+     15,
+     49.3992,
+     59.9132
+    ]
+   },
+   "text": "map setup (cell points), per map: 33.89 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 145.9278 ms, max 335.1910 ms\nfirst pass: 36 calls, median 145.9276 ms, max 275.6852 ms\nsecond pass (R5D): 15 calls, median 49.3992 ms, max 59.9132 ms\n"
+  },
+  {
+   "file": "nav_e3_k1",
+   "mode": "trn",
+   "lines": {
+    "TRN fix with the dither (first pass + second pass)": [
+     36,
+     135.4901,
+     313.4986
+    ],
+    "first pass": [
+     36,
+     135.49,
+     255.8926
+    ],
+    "second pass (R5D)": [
+     15,
+     50.2343,
+     58.0064
+    ]
+   },
+   "text": "map setup (cell points), per map: 35.18 ms\nTRN fix with the dither (first pass + second pass): 36 calls, median 135.4901 ms, max 313.4986 ms\nfirst pass: 36 calls, median 135.4900 ms, max 255.8926 ms\nsecond pass (R5D): 15 calls, median 50.2343 ms, max 58.0064 ms\n"
+  },
+  {
+   "file": "gnc_leak_0.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     20,
+     48.2546,
+     70.1999
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 20 calls, median 48.2546 ms, max 70.1999 ms\n"
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     20,
+     45.2482,
+     71.4171
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 20 calls, median 45.2482 ms, max 71.4171 ms\n"
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     20,
+     43.511,
+     67.5514
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 20 calls, median 43.5110 ms, max 67.5514 ms\n"
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     20,
+     46.3984,
+     68.1829
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 20 calls, median 46.3984 ms, max 68.1829 ms\n"
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     20,
+     46.4994,
+     66.2466
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 20 calls, median 46.4994 ms, max 66.2466 ms\n"
+  },
+  {
+   "file": "gnc_nominal_0.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     48,
+     32.2173,
+     73.6629
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 48 calls, median 32.2173 ms, max 73.6629 ms\n"
+  },
+  {
+   "file": "gnc_nominal_1.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     46,
+     33.3603,
+     68.742
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 46 calls, median 33.3603 ms, max 68.7420 ms\n"
+  },
+  {
+   "file": "gnc_nominal_2.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     47,
+     32.9803,
+     67.1018
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 47 calls, median 32.9803 ms, max 67.1018 ms\n"
+  },
+  {
+   "file": "gnc_nominal_3.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     41,
+     34.4671,
+     67.103
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 41 calls, median 34.4671 ms, max 67.1030 ms\n"
+  },
+  {
+   "file": "gnc_nominal_4.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     40,
+     29.2962,
+     67.9747
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 40 calls, median 29.2962 ms, max 67.9747 ms\n"
+  },
+  {
+   "file": "gnc_nominal_5.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     43,
+     31.9695,
+     71.9105
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 43 calls, median 31.9695 ms, max 71.9105 ms\n"
+  },
+  {
+   "file": "gnc_nominal_6.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     42,
+     33.1038,
+     67.0692
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 42 calls, median 33.1038 ms, max 67.0692 ms\n"
+  },
+  {
+   "file": "gnc_nominal_7.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     43,
+     27.8035,
+     69.7527
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 43 calls, median 27.8035 ms, max 69.7527 ms\n"
+  },
+  {
+   "file": "gnc_nominal_8.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     44,
+     31.2965,
+     70.282
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 44 calls, median 31.2965 ms, max 70.2820 ms\n"
+  },
+  {
+   "file": "gnc_nominal_9.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     41,
+     31.228,
+     64.9598
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 41 calls, median 31.2280 ms, max 64.9598 ms\n"
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     25,
+     40.8262,
+     72.1519
+    ],
+    "re-solve, widened path": [
+     1,
+     18153.8583,
+     18153.8583
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 25 calls, median 40.8262 ms, max 72.1519 ms\nre-solve, widened path: 1 calls, median 18153.8583 ms, max 18153.8583 ms\n"
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     25,
+     39.501,
+     67.7287
+    ],
+    "re-solve, widened path": [
+     1,
+     16941.0811,
+     16941.0811
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 25 calls, median 39.5010 ms, max 67.7287 ms\nre-solve, widened path: 1 calls, median 16941.0811 ms, max 16941.0811 ms\n"
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     25,
+     39.3185,
+     66.6016
+    ],
+    "re-solve, widened path": [
+     1,
+     17680.2125,
+     17680.2125
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 25 calls, median 39.3185 ms, max 66.6016 ms\nre-solve, widened path: 1 calls, median 17680.2125 ms, max 17680.2125 ms\n"
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     25,
+     43.0522,
+     67.8167
+    ],
+    "re-solve, widened path": [
+     1,
+     17453.7959,
+     17453.7959
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 25 calls, median 43.0522 ms, max 67.8167 ms\nre-solve, widened path: 1 calls, median 17453.7959 ms, max 17453.7959 ms\n"
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     25,
+     43.5717,
+     65.957
+    ],
+    "re-solve, widened path": [
+     1,
+     16820.9839,
+     16820.9839
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 25 calls, median 43.5717 ms, max 65.9570 ms\nre-solve, widened path: 1 calls, median 16820.9839 ms, max 16820.9839 ms\n"
+  },
+  {
+   "file": "gnc_thrust_0.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     29,
+     46.2795,
+     69.9517
+    ],
+    "re-solve, widened path": [
+     3,
+     12570.1424,
+     12622.1113
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 29 calls, median 46.2795 ms, max 69.9517 ms\nre-solve, widened path: 3 calls, median 12570.1424 ms, max 12622.1113 ms\n"
+  },
+  {
+   "file": "gnc_thrust_1.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     27,
+     45.7825,
+     69.029
+    ],
+    "re-solve, widened path": [
+     4,
+     12809.7792,
+     13240.9564
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 27 calls, median 45.7825 ms, max 69.0290 ms\nre-solve, widened path: 4 calls, median 12809.7792 ms, max 13240.9564 ms\n"
+  },
+  {
+   "file": "gnc_thrust_2.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     30,
+     38.7153,
+     67.0768
+    ],
+    "re-solve, widened path": [
+     4,
+     11799.4749,
+     12542.741
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 30 calls, median 38.7153 ms, max 67.0768 ms\nre-solve, widened path: 4 calls, median 11799.4749 ms, max 12542.7410 ms\n"
+  },
+  {
+   "file": "gnc_thrust_3.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     28,
+     49.5429,
+     77.5575
+    ],
+    "re-solve, widened path": [
+     2,
+     12960.0064,
+     12960.0064
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 28 calls, median 49.5429 ms, max 77.5575 ms\nre-solve, widened path: 2 calls, median 12960.0064 ms, max 12960.0064 ms\n"
+  },
+  {
+   "file": "gnc_thrust_4.npz",
+   "mode": "gnc",
+   "lines": {
+    "re-solve, window path (8 final times)": [
+     28,
+     47.4558,
+     75.2703
+    ],
+    "re-solve, widened path": [
+     2,
+     12710.5827,
+     12710.5827
+    ]
+   },
+   "text": "re-solve, window path (8 final times): 28 calls, median 47.4558 ms, max 75.2703 ms\nre-solve, widened path: 2 calls, median 12710.5827 ms, max 12710.5827 ms\n"
+  }
+ ],
+ "scored_ties": {
+  "guidance.solve": {
+   "status": 3,
+   "beta": 3,
+   "fuel": 3,
+   "lossless_gap": 3,
+   "r": 3,
+   "v": 3,
+   "z": 3,
+   "u": 3,
+   "sigma": 3
+  },
+  "closed_loop.resolve": {
+   "n": 2,
+   "r": 2,
+   "v": 2,
+   "z": 2,
+   "u": 2,
+   "sigma": 2
+  },
+  "navtrn.fix_pass": {
+   "status": 15,
+   "second": 1
+  },
+  "navtrn.dark": {
+   "": 15
+  },
+  "trn.correlate": {
+   "dx_int": 5,
+   "dy_int": 5
+  },
+  "navtrn.second_peak": {
+   "1": 2,
+   "2": 2,
+   "0": 2,
+   "": 2
+  }
+ },
+ "n1_discrete": [],
+ "n2_discrete": [],
+ "seconds": {
+  "compare_wall": 1006.0895249843597,
+  "per_comparison": {
+   "g4": 8.001230239868164,
+   "g2": 11.002334833145142,
+   "ties": 42.00376749038696,
+   "g3": 63.006415128707886,
+   "n2": 70.00801467895508,
+   "n1": 346.0326404571533,
+   "g1": 1005.088366985321
+  },
+  "bench": 387.1000084877014
+ }
+}

@@ -1,0 +1,1647 @@
+{
+ "table": [
+  {
+   "function": "abort.approach_to_plane",
+   "quantity": "p",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "no spread recorded: bit for bit",
+   "ok": true
+  },
+  {
+   "function": "abort.approach_to_plane",
+   "quantity": "w",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "no spread recorded: bit for bit",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "a",
+   "cpp_minus_python": 0.003082180175934368,
+   "guard": 3.1204002375403994,
+   "rule": "1000 x one-ulp spread 0.00312",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "apsides",
+   "cpp_minus_python": 13.386512677185237,
+   "guard": 13551.950124790892,
+   "rule": "1000 x one-ulp spread 13.6",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "b",
+   "cpp_minus_python": 0.00010762134921374258,
+   "guard": 0.1089948237092183,
+   "rule": "1000 x one-ulp spread 0.000109",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "burnout",
+   "cpp_minus_python": 2.4266824767910293,
+   "guard": 2936.541453760583,
+   "rule": "1000 x one-ulp spread 2.94",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "dv_available",
+   "cpp_minus_python": 2.773958840407431e-11,
+   "guard": 3.888089850079268e-08,
+   "rule": "1000 x one-ulp spread 3.89e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "dv_margin",
+   "cpp_minus_python": 2.773958840407431e-11,
+   "guard": 3.888089850079268e-08,
+   "rule": "1000 x one-ulp spread 3.89e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 0.004366639070212841,
+   "guard": 4.647684749215841,
+   "rule": "1000 x one-ulp spread 0.00465",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "propellant",
+   "cpp_minus_python": 0.018669185413273226,
+   "guard": 22.59249421695131,
+   "rule": "1000 x one-ulp spread 0.0226",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "residual",
+   "cpp_minus_python": 0.5507831200106921,
+   "guard": 563.6551970223352,
+   "rule": "1000 x one-ulp spread 0.564",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.duration",
+   "cpp_minus_python": 8.403056028782885e-12,
+   "guard": 1.1891820861364977e-08,
+   "rule": "1000 x one-ulp spread 1.19e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.m",
+   "cpp_minus_python": 4.3655745685100555e-11,
+   "guard": 6.184563972055912e-08,
+   "rule": "1000 x one-ulp spread 6.18e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.min_altitude",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 6.984919309616089e-06,
+   "rule": "1000 x one-ulp spread 6.98e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.p",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 8.847564458847046e-06,
+   "rule": "1000 x one-ulp spread 8.85e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.w",
+   "cpp_minus_python": 1.3727685654885136e-11,
+   "guard": 1.9415580254644738e-08,
+   "rule": "1000 x one-ulp spread 1.94e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.fall_lowest",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 7.916241884231567e-06,
+   "rule": "1000 x one-ulp spread 7.92e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.fall_p",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 7.683411240577698e-06,
+   "rule": "1000 x one-ulp spread 7.68e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.fall_w",
+   "cpp_minus_python": 1.2420287021086551e-11,
+   "guard": 2.2453150450019166e-08,
+   "rule": "1000 x one-ulp spread 2.25e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.m_after",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.m_before",
+   "cpp_minus_python": 9.094947017729282e-13,
+   "guard": 1.8189894035458565e-09,
+   "rule": "1000 x one-ulp spread 1.82e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.p",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 7.683411240577698e-06,
+   "rule": "1000 x one-ulp spread 7.68e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.t",
+   "cpp_minus_python": 7.815970093361102e-13,
+   "guard": 2.5721647034515627e-09,
+   "rule": "1000 x one-ulp spread 2.57e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "staging.w",
+   "cpp_minus_python": 1.2448708730516955e-11,
+   "guard": 2.2524204723595176e-08,
+   "rule": "1000 x one-ulp spread 2.25e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "t_b",
+   "cpp_minus_python": 0.0015685274654657633,
+   "guard": 1.875837155026261,
+   "rule": "1000 x one-ulp spread 0.00188",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "t_max",
+   "cpp_minus_python": 7.815970093361102e-13,
+   "guard": 2.5579538487363607e-09,
+   "rule": "1000 x one-ulp spread 2.56e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "free_fall.duration",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "free_fall.p",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 2.3283064365386963e-07,
+   "rule": "1000 x one-ulp spread 2.33e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "free_fall.w",
+   "cpp_minus_python": 2.842170943040401e-14,
+   "guard": 2.8421709430404007e-11,
+   "rule": "1000 x one-ulp spread 2.84e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.abort_from_approach",
+   "quantity": "rise.below_surface",
+   "cpp_minus_python": 6.984919309616089e-10,
+   "guard": 6.984919309616089e-07,
+   "rule": "1000 x one-ulp spread 6.98e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "a",
+   "cpp_minus_python": 5.1736392947532295e-14,
+   "guard": 9.29256671611256e-11,
+   "rule": "1000 x one-ulp spread 9.29e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "apsides",
+   "cpp_minus_python": 2.8870999813079834e-08,
+   "guard": 4.400499165058136e-05,
+   "rule": "1000 x one-ulp spread 4.4e-08",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "b",
+   "cpp_minus_python": 2.3201926491189795e-16,
+   "guard": 4.3281350725621337e-13,
+   "rule": "1000 x one-ulp spread 4.33e-16",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "burnout",
+   "cpp_minus_python": 8.149072527885437e-10,
+   "guard": 2.0372681319713593e-06,
+   "rule": "1000 x one-ulp spread 2.04e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "dv_available",
+   "cpp_minus_python": 4.547473508864641e-12,
+   "guard": 1.5006662579253316e-08,
+   "rule": "1000 x one-ulp spread 1.5e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "dv_margin",
+   "cpp_minus_python": 4.547473508864641e-12,
+   "guard": 1.5006662579253316e-08,
+   "rule": "1000 x one-ulp spread 1.5e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 6.752088665962219e-06,
+   "rule": "1000 x one-ulp spread 6.75e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "propellant",
+   "cpp_minus_python": 8.185452315956354e-12,
+   "guard": 7.73070496506989e-09,
+   "rule": "1000 x one-ulp spread 7.73e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "residual",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "rise.duration",
+   "cpp_minus_python": 8.029132914089132e-13,
+   "guard": 2.4709123636057484e-09,
+   "rule": "1000 x one-ulp spread 2.47e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "rise.m",
+   "cpp_minus_python": 1.1823431123048067e-11,
+   "guard": 3.8198777474462986e-08,
+   "rule": "1000 x one-ulp spread 3.82e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "rise.min_altitude",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 6.752088665962219e-06,
+   "rule": "1000 x one-ulp spread 6.75e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "rise.p",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 9.313225746154785e-06,
+   "rule": "1000 x one-ulp spread 9.31e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "rise.w",
+   "cpp_minus_python": 9.947598300641403e-14,
+   "guard": 2.4158453015843406e-10,
+   "rule": "1000 x one-ulp spread 2.42e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.fall_lowest",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 8.149072527885437e-06,
+   "rule": "1000 x one-ulp spread 8.15e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.fall_p",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 8.149072527885437e-06,
+   "rule": "1000 x one-ulp spread 8.15e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.fall_w",
+   "cpp_minus_python": 1.2420287021086551e-11,
+   "guard": 2.3291590878216084e-08,
+   "rule": "1000 x one-ulp spread 2.33e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.m_after",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.m_before",
+   "cpp_minus_python": 9.094947017729282e-13,
+   "guard": 1.8189894035458565e-09,
+   "rule": "1000 x one-ulp spread 1.82e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.p",
+   "cpp_minus_python": 4.6566128730773926e-09,
+   "guard": 8.149072527885437e-06,
+   "rule": "1000 x one-ulp spread 8.15e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.t",
+   "cpp_minus_python": 7.815970093361102e-13,
+   "guard": 2.6147972675971687e-09,
+   "rule": "1000 x one-ulp spread 2.61e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "staging.w",
+   "cpp_minus_python": 1.2448708730516955e-11,
+   "guard": 2.3348434297076892e-08,
+   "rule": "1000 x one-ulp spread 2.33e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "t_b",
+   "cpp_minus_python": 1.5916157281026244e-12,
+   "guard": 1.6484591469634324e-09,
+   "rule": "1000 x one-ulp spread 1.65e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_abort",
+   "quantity": "t_max",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "a",
+   "cpp_minus_python": 4.8183679268731794e-14,
+   "guard": 5.007105841059456e-11,
+   "rule": "1000 x one-ulp spread 5.01e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "apsides",
+   "cpp_minus_python": 2.8870999813079834e-08,
+   "guard": 2.9103830456733704e-05,
+   "rule": "1000 x one-ulp spread 2.91e-08",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "b",
+   "cpp_minus_python": 1.93421667571414e-16,
+   "guard": 1.9992688060632702e-13,
+   "rule": "1000 x one-ulp spread 2e-16",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "burnout",
+   "cpp_minus_python": 6.492086868092883e-10,
+   "guard": 1.6123919976962497e-06,
+   "rule": "1000 x one-ulp spread 1.61e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "dv_available",
+   "cpp_minus_python": 2.773958840407431e-11,
+   "guard": 6.59383658785373e-08,
+   "rule": "1000 x one-ulp spread 6.59e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "dv_margin",
+   "cpp_minus_python": 2.773958840407431e-11,
+   "guard": 6.59383658785373e-08,
+   "rule": "1000 x one-ulp spread 6.59e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "free_fall.duration",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "free_fall.p",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "free_fall.w",
+   "cpp_minus_python": 2.842170943040401e-14,
+   "guard": 3.552713678800501e-11,
+   "rule": "1000 x one-ulp spread 3.55e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 1.3969838619232178e-09,
+   "guard": 1.6298145055770874e-06,
+   "rule": "1000 x one-ulp spread 1.63e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "propellant",
+   "cpp_minus_python": 4.3655745685100555e-11,
+   "guard": 1.0459189070388675e-07,
+   "rule": "1000 x one-ulp spread 1.05e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "residual",
+   "cpp_minus_python": 4.656612873077393e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.duration",
+   "cpp_minus_python": 8.403056028782885e-12,
+   "guard": 2.027888967859326e-08,
+   "rule": "1000 x one-ulp spread 2.03e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.m",
+   "cpp_minus_python": 4.3655745685100555e-11,
+   "guard": 1.0459189070388675e-07,
+   "rule": "1000 x one-ulp spread 1.05e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.min_altitude",
+   "cpp_minus_python": 1.3969838619232178e-09,
+   "guard": 1.6298145055770874e-06,
+   "rule": "1000 x one-ulp spread 1.63e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.p",
+   "cpp_minus_python": 3.026798367500305e-09,
+   "guard": 3.259629011154175e-06,
+   "rule": "1000 x one-ulp spread 3.26e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.w",
+   "cpp_minus_python": 1.3727685654885136e-11,
+   "guard": 3.297273565294745e-08,
+   "rule": "1000 x one-ulp spread 3.3e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "t_b",
+   "cpp_minus_python": 1.3642420526593924e-12,
+   "guard": 1.4779288903810084e-09,
+   "rule": "1000 x one-ulp spread 1.48e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "t_max",
+   "cpp_minus_python": 3.410605131648481e-13,
+   "guard": 5.115907697472721e-10,
+   "rule": "1000 x one-ulp spread 5.12e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.ascent_stage_abort",
+   "quantity": "rise.below_surface",
+   "cpp_minus_python": 6.984919309616089e-10,
+   "guard": 9.313225746154785e-07,
+   "rule": "1000 x one-ulp spread 9.31e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "a",
+   "cpp_minus_python": 0.003082180175934368,
+   "guard": 3.145790045212593,
+   "rule": "1000 x one-ulp spread 0.00315",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "apsides",
+   "cpp_minus_python": 13.386512677185237,
+   "guard": 13651.455349521711,
+   "rule": "1000 x one-ulp spread 13.7",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "b",
+   "cpp_minus_python": 0.00010762134921374258,
+   "guard": 0.10888565640351527,
+   "rule": "1000 x one-ulp spread 0.000109",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "burnout",
+   "cpp_minus_python": 2.4266824767910293,
+   "guard": 2943.265365443949,
+   "rule": "1000 x one-ulp spread 2.94",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "dv_available",
+   "cpp_minus_python": 2.3646862246096134e-11,
+   "guard": 6.139089236967266e-08,
+   "rule": "1000 x one-ulp spread 6.14e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "dv_margin",
+   "cpp_minus_python": 2.3646862246096134e-11,
+   "guard": 6.139089236967266e-08,
+   "rule": "1000 x one-ulp spread 6.14e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "free_fall.duration",
+   "cpp_minus_python": 0.0,
+   "guard": 8.881784197001252e-13,
+   "rule": "1000 x one-ulp spread 8.88e-16",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "free_fall.p",
+   "cpp_minus_python": 0.0,
+   "guard": 2.3283064365386963e-07,
+   "rule": "1000 x one-ulp spread 2.33e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "free_fall.w",
+   "cpp_minus_python": 0.0,
+   "guard": 1.4210854715202004e-11,
+   "rule": "1000 x one-ulp spread 1.42e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 0.004366639070212841,
+   "guard": 13.848871923983097,
+   "rule": "1000 x one-ulp spread 0.0138",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "propellant",
+   "cpp_minus_python": 0.018669185413273226,
+   "guard": 31.31365122135321,
+   "rule": "1000 x one-ulp spread 0.0313",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "residual",
+   "cpp_minus_python": 0.5507831200106921,
+   "guard": 569.4655300184337,
+   "rule": "1000 x one-ulp spread 0.569",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.duration",
+   "cpp_minus_python": 7.545963853772264e-12,
+   "guard": 1.8498980125514208e-08,
+   "rule": "1000 x one-ulp spread 1.85e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.m",
+   "cpp_minus_python": 3.8198777474462986e-11,
+   "guard": 9.549694368615746e-08,
+   "rule": "1000 x one-ulp spread 9.55e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.min_altitude",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 7.2177499532699585e-06,
+   "rule": "1000 x one-ulp spread 7.22e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.p",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 9.313225746154785e-06,
+   "rule": "1000 x one-ulp spread 9.31e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.w",
+   "cpp_minus_python": 1.2295942042328534e-11,
+   "guard": 3.021227712451946e-08,
+   "rule": "1000 x one-ulp spread 3.02e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "t_b",
+   "cpp_minus_python": 0.0015685274654657633,
+   "guard": 2.6150130019715334,
+   "rule": "1000 x one-ulp spread 0.00262",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "t_max",
+   "cpp_minus_python": 7.815970093361102e-13,
+   "guard": 2.6147972675971687e-09,
+   "rule": "1000 x one-ulp spread 2.61e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.rise_and_ascend",
+   "quantity": "rise.below_surface",
+   "cpp_minus_python": 6.984919309616089e-10,
+   "guard": 6.984919309616089e-07,
+   "rule": "1000 x one-ulp spread 6.98e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "duration",
+   "cpp_minus_python": 7.545963853772264e-12,
+   "guard": 2.1818546969143426e-08,
+   "rule": "1000 x one-ulp spread 2.18e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "m",
+   "cpp_minus_python": 3.8198777474462986e-11,
+   "guard": 1.127773430198431e-07,
+   "rule": "1000 x one-ulp spread 1.13e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 6.984919309616089e-06,
+   "rule": "1000 x one-ulp spread 6.98e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "p",
+   "cpp_minus_python": 4.889443516731262e-09,
+   "guard": 9.313225746154785e-06,
+   "rule": "1000 x one-ulp spread 9.31e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "w",
+   "cpp_minus_python": 1.2295942042328534e-11,
+   "guard": 3.5434766232356196e-08,
+   "rule": "1000 x one-ulp spread 3.54e-11",
+   "ok": true
+  },
+  {
+   "function": "abort.vertical_rise",
+   "quantity": "below_surface",
+   "cpp_minus_python": 6.984919309616089e-10,
+   "guard": 9.313225746154785e-07,
+   "rule": "1000 x one-ulp spread 9.31e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "a",
+   "cpp_minus_python": 4.218847493575595e-15,
+   "guard": 8.992806499463768e-12,
+   "rule": "1000 x one-ulp spread 8.99e-15",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "b",
+   "cpp_minus_python": 1.691355389077387e-17,
+   "guard": 3.729655473350135e-14,
+   "rule": "1000 x one-ulp spread 3.73e-17",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "burnout",
+   "cpp_minus_python": 5.820766091346741e-10,
+   "guard": 6.402842700481415e-07,
+   "rule": "1000 x one-ulp spread 6.4e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 0.0,
+   "guard": 2.3283064365386963e-07,
+   "rule": "1000 x one-ulp spread 2.33e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "propellant",
+   "cpp_minus_python": 2.2737367544323206e-12,
+   "guard": 2.7284841053187847e-09,
+   "rule": "1000 x one-ulp spread 2.73e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "residual",
+   "cpp_minus_python": 4.656612873077393e-10,
+   "guard": 2.3283064365386963e-07,
+   "rule": "1000 x one-ulp spread 2.33e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.fall_lowest",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.fall_p",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.fall_w",
+   "cpp_minus_python": 6.536993168992922e-13,
+   "guard": 1.8758328224066645e-09,
+   "rule": "1000 x one-ulp spread 1.88e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.m_after",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.m_before",
+   "cpp_minus_python": 0.0,
+   "guard": 1.8189894035458565e-09,
+   "rule": "1000 x one-ulp spread 1.82e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.p",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 2.3283064365386963e-07,
+   "rule": "1000 x one-ulp spread 2.33e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.t",
+   "cpp_minus_python": 0.0,
+   "guard": 1.8474111129762605e-10,
+   "rule": "1000 x one-ulp spread 1.85e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "staging.w",
+   "cpp_minus_python": 6.536993168992922e-13,
+   "guard": 1.8758328224066645e-09,
+   "rule": "1000 x one-ulp spread 1.88e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "t_b",
+   "cpp_minus_python": 4.547473508864641e-13,
+   "guard": 5.115907697472721e-10,
+   "rule": "1000 x one-ulp spread 5.12e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.combined_shoot",
+   "quantity": "t_max",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "a",
+   "cpp_minus_python": 0.0015888032647803363,
+   "guard": 3.121914662403358,
+   "rule": "1000 x one-ulp spread 0.00312",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "b",
+   "cpp_minus_python": 5.6485809903625284e-05,
+   "guard": 0.10904855380396844,
+   "rule": "1000 x one-ulp spread 0.000109",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "burnout",
+   "cpp_minus_python": 1.4140268710289092,
+   "guard": 2944.936777901603,
+   "rule": "1000 x one-ulp spread 2.94",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "min_altitude",
+   "cpp_minus_python": 0.01583108026534319,
+   "guard": 4.641099134460092,
+   "rule": "1000 x one-ulp spread 0.00464",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "propellant",
+   "cpp_minus_python": 0.019435249657362874,
+   "guard": 19.41853248354164,
+   "rule": "1000 x one-ulp spread 0.0194",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "residual",
+   "cpp_minus_python": 0.27192006723770845,
+   "guard": 559.5024136618392,
+   "rule": "1000 x one-ulp spread 0.56",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "t_b",
+   "cpp_minus_python": 0.0016328898241084744,
+   "guard": 1.6314852985885864,
+   "rule": "1000 x one-ulp spread 0.00163",
+   "ok": true
+  },
+  {
+   "function": "abort.ascend",
+   "quantity": "t_max",
+   "cpp_minus_python": 0.0,
+   "guard": 4.547473508864641e-10,
+   "rule": "1000 x one-ulp spread 4.55e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.free_fall",
+   "quantity": "0",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 4.6566128730773926e-07,
+   "rule": "1000 x one-ulp spread 4.66e-10",
+   "ok": true
+  },
+  {
+   "function": "abort.free_fall",
+   "quantity": "1",
+   "cpp_minus_python": 2.842170943040401e-14,
+   "guard": 3.552713678800501e-11,
+   "rule": "1000 x one-ulp spread 3.55e-14",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "0",
+   "cpp_minus_python": 4.050671122968197e-06,
+   "guard": 0.004050438292324543,
+   "rule": "1000 x one-ulp spread 4.05e-06",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "1",
+   "cpp_minus_python": 3.402121365070343e-06,
+   "guard": 0.009752344340085983,
+   "rule": "1000 x one-ulp spread 9.75e-06",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.fall_lowest",
+   "cpp_minus_python": 1.1641532182693481e-09,
+   "guard": 1.3969838619232178e-06,
+   "rule": "1000 x one-ulp spread 1.4e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.fall_p",
+   "cpp_minus_python": 1.1641532182693481e-09,
+   "guard": 1.3969838619232178e-06,
+   "rule": "1000 x one-ulp spread 1.4e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.fall_w",
+   "cpp_minus_python": 3.979039320256561e-12,
+   "guard": 7.673861546209082e-09,
+   "rule": "1000 x one-ulp spread 7.67e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.m_after",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.m_before",
+   "cpp_minus_python": 1.8189894035458565e-12,
+   "guard": 3.637978807091713e-09,
+   "rule": "1000 x one-ulp spread 3.64e-12",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.p",
+   "cpp_minus_python": 1.1641532182693481e-09,
+   "guard": 1.3969838619232178e-06,
+   "rule": "1000 x one-ulp spread 1.4e-09",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.t",
+   "cpp_minus_python": 0.0,
+   "guard": 2.1316282072803006e-10,
+   "rule": "1000 x one-ulp spread 2.13e-13",
+   "ok": true
+  },
+  {
+   "function": "abort.fly_combined",
+   "quantity": "2.w",
+   "cpp_minus_python": 3.979039320256561e-12,
+   "guard": 7.673861546209082e-09,
+   "rule": "1000 x one-ulp spread 7.67e-12",
+   "ok": true
+  },
+  {
+   "function": "abort._coast",
+   "quantity": "0",
+   "cpp_minus_python": 4.656612873077393e-10,
+   "guard": 6.984919309616089e-07,
+   "rule": "1000 x one-ulp spread 6.98e-10",
+   "ok": true
+  },
+  {
+   "function": "abort._coast",
+   "quantity": "1",
+   "cpp_minus_python": 5.684341886080802e-14,
+   "guard": 1.7053025658242404e-10,
+   "rule": "1000 x one-ulp spread 1.71e-13",
+   "ok": true
+  },
+  {
+   "function": "abort._coast",
+   "quantity": "2",
+   "cpp_minus_python": 2.3283064365386963e-10,
+   "guard": 6.984919309616089e-07,
+   "rule": "1000 x one-ulp spread 6.98e-10",
+   "ok": true
+  },
+  {
+   "function": "abort._arc",
+   "quantity": "0",
+   "cpp_minus_python": 4.015862941741943e-06,
+   "guard": 0.004053814336657524,
+   "rule": "1000 x one-ulp spread 4.05e-06",
+   "ok": true
+  },
+  {
+   "function": "abort._arc",
+   "quantity": "1",
+   "cpp_minus_python": 3.545312210917473e-06,
+   "guard": 0.009765848517417908,
+   "rule": "1000 x one-ulp spread 9.77e-06",
+   "ok": true
+  },
+  {
+   "function": "abort.fly",
+   "quantity": "0",
+   "cpp_minus_python": 4.959729267284274e-07,
+   "guard": 0.0005683396011590958,
+   "rule": "1000 x one-ulp spread 5.68e-07",
+   "ok": true
+  },
+  {
+   "function": "abort.fly",
+   "quantity": "1",
+   "cpp_minus_python": 3.371387720108032e-07,
+   "guard": 0.0003373716026544571,
+   "rule": "1000 x one-ulp spread 3.37e-07",
+   "ok": true
+  }
+ ],
+ "discrete": [],
+ "winners": [
+  {
+   "file": "gnc_leak_0.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 4,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_0.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_0.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_1.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 4,
+   "cpp": 0,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 3,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_2.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 3,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_3.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 4,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 3,
+   "same": true
+  },
+  {
+   "file": "gnc_leak_4.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 2,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 5,
+   "same": true
+  },
+  {
+   "file": "gnc_state_0.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 0,
+   "cpp": 2,
+   "same": false
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_state_1.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 4,
+   "cpp": 2,
+   "same": false
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_state_2.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 2,
+   "same": false
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 3,
+   "same": false
+  },
+  {
+   "file": "gnc_state_3.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "function": "abort.ascend",
+   "kind": "ascent stage",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_state_4.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 1,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_thrust_0.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 0,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_thrust_0.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_thrust_1.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 0,
+   "same": false
+  },
+  {
+   "file": "gnc_thrust_1.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_thrust_2.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 5,
+   "cpp": 4,
+   "same": false
+  },
+  {
+   "file": "gnc_thrust_2.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_thrust_3.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 3,
+   "cpp": 1,
+   "same": false
+  },
+  {
+   "file": "gnc_thrust_3.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  },
+  {
+   "file": "gnc_thrust_4.npz",
+   "function": "abort.combined_shoot",
+   "kind": "combined",
+   "call": 0,
+   "what": "winning start",
+   "python": 2,
+   "cpp": 5,
+   "same": false
+  },
+  {
+   "file": "gnc_thrust_4.npz",
+   "function": "abort.ascend",
+   "kind": "descent engine",
+   "call": 0,
+   "what": "winning start",
+   "python": 1,
+   "cpp": 1,
+   "same": true
+  }
+ ],
+ "stats": {
+  "abort.approach_to_plane": 45,
+  "abort.abort_from_approach": 45,
+  "abort.combined_abort": 15,
+  "abort.ascent_stage_abort": 15,
+  "abort.rise_and_ascend": 30,
+  "abort.vertical_rise": 45,
+  "abort.combined_shoot": 15,
+  "starts": 240,
+  "shootings": 40,
+  "winner differs": 21,
+  "start status same": 239,
+  "start nfev same": 236,
+  "start nfev differs": 4,
+  "abort.ascend": 25,
+  "winner same": 19,
+  "abort.free_fall": 15,
+  "abort.fly_combined": 9177,
+  "abort._coast": 9177,
+  "abort._arc": 18354,
+  "abort.fly": 180217,
+  "start status differs": 1
+ },
+ "times": {
+  "abort.abort_from_approach [combined]": {
+   "calls": 15,
+   "median_ms": 26.745939000193175,
+   "max_ms": 161.14928900015002
+  },
+  "abort.abort_from_approach [ascent]": {
+   "calls": 15,
+   "median_ms": 193.86220200021853,
+   "max_ms": 240.81390399987868
+  },
+  "abort.abort_from_approach [descent]": {
+   "calls": 15,
+   "median_ms": 507.38669600013964,
+   "max_ms": 559.3976189998102
+  },
+  "abort.combined_abort": {
+   "calls": 15,
+   "median_ms": 27.788454000074125,
+   "max_ms": 164.12224899977446
+  },
+  "abort.ascent_stage_abort": {
+   "calls": 15,
+   "median_ms": 189.320657999815,
+   "max_ms": 228.44765800027744
+  },
+  "abort.rise_and_ascend": {
+   "calls": 30,
+   "median_ms": 273.6113865000789,
+   "max_ms": 598.3199380002588
+  },
+  "abort.vertical_rise": {
+   "calls": 45,
+   "median_ms": 0.035167000078217825,
+   "max_ms": 0.07496499983972171
+  },
+  "abort.combined_shoot": {
+   "calls": 15,
+   "median_ms": 28.076013999907445,
+   "max_ms": 164.61390399990705
+  },
+  "abort.ascend": {
+   "calls": 25,
+   "median_ms": 345.68647800006147,
+   "max_ms": 543.666438999935
+  },
+  "abort.free_fall": {
+   "calls": 15,
+   "median_ms": 0.02655100024639978,
+   "max_ms": 0.08868500026437687
+  },
+  "abort.fly_combined": {
+   "calls": 9177,
+   "median_ms": 0.09681300025476958,
+   "max_ms": 1.0168869998778973
+  },
+  "abort._coast": {
+   "calls": 9177,
+   "median_ms": 0.013397000202530762,
+   "max_ms": 0.10736799958976917
+  },
+  "abort._arc": {
+   "calls": 18354,
+   "median_ms": 0.04946350009049638,
+   "max_ms": 0.19946200018239324
+  },
+  "abort.fly": {
+   "calls": 180217,
+   "median_ms": 0.05255999985820381,
+   "max_ms": 1.9496969998726854
+  }
+ },
+ "seconds": 62.63662886619568
+}

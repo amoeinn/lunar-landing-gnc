@@ -1,0 +1,35 @@
+{
+ "dop_S": {
+  "diff": 8.470329472543003e-22,
+  "file": "nav_e0_k1_g+24.npz",
+  "tick": 14670,
+  "element": 6,
+  "python": 7.770768506043398e-07,
+  "cpp": 7.770768506043407e-07,
+  "ulp": 1.0587911840678754e-22,
+  "spread": 2.4352197233561135e-21
+ },
+ "g3": {
+  "abort.abort_from_approach staging.m_before": {
+   "diff": 9.094947017729282e-13,
+   "file": "gnc_state_0.npz",
+   "row": 0,
+   "value": 6855.000000000001,
+   "ulp": 9.094947017729282e-13
+  },
+  "abort.combined_abort staging.m_before": {
+   "diff": 9.094947017729282e-13,
+   "file": "gnc_state_0.npz",
+   "row": 0,
+   "value": 6855.000000000001,
+   "ulp": 9.094947017729282e-13
+  },
+  "abort.combined_shoot staging.fall_lowest": {
+   "diff": 2.3283064365386963e-10,
+   "file": "gnc_thrust_2.npz",
+   "row": 0,
+   "value": 3712.400465100538,
+   "ulp": 4.547473508864641e-13
+  }
+ }
+}

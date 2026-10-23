@@ -1,0 +1,419 @@
+{
+ "table": [
+  {
+   "function": "cone program",
+   "quantity": "A",
+   "cpp_minus_python": 3.552713678800501e-15,
+   "guard": 7.94031507211912e-10,
+   "rule": "1000 x one-ulp spread 7.94e-13",
+   "ok": true
+  },
+  {
+   "function": "cone program",
+   "quantity": "b",
+   "cpp_minus_python": 5.684341886080802e-14,
+   "guard": 7.069900220812997e-09,
+   "rule": "1000 x one-ulp spread 7.07e-12",
+   "ok": true
+  },
+  {
+   "function": "cone program",
+   "quantity": "q",
+   "cpp_minus_python": 0.0,
+   "guard": 0.0,
+   "rule": "1000 x one-ulp spread 0",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "beta",
+   "cpp_minus_python": 0.0007376182908558349,
+   "guard": 0.06250645785053166,
+   "rule": "2 x tightest change 0.0313",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "fuel",
+   "cpp_minus_python": 0.0019234611725096329,
+   "guard": 0.15319610384881344,
+   "rule": "2 x tightest change 0.0766",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "lossless_gap",
+   "cpp_minus_python": 0.0009604910197009708,
+   "guard": 0.04523448090284976,
+   "rule": "2 x tightest change 0.0226",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "r",
+   "cpp_minus_python": 48.731488815232524,
+   "guard": 822.5890553636573,
+   "rule": "2 x tightest change 411",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "v",
+   "cpp_minus_python": 2.9182510117183558,
+   "guard": 42.85313446540325,
+   "rule": "2 x tightest change 21.4",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "z",
+   "cpp_minus_python": 0.001246200035657452,
+   "guard": 0.018192236877084156,
+   "rule": "2 x tightest change 0.0091",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "u",
+   "cpp_minus_python": 1.3256865337851058,
+   "guard": 4.574371659931874,
+   "rule": "2 x tightest change 2.29",
+   "ok": true
+  },
+  {
+   "function": "solve [nominal plan]",
+   "quantity": "sigma",
+   "cpp_minus_python": 1.6579874006089321,
+   "guard": 5.729288049939113,
+   "rule": "2 x tightest change 2.86",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "m_hg",
+   "cpp_minus_python": 1.1004885891452432e-09,
+   "guard": 3.183231456205249e-07,
+   "rule": "1000 x one-ulp spread 3.18e-10",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "dv_guided",
+   "cpp_minus_python": 4.119442564842757e-10,
+   "guard": 1.407414629284176e-06,
+   "rule": "1000 x one-ulp spread 1.41e-09",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "dv_approach",
+   "cpp_minus_python": 4.119442564842757e-10,
+   "guard": 1.4073862075747456e-06,
+   "rule": "1000 x one-ulp spread 1.41e-09",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.beta",
+   "cpp_minus_python": 4.119442564842757e-10,
+   "guard": 0.06250645785053166,
+   "rule": "2 x tightest change 0.0313",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.fuel",
+   "cpp_minus_python": 9.953282642527483e-10,
+   "guard": 0.15319610384881344,
+   "rule": "2 x tightest change 0.0766",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.lossless_gap",
+   "cpp_minus_python": 6.550875397692835e-10,
+   "guard": 0.04523448090284976,
+   "rule": "2 x tightest change 0.0226",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.r",
+   "cpp_minus_python": 7.424273462675046e-08,
+   "guard": 822.5890553636573,
+   "rule": "2 x tightest change 411",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.v",
+   "cpp_minus_python": 1.1562271140519442e-08,
+   "guard": 42.85313446540325,
+   "rule": "2 x tightest change 21.4",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.z",
+   "cpp_minus_python": 4.8974158062264905e-12,
+   "guard": 0.018192236877084156,
+   "rule": "2 x tightest change 0.0091",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.u",
+   "cpp_minus_python": 6.877938441007814e-09,
+   "guard": 4.574371659931874,
+   "rule": "2 x tightest change 2.29",
+   "ok": true
+  },
+  {
+   "function": "nominal plan",
+   "quantity": "plan.sigma",
+   "cpp_minus_python": 9.433973824357622e-09,
+   "guard": 5.729288049939113,
+   "rule": "2 x tightest change 2.86",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "beta",
+   "cpp_minus_python": 0.0010991314934756247,
+   "guard": 0.06250645785053166,
+   "rule": "2 x tightest change 0.0313",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "fuel",
+   "cpp_minus_python": 0.002874215879160147,
+   "guard": 0.15319610384881344,
+   "rule": "2 x tightest change 0.0766",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "lossless_gap",
+   "cpp_minus_python": 0.00243526827648477,
+   "guard": 0.04523448090284976,
+   "rule": "2 x tightest change 0.0226",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "r",
+   "cpp_minus_python": 97.04058056917074,
+   "guard": 822.5890553636573,
+   "rule": "2 x tightest change 411",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "v",
+   "cpp_minus_python": 7.1177629415103,
+   "guard": 42.85313446540325,
+   "rule": "2 x tightest change 21.4",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "z",
+   "cpp_minus_python": 0.003142436155306072,
+   "guard": 0.018192236877084156,
+   "rule": "2 x tightest change 0.0091",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "u",
+   "cpp_minus_python": 1.2532003203748825,
+   "guard": 4.574371659931874,
+   "rule": "2 x tightest change 2.29",
+   "ok": true
+  },
+  {
+   "function": "solve [window]",
+   "quantity": "sigma",
+   "cpp_minus_python": 1.7722915762263494,
+   "guard": 5.729288049939113,
+   "rule": "2 x tightest change 2.86",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "beta",
+   "cpp_minus_python": 0.0005167140989215113,
+   "guard": 12.380635329024983,
+   "rule": "2 x tightest change 6.19",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "fuel",
+   "cpp_minus_python": 0.0013554772982047325,
+   "guard": 32.40456707015369,
+   "rule": "2 x tightest change 16.2",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "lossless_gap",
+   "cpp_minus_python": 0.00243526827648477,
+   "guard": 0.04523448090284976,
+   "rule": "2 x tightest change 0.0226",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "r",
+   "cpp_minus_python": 12.71193557877018,
+   "guard": 120.2367286256017,
+   "rule": "2 x tightest change 60.1",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "v",
+   "cpp_minus_python": 1.1276574400375097,
+   "guard": 14.24116905247773,
+   "rule": "2 x tightest change 7.12",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "z",
+   "cpp_minus_python": 0.0005420788607040095,
+   "guard": 0.006845725473919373,
+   "rule": "2 x tightest change 0.00342",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "u",
+   "cpp_minus_python": 0.39992898084416106,
+   "guard": 3.720182221581206,
+   "rule": "2 x tightest change 1.86",
+   "ok": true
+  },
+  {
+   "function": "re-solve",
+   "quantity": "sigma",
+   "cpp_minus_python": 0.5655841979487481,
+   "guard": 5.261127675217862,
+   "rule": "2 x tightest change 2.63",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "beta",
+   "cpp_minus_python": 0.014545507612979236,
+   "guard": 0.06250645785053166,
+   "rule": "2 x tightest change 0.0313",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "fuel",
+   "cpp_minus_python": 0.03405603406372393,
+   "guard": 0.15319610384881344,
+   "rule": "2 x tightest change 0.0766",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "lossless_gap",
+   "cpp_minus_python": 0.0003858091593031965,
+   "guard": 0.04523448090284976,
+   "rule": "2 x tightest change 0.0226",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "r",
+   "cpp_minus_python": 16.21310676234225,
+   "guard": 822.5890553636573,
+   "rule": "2 x tightest change 411",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "v",
+   "cpp_minus_python": 0.42243060737155247,
+   "guard": 42.85313446540325,
+   "rule": "2 x tightest change 21.4",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "z",
+   "cpp_minus_python": 0.00014577977381868834,
+   "guard": 0.018192236877084156,
+   "rule": "2 x tightest change 0.0091",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "u",
+   "cpp_minus_python": 0.06059679758918657,
+   "guard": 4.574371659931874,
+   "rule": "2 x tightest change 2.29",
+   "ok": true
+  },
+  {
+   "function": "solve [widened]",
+   "quantity": "sigma",
+   "cpp_minus_python": 0.06228525739800661,
+   "guard": 5.729288049939113,
+   "rule": "2 x tightest change 2.86",
+   "ok": true
+  }
+ ],
+ "discrete": [],
+ "stats": {
+  "hash_diff": 11111,
+  "rebuilt": 10214,
+  "A_entries_diff": 184639,
+  "b_entries_diff": 116093,
+  "iterations_differ": 432,
+  "hash_same": 2519
+ },
+ "times": {
+  "cone program": {
+   "calls": 13630,
+   "median_ms": 0.06403950010280823,
+   "max_ms": 0.630751000244345
+  },
+  "solve [nominal plan]": {
+   "calls": 33,
+   "median_ms": 8.005229999980656,
+   "max_ms": 17.412768000212964
+  },
+  "nominal plan": {
+   "calls": 1,
+   "median_ms": 296.0288369999944,
+   "max_ms": 296.0288369999944
+  },
+  "solve [window]": {
+   "calls": 6576,
+   "median_ms": 4.825265500130627,
+   "max_ms": 17.406283999662264
+  },
+  "re-solve [window]": {
+   "calls": 802,
+   "median_ms": 37.45879849998346,
+   "max_ms": 84.17823399986446
+  },
+  "solve [widened]": {
+   "calls": 7021,
+   "median_ms": 37.19564899984107,
+   "max_ms": 126.60469999991619
+  },
+  "re-solve [widened]": {
+   "calls": 20,
+   "median_ms": 12285.346232999927,
+   "max_ms": 17475.344005000352
+  }
+ },
+ "seconds": 1004.402535200119
+}

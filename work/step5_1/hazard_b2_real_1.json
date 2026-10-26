@@ -1,0 +1,60 @@
+{
+ "seed": 1,
+ "t0": 62.83,
+ "candidates": 8281,
+ "truth_safe": 7383,
+ "table": {
+  "detected": {
+   "called_safe": 7374,
+   "agree": 8210,
+   "agree_frac": 0.9914261562613211,
+   "false_safe": 31,
+   "false_unsafe": 40
+  },
+  "all safe": {
+   "called_safe": 8281,
+   "agree": 7383,
+   "agree_frac": 0.8915589904600894,
+   "false_safe": 898,
+   "false_unsafe": 0
+  },
+  "all unsafe": {
+   "called_safe": 0,
+   "agree": 898,
+   "agree_frac": 0.10844100953991063,
+   "false_safe": 0,
+   "false_unsafe": 7383
+  }
+ },
+ "detected_unsafe_by": {
+  "unverified": 18,
+  "slope": 25,
+  "span": 864,
+  "eff": 0
+ },
+ "truth_unsafe_by": {
+  "slope": 25,
+  "span": 873,
+  "eff": 0
+ },
+ "unverified": {
+  "total": 18,
+  "truth_safe": 8,
+  "truth_unsafe": 10
+ },
+ "frames": 73,
+ "cells_filled": 0.991856,
+ "bias": 0.1866738574347314,
+ "map_shift": [
+  0.1675526743641687,
+  0.00016562117445699577
+ ],
+ "map_shift_m": 0.1675527562201189,
+ "rocks": 1335,
+ "seconds": {
+  "truth_surface": 0.5834811589993478,
+  "scan": 10.806830954999896,
+  "detect": 0.38599950299976626,
+  "truth_assess": 4.820026311001129
+ }
+}

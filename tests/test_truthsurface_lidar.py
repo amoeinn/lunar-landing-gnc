@@ -109,6 +109,31 @@ def test_ray_cast_against_planes():
         assert np.max(np.abs(r - exact)) < 1e-3
 
 
+def test_ray_cast_enters_the_raster_from_its_side():
+    """Invariant: a ray is followed from where it enters the raster when its
+    crossing of the surface's highest point lies outside the raster: on a 13
+    deg plane rising away from the sensor, 30 m across, a ray from 632 m at
+    25.5 deg toward the plane's near edge returns the analytic range to 1 mm,
+    and a ray that enters the raster below the plane (it would meet ground
+    outside the raster first) returns nothing. Fixture check: the first ray's
+    crossing of the highest point lies outside the raster."""
+    g = np.tan(np.radians(13.0))
+    s = plane_surface(a=g, size=30.0)
+    look = np.radians(25.5)
+    o = np.array([-632.0 * np.cos(look), 0.0, 100.0 + 632.0 * np.sin(look)])
+    p = np.array([-12.0, 1.0, 100.0 - 12.0 * g])
+    u = (p - o) / np.linalg.norm(p - o)
+    x_top = o[0] + (o[2] - s.z_max) / -u[2] * u[0]
+    assert x_top < -15.0
+    r = L.ray_cast(s, o, u[None, :])[0]
+    # analytic: o + r u on the plane z = 100 + g x
+    r_true = (100.0 + g * o[0] - o[2]) / (u[2] - g * u[0])
+    assert r == pytest.approx(r_true, abs=1e-3)
+    q = np.array([-14.9, 0.0, 100.0 - 14.9 * g - 2.0])          # below the plane at the raster's edge
+    w = (q - o) / np.linalg.norm(q - o)
+    assert np.isnan(L.ray_cast(s, o, w[None, :])[0])
+
+
 def test_ray_cast_against_a_block():
     """Invariant: a ray onto a 1 m hemisphere stops on the raster surface (its
     end point at the surface's height to 1 mm, 1 cm short of it still above)
@@ -142,19 +167,42 @@ def test_scan_of_a_flat_plane():
     to 1 mm; with noise, the points' heights scatter by 8 cm times the sine
     of the look angle and are offset by the scan's bias times the same sine;
     each frame is taken from the true position at its own time; the plan's
-    footprint is R x FOV across and R x FOV / sin(look) along, so 2 x 5
-    frames from 1,239 m at 23 deg. Fixture check: the plan needs more than one
-    frame each way."""
+    footprint is R x FOV across and R x FOV / sin(look) along; the plan is
+    strips stepping along from the square's near edge, each as wide as 0.95
+    times the narrowest footprint along of its tiles at its own last frame,
+    seen at its near edge, with as many tiles across as 0.95 times the
+    footprint across there needs, the strips contiguous and covering the
+    square: from 1,239 m at 23 deg, 3 strips of 6, 6 and 5 frames. Fixture check: the plan needs more than one strip and
+    more than one frame across, and the first frame's footprint alone would
+    give a different count across."""
     s = plane_surface()
     pose = straight_pose()
     sc = L.scan(s, pose, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(0), noise=False)
-    assert sc["plan"]["n_along"] > 1 and sc["plan"]["n_across"] > 1
+    strips = sc["plan"]["strips"]
+    assert len(strips) > 1 and strips[0]["n"] > 1
     ts = [f["t"] for f in sc["frames"]]
     assert np.allclose(np.diff(ts), 0.05)
     assert all(np.allclose(f["origin"], pose(f["t"])) for f in sc["frames"])
     assert sc["plan"]["along"] == pytest.approx(SLANT * np.radians(1.0) / np.sin(LOOK), rel=1e-6)
     assert sc["plan"]["across"] == pytest.approx(SLANT * np.radians(1.0), rel=1e-6)
-    assert (sc["plan"]["n_along"], sc["plan"]["n_across"]) == (2, 5)
+    assert len(sc["frames"]) == 17 and [st["n"] for st in strips] == [6, 6, 5]
+    assert np.ceil(100.0 / (0.95 * SLANT * np.radians(1.0))) == 5
+    x_lo, k = -50.0, 0
+    for st in strips:
+        ys = [f["aim"][1] for f in sc["frames"][k:k + st["n"]]]
+        k += st["n"]
+        assert st["t_last"] == pytest.approx(54.0 + (k - 1) / 20.0)
+        los = np.array([x_lo, 0.0, 100.0]) - pose(st["t_last"])
+        r = np.linalg.norm(los)
+        assert st["n"] == np.ceil(100.0 / (0.95 * r * np.radians(1.0)))
+        w = []
+        for y in ys:
+            q = np.array([x_lo, y, 100.0]) - pose(st["t_last"])
+            w.append(0.95 * np.linalg.norm(q) * np.radians(1.0) / (-q[2] / np.linalg.norm(q)))
+        assert st["width"] == pytest.approx(min(w), rel=1e-9)
+        assert st["x"] == pytest.approx(x_lo + st["width"] / 2)
+        x_lo += st["width"]
+    assert x_lo >= 50.0 > x_lo - strips[-1]["width"]
     p = sc["points"]
     assert np.max(np.abs(p[:, 2] - 100.0)) < 1e-3
     _, cnt = L.grid(p, (0.0, 0.0), cell=1.0)
@@ -183,6 +231,27 @@ def test_scan_of_a_tilted_plane():
         A = np.c_[np.ones(ok.sum()), X[ok], Y[ok]]
         coef = np.linalg.lstsq(A, z[ok], rcond=None)[0]
         assert abs(np.degrees(np.arctan(np.hypot(coef[1], coef[2]))) - 6.0) < tol
+
+
+def test_frames_aim_at_the_map_height():
+    """Invariant: each frame is aimed at its tile's centre at the map's
+    height there, and each strip is as wide as its frames' footprint on the
+    map's slope allows, so on a 4 deg plane rising across track, and on one
+    rising along it (facing the sensor), every 1 m cell of the square holds a
+    point. Fixture check: aimed at the constant centre height, the frames over
+    the low ground land farther out and leave cells empty; and facing the
+    sensor at 4 deg the footprint along is more than 5 pct shorter than on flat
+    ground, so strips sized for flat ground would leave seams."""
+    g = np.tan(np.radians(4.0))
+    for plane in (lambda x, y: 100.0 + g * y, lambda x, y: 100.0 + g * x):
+        s = TS.raster(plane, 0.0, 0.0)
+        sc = L.scan(s, straight_pose(), 54.0, (0.0, 0.0), plane, np.random.default_rng(5), noise=False)
+        assert all(f["aim"][2] == pytest.approx(plane(*f["aim"][:2])) for f in sc["frames"])
+        assert (L.grid(sc["points"], (0.0, 0.0), cell=1.0)[1] > 0).all()
+    s = TS.raster(lambda x, y: 100.0 + g * y, 0.0, 0.0)
+    sc = L.scan(s, straight_pose(), 54.0, (0.0, 0.0), 100.0, np.random.default_rng(5), noise=False)
+    assert (L.grid(sc["points"], (0.0, 0.0), cell=1.0)[1] == 0).sum() > 50
+    assert np.sin(LOOK) / (np.sin(LOOK) + g * np.cos(LOOK)) < 0.95
 
 
 def test_scan_finds_a_single_block():
@@ -225,10 +294,42 @@ def test_scan_finds_a_single_block():
 def test_returns_only_inside_the_operating_range():
     """Invariant: a pixel returns a range only between 150 m and 1,300 m
     (Roback et al. 2016, table 1): from 1,400 m nothing, from 1,239 m every
-    pixel, from 120 m nothing."""
+    pixel; from 160 m looking down at 80 deg over a block 20 m high, the
+    plane returns and the block's top, about 140 m away, does not; from 120 m no plan is made. Fixture
+    check: some rays reach the block's top under 150 m, so the lower limit is
+    what removes them."""
     s = plane_surface()
-    for slant, expect in ((1400.0, False), (1239.0, True), (120.0, False)):
+    for slant, expect in ((1400.0, False), (1239.0, True)):
         o = np.array([-slant * np.cos(LOOK), 0.0, 100.0 + slant * np.sin(LOOK)])
         sc = L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
         n = sum(f["returns"] for f in sc["frames"])
         assert (n == len(sc["frames"]) * 128 * 128) if expect else n == 0, slant
+    o = np.array([-120.0 * np.cos(LOOK), 0.0, 100.0 + 120.0 * np.sin(LOOK)])
+    with pytest.raises(ValueError):
+        L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
+    b = TS.raster(lambda x, y: 100.0 + 20.0 * ((np.abs(x) < 3.0) & (np.abs(y) < 3.0)), 0.0, 0.0, 30.0)
+    steep = np.radians(80.0)
+    o = np.array([-160.0 * np.cos(steep), 0.0, 100.0 + 160.0 * np.sin(steep)])
+    sc = L.scan(b, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
+    r = np.concatenate([L.ray_cast(b, o, L.frame_dirs(o, f["aim"])) for f in sc["frames"]])
+    assert (r < 150.0).sum() > 100 and (r >= 150.0).sum() > 100
+    assert sum(f["returns"] for f in sc["frames"]) == (r >= 150.0).sum()
+    assert sc["points"][:, 2].max() < 115.0
+
+
+def test_scan_plan_stops_at_the_operating_range():
+    """Invariant: a plan whose frames would fall below the 150 m operating
+    range raises instead of adding frames without bound (a footprint that
+    shrinks faster than the frames cover it has no fixed point, and chasing
+    one ran the frame count into the tens of thousands). Fixture check: the
+    same pose plans normally when it closes slowly."""
+    o = np.array([-200.0 * np.cos(0.6), 0.0, 100.0 + 200.0 * np.sin(0.6)])
+    with pytest.raises(ValueError, match="slant"):
+        L.plan_tiles(lambda t: o + np.array([60.0, 0.0, -40.0]) * (t - 54.0), 54.0, (0.0, 0.0), 100.0)
+    tiles, _ = L.plan_tiles(lambda t: o + np.array([0.6, 0.0, -0.4]) * (t - 54.0), 54.0, (0.0, 0.0), 100.0)
+    assert len(tiles) > 1
+    far = straight_pose()
+    with pytest.raises(ValueError, match="frames"):           # held still, 0.02 deg field: about 40,000 frames
+        L.plan_tiles(lambda t: far(54.0), 54.0, (0.0, 0.0), 100.0, fov=np.radians(0.02))
+    with pytest.raises(ValueError, match="grazing"):          # ground falling away at 30 deg, looked at from 23
+        L.plan_tiles(far, 54.0, (0.0, 0.0), lambda x, y: 100.0 - np.tan(np.radians(30.0)) * x)

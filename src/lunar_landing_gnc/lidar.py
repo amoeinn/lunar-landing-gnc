@@ -4,11 +4,19 @@ deg field of view, 20 Hz (p. 5), range 150 m to 1.3 km (p. 6, table 1), range
 precision 8 cm and accuracy 35 cm (1 sigma, p. 6), a two-axis gimballed mosaic
 of frames (pp. 4, 11, 15).
 
-One scan: a mosaic of frames tiling a square centred on the target, planned
-from the footprint at the first frame (5 pct overlap), frame k taken at
-t0 + k / 20 s from the true position then, its boresight aimed at its tile's
-centre at the aim height. Each frame's 128 x 128 rays (gnomonic, equal angles
-across the field of view) are cast against the truth surface: marched from the
+One scan (PLAN.md phase 5.1 revision, 25 Oct 2026): it starts at the earliest
+time on the descent at which a pixel's ground footprint at the target is at
+most 0.2 m in both directions (R x FOV / 128 across, that over the sine of the
+look angle along), inside 150 m to 1.3 km. A mosaic of frames tiles a square
+centred on the target with 5 pct overlap, frame by frame: strips across the
+line of sight, each sized by the footprint at its own last frame (the range
+closes), as many frames as that takes; frame k is taken at t0 + k / 20 s from
+the true position then, its boresight aimed at its tile's centre at the
+pre-mission map's height there (a constant aim height lands frames off their
+tiles wherever the ground is above or below it, by the height difference over
+the tangent of the look angle, and leaves the square's edges uncovered). Each
+frame's 128 x 128 rays (gnomonic, equal angles across the field
+of view) are cast against the truth surface: marched from the
 surface's highest point in steps of 0.1 m along the ray and refined by
 bisection to 1 mm. A pixel returns no range when its ray misses the surface or
 its range lies outside 150 m to 1,300 m. Measured range: true range plus noise
@@ -31,6 +39,7 @@ GRID = 0.2
 STEP = 0.1
 TOL = 1e-3
 OVERLAP = 0.95
+PIXEL_MAX = 0.2
 
 
 def frame_dirs(origin, aim, fov=FOV, n=PIXELS):
@@ -48,7 +57,10 @@ def frame_dirs(origin, aim, fov=FOV, n=PIXELS):
 
 def ray_cast(s, origin, dirs, step=STEP, tol=TOL):
     """Range along each ray to its first crossing of the surface s (NaN when it
-    misses: leaves the surface's raster, or never comes down to it)."""
+    misses: leaves the surface's raster, never comes down to it, or enters the
+    raster already below the surface, so meets ground outside it first). A ray
+    starts where it comes down through the surface's highest point or where it
+    enters the raster, whichever is later."""
     o = np.asarray(origin, float)
     d = np.asarray(dirs, float)
     n = len(d)
@@ -56,14 +68,22 @@ def ray_cast(s, origin, dirs, step=STEP, tol=TOL):
     down = d[:, 2] < 0
     z_top = s.z_max + 0.01
     start = np.where(down, np.maximum((o[2] - z_top) / np.where(down, -d[:, 2], 1.0), 0.0), np.nan)
+    ny, nx = s.z.shape
+    lo = np.array([s.x0 + s.cell / 2, s.y1 - (ny - 0.5) * s.cell])
+    hi = np.array([s.x0 + (nx - 0.5) * s.cell, s.y1 - s.cell / 2])
+    with np.errstate(divide="ignore", invalid="ignore"):
+        ta, tb = (lo - o[:2]) / d[:, :2], (hi - o[:2]) / d[:, :2]
+        enter = np.nanmax(np.minimum(ta, tb), axis=1)
+    start = np.maximum(start, enter + 1e-6)
     z_bottom = float(np.nanmin(s.z)) - 0.01
     stop = np.where(down, (o[2] - z_bottom) / np.where(down, -d[:, 2], 1.0), np.nan)
-    active = np.nonzero(down)[0]
-    t = start.copy()
 
     def above(tt, idx):
         p = o + tt[:, None] * d[idx]
         return p[:, 2] - s.height(p[:, 0], p[:, 1])
+    active = np.nonzero(down & np.isfinite(start))[0]
+    active = active[above(start[active], active) > 0.0]
+    t = start.copy()
     while active.size:
         nxt = t[active] + step
         f = above(nxt, active)
@@ -83,40 +103,96 @@ def ray_cast(s, origin, dirs, step=STEP, tol=TOL):
     return rng
 
 
-def plan_tiles(origin, centre, aim_z, square=SQUARE, fov=FOV, overlap=OVERLAP):
-    """Tile centres (x, y) covering the square from the footprint seen from
-    origin: along the line of sight's ground direction (map x for our
-    approach) and across it."""
-    c = np.array([centre[0], centre[1], aim_z])
-    los = c - np.asarray(origin, float)
+def footprint(origin, point, fov=FOV):
+    """(slant, look angle below horizontal, frame extent along, across) seen
+    from origin toward a ground point."""
+    los = np.asarray(point, float) - np.asarray(origin, float)
     rng = np.linalg.norm(los)
     el = np.arctan2(-los[2], np.hypot(los[0], los[1]))
-    along = rng * fov / np.sin(el)
-    across = rng * fov
-    na = int(np.ceil(square / (overlap * along)))
-    nc = int(np.ceil(square / (overlap * across)))
-    xs = centre[0] - square / 2 + (np.arange(na) + 0.5) * square / na
-    ys = centre[1] - square / 2 + (np.arange(nc) + 0.5) * square / nc
-    return [(x, y) for x in xs for y in ys], dict(along=along, across=across, n_along=na, n_across=nc,
-                                                 slant=rng, look_deg=float(np.degrees(el)))
+    return rng, el, rng * fov / np.sin(el), rng * fov
 
 
-def scan(s, pose, t0, centre, aim_z, rng, square=SQUARE, noise=True):
+def scan_start(t, pos, target, pixel_max=PIXEL_MAX):
+    """The earliest sample time at which a pixel's footprint at the target is
+    at most pixel_max in both directions, within the operating range."""
+    for tk, pk in zip(t, pos):
+        rng, el, along, across = footprint(pk, target)
+        if el > 0 and RANGE_MIN <= rng <= RANGE_MAX and along / PIXELS <= pixel_max and across / PIXELS <= pixel_max:
+            return float(tk), dict(slant=float(rng), look_deg=float(np.degrees(el)),
+                                   pixel_along=float(along / PIXELS), pixel_across=float(across / PIXELS))
+    return None, None
+
+
+def plan_tiles(pose, t0, centre, aim, square=SQUARE, fov=FOV, overlap=OVERLAP, max_frames=2000):
+    """Tile aim points (x, y, z), one per frame at 20 Hz from t0, in strips across
+    the line of sight's ground direction (map y for our approach), the strips
+    stepping along it (map x) from the square's near edge. Each strip is sized
+    by the footprint at its own last frame, seen toward the strip's near edge
+    (the smallest the strip's frames see, since the range closes): it holds as
+    many tiles across as that footprint across needs, iterated until stable,
+    and its width along is the overlap times the narrowest footprint along of
+    its tiles on the map, R FOV / (sin look + m cos look) with m the map's mean
+    slope along the line of sight over the frame (rising away positive; ground
+    facing the sensor shortens the footprint). Raises if a
+    frame would fall below the operating range or the plan would pass
+    max_frames, rather than chasing a footprint that shrinks faster than frames
+    cover it. aim is the map height h(x, y), or a constant height."""
+    h = aim if callable(aim) else (lambda x, y: aim)
+    x_lo, x_hi = centre[0] - square / 2, centre[0] + square / 2
+    tiles, strips = [], []
+    while x_lo < x_hi - 1e-9:
+        k, n = len(tiles), 1
+        for _ in range(100):
+            if k + n > max_frames:
+                raise ValueError(f"scan plan passes {max_frames} frames")
+            t_last = t0 + (k + n - 1) / RATE
+            rng, el, along, across = footprint(pose(t_last), (x_lo, centre[1], float(h(x_lo, centre[1]))), fov)
+            if not (el > 0 and rng >= RANGE_MIN):
+                raise ValueError(f"scan plan reaches slant {rng:.1f} m at t = {t_last:.2f} s")
+            nc = int(np.ceil(square / (overlap * across)))
+            if nc <= n:
+                break
+            n = nc
+        else:
+            raise ValueError("strip plan did not settle")
+        ys = centre[1] - square / 2 + (np.arange(nc) + 0.5) * square / nc
+        o = np.asarray(pose(t_last), float)
+        alongs = []
+        for y in ys:
+            z0 = float(h(x_lo, y))
+            r, e, a, _ = footprint(o, (x_lo, y, z0), fov)
+            u = np.array([x_lo, y]) - o[:2]
+            u /= np.linalg.norm(u)
+            m = (float(h(x_lo + a * u[0], y + a * u[1])) - z0) / a
+            den = np.sin(e) + m * np.cos(e)
+            if den <= 0:
+                raise ValueError(f"map at ({x_lo:.1f}, {y:.1f}) faces away from the sensor beyond grazing")
+            alongs.append(r * fov / den)
+        w = overlap * min(alongs)
+        tiles += [(x_lo + w / 2, y, float(h(x_lo + w / 2, y))) for y in ys]
+        strips.append(dict(x=x_lo + w / 2, width=w, n=nc, t_last=t_last, slant_last=rng))
+        x_lo += w
+    r0, e0, a0, c0 = footprint(pose(t0), (centre[0], centre[1], float(h(*centre))), fov)
+    return tiles, dict(along=a0, across=c0, slant=r0, look_deg=float(np.degrees(e0)), frames=len(tiles),
+                       strips=strips, slant_last=strips[-1]["slant_last"])
+
+
+def scan(s, pose, t0, centre, aim, rng, square=SQUARE, noise=True):
     """One scan: frames, the point cloud (x, y, z) and per-frame details.
     pose(t) is the true position (3,) at time t."""
     t_start = time.perf_counter()
-    tiles, plan = plan_tiles(pose(t0), centre, aim_z, square)
+    tiles, plan = plan_tiles(pose, t0, centre, aim, square)
     bias = rng.normal(0.0, SIGMA_BIAS) if noise else 0.0
     pts, frames = [], []
-    for k, (tx, ty) in enumerate(tiles):
+    for k, (tx, ty, tz) in enumerate(tiles):
         t = t0 + k / RATE
         o = np.asarray(pose(t), float)
-        d = frame_dirs(o, (tx, ty, aim_z))
+        d = frame_dirs(o, (tx, ty, tz))
         r = ray_cast(s, o, d)
         ok = np.isfinite(r) & (r >= RANGE_MIN) & (r <= RANGE_MAX)
         meas = r[ok] + (rng.normal(0.0, SIGMA_RANGE, ok.sum()) + bias if noise else 0.0)
         pts.append(o + meas[:, None] * d[ok])
-        frames.append(dict(t=t, origin=o.tolist(), aim=[tx, ty, aim_z], returns=int(ok.sum()),
+        frames.append(dict(t=t, origin=o.tolist(), aim=[tx, ty, tz], returns=int(ok.sum()),
                            slant_min=float(np.nanmin(r)) if ok.any() else None,
                            slant_max=float(np.nanmax(r)) if ok.any() else None))
     cloud = np.concatenate(pts) if pts else np.zeros((0, 3))

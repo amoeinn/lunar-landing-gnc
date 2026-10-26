@@ -1,0 +1,51 @@
+{
+ "hashes": {
+  "ldem_87s_5mpp.tif": "417a85715406c346e2ecb2fc3abc93d3717121466e3d4950e1a6b977f207b881",
+  "ldec_87s_5mpp.tif": "dab531d817b9e7cfddf8ac23ffde9ccfe737efe526e98763ca7ded7a2afcae04",
+  "LDEM_80S_20MPP_ADJ.TIF": "09b7ca80f9e6a146f970225d18af72fc02787669b3ef51b888e347d2b6845649"
+ },
+ "window_bounds": [
+  -8000.0,
+  -3000.0,
+  10000.0,
+  15000.0
+ ],
+ "shape": [
+  3600,
+  3600
+ ],
+ "transform": [
+  5.0,
+  0.0,
+  -8000.0,
+  0.0,
+  -5.0,
+  15000.0
+ ],
+ "same_projection_as_20m": true,
+ "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs=True",
+ "counts_transform_same": true,
+ "nodata_pixels": 0,
+ "height_range": [
+  -2607.280517578125,
+  1536.2921142578125
+ ],
+ "diff_5m_minus_20m": {
+  "median": -0.13377094268798828,
+  "mean": -0.1349005253805525,
+  "p5": -0.9126091003417969,
+  "p95": 0.5974729537963865,
+  "max_abs": 13.300905227661133
+ },
+ "footprint_slope_within_1km": {
+  "median": 11.684688568115234,
+  "over_6": 0.9619259047073427,
+  "over_12": 0.45834526878640314
+ },
+ "returns": {
+  "fraction_with_returns": 0.09869143518518518,
+  "fraction_with_returns_in_trn": 0.09712240736553163,
+  "max_count": 5
+ },
+ "hash_seconds": 6.212810754776001
+}

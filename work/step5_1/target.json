@@ -1,0 +1,152 @@
+{
+ "rule": "PLAN.md phase 5.1 design, pre-mission target",
+ "inputs": {
+  "hashes": {
+   "ldem_87s_5mpp.tif": "417a85715406c346e2ecb2fc3abc93d3717121466e3d4950e1a6b977f207b881",
+   "ldec_87s_5mpp.tif": "dab531d817b9e7cfddf8ac23ffde9ccfe737efe526e98763ca7ded7a2afcae04",
+   "LDEM_80S_20MPP_ADJ.TIF": "09b7ca80f9e6a146f970225d18af72fc02787669b3ef51b888e347d2b6845649"
+  },
+  "epochs_sha256": "6ff5fbb82fc72152cf94e136ab2d1538833d206e4c13f37486f41bdbed3d3f67"
+ },
+ "candidates_in_window": 4536000,
+ "lit_at_all_four": 2568160,
+ "tested_in_order": 5,
+ "top5": [
+  {
+   "x": 1682.5,
+   "y": 6542.5,
+   "height_5m": 255.9959259033203,
+   "safe_fraction_50m": 1.0,
+   "own_footprint_slope_deg": 4.151405334472656,
+   "lit_disc_fraction": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "window_spare_m": 741.7525426210368,
+   "min_clearance_m": 45.530001666771625,
+   "min_clearance_t": 86.0,
+   "min_clearance_at": [
+    1682.4570789130762,
+    6542.5
+   ],
+   "distance_from_placeholder_m": 871.8443094956806,
+   "direction_from_placeholder_deg": 38.480198248343015
+  },
+  {
+   "x": 1682.5,
+   "y": 6547.5,
+   "height_5m": 255.9642791748047,
+   "safe_fraction_50m": 1.0,
+   "own_footprint_slope_deg": 3.137568712234497,
+   "lit_disc_fraction": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "window_spare_m": 741.7525426210368,
+   "min_clearance_m": 45.646403943979806,
+   "min_clearance_t": 86.0,
+   "min_clearance_at": [
+    1682.4570789130762,
+    6547.5
+   ],
+   "distance_from_placeholder_m": 874.964284985393,
+   "direction_from_placeholder_deg": 38.736509385665464
+  },
+  {
+   "x": 1687.5,
+   "y": 6542.5,
+   "height_5m": 256.35736083984375,
+   "safe_fraction_50m": 1.0,
+   "own_footprint_slope_deg": 3.369844913482666,
+   "lit_disc_fraction": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "window_spare_m": 746.7525426210368,
+   "min_clearance_m": 45.75863316320107,
+   "min_clearance_t": 86.0,
+   "min_clearance_at": [
+    1687.4570789130762,
+    6542.5
+   ],
+   "distance_from_placeholder_m": 875.7639522154358,
+   "direction_from_placeholder_deg": 38.276650036948084
+  },
+  {
+   "x": 1687.5,
+   "y": 6547.5,
+   "height_5m": 256.23052978515625,
+   "safe_fraction_50m": 1.0,
+   "own_footprint_slope_deg": 2.5944325923919678,
+   "lit_disc_fraction": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "window_spare_m": 746.7525426210368,
+   "min_clearance_m": 45.715511476481026,
+   "min_clearance_t": 86.0,
+   "min_clearance_at": [
+    1687.4570789130762,
+    6547.5
+   ],
+   "distance_from_placeholder_m": 878.8700131418752,
+   "direction_from_placeholder_deg": 38.53254107220848
+  },
+  {
+   "x": 1692.5,
+   "y": 6542.5,
+   "height_5m": 256.48004150390625,
+   "safe_fraction_50m": 1.0,
+   "own_footprint_slope_deg": 1.7325583696365356,
+   "lit_disc_fraction": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "window_spare_m": 751.7525426210368,
+   "min_clearance_m": 45.72593619023496,
+   "min_clearance_t": 86.0,
+   "min_clearance_at": [
+    1692.4570789130762,
+    6542.5
+   ],
+   "distance_from_placeholder_m": 879.6945492612763,
+   "direction_from_placeholder_deg": 38.074918261607316
+  }
+ ],
+ "target": {
+  "x": 1682.5,
+  "y": 6542.5,
+  "height_5m": 255.9959259033203,
+  "safe_fraction_50m": 1.0,
+  "own_footprint_slope_deg": 4.151405334472656,
+  "lit_disc_fraction": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "window_spare_m": 741.7525426210368,
+  "min_clearance_m": 45.530001666771625,
+  "min_clearance_t": 86.0,
+  "min_clearance_at": [
+   1682.4570789130762,
+   6542.5
+  ],
+  "distance_from_placeholder_m": 871.8443094956806,
+  "direction_from_placeholder_deg": 38.480198248343015
+ },
+ "t_guided": 86.0,
+ "h_low_window": -2081.287109375,
+ "direction_convention": "degrees from map +x toward map +y",
+ "seconds": 54.54771876335144
+}

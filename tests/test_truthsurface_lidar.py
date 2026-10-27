@@ -333,3 +333,30 @@ def test_scan_plan_stops_at_the_operating_range():
         L.plan_tiles(lambda t: far(54.0), 54.0, (0.0, 0.0), 100.0, fov=np.radians(0.02))
     with pytest.raises(ValueError, match="grazing"):          # ground falling away at 30 deg, looked at from 23
         L.plan_tiles(far, 54.0, (0.0, 0.0), lambda x, y: 100.0 - np.tan(np.radians(30.0)) * x)
+
+
+def test_minimum_and_maximum_rock_curves_are_sp8023s(monkeypatch):
+    """Invariant: the sensitivity curves are SP-8023 figure 7's minimum (one
+    power law, 2.2799e-4 D^-2.5095) and maximum (2.4146e-2 D^-1.7710 up to
+    0.1864 m, 3.1932e-3 D^-2.9753 above) as digitised, diameter_at inverts
+    each, and the nominal stays the default; at 0.2 m the three are ordered
+    minimum < nominal < maximum. Fixture check: the maximum's segments differ
+    away from their meeting point, and 0.2 m lies past it, on the lower one;
+    the truth surface draws its field from the curve it is given."""
+    assert TS.n_larger(np.array([0.5]), TS.SFD_MIN)[0] == pytest.approx(2.2799e-4 * 0.5 ** -2.5095, rel=1e-12)
+    assert TS.n_larger(np.array([0.5]), TS.SFD_MAX)[0] == pytest.approx(3.1932e-3 * 0.5 ** -2.9753, rel=1e-12)
+    assert TS.n_larger(np.array([0.1]), TS.SFD_MAX)[0] == pytest.approx(2.4146e-2 * 0.1 ** -1.7710, rel=1e-12)
+    assert 2.4146e-2 * 0.5 ** -1.7710 / (3.1932e-3 * 0.5 ** -2.9753) > 1.2 and 0.2 > 0.1864
+    a, b = 2.4146e-2 * 0.1864 ** -1.7710, 3.1932e-3 * 0.1864 ** -2.9753
+    assert abs(a / b - 1) < 3e-3
+    n = [TS.n_larger(np.array([0.2]), c)[0] for c in (TS.SFD_MIN, TS.SFD, TS.SFD_MAX)]
+    assert n[0] < n[1] < n[2] and TS.CURVES["nominal"] is TS.SFD
+    d = np.array([0.15, 0.2, 0.3, 0.69, 0.71, 1.22, 4.0])
+    for c in (TS.SFD_MIN, TS.SFD_MAX):
+        assert np.allclose(TS.diameter_at(TS.n_larger(d, c), c), d, rtol=1e-12)
+    _, _, dd, lam = TS.sample_rocks(np.random.default_rng(0), 0, 150, 0, 150, sfd=TS.SFD_MAX)
+    assert lam == pytest.approx(n[2] * 150.0 ** 2) and dd.min() >= 0.2 and abs(len(dd) - lam) < 4 * np.sqrt(lam)
+    monkeypatch.setattr(TS, "mosaic_base", lambda path, cx, cy, size: (lambda x, y: 0.0 * x))
+    for c, k in ((TS.SFD_MIN, 0), (TS.SFD_MAX, 2)):
+        _, rocks = TS.truth(None, 0.0, 0.0, 0, size=20.0, cell=0.1, sfd=c)
+        assert rocks["expected"] == pytest.approx(n[k] * 20.0 ** 2)

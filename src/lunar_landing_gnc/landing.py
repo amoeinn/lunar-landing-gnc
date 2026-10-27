@@ -14,9 +14,11 @@ the scan's last frame (no processing time is modelled): the flight stops
 there (closed_loop.fly_guided, stop_at) and continues from the choice.
 
 Selection (choose). Among candidates detected safe (verified and within all
-three limits) and lit, the preference order: the margin, the distance to the
-nearest candidate detected unsafe or unverified, largest first; ties to the
-nearest to the target, then the lower index. Each in that order is tried. The
+three limits) and lit, the preference order: the margin, the smaller of the
+distance to the nearest candidate detected unsafe or unverified and the
+distance to the edge of the scanned square (unscanned ground counts as unsafe,
+the revision of 27 Oct 2026), largest first; ties to the nearest to the
+target, then the lower index. Each in that order is tried. The
 target itself means no divert. Any other is a divert: phase 2's re-solve
 (closed_loop.resolve at revision 4: the window, then widening) from the
 decision state re-centred on it must find a plan on which the reserve trigger
@@ -33,12 +35,17 @@ criteria hold (closed_loop.landing_verdict: reserve, within 2.09 m of the
 chosen site, touchdown velocity) and the truth surface at the touchdown point,
 the raster corner nearest it, passes all three gear limits (hazard.assess on
 the truth raster).
+
+The blind lander (blind), the constant predictor of the 5.2 baselines: the
+same flight from the same decision state, to the pre-mission target with no
+divert, judged on the same truth surface by the same criteria.
 """
 import numpy as np
 from scipy.spatial import cKDTree
 
 from . import closed_loop as CL
 from . import hazard as H
+from . import lidar as L
 from . import vehicle as LV
 
 REVISION = 4
@@ -46,10 +53,11 @@ CLEAR_MIN = 10.0                    # m above the terrain along a divert's plann
 SUB = 10                            # path samples per guidance step
 
 
-def preference(X, Y, det, lit, target):
+def preference(X, Y, det, lit, target, square=L.SQUARE):
     """Indices of the candidates detected safe and lit, in preference order,
-    and their margins (m): distance to the nearest candidate detected unsafe
-    or unverified, infinite when there is none."""
+    and their margins (m): the smaller of the distance to the nearest
+    candidate detected unsafe or unverified and the distance to the edge of
+    the scanned square (side square, centred on the target)."""
     safe = np.asarray(det["safe"], bool)
     ok = np.nonzero(safe & np.asarray(lit, bool))[0]
     if ok.size == 0:
@@ -59,6 +67,8 @@ def preference(X, Y, det, lit, target):
         margin = cKDTree(np.c_[X[bad], Y[bad]]).query(np.c_[X[ok], Y[ok]])[0]
     else:
         margin = np.full(ok.size, np.inf)
+    edge = square / 2 - np.maximum(np.abs(X[ok] - target[0]), np.abs(Y[ok] - target[1]))
+    margin = np.minimum(margin, edge)
     to_target = np.hypot(X[ok] - target[0], Y[ok] - target[1])
     order = np.lexsort((ok, to_target, -margin))
     return ok[order], margin[order]
@@ -204,3 +214,10 @@ def finish(nom, dec, choice, s, kappa=1.0, isp=LV.ISP, revision=REVISION):
     gear = at_touchdown(s, x, y)
     return dict(kind=choice["kind"], touchdown=td, touchdown_map=(float(x), float(y)), t_touchdown=f.t_guided + t_td,
                 phase2=verdict, truth_gear=gear, safe=bool(verdict["safe"] and gear["safe"]))
+
+
+def blind(nom, dec, s, target, kappa=1.0, isp=LV.ISP, revision=REVISION):
+    """The blind lander: from the decision, guided flight to the pre-mission
+    target (x, y, height) with no divert and the descent to the truth surface,
+    with the verdicts (finish)."""
+    return finish(nom, dec, dict(kind="target", site=tuple(map(float, target))), s, kappa, isp, revision)

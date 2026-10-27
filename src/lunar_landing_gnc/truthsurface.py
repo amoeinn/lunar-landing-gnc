@@ -21,36 +21,46 @@ CELL = 0.05
 SIZE = 150.0
 D_MIN = 0.2
 SFD = ((2.16e-3, -2.058, 0.0, 0.70), (1.51e-3, -3.066, 0.70, np.inf))   # (K, n, from, to)
+# The same figure's minimum and maximum curves (work/step5_1/sp8023_fig7.json),
+# for the reported sensitivity only: the minimum one power law over its whole
+# range; the maximum two, meeting at 0.1864 m, below the 0.2 m smallest rock.
+SFD_MIN = ((2.2799e-4, -2.5095, 0.0, np.inf),)
+SFD_MAX = ((2.4146e-2, -1.7710, 0.0, 0.1864), (3.1932e-3, -2.9753, 0.1864, np.inf))
+CURVES = dict(nominal=SFD, minimum=SFD_MIN, maximum=SFD_MAX)
 
 
-def n_larger(d):
-    """SP-8023 nominal: rocks per square metre with diameter larger than d (m)."""
+def n_larger(d, sfd=SFD):
+    """Rocks per square metre with diameter larger than d (m): SP-8023's
+    nominal curve, or another given as (K, n, from, to) segments."""
     d = np.asarray(d, float)
     out = np.empty_like(d)
-    for k, n, lo, hi in SFD:
+    for k, n, lo, hi in sfd:
         m = (d > lo) & (d <= hi) if lo > 0 else d <= hi
         out[m] = k * d[m] ** n
     return out
 
 
-def diameter_at(n):
-    """The diameter d with n_larger(d) = n (the inverse, piecewise)."""
+def diameter_at(n, sfd=SFD):
+    """The diameter d with n_larger(d) = n (the inverse, piecewise): in
+    segment order, each takes the counts at or above its value at its upper
+    end not already taken, the last the rest."""
     n = np.asarray(n, float)
-    k1, n1, _, hi = SFD[0]
-    k2, n2, _, _ = SFD[1]
-    at_kink = k1 * hi ** n1
-    return np.where(n >= at_kink, (n / k1) ** (1.0 / n1), (n / k2) ** (1.0 / n2))
+    out = np.full(n.shape, np.nan)
+    for k, e, lo, hi in sfd:
+        m = np.isnan(out) & (n >= (k * hi ** e if np.isfinite(hi) else 0.0))
+        out[m] = (n[m] / k) ** (1.0 / e)
+    return out
 
 
-def sample_rocks(rng, x0, x1, y0, y1, d_min=D_MIN):
+def sample_rocks(rng, x0, x1, y0, y1, d_min=D_MIN, sfd=SFD):
     """Poisson rock field over [x0, x1] x [y0, y1]: centres (x, y) and diameters."""
     area = (x1 - x0) * (y1 - y0)
-    lam = float(n_larger(np.array([d_min]))[0]) * area
+    lam = float(n_larger(np.array([d_min]), sfd)[0]) * area
     count = rng.poisson(lam)
     x = rng.uniform(x0, x1, count)
     y = rng.uniform(y0, y1, count)
     u = rng.uniform(0.0, 1.0, count)
-    d = diameter_at(u * n_larger(np.array([d_min]))[0])
+    d = diameter_at(u * n_larger(np.array([d_min]), sfd)[0], sfd)
     return x, y, d, lam
 
 
@@ -137,11 +147,11 @@ def mosaic_base(path, cx, cy, size=SIZE, margin=10.0):
     return base.height
 
 
-def truth(path, cx, cy, seed, size=SIZE, cell=CELL):
+def truth(path, cx, cy, seed, size=SIZE, cell=CELL, sfd=SFD):
     """The registered truth surface: the 5 m mosaic, bilinear on the raster,
     plus the seeded rock field over the same square."""
     s = raster(mosaic_base(path, cx, cy, size), cx, cy, size, cell)
     rng = np.random.default_rng(seed)
-    x, y, d, lam = sample_rocks(rng, cx - size / 2, cx + size / 2, cy - size / 2, cy + size / 2)
+    x, y, d, lam = sample_rocks(rng, cx - size / 2, cx + size / 2, cy - size / 2, cy + size / 2, sfd=sfd)
     add_rocks(s, x, y, d)
     return s, dict(x=x, y=y, d=d, expected=lam)

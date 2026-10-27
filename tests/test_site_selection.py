@@ -30,7 +30,8 @@ def test_preference_is_margin_first_then_nearest_to_target_then_index():
     unverified (both not safe); the order is the largest margin first, ties to
     the nearest to the target, then the lower index. Here the unsafe column x
     = 0 and the unsafe candidate (4, 4) leave the best margins at x = 2 and 3, and
-    the unlit (4, 0), which has the largest margin, is skipped. Fixture check:
+    the unlit (4, 0), which has the largest margin, is skipped; with none
+    unsafe the margin is the distance to the 100 m square's edge. Fixture check:
     two candidates tie on the best margin, at different distances from the
     target, so only the tie rule orders them; the unlit one would win on
     margin."""
@@ -56,7 +57,8 @@ def test_preference_is_margin_first_then_nearest_to_target_then_index():
                 np.hypot(X[order[k]] - 2, Y[order[k]] - 2), np.hypot(X[order[k + 1]] - 2, Y[order[k + 1]] - 2)):
             assert order[k] < order[k + 1]
     order, margin = LD.preference(X, Y, dict(safe=np.ones(25, bool)), np.ones(25, bool), (1.0, 3.0))
-    assert np.all(np.isinf(margin)) and X[order[0]] == 1.0 and Y[order[0]] == 3.0
+    np.testing.assert_allclose(margin, 50.0 - np.maximum(np.abs(X[order] - 1.0), np.abs(Y[order] - 3.0)))
+    assert X[order[0]] == 1.0 and Y[order[0]] == 3.0
     order, margin = LD.preference(X, Y, dict(safe=safe), np.zeros(25, bool), target)
     assert order.size == 0
 
@@ -253,3 +255,54 @@ def test_map_shift_is_the_bias_along_the_mean_ray():
     np.testing.assert_allclose(L.shift_of(sc), want, atol=1e-12)
     assert abs(want[1]) > 1e-3 and not np.allclose(want, 0.3 * (u1 + u2)[:2] / np.linalg.norm(u1 + u2))
     assert not np.allclose(want, 0.3 * m[:2] / np.linalg.norm(m[:2]))
+
+
+def test_unscanned_ground_limits_the_margin():
+    """Invariant (revision of 27 Oct 2026): a candidate's margin is the
+    smaller of its distance to the nearest candidate detected unsafe and its
+    distance to the scanned square's edge, so a candidate at the edge no
+    longer wins for having no unsafe candidate beyond it. Candidates every 1 m
+    to 10 m from the target, square of side 30 m, one unsafe candidate at the
+    target: the corners, 14.14 m from it, won before; now their margin is the
+    5 m to the edge and the four at (+-6, +-6), 8.49 m from both, win, the
+    first by index. Fixture check: under the old rule a corner had the
+    largest margin, and the winner's two distances are nearly equal, so
+    dropping either term, or measuring the edge as a circle, changes it."""
+    X, Y = np.meshgrid(np.arange(-10.0, 11.0), np.arange(-10.0, 11.0))
+    X, Y = X.ravel(), Y.ravel()
+    safe = ~((X == 0) & (Y == 0))
+    order, margin = LD.preference(X, Y, dict(safe=safe), np.ones(len(X), bool), (0.0, 0.0), square=30.0)
+    corner = np.hypot(10.0, 10.0)
+    assert corner > np.hypot(6.0, 6.0) and abs(np.hypot(6.0, 6.0) - (15.0 - 6.0)) < 0.6
+    assert margin[0] == pytest.approx(np.hypot(6.0, 6.0))
+    assert (X[order[0]], Y[order[0]]) == (-6.0, -6.0)
+    assert sorted(zip(X[order[:4]], Y[order[:4]])) == [(-6.0, -6.0), (-6.0, 6.0), (6.0, -6.0), (6.0, 6.0)]
+    assert margin[4] < margin[0] - 1e-9
+    k = int(np.nonzero(order == np.nonzero((X == 10) & (Y == 10))[0][0])[0][0])
+    assert margin[k] == pytest.approx(5.0)
+    order, margin = LD.preference(X, Y, dict(safe=np.ones(len(X), bool)), np.ones(len(X), bool), (0.0, 0.0),
+                                  square=30.0)
+    assert margin[0] == pytest.approx(15.0) and (X[order[0]], Y[order[0]]) == (0.0, 0.0)
+
+
+def test_blind_lander_lands_at_the_target_judged_on_the_truth(nominal):
+    """Invariant: the blind lander flies from the decision state to the
+    pre-mission target with no divert, lands on the truth surface within 2.09
+    m of the target, and is judged by the same criteria as the system: on
+    flat ground at the target's height it is safe; with a 1.4 m rock (a 0.7 m
+    hemisphere, over the 0.61 m span) under the target it touches down on the
+    rock, still meets phase 2's three criteria, and is unsafe by the gear
+    limits. Fixture check: the rock covers the touchdown point, and phase 2's
+    verdict alone would call both landings safe."""
+    dec = LD.to_decision(nominal, 30)
+    target = (0.0, 0.0, 100.0)
+    s = TS.raster(lambda x, y: 100.0 + 0.0 * x, 0.0, 0.0, size=30.0, cell=0.05)
+    f = LD.blind(nominal, dec, s, target)
+    assert f["kind"] == "target" and f["phase2"]["safe"] and f["truth_gear"]["safe"] and f["safe"]
+    assert np.hypot(*f["touchdown_map"]) <= LV.LANDING_RADIUS
+    TS.add_rocks(s, np.array([0.0]), np.array([0.0]), np.array([1.4]))
+    g = LD.blind(nominal, dec, s, target)
+    assert np.hypot(*g["touchdown_map"]) < 0.7 - 0.1
+    assert g["phase2"]["safe"] and not g["truth_gear"]["safe"] and not g["safe"]
+    assert g["truth_gear"]["span"] > 0.6096
+    assert g["t_touchdown"] < f["t_touchdown"]

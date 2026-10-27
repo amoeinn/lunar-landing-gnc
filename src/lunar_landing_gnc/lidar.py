@@ -134,9 +134,11 @@ def plan_tiles(pose, t0, centre, aim, square=SQUARE, fov=FOV, overlap=OVERLAP, m
     its tiles on the map, R FOV / (sin look + m cos look) with m the map's mean
     slope along the line of sight over the frame (rising away positive; ground
     facing the sensor shortens the footprint). Raises if a
-    frame would fall below the operating range or the plan would pass
-    max_frames, rather than chasing a footprint that shrinks faster than frames
-    cover it. aim is the map height h(x, y), or a constant height."""
+    strip's near edge would fall below the operating range or the plan would
+    pass max_frames, rather than chasing a footprint that shrinks faster than
+    frames cover it, and if any frame's slant range to its own aim point, from
+    the pose at its own time, lies outside 150 to 1,300 m (the amendment of 27
+    Oct 2026). aim is the map height h(x, y), or a constant height."""
     h = aim if callable(aim) else (lambda x, y: aim)
     x_lo, x_hi = centre[0] - square / 2, centre[0] + square / 2
     tiles, strips = [], []
@@ -172,6 +174,11 @@ def plan_tiles(pose, t0, centre, aim, square=SQUARE, fov=FOV, overlap=OVERLAP, m
         tiles += [(x_lo + w / 2, y, float(h(x_lo + w / 2, y))) for y in ys]
         strips.append(dict(x=x_lo + w / 2, width=w, n=nc, t_last=t_last, slant_last=rng))
         x_lo += w
+    for k, p in enumerate(tiles):
+        r = float(np.linalg.norm(np.asarray(p, float) - np.asarray(pose(t0 + k / RATE), float)))
+        if not RANGE_MIN <= r <= RANGE_MAX:
+            raise ValueError(f"frame {k} at t = {t0 + k / RATE:.2f} s looks {r:.1f} m to its aim point, "
+                             f"outside {RANGE_MIN:.0f} to {RANGE_MAX:.0f} m")
     r0, e0, a0, c0 = footprint(pose(t0), (centre[0], centre[1], float(h(*centre))), fov)
     return tiles, dict(along=a0, across=c0, slant=r0, look_deg=float(np.degrees(e0)), frames=len(tiles),
                        strips=strips, slant_last=strips[-1]["slant_last"])

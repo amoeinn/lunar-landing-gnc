@@ -306,3 +306,31 @@ def test_blind_lander_lands_at_the_target_judged_on_the_truth(nominal):
     assert g["phase2"]["safe"] and not g["truth_gear"]["safe"] and not g["safe"]
     assert g["truth_gear"]["span"] > 0.6096
     assert g["t_touchdown"] < f["t_touchdown"]
+
+
+def test_scan_starts_at_the_first_guidance_step_on_the_draws_own_flight():
+    """Invariant (amendment of 27 Oct 2026): each draw's scan starts at the
+    first guidance step (a whole multiple of 2 s) at which its own state gives
+    a pixel footprint at the target of at most 0.2 m both ways inside 150 to
+    1,300 m: on a line at 25 deg closing at 30 m/s, sampled every 5 ms, the
+    start is the first step with slant at most 0.2 x 128 sin 25 / FOV; a draw
+    136 m ahead on the same line starts at an earlier step, at the same
+    geometry. Fixture check: the first qualifying dense sample is not a
+    guidance step, and the two draws start at different steps."""
+    look = np.radians(25.0)
+    t = np.round(np.arange(0.0, 60.0, 0.005), 9)
+    u = np.array([np.cos(look), 0.0, -np.sin(look)])
+    r_max = 0.2 * 128 * np.sin(look) / L.FOV
+    starts = []
+    for ahead in (0.0, 136.0):
+        rng = 2000.0 - ahead - 30.0 * t
+        pos = -u[None, :] * rng[:, None]
+        t0, info = LD.scan_step(t, pos, (0.0, 0.0, 0.0))
+        steps = np.arange(0.0, 60.0, CL.DT)
+        want = steps[np.nonzero(2000.0 - ahead - 30.0 * steps <= r_max)[0][0]]
+        dense = t[np.nonzero(rng <= r_max)[0][0]]
+        assert t0 == pytest.approx(want) and abs(dense / CL.DT - round(dense / CL.DT)) > 1e-6
+        assert info["slant"] <= r_max and info["pixel_along"] <= 0.2 + 1e-12
+        starts.append(t0)
+    assert starts[1] < starts[0]
+    assert LD.scan_step(t, -u[None, :] * (2000.0 - 30.0 * t)[:, None], (0.0, 0.0, 0.0), t_max=10.0) == (None, None)

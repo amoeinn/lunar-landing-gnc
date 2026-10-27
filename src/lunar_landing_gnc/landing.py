@@ -100,6 +100,17 @@ def lit_at(X, Y, utc, out_dir):
     return cells[i, j], dict(x0=float(x0), y1=float(y1), cells=cells, sun_el=h["el"], horizon=h["horizon"])
 
 
+def scan_step(t, pos, target, t_max=np.inf, dt=CL.DT):
+    """The scan's start (the amendment of 27 Oct 2026): the first guidance
+    step, a sample at a whole multiple of dt up to t_max, at which the state's
+    pixel footprint at the target is at most 0.2 m in both directions inside
+    150 to 1,300 m (lidar.scan_start on those samples); t the sample times,
+    pos the map positions. (time, details), or (None, None)."""
+    t = np.asarray(t, float)
+    m = (np.abs(t / dt - np.rint(t / dt)) < 1e-9) & (t <= t_max)
+    return L.scan_start(t[m], np.asarray(pos, float)[m], target)
+
+
 def recentre(y, d_east, d_north, dh):
     """A phase 2 state in the frame moved to a site d_east, d_north (map x, y)
     from the old one and dh higher."""

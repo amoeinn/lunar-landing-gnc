@@ -293,17 +293,26 @@ def test_scan_finds_a_single_block():
 
 def test_returns_only_inside_the_operating_range():
     """Invariant: a pixel returns a range only between 150 m and 1,300 m
-    (Roback et al. 2016, table 1): from 1,400 m nothing, from 1,239 m every
-    pixel; from 160 m looking down at 80 deg over a block 20 m high, the
-    plane returns and the block's top, about 140 m away, does not; from 120 m no plan is made. Fixture
-    check: some rays reach the block's top under 150 m, so the lower limit is
-    what removes them."""
+    (Roback et al. 2016, table 1): from 1,239 m every pixel; from 1,275 m to
+    the square's centre, where the frame's far pixels reach past 1,300 m, exactly the pixels whose
+    rays meet the ground within 1,300 m; from 1,400 m no plan is made (the
+    planner's range guard); from 160 m looking down at 80 deg over a block 20
+    m high, the plane returns and the block's top, about 140 m away, does
+    not; from 120 m no plan is made. Fixture check: some rays reach the
+    block's top under 150 m, and at 1,275 m some rays reach beyond 1,300 m
+    and some do not, so the limits are what remove them."""
     s = plane_surface()
-    for slant, expect in ((1400.0, False), (1239.0, True)):
-        o = np.array([-slant * np.cos(LOOK), 0.0, 100.0 + slant * np.sin(LOOK)])
-        sc = L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
-        n = sum(f["returns"] for f in sc["frames"])
-        assert (n == len(sc["frames"]) * 128 * 128) if expect else n == 0, slant
+    o = np.array([-1239.0 * np.cos(LOOK), 0.0, 100.0 + 1239.0 * np.sin(LOOK)])
+    sc = L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
+    assert sum(f["returns"] for f in sc["frames"]) == len(sc["frames"]) * 128 * 128
+    o = np.array([-1275.0 * np.cos(LOOK), 0.0, 100.0 + 1275.0 * np.sin(LOOK)])
+    sc = L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
+    r = np.concatenate([L.ray_cast(s, o, L.frame_dirs(o, f["aim"])) for f in sc["frames"]])
+    assert (r > 1300.0).sum() > 100 and (r <= 1300.0).sum() > 100
+    assert sum(f["returns"] for f in sc["frames"]) == (r <= 1300.0).sum()
+    o = np.array([-1400.0 * np.cos(LOOK), 0.0, 100.0 + 1400.0 * np.sin(LOOK)])
+    with pytest.raises(ValueError, match="aim point"):
+        L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
     o = np.array([-120.0 * np.cos(LOOK), 0.0, 100.0 + 120.0 * np.sin(LOOK)])
     with pytest.raises(ValueError):
         L.scan(s, lambda t: o, 54.0, (0.0, 0.0), 100.0, np.random.default_rng(4), square=10.0, noise=False)
@@ -360,3 +369,25 @@ def test_minimum_and_maximum_rock_curves_are_sp8023s(monkeypatch):
     for c, k in ((TS.SFD_MIN, 0), (TS.SFD_MAX, 2)):
         _, rocks = TS.truth(None, 0.0, 0.0, 0, size=20.0, cell=0.1, sfd=c)
         assert rocks["expected"] == pytest.approx(n[k] * 20.0 ** 2)
+
+
+def test_every_frame_is_checked_against_the_operating_range():
+    """Invariant (amendment of 27 Oct 2026): the planner checks every frame's
+    slant range from the pose at its own time to its own aim point against
+    150 to 1,300 m, not only the strips' near edges: a pose held 145 m above
+    the square's near edge, 45 m off its centre line, raises (a frame aimed
+    under it would be 145 m away), and so does a pose held 1,282 m short of
+    the near edge, whose second strip lies beyond 1,300 m. Fixture check: in
+    the first case every point of the near edges' centre line is at least
+    150 m from the pose, so a check made only there passes; in the second
+    the near edge is inside 1,300 m, and nothing checks the far limit
+    except the frames."""
+    o = np.array([-49.0, 45.0, 145.0])
+    xs = np.linspace(-50.0, 50.0, 2001)
+    assert np.min(np.hypot(np.hypot(xs - o[0], 0.0 - o[1]), o[2])) >= 150.0
+    with pytest.raises(ValueError, match="aim point"):
+        L.plan_tiles(lambda t: o, 54.0, (0.0, 0.0), 0.0)
+    o = np.array([-1250.0, 0.0, 450.0])
+    assert np.hypot(1200.0, 450.0) < 1300.0 < np.hypot(1300.0, 450.0)
+    with pytest.raises(ValueError, match="aim point"):
+        L.plan_tiles(lambda t: o, 54.0, (0.0, 0.0), 0.0)

@@ -1,0 +1,141 @@
+{
+ "scene": "check4",
+ "fixture": {
+  "truth_safe": 0,
+  "target_truth_safe": false
+ },
+ "decision": {
+  "t0": 62.83,
+  "t_end": 66.42999999999999,
+  "k_dec": 34,
+  "agree_with_navtruth": 0.0
+ },
+ "runs": [
+  {
+   "seed": null,
+   "bias": 0.0,
+   "shift_m": 0.0,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 0,
+   "bias": 0.04400557738268765,
+   "shift_m": 0.03959562331098713,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 1,
+   "bias": 0.1209544672226751,
+   "shift_m": 0.10883319358091961,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 2,
+   "bias": 0.06616868362773656,
+   "shift_m": 0.05953768653285471,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 3,
+   "bias": 0.7143216924848138,
+   "shift_m": 0.6427369970067195,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 4,
+   "bias": -0.22812690341409136,
+   "shift_m": 0.20526550205519933,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 5,
+   "bias": -0.2806759988387066,
+   "shift_m": 0.252548467340976,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 6,
+   "bias": 0.36859051407036536,
+   "shift_m": 0.3316527590176553,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 7,
+   "bias": 0.00043055367511890096,
+   "shift_m": 0.0003874063732175015,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 8,
+   "bias": -0.6083932394739087,
+   "shift_m": 0.5474240077721891,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  },
+  {
+   "seed": 9,
+   "bias": -0.2809929275940068,
+   "shift_m": 0.2528336355482276,
+   "detected_safe": 0,
+   "eligible": 0,
+   "kind": "hazard",
+   "tried": [],
+   "passed": true
+  }
+ ],
+ "passed": true,
+ "seconds": {
+  "setup": 13.97860343299999,
+  "truth": 6.111770848000106,
+  "scan": 141.46865672400054,
+  "assess": 4.2466624179987775,
+  "choose": 0.0007980640002642758,
+  "abort": 1.1340778859998863
+ },
+ "abort": {
+  "kind": "hazard",
+  "abort_outcome": "orbit",
+  "abort_reached": true,
+  "abort_propellant": 632.0426475896379
+ },
+ "seconds_total": 167.46752765100018
+}

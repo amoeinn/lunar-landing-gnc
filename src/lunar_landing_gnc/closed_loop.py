@@ -332,7 +332,7 @@ class Flight:
 
 def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), log=None,
                revision=REVISION, counts=None, fault=None, aborts=False, abort_out=None, m0=None,
-               resume=None, history=None):
+               resume=None, history=None, stop_at=None, stop_out=None):
     """Fly from high gate to the end of guided flight, 'closed' or 'open'.
     With a list as log, the state at the end of every step is appended. With
     a dict as counts, the solver's inaccurate returns are counted there:
@@ -347,7 +347,12 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     With a list as history, one record per step is appended (history_row):
     time, the true state the step starts from, the fault's effects in force,
     the re-solve and every N it tried, the trigger, and the command flown.
-    Recording changes no decision."""
+    Recording changes no decision. With stop_at, a step number, guided flight
+    stops at the start of that step, before its fault, re-solve and trigger,
+    and records in the dict stop_out under "resume" what continues it; that
+    record carries no pending re-solve, so resuming it flies on exactly as if
+    no stop had been made (a "sol" added to it is adopted at that step instead
+    of its re-solve, as for a trigger)."""
     y = np.concatenate([np.asarray(LV.R0) + dr0, np.asarray(LV.V0) + dv0,
                         [nom.m_hg if m0 is None else m0]])
     plan, k, infeasible, first = nom.plan, 0, 0, None
@@ -355,13 +360,19 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     step0, pending = 0, None
     if resume is not None:
         y, plan, k, remaining = resume["y"].copy(), resume["plan"], resume["k"], resume["remaining"]
-        infeasible, first, step0, pending = resume["infeasible"], resume["first"], resume["step"], resume
+        infeasible, first, step0 = resume["infeasible"], resume["first"], resume["step"]
+        pending = resume if "sol" in resume else None
     max_steps = MAX_STEPS_FACTOR * nom.plan.n
     if revision >= 3:                     # a widened plan may run to the propellant's limit
         max_steps = max(max_steps, n_bounds(nom.case, DT)[1])
     for step in range(step0, max_steps):
         if remaining <= 0:
             break
+        if stop_at is not None and step == stop_at:
+            stop_out["resume"] = dict(y=y.copy(), step=step, plan=plan, k=k, remaining=remaining,
+                                      infeasible=infeasible, first=first, tries=[],
+                                      log=None if log is None else [r.copy() for r in log])
+            return y, infeasible, first
         t = step * DT
         kap, leak = kappa, 0.0
         if fault is not None:
@@ -426,7 +437,7 @@ def fly_guided(nom, mode, kappa=1.0, isp=LV.ISP, dr0=(0, 0, 0), dv0=(0, 0, 0), l
     return y, infeasible, first
 
 
-def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj=None):
+def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj=None, ground=None):
     """The terminal velocity controller to touchdown: (state, time, landed).
     Without a touchdown within t_max, the state and time at t_max. The
     descent also stops when the mass reaches everything but descent
@@ -435,7 +446,10 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj
     when it stopped there. With a list as traj, the integrator's points are
     appended as (t, state, thrust): the state with its mass, and the thrust
     commanded there after the pointing limit and the magnitude saturation
-    (the engine delivers kappa times it)."""
+    (the engine delivers kappa times it). ground, a function of the state,
+    gives the height of the ground under the vehicle in the frame's up
+    coordinate; touchdown is then the first instant at that height (default:
+    up = 0, phase 2's flat ground)."""
     veh = nom.veh
     v_ref = np.array([-LV.VV_END, 0.0, 0.0])
     g = np.array([-LV.G_MOON, 0.0, 0.0])
@@ -464,10 +478,10 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj
     def rhs(t, yy):
         return _truth_rhs(t, yy, thrust_cmd(yy), kappa, isp, leak)
 
-    def ground(t, yy):
-        return yy[0]
-    ground.terminal = True
-    ground.direction = -1.0
+    def contact(t, yy):
+        return yy[0] - (0.0 if ground is None else ground(yy))
+    contact.terminal = True
+    contact.direction = -1.0
 
     def empty(t, yy):
         return yy[6] - LV.M_NO_DESCENT_PROPELLANT
@@ -477,7 +491,7 @@ def descend(y, nom, kappa=1.0, isp=LV.ISP, t_max=300.0, leak=0.0, cut=None, traj
         if cut is not None:
             cut.append(True)
         return np.asarray(y, float), 0.0, False
-    sol = solve_ivp(rhs, (0.0, t_max), y, method="DOP853", rtol=RTOL, atol=ATOL, events=(ground, empty))
+    sol = solve_ivp(rhs, (0.0, t_max), y, method="DOP853", rtol=RTOL, atol=ATOL, events=(contact, empty))
     if traj is not None:
         traj.extend((float(t), sol.y[:, i].copy(), thrust_cmd(sol.y[:, i])) for i, t in enumerate(sol.t))
     if sol.t_events[0].size:

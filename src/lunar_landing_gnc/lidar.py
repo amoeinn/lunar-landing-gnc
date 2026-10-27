@@ -213,3 +213,16 @@ def grid(points, centre, square=SQUARE, cell=GRID):
     with np.errstate(invalid="ignore", divide="ignore"):
         z = np.where(cnt > 0, tot / np.maximum(cnt, 1), np.nan)
     return z, cnt
+
+
+def shift_of(sc):
+    """How far a scan's bias moves every point across the map: the bias along
+    the scan's mean ray direction (the mean of every returned pixel's unit ray,
+    from its frame's origin), its (x, y) part."""
+    u, i = [], 0
+    for f in sc["frames"]:
+        d = sc["points"][i:i + f["returns"]] - np.array(f["origin"])
+        u.append(d / np.linalg.norm(d, axis=1, keepdims=True))
+        i += f["returns"]
+    m = np.concatenate(u).mean(0)
+    return sc["bias"] * m[:2] / np.linalg.norm(m)

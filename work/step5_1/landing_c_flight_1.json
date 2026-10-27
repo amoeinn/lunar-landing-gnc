@@ -1,0 +1,226 @@
+{
+ "seed": 1,
+ "decision": {
+  "t0": 62.83,
+  "t_end": 66.42999999999999,
+  "k_dec": 34,
+  "agree_with_navtruth": 0.0,
+  "remaining": 9
+ },
+ "scan": {
+  "frames": 73,
+  "cells_filled": 0.991856,
+  "bias": 0.1866738574347314,
+  "map_shift": [
+   0.1675526743641687,
+   0.00016562117445699577
+  ],
+  "map_shift_m": 0.1675527562201189,
+  "detected_safe": 7374,
+  "unverified": 18,
+  "truth_safe": 7383,
+  "rocks": 1335
+ },
+ "epochs": [
+  {
+   "epoch": 0,
+   "utc": "2010-10-20T07:31:57.892",
+   "lit_s": 0.679755041000135,
+   "choose_s": 0.13226346999999805,
+   "finish_s": 0.9742869880001308,
+   "lit": 5333,
+   "eligible": 4763,
+   "kind": "divert",
+   "tries": 1,
+   "refused": [],
+   "site": [
+    -8.0,
+    45.0
+   ],
+   "site_height": 255.01436828347232,
+   "margin": 26.92582403567252,
+   "divert_m": 45.70557952810576,
+   "truth_safe_at_site": true,
+   "clearance": 45.72288079949399,
+   "touchdown_offset": [
+    -8.01022848850721,
+    44.990642616393416
+   ],
+   "distance_from_site": 0.013862994088572509,
+   "v_down": 0.9144000026686616,
+   "v_horizontal": 8.000229293751896e-10,
+   "propellant": 620.7915689886868,
+   "t_touchdown": 139.94087833806657,
+   "phase2_safe": true,
+   "phase2": {
+    "reserve": true,
+    "radius": true,
+    "gear": true,
+    "touched": true
+   },
+   "truth_gear": {
+    "corner": [
+     1674.5,
+     6587.5
+    ],
+    "mean_slope": 4.33219121040731,
+    "span": 0.29678559741080335,
+    "eff_slope": 4.23256007076903,
+    "safe": true
+   },
+   "safe": true
+  },
+  {
+   "epoch": 1,
+   "utc": "2010-09-23T05:56:54.669",
+   "lit_s": 0.3932577709997531,
+   "choose_s": 0.15198098300015772,
+   "finish_s": 0.9509308809997492,
+   "lit": 8281,
+   "eligible": 7374,
+   "kind": "divert",
+   "tries": 1,
+   "refused": [],
+   "site": [
+    -8.0,
+    45.0
+   ],
+   "site_height": 255.01436828347232,
+   "margin": 26.92582403567252,
+   "divert_m": 45.70557952810576,
+   "truth_safe_at_site": true,
+   "clearance": 45.72288079949399,
+   "touchdown_offset": [
+    -8.01022848850721,
+    44.990642616393416
+   ],
+   "distance_from_site": 0.013862994088572509,
+   "v_down": 0.9144000026686616,
+   "v_horizontal": 8.000229293751896e-10,
+   "propellant": 620.7915689886868,
+   "t_touchdown": 139.94087833806657,
+   "phase2_safe": true,
+   "phase2": {
+    "reserve": true,
+    "radius": true,
+    "gear": true,
+    "touched": true
+   },
+   "truth_gear": {
+    "corner": [
+     1674.5,
+     6587.5
+    ],
+    "mean_slope": 4.33219121040731,
+    "span": 0.29678559741080335,
+    "eff_slope": 4.23256007076903,
+    "safe": true
+   },
+   "safe": true
+  },
+  {
+   "epoch": 2,
+   "utc": "2010-09-25T17:06:25.958",
+   "lit_s": 0.36594710600002145,
+   "choose_s": 0.137292867999804,
+   "finish_s": 1.0158448309998676,
+   "lit": 8281,
+   "eligible": 7374,
+   "kind": "divert",
+   "tries": 1,
+   "refused": [],
+   "site": [
+    -8.0,
+    45.0
+   ],
+   "site_height": 255.01436828347232,
+   "margin": 26.92582403567252,
+   "divert_m": 45.70557952810576,
+   "truth_safe_at_site": true,
+   "clearance": 45.72288079949399,
+   "touchdown_offset": [
+    -8.01022848850721,
+    44.990642616393416
+   ],
+   "distance_from_site": 0.013862994088572509,
+   "v_down": 0.9144000026686616,
+   "v_horizontal": 8.000229293751896e-10,
+   "propellant": 620.7915689886868,
+   "t_touchdown": 139.94087833806657,
+   "phase2_safe": true,
+   "phase2": {
+    "reserve": true,
+    "radius": true,
+    "gear": true,
+    "touched": true
+   },
+   "truth_gear": {
+    "corner": [
+     1674.5,
+     6587.5
+    ],
+    "mean_slope": 4.33219121040731,
+    "span": 0.29678559741080335,
+    "eff_slope": 4.23256007076903,
+    "safe": true
+   },
+   "safe": true
+  },
+  {
+   "epoch": 3,
+   "utc": "2010-09-28T04:14:46.935",
+   "lit_s": 0.3859519550001096,
+   "choose_s": 0.12008748000016567,
+   "finish_s": 0.9863530780003202,
+   "lit": 8281,
+   "eligible": 7374,
+   "kind": "divert",
+   "tries": 1,
+   "refused": [],
+   "site": [
+    -8.0,
+    45.0
+   ],
+   "site_height": 255.01436828347232,
+   "margin": 26.92582403567252,
+   "divert_m": 45.70557952810576,
+   "truth_safe_at_site": true,
+   "clearance": 45.72288079949399,
+   "touchdown_offset": [
+    -8.01022848850721,
+    44.990642616393416
+   ],
+   "distance_from_site": 0.013862994088572509,
+   "v_down": 0.9144000026686616,
+   "v_horizontal": 8.000229293751896e-10,
+   "propellant": 620.7915689886868,
+   "t_touchdown": 139.94087833806657,
+   "phase2_safe": true,
+   "phase2": {
+    "reserve": true,
+    "radius": true,
+    "gear": true,
+    "touched": true
+   },
+   "truth_gear": {
+    "corner": [
+     1674.5,
+     6587.5
+    ],
+    "mean_slope": 4.33219121040731,
+    "span": 0.29678559741080335,
+    "eff_slope": 4.23256007076903,
+    "safe": true
+   },
+   "safe": true
+  }
+ ],
+ "seconds": {
+  "truth_surface": 0.9681340629999795,
+  "setup": 14.603532618999907,
+  "scan": 16.653282193999985,
+  "detect": 0.5630086590003884,
+  "truth_assess": 7.977842247999888
+ },
+ "seconds_total": 47.19890388399972
+}

@@ -83,19 +83,6 @@ def locate(z, centre, xr, yr, h):
     return float(X[m].mean()), float(Y[m].mean())
 
 
-def shift_of(sc):
-    """How far the scan's bias moves every point across the map: the bias
-    along the scan's mean ray direction (the mean of every returned pixel's
-    unit ray, from its frame's origin), its (x, y) part."""
-    u, i = [], 0
-    for f in sc["frames"]:
-        d = sc["points"][i:i + f["returns"]] - np.array(f["origin"])
-        u.append(d / np.linalg.norm(d, axis=1, keepdims=True))
-        i += f["returns"]
-    m = np.concatenate(u).mean(0)
-    return sc["bias"] * m[:2] / np.linalg.norm(m)
-
-
 def start():
     tgt = json.loads((OUT / "target.json").read_text())["target"]
     cx, cy, hz = tgt["x"], tgt["y"], tgt["height_5m"]
@@ -159,7 +146,7 @@ def check2():
         secs["scan"] += sc["seconds"]
         secs["assess"] += time.perf_counter() - a - sc["seconds"]
         cen = [locate(z, (0.0, 0.0), x, y, dd / 2) for x, y, dd in ROCKS]
-        sh = shift_of(sc)
+        sh = L.shift_of(sc)
         loc = [None if c is None else float(np.hypot(c[0] - x, c[1] - y)) for c, (x, y, _) in zip(cen, ROCKS)]
         loc_sh = [None if c is None else float(np.hypot(c[0] - x - sh[0], c[1] - y - sh[1]))
                   for c, (x, y, _) in zip(cen, ROCKS)]
@@ -205,7 +192,7 @@ def real(seed):
              for name, p in (("detected", ds), ("all safe", np.ones(n, bool)), ("all unsafe", np.zeros(n, bool)))}
     uv = ~d["verified"]
     unverified = dict(total=int(uv.sum()), truth_safe=int((uv & ts).sum()), truth_unsafe=int((uv & ~ts).sum()))
-    sh = shift_of(sc)
+    sh = L.shift_of(sc)
     why = dict(unverified=int((~d["verified"]).sum()),
                slope=int((d["verified"] & (d["mean_slope"] > H.SLOPE_MAX)).sum()),
                span=int((d["verified"] & (d["span"] > H.SPAN_MAX)).sum()),

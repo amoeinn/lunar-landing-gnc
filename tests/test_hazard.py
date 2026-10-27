@@ -179,3 +179,22 @@ def test_scan_start_is_the_first_sample_at_the_resolution():
     assert 0.2 * 128 / L.FOV > 1400.0
     assert t1 == pytest.approx(t[np.nonzero(2000.0 - 30.0 * t <= 1300.0)[0][0]])
     assert L.scan_start(t[:5], pos[:5], (0.0, 0.0, 0.0)) == (None, None)
+
+
+def test_height_is_the_fitted_plane_at_the_candidate():
+    """Invariant: a candidate's height is the fitted plane's height at the
+    candidate's centre, the height a divert ends above: on a plane through
+    5 m at the origin, a candidate at (1.4, -2.2) reads the plane there, and a
+    single 0.7 m cell inside its disc moves it by the plane fit's share, not
+    by the cell. Fixture check: the plane has both gradients, so the height at
+    the origin or at a swapped point differs."""
+    gx, gy = 0.03, -0.05
+    z, x0, y1, X, Y = grid_of(lambda x, y: 5.0 + gx * x + gy * y)
+    d = one(z, x0, y1, cx=1.4, cy=-2.2)
+    want = 5.0 + gx * 1.4 + gy * -2.2
+    assert d["height"] == pytest.approx(want, abs=1e-9)
+    assert abs(want - 5.0) > 0.1 and abs(want - (5.0 + gx * -2.2 + gy * 1.4)) > 0.1
+    k = np.unravel_index(np.argmin(np.hypot(X - 1.5, Y + 2.1)), X.shape)
+    z[k] += 0.7
+    d = one(z, x0, y1, cx=1.4, cy=-2.2)
+    assert 0.0 < d["height"] - want < 0.01

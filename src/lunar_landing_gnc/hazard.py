@@ -15,7 +15,8 @@ in tread radius, TN D-6850 p. 9; cells whose centres lie within 4.24 m):
     deg, p. 3);
   - fill: a disc with under 90 pct of its cells filled, or a pad with none,
     is unverified (PLAN.md revision of 25 Oct 2026).
-Safe: verified and all three within their limits.
+Safe: verified and all three within their limits. Also returned, the site's
+height as the grid measures it: the fitted plane's height at the centre.
 """
 import numpy as np
 
@@ -64,7 +65,7 @@ def assess(z, x0, y1, cell, cx, cy, batch=None):
     n = len(cx)
     batch = batch or max(1, int(2e6 // len(di)))
     out = dict(mean_slope=np.full(n, np.nan), span=np.full(n, np.nan), eff_slope=np.full(n, np.nan),
-               fill=np.zeros(n))
+               fill=np.zeros(n), height=np.full(n, np.nan))
     for s0 in range(0, n, batch):
         sl = slice(s0, min(n, s0 + batch))
         I = i0[sl, None] + di[None, :]
@@ -82,6 +83,7 @@ def assess(z, x0, y1, cell, cx, cy, batch=None):
         coef = np.full((len(Z), 3), np.nan)
         coef[ok] = np.linalg.solve(A[ok], b[ok][..., None])[..., 0]
         out["mean_slope"][sl] = np.degrees(np.arctan(np.hypot(coef[:, 1], coef[:, 2])))
+        out["height"][sl] = coef[:, 0]
         r = Z - (coef[:, :1] + coef[:, 1:2] * X + coef[:, 2:3] * Y)
         with np.errstate(invalid="ignore"):
             out["span"][sl] = np.where(ok, np.nanmax(np.where(w, r, -np.inf), 1) - np.nanmin(np.where(w, r, np.inf), 1),

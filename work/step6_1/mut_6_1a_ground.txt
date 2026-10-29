@@ -1,0 +1,5 @@
+M8 D9-assertion-removed: applied, reverted; CAUGHT by test_descent_image_fails_loudly_when_a_ray_misses
+M13 rocks-keyed-without-tile: applied, reverted; CAUGHT by test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept
+M14 target-tile-not-phase5-seed: applied, reverted; CAUGHT by test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept
+M15 seam-row-tile-sign: applied, reverted; CAUGHT by test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept
+ground 21.50 s 911176 KB

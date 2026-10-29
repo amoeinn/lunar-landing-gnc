@@ -1,0 +1,214 @@
+{
+ "seed": 1,
+ "epoch": 0,
+ "rows": [
+  {
+   "draw": 0,
+   "lander": "trn",
+   "gap": 0.0,
+   "end": "decision",
+   "t": 64.0,
+   "nav_error_h": 0.12147736068459891,
+   "trigger": null,
+   "fixes": [
+    [
+     10.0,
+     "accepted",
+     0,
+     9.791653857214442
+    ],
+    [
+     20.0,
+     "accepted",
+     0,
+     0.3959178032673384
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     0.29994576166091175
+    ],
+    [
+     40.0,
+     "accepted",
+     0,
+     0.19059397847361959
+    ]
+   ],
+   "accepted": 4,
+   "truncated": 0,
+   "altimeter_updates": 1080,
+   "doppler_updates": 1281,
+   "abort": null,
+   "seconds": 11.717828231000567
+  },
+  {
+   "draw": 0,
+   "lander": "trn",
+   "gap": 168.0,
+   "end": "abort",
+   "t": 40.0,
+   "nav_error_h": 60.54927128481945,
+   "trigger": "lost lock",
+   "fixes": [
+    [
+     10.0,
+     "rejected by nis",
+     0,
+     1401.360344786674
+    ],
+    [
+     20.0,
+     "rejected by margin",
+     0,
+     1004.5243090243055
+    ],
+    [
+     30.0,
+     "rejected by margin",
+     0,
+     905.243625871664
+    ],
+    [
+     40.0,
+     "rejected by margin",
+     0,
+     1122.7849936451887
+    ]
+   ],
+   "accepted": 0,
+   "truncated": 0,
+   "altimeter_updates": 0,
+   "doppler_updates": 801,
+   "abort": {
+    "trigger": "lost lock",
+    "t": 40.0,
+    "outcome": "orbit",
+    "reached": true,
+    "propellant": 780.4721190647865
+   },
+   "seconds": 12.213744317999954
+  },
+  {
+   "draw": 0,
+   "lander": "notrn",
+   "gap": null,
+   "end": "decision",
+   "t": 62.0,
+   "nav_error_h": 60.39815348733102,
+   "trigger": null,
+   "fixes": [],
+   "accepted": 0,
+   "truncated": 0,
+   "altimeter_updates": 1241,
+   "doppler_updates": 1241,
+   "abort": null,
+   "seconds": 4.358507827000722
+  },
+  {
+   "draw": 1,
+   "lander": "trn",
+   "gap": 0.0,
+   "end": "decision",
+   "t": 66.0,
+   "nav_error_h": 0.11304100409028776,
+   "trigger": null,
+   "fixes": [
+    [
+     10.0,
+     "accepted",
+     0,
+     8.725341826036866
+    ],
+    [
+     20.0,
+     "accepted",
+     0,
+     1.6947360060844707
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     0.755818612008984
+    ],
+    [
+     40.0,
+     "accepted",
+     0,
+     0.11287912281371987
+    ]
+   ],
+   "accepted": 4,
+   "truncated": 0,
+   "altimeter_updates": 1120,
+   "doppler_updates": 1321,
+   "abort": null,
+   "seconds": 11.072565573000247
+  },
+  {
+   "draw": 1,
+   "lander": "trn",
+   "gap": 168.0,
+   "end": "decision",
+   "t": 76.0,
+   "nav_error_h": 472.3439758002001,
+   "trigger": null,
+   "fixes": [
+    [
+     10.0,
+     "rejected by nis",
+     0,
+     1689.0636466798603
+    ],
+    [
+     20.0,
+     "rejected by margin",
+     0,
+     68.08347196021823
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     435.73362548866226
+    ],
+    [
+     40.0,
+     "rejected by nis",
+     0,
+     356.6567611068392
+    ]
+   ],
+   "accepted": 1,
+   "truncated": 0,
+   "altimeter_updates": 920,
+   "doppler_updates": 1521,
+   "abort": null,
+   "seconds": 31.15587365800002
+  },
+  {
+   "draw": 1,
+   "lander": "notrn",
+   "gap": null,
+   "end": "decision",
+   "t": 60.0,
+   "nav_error_h": 573.498265012112,
+   "trigger": null,
+   "fixes": [],
+   "accepted": 0,
+   "truncated": 0,
+   "altimeter_updates": 1201,
+   "doppler_updates": 1201,
+   "abort": null,
+   "seconds": 3.646773929000119
+  }
+ ],
+ "seconds": {
+  "draw 0 shared start": 1.698974195000119,
+  "draw 1 shared start": 0.8208462309994502
+ },
+ "seconds_total": 76.78011975399932,
+ "maxrss_mb": 283.984375
+}

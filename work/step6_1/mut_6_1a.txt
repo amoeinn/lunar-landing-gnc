@@ -1,0 +1,12 @@
+M1 guidance-reads-truth-in-nav-state: applied, reverted; CAUGHT by test_guidance_and_triggers_read_the_estimate_with_true_mass, test_pairing_same_noise_and_same_flight_to_the_first_fix, test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock
+M2 resolve-called-on-truth: applied, reverted; CAUGHT by test_guidance_and_triggers_read_the_estimate_with_true_mass, test_pairing_same_noise_and_same_flight_to_the_first_fix, test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock
+M3 noise-keyed-by-order-of-use: applied, reverted; CAUGHT by test_noise_is_keyed_by_index_not_by_order_of_use, test_pairing_same_noise_and_same_flight_to_the_first_fix
+M4 image-at-estimated-pose: applied, reverted; CAUGHT by test_pairing_same_noise_and_same_flight_to_the_first_fix
+M5 map-at-wrong-gap: applied, reverted; CAUGHT by test_pairing_same_noise_and_same_flight_to_the_first_fix, test_shared_start_equals_flying_from_the_start
+M6 altimeter-gated-for-notrn: applied, reverted; CAUGHT by test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock
+M7 lost-lock-on-for-notrn: applied, reverted; CAUGHT by test_truth_nav_reproduces_phase5_to_the_decision, test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock
+M9 mass-not-from-truth: applied, reverted; CAUGHT by test_guidance_and_triggers_read_the_estimate_with_true_mass
+M10 shared-start-pause-after-first-fix: applied, reverted; CAUGHT by test_shared_start_equals_flying_from_the_start
+M11 online-altimeter-gate-dropped: applied, reverted; CAUGHT by test_online_filter_equals_run
+M12 lost-lock-after-40s: applied, reverted; CAUGHT by test_lost_lock_fires_online_for_the_trn_lander
+flight 1185.38 s 356040 KB

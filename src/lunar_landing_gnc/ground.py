@@ -20,13 +20,18 @@ own tile only: one centred near a tile's edge is cut there (as phase 5's are
 at its square's edge).
 
 The region is a square of half_tiles tiles each side of the target's tile;
-a point outside it raises.
+a point outside it raises OffGround (strict, the default), or has no height
+(NaN) with strict=False, as a lidar ray needs.
 """
 import numpy as np
 
 from . import truthsurface as TS
 
 TILE_KEY = 1000
+
+
+class OffGround(ValueError):
+    """A point outside the modelled ground's region."""
 
 
 class Ground:
@@ -44,7 +49,7 @@ class Ground:
 
     def tile(self, i, j):
         if max(abs(i), abs(j)) > self.half:
-            raise ValueError(f"tile ({i}, {j}) is outside the ground's region of {self.half} tiles each side")
+            raise OffGround(f"tile ({i}, {j}) is outside the ground's region of {self.half} tiles each side")
         if (i, j) not in self.tiles:
             s, rocks = TS.truth(self.path, self.cx + i * self.size, self.cy + j * self.size, self.key(i, j),
                                 self.size, self.cell, self.sfd)
@@ -67,22 +72,63 @@ class Ground:
             out[m] = self.tile(i, j).z[rg[m] + j * self.n, cg[m] - i * self.n]
         return out
 
-    def height(self, x, y):
+    def inside(self, i, j):
+        return max(abs(i), abs(j)) <= self.half
+
+    def bounds(self):
+        """The region's outermost cell centres: ((x, y) low, (x, y) high)."""
+        e = (self.half + 0.5) * self.size
+        return (np.array([self.cx - e + self.cell / 2, self.cy - e + self.cell / 2]),
+                np.array([self.cx + e - self.cell / 2, self.cy + e - self.cell / 2]))
+
+    def tiles_in(self, x0, x1, y0, y1):
+        """The tiles of the region meeting the box (made if not yet)."""
+        i0, j0 = self.tile_of(x0, y0)
+        i1, j1 = self.tile_of(x1, y1)
+        out = [self.tile(i, j) for i in range(i0, i1 + 1) for j in range(j0, j1 + 1) if self.inside(i, j)]
+        if not out:
+            raise OffGround(f"no tile of the region meets x {x0:.0f} to {x1:.0f}, y {y0:.0f} to {y1:.0f}")
+        return out
+
+    def crop(self, x, y, half):
+        """A truthsurface.Surface of the global cells within half of (x, y),
+        across tile edges."""
+        c0 = int(np.floor((x - half - (self.cx - self.size / 2)) / self.cell))
+        c1 = int(np.floor((x + half - (self.cx - self.size / 2)) / self.cell))
+        r0 = int(np.floor(((self.cy + self.size / 2) - (y + half)) / self.cell))
+        r1 = int(np.floor(((self.cy + self.size / 2) - (y - half)) / self.cell))
+        rg, cg = np.meshgrid(np.arange(r0, r1 + 1), np.arange(c0, c1 + 1), indexing="ij")
+        z = self._z(rg.ravel(), cg.ravel()).reshape(rg.shape)
+        return TS.Surface(z, self.cx - self.size / 2 + c0 * self.cell, self.cy + self.size / 2 - r0 * self.cell,
+                          self.cell)
+
+    def height(self, x, y, strict=True):
         x = np.atleast_1d(np.asarray(x, float))
         y = np.atleast_1d(np.asarray(y, float))
         xf, yf = x.ravel(), y.ravel()
         flat = np.full(xf.shape, np.nan)
         ti = np.floor((xf - (self.cx - self.size / 2)) / self.size).astype(np.int64)
         tj = np.floor((yf - (self.cy - self.size / 2)) / self.size).astype(np.int64)
-        for i, j in set(zip(ti.tolist(), tj.tolist())):
-            m = (ti == i) & (tj == j)
+        ok = np.isfinite(xf) & np.isfinite(yf)
+        if not strict:
+            ok &= (np.abs(ti) <= self.half) & (np.abs(tj) <= self.half)
+            ti, tj = np.where(ok, ti, 0), np.where(ok, tj, 0)
+        for i, j in set(zip(ti[ok].tolist(), tj[ok].tolist())):
+            m = ok & (ti == i) & (tj == j)
             flat[m] = self.tile(i, j).height(xf[m], yf[m])
-        seam = ~np.isfinite(flat)
+        seam = ok & ~np.isfinite(flat)
         if seam.any():
             fc = (xf[seam] - (self.cx - self.size / 2)) / self.cell - 0.5
             fr = ((self.cy + self.size / 2) - yf[seam]) / self.cell - 0.5
             c0, r0 = np.floor(fc).astype(np.int64), np.floor(fr).astype(np.int64)
             tc, tr = fc - c0, fr - r0
+            if not strict:                     # a seam cell beyond the region's edge has no height
+                lim = (self.half + 1) * self.n
+                inside = (c0 >= -self.half * self.n) & (c0 + 1 < lim) & (r0 >= -self.half * self.n) & (r0 + 1 < lim)
+                c0, r0, tc, tr = c0[inside], r0[inside], tc[inside], tr[inside]
+                idx = np.nonzero(seam)[0][inside]
+                seam = np.zeros_like(seam)
+                seam[idx] = True
             flat[seam] = ((1 - tr) * ((1 - tc) * self._z(r0, c0) + tc * self._z(r0, c0 + 1))
                           + tr * ((1 - tc) * self._z(r0 + 1, c0) + tc * self._z(r0 + 1, c0 + 1)))
         return flat.reshape(x.shape)

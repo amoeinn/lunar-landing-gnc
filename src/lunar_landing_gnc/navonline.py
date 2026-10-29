@@ -10,7 +10,9 @@ from lists the caller appends to: t, f (one row per IMU period), alt and dop
 
 One option run does not have: alt_from_start, the altimeter used from the
 first sample rather than after the first accepted TRN fix (D1, the no-TRN
-lander). Its default keeps revision 3g.
+lander). Its default keeps revision 3g. And track: None, or a dict that
+receives the state after each 20 Hz tick, by sample index (the poses the
+scan places its frames with, D3); it changes nothing in the filter.
 
 Lost lock (D2) is run's: no fix accepted by the last fix time. With no fix
 times it never fires.
@@ -47,6 +49,7 @@ class Online:
         self.accepted = False
         self.lost_lock = None
         self.t, self.f, self.alt, self.dop = [], [], [], []
+        self.track = None
 
     def advance(self, i_to, rows=()):
         """Process every sample from the next unprocessed one to i_to, as run
@@ -104,6 +107,8 @@ class Online:
         if due_row:
             self.log["second"].append(dict(i=i, t=float(t[i]), x=x.tolist(), Pdiag=np.diag(P).tolist()))
         self.x, self.P = x, P
+        if self.track is not None and tick:
+            self.track[i] = x.copy()
 
     def _fix(self, i, x, P):
         constants, H_trn, height = self.constants, self.H_trn, self.height

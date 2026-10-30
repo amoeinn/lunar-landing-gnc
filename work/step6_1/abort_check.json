@@ -1,0 +1,79 @@
+{
+ "seed": 1,
+ "draw": 0,
+ "epoch": 0,
+ "gap": 168.0,
+ "trigger": "lost lock",
+ "t": 40.0,
+ "nav_error_at_trigger": [
+  30.645019233337848,
+  52.221614771194254,
+  36.39332577362188
+ ],
+ "rows": {
+  "on truth (phase 5)": {
+   "trigger": "lost lock",
+   "t": 40.0,
+   "outcome": "orbit",
+   "reached": true,
+   "propellant": 780.4721190647865,
+   "residual": null,
+   "rise_duration": null,
+   "rise_ended": null,
+   "est_rate": null,
+   "true_rate": null,
+   "ascent_rise": null,
+   "lowest": null,
+   "max_speed": null,
+   "max_range": null,
+   "crossrange_drift": null,
+   "seconds": 1.0450591759999952
+  },
+  "on the estimate": {
+   "trigger": "lost lock",
+   "t": 40.0,
+   "outcome": "shooting failure",
+   "reached": false,
+   "propellant": 780.5328235383331,
+   "residual": [
+    -40.800464503932744,
+    -0.022855277313946327,
+    0.0018123016091067257
+   ],
+   "rise_duration": 12.750000000000046,
+   "rise_ended": "rate",
+   "est_rate": 12.222507950840063,
+   "true_rate": 12.219000902186679,
+   "ascent_rise": null,
+   "lowest": 657.4977246494964,
+   "max_speed": 111.5064481620407,
+   "max_range": 1205.011036450886,
+   "crossrange_drift": 56.1930242606494,
+   "seconds": 1.315249207999841
+  },
+  "on the estimate, truth read": {
+   "trigger": "lost lock",
+   "t": 40.0,
+   "outcome": "orbit",
+   "reached": true,
+   "propellant": 780.4469024716018,
+   "residual": [
+    0.0,
+    -8.04141581303768e-13,
+    -4.547473508864641e-13
+   ],
+   "rise_duration": 12.750000000000046,
+   "rise_ended": "rate",
+   "est_rate": 12.219000902186679,
+   "true_rate": 12.219000902186679,
+   "ascent_rise": null,
+   "lowest": 657.4977246494964,
+   "max_speed": 111.5064481620407,
+   "max_range": 1205.011036450886,
+   "crossrange_drift": 56.1930242606494,
+   "seconds": 1.3229488509996372
+  }
+ },
+ "seconds": 21.07369397499997,
+ "maxrss_mb": 622.57421875
+}

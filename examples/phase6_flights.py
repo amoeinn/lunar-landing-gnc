@@ -13,10 +13,15 @@ Commands, writing under work/step6_1/:
              runner (baselines_5_2.draw) afresh against the flight with the
              truth for the estimate, phase 5's pieces (1a), then phase 6's
              pieces switched in one at a time (1b), every epoch.
+  smoke_landing  step 6.1b's smoke run: as smoke, each flight to touchdown or
+             abort (work/step6_1/smoke_landing.json). Reported only.
+  check1a_d28  check 1a alone (phase 5's pieces), re-run with D28's rank
+             check on in the flight.
   manifest   work/step3_2a/maps_manifest.json: each of the 68 reference maps'
              sha256 and the commands that regenerate them.
 
-Needs LLG_DATA. Usage: python examples/phase6_flights.py smoke | reach N | check1 | manifest
+Needs LLG_DATA. Usage: python examples/phase6_flights.py smoke | reach N | smoke_landing | check1 | check1a_d28 |
+manifest
 """
 import json
 import multiprocessing
@@ -80,7 +85,7 @@ def landing_context():
                 grounds[(seed, draw)] = Ground(BL.dem_path(), cx, cy, seed, draw, GROUND_HALF)
             return grounds[(seed, draw)]
         ctx.update(ter=NB.terrain()[0], aim=TS.mosaic_base(BL.dem_path(), cx, cy), lit=lambda e: lits[e][1],
-                   ground=ground)
+                   ground=ground, grounds_clear=grounds.clear)
     return ctx
 
 
@@ -169,7 +174,8 @@ def landing_row(out):
              divert=c.get("divert"), margin=c.get("margin"), q=out.get("q"), miss_target=out.get("miss_target"),
              miss_true_site=out.get("miss_true_site"), miss_true_site_by_pose=out.get("miss_true_site_by_pose"),
              triggers=out.get("triggers"), frames=sc.get("frames"), map_shift=sc.get("map_shift"),
-             fixes=[(f["t"], f["status"], f["truncated_cells"], f["off_map_m"]) for f in out["fixes"]],
+             fixes=[(f["t"], f["status"], f["truncated_cells"], f["off_map_m"], f["off_map_fraction"])
+                    for f in out["fixes"]],
              dem_minus_truth=out.get("dem_minus_truth"), crosses_tile_edge=out.get("crosses_tile_edge"),
              propellant=out.get("propellant") if out.get("abort") is None else out["abort"]["propellant"],
              abort=out.get("abort"), nav_error_h=out["nav_error_h"], seconds=out["seconds"])
@@ -190,7 +196,7 @@ def check_job(job):
     truth for the estimate and each step's pieces, every epoch."""
     import baselines_5_2 as BL
     from lunar_landing_gnc import closed_loop as CL
-    seed, d = job
+    seed, d, names = job
     ctx = landing_context()
     kappa, isp, dr0, dv0 = CL.draws(BL.N_DRAWS, seed)[d]
     lits = _LITS
@@ -199,6 +205,8 @@ def check_job(job):
                    [(u, lit.copy()) for u, lit in lits]))
     rec = dict(draw=d, phase5=ref, phase5_seconds=time.perf_counter() - a, steps={})
     for name, pieces in CHECK_STEPS:
+        if name not in names:
+            continue
         a = time.perf_counter()
         snap, out = EF.shared_notrn(ctx, seed, d, nav="truth", pieces=pieces)
         rows = [landing_row(out)] * len(lits) if snap is None else \
@@ -226,11 +234,11 @@ def _set_lits(lits):
     _LITS[:] = lits
 
 
-def cmd_check1():
+def cmd_check1(names=tuple(n for n, _ in CHECK_STEPS)):
     import baselines_5_2 as BL
     with ProcessPoolExecutor(len(CHECK_DRAWS), mp_context=multiprocessing.get_context("spawn"), initializer=_set_lits,
                              initargs=(BL.epochs_lit(),)) as ex:
-        recs = list(ex.map(check_job, [(CHECK_SEED, d) for d in CHECK_DRAWS]))
+        recs = list(ex.map(check_job, [(CHECK_SEED, d, names) for d in CHECK_DRAWS]))
     for r in recs:
         if "error" in r["phase5"]:
             print(r["phase5"]["error"])
@@ -239,6 +247,30 @@ def cmd_check1():
             for e, dd in enumerate(st["diff"]):
                 print(f"draw {r['draw']} {name:15s} epoch {e} " + json.dumps(dd, default=float), flush=True)
     return dict(seed=CHECK_SEED, draws=recs)
+
+
+def cmd_smoke_landing():
+    """Step 6.1b's smoke run: seed 1, draws 0 and 1, landing epoch 0, the TRN
+    lander at gaps 0 and +168 h from one shared start per draw, and the
+    no-TRN lander, each to touchdown or abort. Reported only."""
+    ctx = landing_context()
+    rows = []
+    for d in SMOKE_DRAWS:
+        a = time.perf_counter()
+        snap = EF.shared_start(ctx, SMOKE_SEED, d, until="touchdown")
+        shared_s = time.perf_counter() - a
+        for g in SMOKE_GAPS:
+            out = EF.from_shared(ctx, snap, SMOKE_EPOCH, g)
+            rows.append(dict(landing_row(out), shared_start_seconds=shared_s, scan=out.get("scan"),
+                             fixes_full=out["fixes"], min_clearance=out.get("min_clearance"),
+                             min_above_site=out.get("min_above_site")))
+            print(json.dumps(rows[-1], default=float), flush=True)
+        out = EF.fly(ctx, SMOKE_SEED, d, SMOKE_EPOCH, lander="notrn", until="touchdown")
+        rows.append(dict(landing_row(out), scan=out.get("scan"), min_clearance=out.get("min_clearance"),
+                         min_above_site=out.get("min_above_site")))
+        print(json.dumps(rows[-1], default=float), flush=True)
+        ctx["grounds_clear"]()
+    return dict(seed=SMOKE_SEED, epoch=SMOKE_EPOCH, rows=rows)
 
 
 if __name__ == "__main__":
@@ -251,6 +283,10 @@ if __name__ == "__main__":
         res = cmd_reach(int(sys.argv[2]))
     elif cmd == "check1":
         res = cmd_check1()
+    elif cmd == "smoke_landing":
+        res = cmd_smoke_landing()
+    elif cmd == "check1a_d28":
+        res = cmd_check1(("phase 5 pieces",))
     elif cmd == "manifest":
         res = cmd_manifest()
         print(f"{res['count']} maps")

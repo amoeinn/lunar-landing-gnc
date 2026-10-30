@@ -64,8 +64,9 @@ order hold (D24), to contact with the truth surface (D10); the verdict on
 the truth with criterion 2 against the site's true position (D25, D26). An
 abort flies D23 (the rise on the truth to the estimated altitude rate, the
 shooting from the estimate, then open loop). Outcome classes: safe landing,
-unsafe landing, abort, terrain strike (phase 5's below ground in guided
-flight), off the modelled ground (D17). pieces selects phase 5's scan, scan
+unsafe landing, abort, terrain strike (D32: the true lander at or below the
+true ground at any 20 Hz tick of guided flight or descent), off the modelled
+ground (D17). pieces selects phase 5's scan, scan
 noise, planner, continuous descent, criterion 2 against the site and abort on
 the truth, for check 1 (PHASE5_PIECES). shared_notrn and from_notrn fly the
 no-TRN lander to the decision once and branch per epoch (D18).
@@ -154,31 +155,67 @@ def truncation(img, cam, x, grid, heights, radius):
 
 
 def off_map(cam, x, dem):
-    """D19: how far the template, the descent image's footprint seen from the
-    estimate x (its corner rays met with the sphere at the DEM's height under
-    the estimate), runs past the reference map's edge, in metres (0 inside)."""
-    from .camera import Camera
+    """D19, D34: the template, the descent image's footprint seen from the
+    estimate x (its four corner rays met with the sphere at the DEM's height
+    under the estimate, a quadrilateral on the map), against the reference
+    map: (how far it runs past the map's edge in metres, 0 inside; the
+    fraction of its area off the map)."""
     from .projection import MOON_RADIUS_M, latlon_to_map, map_to_latlon, unit_vector
     lat, lon = map_to_latlon(x[0], x[1])
     pos = (MOON_RADIUS_M + x[2]) * unit_vector(lat, lon)
     h, _ = dem.at(x[0], x[1])
     rad = MOON_RADIUS_M + (h if np.isfinite(h) else 0.0)
     w, hgt = cam.width, cam.height
-    over = 0.0
-    for u, v in ((0, 0), (w, 0), (0, hgt), (w, hgt)):
+    nx, ny = dem.h.shape[1], dem.h.shape[0]
+    box = (dem.x0, dem.x0 + nx * dem.d, dem.y1 - ny * dem.d, dem.y1)
+    over, quad = 0.0, []
+    for u, v in ((0, 0), (w, 0), (w, hgt), (0, hgt)):            # in order round the image
         d = cam.attitude @ np.array([(u - w / 2) / cam.focal_px, (v - hgt / 2) / cam.focal_px, 1.0])
         d /= np.linalg.norm(d)
         b = pos @ d
         disc = b * b - (pos @ pos - rad * rad)
         if disc < 0:
-            return float("inf")
+            return float("inf"), 1.0
         q = pos + (-b - np.sqrt(disc)) * d
         la = np.degrees(np.arcsin(q[2] / np.linalg.norm(q)))
         lo = np.degrees(np.arctan2(q[1], q[0]))
         mx, my = latlon_to_map(la, lo)
-        nx, ny = dem.h.shape[1], dem.h.shape[0]
-        over = max(over, dem.x0 - mx, mx - (dem.x0 + nx * dem.d), (dem.y1 - ny * dem.d) - my, my - dem.y1)
-    return float(max(over, 0.0))
+        quad.append((float(mx), float(my)))
+        over = max(over, box[0] - mx, mx - box[1], box[2] - my, my - box[3])
+    whole = abs(_area(quad))
+    inside = abs(_area(_clip(quad, box)))
+    return float(max(over, 0.0)), float(max(0.0, 1.0 - inside / whole)) if whole > 0 else 1.0
+
+
+def _area(poly):
+    """Shoelace area of a polygon [(x, y), ...]."""
+    if len(poly) < 3:
+        return 0.0
+    p = np.asarray(poly, float)
+    return 0.5 * float(np.sum(p[:, 0] * np.roll(p[:, 1], -1) - np.roll(p[:, 0], -1) * p[:, 1]))
+
+
+def _clip(poly, box):
+    """Sutherland-Hodgman: the polygon's part inside box (x0, x1, y0, y1)."""
+    x0, x1, y0, y1 = box
+    edges = ((lambda p: p[0] >= x0, lambda p, q: (x0, p[1] + (q[1] - p[1]) * (x0 - p[0]) / (q[0] - p[0]))),
+             (lambda p: p[0] <= x1, lambda p, q: (x1, p[1] + (q[1] - p[1]) * (x1 - p[0]) / (q[0] - p[0]))),
+             (lambda p: p[1] >= y0, lambda p, q: (p[0] + (q[0] - p[0]) * (y0 - p[1]) / (q[1] - p[1]), y0)),
+             (lambda p: p[1] <= y1, lambda p, q: (p[0] + (q[0] - p[0]) * (y1 - p[1]) / (q[1] - p[1]), y1)))
+    out = list(poly)
+    for keep, cut in edges:
+        src, out = out, []
+        for k, q in enumerate(src):
+            p = src[k - 1]
+            if keep(q):
+                if not keep(p):
+                    out.append(cut(p, q))
+                out.append(q)
+            elif keep(p):
+                out.append(cut(p, q))
+        if not out:
+            break
+    return out
 
 
 class Flight:
@@ -263,8 +300,10 @@ class Flight:
         heights = ctx["dem"].h
         cand = navtrn.candidate(img, cam, x, ctx["grid"], heights, ref, radius, second=ctx["constants"]["remedy"])
         prior_err = float(np.hypot(x[0] - p_true[0], x[1] - p_true[1]))
-        cand.update(prior_error=prior_err, truncated_cells=truncation(img, cam, x, ctx["grid"], heights, radius),
-                    off_map_m=off_map(cam, x, ctx["dem"]), rendered_at=[float(v) for v in p_true],
+        om, of = off_map(cam, x, ctx["dem"])
+        cand.update(prior_error=prior_err, off_map_m=om, off_map_fraction=of,
+                    truncated_cells=truncation(img, cam, x, ctx["grid"], heights, radius),
+                    rendered_at=[float(v) for v in p_true],
                     image_sha=image_sha(img))
         if cand["fix"] is not None:
             cand["fix_error"] = float(np.hypot(cand["fix"][0] - p_true[0], cand["fix"][1] - p_true[1]))
@@ -330,7 +369,7 @@ class Flight:
                 return self._descent(t, i)
             return self._end("end of guided flight", t, i, None)
         nav = self.nav_state()
-        rec = dict(step=step, t=t, y=y.copy(), nav=nav.copy(), x=filt.x.copy())
+        rec = dict(step=step, t=t, y=y.copy(), nav=nav.copy(), x=filt.x.copy(), remaining=s["remaining"])
         s["steps"].append(rec)
         if s["phase"] == "approach":
             if s["nav"] == "truth":
@@ -390,6 +429,26 @@ class Flight:
         s["remaining"] -= 1
         s["step"] += 1
         s["pending"] = i + N_PER
+        if s["until"] == "touchdown":                   # D32, at every 20 Hz tick of the step
+            for n in range(NF.ALT_EVERY - 1, N_PER, NF.ALT_EVERY):
+                c = self._clearance(pos[n])
+                if np.isfinite(c):
+                    s["min_clearance"] = min(s.get("min_clearance", np.inf), c)
+                if c <= 0.0:
+                    s["filt"].advance(i + N_PER)
+                    s["pending"] = None
+                    return self._finish("terrain strike", t + (n + 1) * NF.DT, i + 1 + n)
+
+    def _clearance(self, p):
+        """D32: the true lander's height above the true ground, the D5
+        ground inside its region and the 20 m DEM outside it (NaN off the
+        DEM); a strike at or below zero."""
+        g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+        if g.inside(*g.tile_of(p[0], p[1])):
+            h = float(g.height(np.array([p[0]]), np.array([p[1]]))[0])
+        else:
+            h, _ = self.ctx["dem"].at(p[0], p[1])
+        return float(p[2] - h)
 
     # the scan (D20, D3, D22, D27)
     def _begin_scan(self, t0, i0, info):
@@ -397,7 +456,8 @@ class Flight:
         cx, cy = ctx["target"][0], ctx["target"][1]
         p = s["pieces"]
         sc = dict(t0=t0, i0=i0, start=info, k=0, tiles=[], strips=[], x_lo=cx - L.SQUARE / 2, planned=False,
-                  frames=[], placed=[], hits=[], k_dec=None, t_end=None, seconds=0.0)
+                  frames=[], placed=[], hits=[], k_dec=None, t_end=None, seconds=0.0, aim_out_of_range=0,
+                  returned=[])
         a = time.perf_counter()
         if p["scan"] == "phase5" or p["planner"] == "phase5":
             tr = NT.fly(s["kappa"], s["isp"], s["dr0"], s["dv0"])
@@ -464,25 +524,34 @@ class Flight:
                 break
             tx, ty, tz = sc["tiles"][k]
             o_nav, o_true = self.nav_pos(ik), np.array(s["pos"][ik], float)
-            r_aim = float(np.linalg.norm(np.array([tx, ty, tz]) - o_nav))
-            if not L.RANGE_MIN <= r_aim <= L.RANGE_MAX:
-                raise ValueError(f"frame {k} at t = {sc['t0'] + k / L.RATE:.2f} s looks {r_aim:.1f} m to its "
-                                 f"aim point, outside {L.RANGE_MIN:.0f} to {L.RANGE_MAX:.0f} m")
-            d = L.frame_dirs(o_nav, (tx, ty, tz))
-            ax, ay = tx + o_true[0] - o_nav[0], ty + o_true[1] - o_nav[1]
-            hw = r_aim * L.FOV + 30.0
-            r = EL.ray_cast_ground(ground, o_true, d, (ax - hw, ax + hw, ay - hw, ay + hw))
-            ok = np.isfinite(r) & (r >= L.RANGE_MIN) & (r <= L.RANGE_MAX)
-            if s["pieces"]["scan_noise"] == "phase5":
-                meas = r[ok] + (sc["rng"].normal(0.0, L.SIGMA_RANGE, ok.sum()) + sc["bias"])
-            else:
-                meas = r[ok] + (EL.frame_noise(s["seed"], s["draw"], k)[ok] + sc["bias"])
-            sc["placed"].append(o_nav + meas[:, None] * d[ok])
-            sc["hits"].append(o_true + r[ok][:, None] * d[ok])
+            placed, hits, ok, r_aim = self._frame(k, o_nav, o_true, (tx, ty, tz), ground)
+            sc["aim_out_of_range"] += not L.RANGE_MIN <= r_aim <= L.RANGE_MAX
+            sc["placed"].append(placed)
+            sc["hits"].append(hits)
+            sc["returned"].append(np.flatnonzero(ok))
             sc["frames"].append(dict(t=sc["t0"] + k / L.RATE, origin=o_nav.tolist(), true_origin=o_true.tolist(),
                                      aim=[tx, ty, tz], returns=int(ok.sum())))
             sc["k"] += 1
         sc["seconds"] += time.perf_counter() - a
+
+    def _frame(self, k, o_nav, o_true, aim, ground):
+        """Frame k: aimed from the estimate o_nav (D3), ranged from the true
+        origin o_true on the D5 ground, placed from o_nav: (placed points, true
+        hit points, the returning pixels, the slant to the aim point). D29: a
+        frame aimed outside 150 to 1,300 m does not raise; its rays outside
+        the limits return no range, as rays off the modelled ground do."""
+        s, sc = self.s, self.s["scan"]
+        r_aim = float(np.linalg.norm(np.asarray(aim, float) - o_nav))
+        d = L.frame_dirs(o_nav, aim)
+        ax, ay = aim[0] + o_true[0] - o_nav[0], aim[1] + o_true[1] - o_nav[1]
+        hw = r_aim * L.FOV + 30.0
+        r = EL.ray_cast_ground(ground, o_true, d, (ax - hw, ax + hw, ay - hw, ay + hw))
+        ok = np.isfinite(r) & (r >= L.RANGE_MIN) & (r <= L.RANGE_MAX)
+        if s["pieces"]["scan_noise"] == "phase5":
+            meas = r[ok] + (sc["rng"].normal(0.0, L.SIGMA_RANGE, ok.sum()) + sc["bias"])
+        else:
+            meas = r[ok] + (EL.frame_noise(s["seed"], s["draw"], k)[ok] + sc["bias"])
+        return o_nav + meas[:, None] * d[ok], o_true + r[ok][:, None] * d[ok], ok, r_aim
 
     def _decide(self, t, i, nav):
         """Hazard map, lit test, site selection and divert at the decision,
@@ -496,7 +565,7 @@ class Flight:
         hits = np.concatenate(sc["hits"]) if sc["hits"] else np.zeros((0, 3))
         z, cnt = L.grid(pts, (cx, cy))
         X, Y = H.candidates(cx, cy)
-        det = H.assess(z, cx - L.SQUARE / 2, cy + L.SQUARE / 2, L.GRID, X, Y)
+        det = H.assess(z, cx - L.SQUARE / 2, cy + L.SQUARE / 2, L.GRID, X, Y, plane_rank=True)     # D28
         lit = ctx["lit"](s["epoch"])
         ch = LD.choose(nom, nav, s["remaining"], X, Y, det, lit, (cx, cy, hz), ctx["ter"].height)
         sc["map_shift"] = L.shift_of(dict(points=pts, frames=sc["frames"], bias=sc["bias"])).tolist() \
@@ -520,6 +589,7 @@ class Flight:
             s["y"] = LD.recentre(s["y"], ch["site"][0] - cx, ch["site"][1] - cy, hgt - hz)
             s["origin"] = (float(ch["site"][0]), float(ch["site"][1]), float(hgt))
             s["adopt"] = ch["sol"]
+            c["plan_u0"] = ch["sol"].u[0].tolist()
         else:
             s["origin"] = (float(cx), float(cy), float(hz))
 
@@ -546,6 +616,8 @@ class Flight:
                 td, t_td, landed = self._descend_20hz(y_end, i, gfun, cut)
         except OffGround:
             return self._finish("off the modelled ground", t, s["filt"].next - 1)
+        if s.get("strike") is not None:
+            return self._finish("terrain strike", t + s["strike"][0], s["strike"][1])
         s["touchdown"] = dict(y_end=y_end, td=td, t_td=t_td, landed=landed, cut=bool(cut), t_guided=t)
         return self._finish(None, t + t_td, s["filt"].next - 1)
 
@@ -572,7 +644,7 @@ class Flight:
             s["y"] = y
             nav = self.nav_state()
             thrust = EL.descent_thrust(nav, nom.veh)
-            cmds.append((elapsed, thrust.tolist()))
+            cmds.append((elapsed, thrust.tolist(), i, float(y[6])))
             ode = solve_ivp(CL._truth_rhs, (0.0, TICK), y, method="DOP853", rtol=CL.RTOL, atol=CL.ATOL,
                             dense_output=True, events=(contact, empty), args=(thrust, s["kappa"], s["isp"], 0.0))
             if ode.t_events[0].size:
@@ -593,6 +665,9 @@ class Flight:
             filt.advance(i)
             y = ode.y[:, -1]
             elapsed += TICK
+            if self._clearance(pos[-1]) <= 0.0:        # D32 at the tick, past the contact event
+                s["descent_cmds"], s["strike"] = cmds, (elapsed, i)
+                return y, elapsed, False
         s["descent_cmds"] = cmds
         return y, elapsed, False
 
@@ -609,8 +684,12 @@ class Flight:
         tdr = s["touchdown"]
         td, origin = tdr["td"], s["origin"]
         log = s["log"]
+        # D32: guided flight's lowest point is the true clearance above the true ground at the 20 Hz ticks,
+        # not the height above the site (phase 5's rule, reported beside it)
+        below_site = float(min(r[0] for r in log))
         f = CL.Flight(tdr["y_end"], td, tdr["t_td"], s["infeasible"], s["first"], tdr["landed"],
-                      float(min(r[0] for r in log)), 0.0, cut_off=tdr["cut"], t_guided=(len(log) - 1) * CL.DT)
+                      float(s.get("min_clearance", below_site)), 0.0, cut_off=tdr["cut"],
+                      t_guided=(len(log) - 1) * CL.DT)
         verdict = CL.landing_verdict(f)
         x, y = origin[0] + td[2], origin[1] - td[1]
         ground = ctx["ground"](s["seed"], s["draw"])
@@ -629,8 +708,7 @@ class Flight:
         miss_true = float(np.hypot(x - true_site[0], y - true_site[1]))
         r2 = verdict["radius"] if s["pieces"]["criterion2"] == "site" else miss_true <= CL.LV.LANDING_RADIUS
         safe = bool(verdict["touched"] and verdict["reserve"] and r2 and verdict["gear"] and gear["safe"])
-        below = CL.classify(f) == "below ground in guided flight"
-        outcome = "terrain strike" if below else ("safe landing" if safe else "unsafe landing")
+        outcome = "safe landing" if safe else "unsafe landing"      # terrain strike: D32, in flight
         est = s["filt"].x if s["nav"] == "estimate" else np.concatenate([s["pos"][-1], s["vel"][-1]])
         out.update(outcome=outcome, end="touchdown", touchdown=td.tolist(), touchdown_map=[float(x), float(y)],
                    t_touchdown=float(tdr["t_guided"] + tdr["t_td"]), q=float(np.hypot(est[0] - x, est[1] - y)),
@@ -640,7 +718,8 @@ class Flight:
                                                          y - c.get("true_site_by_pose", true_site)[1])),
                    criterion2=bool(r2), phase2=verdict, gear=gear, safe=safe,
                    propellant=float(td[6] - CL.LV.M_NO_DESCENT_PROPELLANT), dem_minus_truth=dem_minus_truth,
-                   crosses_tile_edge=bool(crosses))
+                   crosses_tile_edge=bool(crosses), min_clearance=float(s.get("min_clearance", np.nan)),
+                   min_above_site=below_site)
         s["done"], s["out"] = True, out
         return out
 
@@ -650,6 +729,7 @@ class Flight:
             return None
         return dict(t0=sc["t0"], frames=len(sc["frames"]), t_end=sc["t_end"], k_dec=sc["k_dec"],
                     bias=sc.get("bias"), map_shift=sc.get("map_shift"), strips=len(sc["strips"]),
+                    aim_out_of_range=sc.get("aim_out_of_range"),
                     returns=int(sum(f["returns"] for f in sc["frames"])), seconds=sc["seconds"])
 
     # aborts (D15, D23)
@@ -671,77 +751,168 @@ class Flight:
         return out
 
     def _abort_on_estimate(self, i):
-        """The combined abort (abort.combined_abort) with D23: the vertical
-        rise flown on the truth until the estimated altitude rate exceeds
-        abort.RISE_RATE, the filter stepping through it; the shooting solved
-        from the estimated state there, its law then flown open loop on the
-        truth."""
+        """The combined abort (abort.combined_abort) with D23 and D31: every
+        stage flown on the truth (phase 2c's plane, abort.py's dynamics) with
+        the filter stepping on sensors sampled from it; each vertical rise
+        ends when the estimate's radial rate, in the abort's spherical frame
+        (abort.approach_to_plane of the estimate), exceeds abort.RISE_RATE,
+        checked at the 20 Hz ticks; each shooting (abort.combined_shoot, or
+        abort.ascend for the ascent stage) is solved from the estimate there
+        with the true mass and flown open loop on the truth. If the descent
+        propellant runs out in the rise, the ascent stage follows the same
+        rule (abort.ascent_stage_abort's stage, fall and rise)."""
         s = self.s
         y = s["y"].copy()
         m_empty = AB.M_EMPTY
         dps = AB.descent_engine(s["kappa"], s["isp"])
         p, w = AB.approach_to_plane(y[0:3], y[3:6])
-        cross0, vcross0 = float(y[1]), float(y[4])
-        st = np.concatenate([p, w, [y[6]]])
-        t_max = (y[6] - m_empty) / dps.outflow
-        n_tick = int(round(TICK / NF.DT))
-        elapsed, ended, low = 0.0, "rate", float(np.linalg.norm(p) - AB.R_MOON)
+        ctx = dict(i=i, tau=0.0, cross0=float(y[1]), vcross0=float(y[4]), low=float(np.linalg.norm(p) - AB.R_MOON),
+                   max_speed=0.0, max_range=0.0)
+        st, ended, dur = self._rise(np.concatenate([p, w, [y[6]]]), dps, m_empty, ctx)
+        rise = dict(duration=dur, ended=ended, est_rate=self._est_rate(),
+                    true_rate=float(AB.radial_transverse(st[0:2], st[2:4])[1]))
+        if ended == "ground":
+            a = AB._stopped(st[0:2], st[2:4], st[4], m_empty, "combined", None, rise, dps)
+            a.dv_available, a.dv_margin = AB.combined_margin(st[4], m_empty, dps)
+        elif ended == "propellant":
+            a = self._ascent_stage(st, ctx, rise)
+        else:
+            pe, we = self._est_plane()
+            law = AB.combined_shoot(pe, we, float(st[4]), dps, m_empty)
+            burnout, low_t, staged = AB.fly_combined(st[0:2], st[2:4], float(st[4]), law.a, law.b, law.t_b, dps,
+                                                     m_empty)
+            dv, margin = AB.combined_margin(float(st[4]), m_empty, dps)
+            a = self._ascent_from(burnout, law, low_t, ctx, "combined", AB.M_ASCENT_DRY)
+            a.staging, a.dv_available, a.dv_margin = staged, dv, margin
+            a.outcome = AB.outcome_of(False, margin, a.reached)
+            rise.update(est_reached=bool(law.reached), law=[float(law.a), float(law.b), float(law.t_b)])
+        rise.update(residual=[float(v) for v in a.residual], lowest=float(a.min_altitude),
+                    max_speed=ctx["max_speed"], max_range=ctx["max_range"],
+                    crossrange_drift=abs(ctx["vcross0"]) * ctx["tau"], seconds_flown=ctx["tau"])
+        a.rise = rise
+        return a, rise
+
+    def _ascent_from(self, burnout, law, low, ctx, branch, m_dry):
+        """The Ascent record of a law flown on the truth to burnout."""
+        rn, vr, vt = AB.radial_transverse(burnout[0:2], burnout[2:4])
+        target = AB.insertion_target()
+        res = (rn - target[0], vr - target[1], vt - target[2])
+        lowest = min(low, ctx["low"])
+        reached = all(abs(e) <= tol for e, tol in zip(res, AB.INSERT_TOL)) and lowest >= 0.0
+        return AB.Ascent(bool(reached), law.a, law.b, law.t_b, law.t_max, burnout, res, lowest,
+                         float(burnout[4] - m_dry), branch)
+
+    def _ascent_stage(self, st, ctx, rise):
+        """abort.ascent_stage_abort on the estimate (D31): stage, fall for
+        abort.FREE_FALL_S on the truth, the ascent engine's rise to the
+        estimated radial rate, the shooting (abort.ascend) from the
+        estimate, flown open loop on the truth."""
+        m = AB.stage(st[4])
+        fall_st, hit = self._coast(np.concatenate([st[0:4], [m]]), AB.FREE_FALL_S, ctx)
+        fall = dict(p=fall_st[0:2], w=fall_st[2:4], crashed=hit, duration=AB.FREE_FALL_S)
+        if hit:
+            a = AB._stopped(fall_st[0:2], fall_st[2:4], m, AB.M_ASCENT_DRY, "ascent", fall, None, AB.APS)
+        else:
+            st2, ended, dur = self._rise(fall_st, AB.APS, AB.M_ASCENT_DRY, ctx)
+            rise["ascent_rise"] = dict(duration=dur, ended=ended, est_rate=self._est_rate(),
+                                       true_rate=float(AB.radial_transverse(st2[0:2], st2[2:4])[1]))
+            if ended == "ground":
+                a = AB._stopped(st2[0:2], st2[2:4], st2[4], AB.M_ASCENT_DRY, "ascent", fall, None, AB.APS)
+            else:
+                dv, margin = AB.rocket_margin(st2[4], AB.M_ASCENT_DRY, AB.APS)
+                pe, we = self._est_plane()
+                law = AB.ascend(pe, we, float(st2[4]), AB.M_ASCENT_DRY, AB.APS)
+                rise["law"] = [float(law.a), float(law.b), float(law.t_b)]
+                if np.isfinite(law.a):
+                    burnout, low_t = AB.fly(st2[0:2], st2[2:4], float(st2[4]), law.a, law.b, law.t_b, AB.APS)
+                else:
+                    burnout, low_t = st2, float(np.linalg.norm(st2[0:2]) - AB.R_MOON)
+                a = self._ascent_from(burnout, law, low_t, ctx, "ascent", AB.M_ASCENT_DRY)
+                a.free_fall, a.dv_available, a.dv_margin = fall, dv, margin
+                a.outcome = AB.outcome_of(False, margin, a.reached)
+        a.branch, a.staging = "combined", dict(t=rise["duration"], in_rise=True)
+        return a
+
+    def _est_plane(self):
+        """The estimate in the abort's plane (abort.approach_to_plane)."""
+        nav = self.nav_state()
+        return AB.approach_to_plane(nav[0:3], nav[3:6])
+
+    def _est_rate(self):
+        """The estimate's radial rate in the abort's spherical frame (D31)."""
+        pe, we = self._est_plane()
+        return float(AB.radial_transverse(pe, we)[1])
+
+    def _rise(self, st, engine, m_empty, ctx):
+        """A vertical rise (abort.vertical_rise's thrust along the radial) on
+        the truth from plane state st, until the estimated radial rate passes
+        abort.RISE_RATE at a 20 Hz tick ("rate"), the surface ("ground") or
+        the propellant ("propellant"): (state, ended, duration)."""
+        t_max = (st[4] - m_empty) / engine.outflow
+        elapsed = 0.0
+        while self._est_rate() < AB.RISE_RATE:
+            if elapsed >= t_max - 1e-9:
+                return st, "propellant", elapsed
+            h = min(TICK, t_max - elapsed)
+            st, hit = self._tick(AB._rise_rhs, st, h, (engine.thrust, engine.outflow), ctx)
+            elapsed += h
+            if hit:
+                return st, "ground", elapsed
+        return st, "rate", elapsed
+
+    def _coast(self, st, duration, ctx):
+        """Gravity alone on the truth for duration, sensed: (state, hit)."""
+        def rhs(t, ss):
+            return np.concatenate([AB._gravity(t, ss[0:4]), [0.0]])
+        elapsed = 0.0
+        while elapsed < duration - 1e-9:
+            h = min(TICK, duration - elapsed)
+            st, hit = self._tick(rhs, st, h, (), ctx)
+            elapsed += h
+            if hit:
+                return st, True
+        return st, False
+
+    def _tick(self, rhs, st, h, args, ctx):
+        """One 20 Hz tick (or the shorter last one) of an abort stage on the
+        truth: integrate, sample the sensors at every IMU period from the
+        plane state mapped to the map (up |p| - R, downrange R theta, the
+        crossrange held at its value and rate at the trigger), step the
+        filter: (state at the tick's end or at the surface, hit)."""
+        s = self.s
 
         def ground(tt, ss, *a):
             return np.linalg.norm(ss[0:2]) - AB.R_MOON
         ground.terminal, ground.direction = True, -1.0
-        while self.nav_state()[3] < AB.RISE_RATE:
-            if elapsed >= t_max - 1e-9:
-                ended = "propellant"
-                break
-            h = min(TICK, t_max - elapsed)
-            ode = solve_ivp(AB._rise_rhs, (0.0, h), st, method="DOP853", rtol=AB.RTOL, atol=AB.ATOL,
-                            dense_output=True, events=(ground,), args=(dps.thrust, dps.outflow))
-            if ode.t_events[0].size:
-                st, ended = ode.y_events[0][0], "ground"
-                break
-            ss = ode.sol(np.arange(1, n_tick + 1) * NF.DT * h / TICK).T
-            low = min(low, float(np.min(np.linalg.norm(ss[:, 0:2], axis=1)) - AB.R_MOON))
-            for n in range(n_tick):
-                pp, ww = ss[n, 0:2], ss[n, 2:4]
-                rn = np.linalg.norm(pp)
-                e_r = pp / rn
-                e_t = np.array([-e_r[1], e_r[0]])
-                tau = elapsed + (n + 1) * NF.DT * h / TICK
-                yy = np.array([rn - AB.R_MOON, cross0 + vcross0 * tau, AB.R_MOON * np.arctan2(pp[0], -pp[1]),
-                               ww @ e_r, vcross0, ww @ e_t, ss[n, 4]])
-                pos, vel = NT.to_map(yy, s["origin"][:2], s["origin"][2])
-                s["pos"].append(pos)
-                s["vel"].append(vel)
-                self._sense(i + 1 + n, pos, vel, s["vel"][-2])
-                s["y"] = yy
-            i += n_tick
-            s["filt"].advance(i)
-            st = ode.y[:, -1]
-            elapsed += h
-        rise = dict(duration=elapsed, ended=ended, est_rate=float(self.nav_state()[3]),
-                    true_rate=float(AB.radial_transverse(st[0:2], st[2:4])[1]))
-        if ended == "ground":
-            a = AB._stopped(st[0:2], st[2:4], st[4], m_empty, "combined", None, rise, dps)
-            return a, rise
-        if ended == "propellant":
-            a = AB.ascent_stage_abort(st[0:2], st[2:4], st[4])
-            rise["staged_on_truth"] = True
-            return a, rise
-        nav = self.nav_state()
-        pe, we = AB.approach_to_plane(nav[0:3], nav[3:6])
-        law = AB.combined_shoot(pe, we, float(st[4]), dps, m_empty)
-        burnout, low_t, staged = AB.fly_combined(st[0:2], st[2:4], float(st[4]), law.a, law.b, law.t_b, dps, m_empty)
-        rn, vr, vt = AB.radial_transverse(burnout[0:2], burnout[2:4])
-        target = AB.insertion_target()
-        res = (rn - target[0], vr - target[1], vt - target[2])
-        reached = all(abs(e) <= tol for e, tol in zip(res, AB.INSERT_TOL)) and min(low_t, low) >= 0.0
-        _, margin = AB.combined_margin(float(st[4]), m_empty, dps)
-        a = AB.Ascent(bool(reached), law.a, law.b, law.t_b, law.t_max, burnout, res, min(low_t, low),
-                      float(burnout[4] - AB.M_ASCENT_DRY), "combined")
-        a.outcome = AB.outcome_of(False, margin, a.reached)
-        rise.update(est_reached=bool(law.reached), residual=[float(v) for v in res])
-        return a, rise
+        ode = solve_ivp(rhs, (0.0, h), st, method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, dense_output=True,
+                        events=(ground,), args=args)
+        if ode.t_events[0].size:
+            return ode.y_events[0][0], True
+        n_tick = int(round(TICK / NF.DT))
+        ss = ode.sol(np.arange(1, n_tick + 1) * h / n_tick).T
+        ctx["low"] = min(ctx["low"], float(np.min(np.linalg.norm(ss[:, 0:2], axis=1)) - AB.R_MOON))
+        i = ctx["i"]
+        for n in range(n_tick):
+            pp, ww = ss[n, 0:2], ss[n, 2:4]
+            rn = np.linalg.norm(pp)
+            e_r = pp / rn
+            e_t = np.array([-e_r[1], e_r[0]])
+            tau = ctx["tau"] + (n + 1) * h / n_tick
+            yy = np.array([rn - AB.R_MOON, ctx["cross0"] + ctx["vcross0"] * tau,
+                           AB.R_MOON * np.arctan2(pp[0], -pp[1]), ww @ e_r, ctx["vcross0"], ww @ e_t, ss[n, 4]])
+            pos, vel = NT.to_map(yy, s["origin"][:2], s["origin"][2])
+            s["pos"].append(pos)
+            s["vel"].append(vel)
+            self._sense(i + 1 + n, pos, vel, s["vel"][-2])
+            s["y"] = yy
+            ctx["max_speed"] = max(ctx["max_speed"], float(np.linalg.norm(vel)))
+            hgt, _ = self.ctx["dem"].at(pos[0], pos[1])
+            if np.isfinite(hgt):
+                ctx["max_range"] = max(ctx["max_range"], float(pos[2] - hgt))
+        ctx["i"] = i + n_tick
+        ctx["tau"] += h
+        s["filt"].advance(ctx["i"])
+        return ode.y[:, -1], False
 
     def _base(self, t, i):
         s = self.s
@@ -777,7 +948,8 @@ def fix_row(f):
     st = f.get("status", "no fix")
     return dict(t=f["t"], status=st, radius=f["radius"], truncated_cells=f.get("truncated_cells"),
                 truncated=bool((f.get("truncated_cells") or 0) > 0), off_map_m=f.get("off_map_m"),
-                off_map=bool((f.get("off_map_m") or 0) > 0), margin=f.get("margin"), nis=f.get("nis"),
+                off_map=bool((f.get("off_map_m") or 0) > 0), off_map_fraction=f.get("off_map_fraction"),
+                margin=f.get("margin"), nis=f.get("nis"),
                 ncc=f.get("ncc"), prior_error=f.get("prior_error"), fix_error=f.get("fix_error"),
                 pass2_error=(f.get("pass2") or {}).get("fix_error"), posterior=f.get("posterior"),
                 rendered_at=f.get("rendered_at"), image_sha=f.get("image_sha"))

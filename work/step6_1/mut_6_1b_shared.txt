@@ -1,0 +1,5 @@
+B3 shared-flight-branches-a-step-late: applied, reverted; CAUGHT by test_shared_no_trn_branches_at_the_decision_before_the_choice, test_divert_solved_from_the_estimate_at_the_decision
+B4 branch-keeps-the-shared-epoch: applied, reverted; CAUGHT by test_shared_no_trn_flight_equals_flying_each_epoch
+B5a scan-noise-keyed-with-the-epoch: applied, reverted; CAUGHT by test_shared_no_trn_flight_equals_flying_each_epoch, test_scan_noise_keyed_by_draw_and_frame_with_the_scan_bias_at_flight_level
+B5b per-scan-bias-dropped: applied, reverted; CAUGHT by test_scan_noise_keyed_by_draw_and_frame_with_the_scan_bias_at_flight_level
+B12 divert-solved-from-the-truth: applied, reverted; CAUGHT by test_divert_solved_from_the_estimate_at_the_decision

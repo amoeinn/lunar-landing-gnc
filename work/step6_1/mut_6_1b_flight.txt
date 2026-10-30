@@ -1,0 +1,8 @@
+A5a frame-placed-with-the-true-pose: applied, reverted; CAUGHT by test_frames_placed_and_aimed_from_the_estimated_pose
+A5b frame-aimed-from-the-truth: applied, reverted; CAUGHT by test_frames_placed_and_aimed_from_the_estimated_pose
+A6 strip-planned-from-a-future-true-pose: applied, reverted; CAUGHT by test_strips_planned_causally_from_the_estimate_at_their_first_frame
+A7 origin-not-moved-on-divert: applied, reverted; CAUGHT by test_site_choice_and_divert_in_the_estimated_frame
+A8a descent-sampled-at-10-hz: applied, reverted; CAUGHT by test_terminal_descent_on_the_estimate_at_20_hz
+A8b descent-on-the-true-velocity: applied, reverted; CAUGHT by test_terminal_descent_on_the_estimate_at_20_hz
+A9a touchdown-judged-on-the-estimate: applied, reverted; CAUGHT by test_terminal_descent_on_the_estimate_at_20_hz, test_touchdown_judged_on_truth_and_criterion_2_on_the_true_site
+A9b criterion-2-against-the-estimated-site: applied, reverted; CAUGHT by test_touchdown_judged_on_truth_and_criterion_2_on_the_true_site

@@ -1,0 +1,909 @@
+{
+ "seed": 1,
+ "epoch": 0,
+ "rows": [
+  {
+   "draw": 0,
+   "lander": "trn",
+   "epoch": 0,
+   "gap": 0.0,
+   "outcome": "safe landing",
+   "kind": "divert",
+   "site": [
+    0.0,
+    21.0
+   ],
+   "divert": 21.0,
+   "margin": 21.095023109728988,
+   "q": 0.1438006142761369,
+   "miss_target": 20.868640603143465,
+   "miss_true_site": 0.16153678074687902,
+   "miss_true_site_by_pose": 0.13616903995450064,
+   "triggers": [],
+   "frames": 125,
+   "map_shift": [
+    0.20390733235216413,
+    -0.008692488503491465
+   ],
+   "fixes": [
+    [
+     10.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     20.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ]
+   ],
+   "dem_minus_truth": 0.050677532515408075,
+   "crosses_tile_edge": false,
+   "propellant": 643.7754267989585,
+   "abort": null,
+   "nav_error_h": 0.14374420101212615,
+   "seconds": 127.29582656699995,
+   "touchdown": [
+    -0.20475946491001196,
+    20.867636046871667
+   ],
+   "t_touchdown": 138.17284992515465,
+   "v_down": 0.913522304723286,
+   "v_horizontal": 0.0032310647342675912,
+   "distance": 0.2438168463377944,
+   "criterion2": true,
+   "gear_safe": true,
+   "safe": true,
+   "shared_start_seconds": 1.671836667000207,
+   "scan": {
+    "t0": 64.0,
+    "frames": 125,
+    "t_end": 70.2,
+    "k_dec": 36,
+    "bias": 0.22941590470213358,
+    "map_shift": [
+     0.20390733235216413,
+     -0.008692488503491465
+    ],
+    "strips": 8,
+    "aim_out_of_range": 0,
+    "returns": 2048000,
+    "seconds": 99.41071216000046
+   },
+   "fixes_full": [
+    {
+     "t": 10.0,
+     "status": "accepted",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.7080314426649672,
+     "nis": 0.03204011783122311,
+     "ncc": 0.9206568818223466,
+     "prior_error": 58.65048051779766,
+     "fix_error": 9.791653857214442,
+     "pass2_error": 0.459752723097688,
+     "posterior": [
+      -4173.33689372238,
+      6729.832315370716
+     ],
+     "rendered_at": [
+      -4173.48230512221,
+      6729.3954938629395,
+      2030.6650972855964
+     ],
+     "image_sha": "759b611fc543f08545e97e43fec0067cfe2425e73a27bccd3377cfcc8ee9485f"
+    },
+    {
+     "t": 20.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 1.0,
+     "nis": 0.14252676828542982,
+     "ncc": 0.9993662332899027,
+     "prior_error": 1.1822976991631315,
+     "fix_error": 0.3959178032673384,
+     "pass2_error": 0.016757891378930682,
+     "posterior": [
+      -2906.169127106734,
+      6702.133809454147
+     ],
+     "rendered_at": [
+      -2906.172967416637,
+      6702.113223526707,
+      1783.5975546463471
+     ],
+     "image_sha": "7a44b57d6087a2faefa54c0aff5f03f899e4dc850c7c18a8719b4c8a0184b1b5"
+    },
+    {
+     "t": 30.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 1.0,
+     "nis": 0.043048443956711646,
+     "ncc": 0.9996292027864334,
+     "prior_error": 0.63851859802225,
+     "fix_error": 0.29994576166091175,
+     "pass2_error": 0.03555142058524032,
+     "posterior": [
+      -1795.1243942303008,
+      6669.609937128056
+     ],
+     "rendered_at": [
+      -1795.1406505387304,
+      6669.611300096228,
+      1565.554115073205
+     ],
+     "image_sha": "e2d0f7f29755b3ac98e2d71f40ba8178761274357dbe42444c5452082cbe2390"
+    },
+    {
+     "t": 40.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 1.0,
+     "nis": 0.009060648334724777,
+     "ncc": 0.9999105885540923,
+     "prior_error": 0.06454556735780288,
+     "fix_error": 0.19059397847361959,
+     "pass2_error": 0.060045802075171115,
+     "posterior": [
+      -725.6815156362763,
+      6636.596704242097
+     ],
+     "rendered_at": [
+      -725.740979674852,
+      6636.6037672930615,
+      1233.979456260913
+     ],
+     "image_sha": "6d464f376795bcca85c45a96f58d98537652e85227c992c9196ddb297e75882c"
+    }
+   ],
+   "min_clearance": 44.112887054693545,
+   "min_above_site": 43.94257959832383
+  },
+  {
+   "draw": 0,
+   "lander": "trn",
+   "epoch": 0,
+   "gap": 168.0,
+   "outcome": "abort",
+   "kind": null,
+   "site": null,
+   "divert": null,
+   "margin": null,
+   "q": null,
+   "miss_target": null,
+   "miss_true_site": null,
+   "miss_true_site_by_pose": null,
+   "triggers": [
+    {
+     "trigger": "lost lock",
+     "t": 40.0
+    }
+   ],
+   "frames": null,
+   "map_shift": null,
+   "fixes": [
+    [
+     10.0,
+     "rejected by nis",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     20.0,
+     "rejected by margin",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     30.0,
+     "rejected by margin",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     "rejected by margin",
+     0,
+     0.0,
+     0.0
+    ]
+   ],
+   "dem_minus_truth": null,
+   "crosses_tile_edge": null,
+   "propellant": 780.5328235383331,
+   "abort": {
+    "trigger": "lost lock",
+    "t": 40.0,
+    "outcome": "shooting failure",
+    "reached": false,
+    "propellant": 780.5328235383331,
+    "rise": {
+     "duration": 12.750000000000046,
+     "ended": "rate",
+     "est_rate": 12.222507950840063,
+     "true_rate": 12.219000902186679,
+     "est_reached": true,
+     "law": [
+      0.5508830864218869,
+      -0.0019770194016961533,
+      309.52745588691073
+     ],
+     "residual": [
+      -40.800464503932744,
+      -0.022855277313946327,
+      0.0018123016091067257
+     ],
+     "lowest": 657.4977246494964,
+     "max_speed": 111.5064481620407,
+     "max_range": 1205.011036450886,
+     "crossrange_drift": 56.1930242606494,
+     "seconds_flown": 12.750000000000046
+    },
+    "seconds": 1.423968684999636
+   },
+   "nav_error_h": 1366.6682589729023,
+   "seconds": 141.73705178699993,
+   "shared_start_seconds": 1.671836667000207,
+   "scan": null,
+   "fixes_full": [
+    {
+     "t": 10.0,
+     "status": "rejected by nis",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.18635973617307747,
+     "nis": 17.99778350401498,
+     "ncc": 0.21570967788901343,
+     "prior_error": 58.65048051779766,
+     "fix_error": 1401.360344786674,
+     "pass2_error": null,
+     "posterior": [
+      -4143.1181725883,
+      6779.574157859021
+     ],
+     "rendered_at": [
+      -4173.48230512221,
+      6729.3954938629395,
+      2030.6650972855964
+     ],
+     "image_sha": "759b611fc543f08545e97e43fec0067cfe2425e73a27bccd3377cfcc8ee9485f"
+    },
+    {
+     "t": 20.0,
+     "status": "rejected by margin",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.04412679165064074,
+     "nis": 8.25178045937058,
+     "ncc": 0.27554331817428257,
+     "prior_error": 59.26223518862796,
+     "fix_error": 1004.5243090243055,
+     "pass2_error": null,
+     "posterior": [
+      -2867.0891214611866,
+      6748.213980742691
+     ],
+     "rendered_at": [
+      -2897.558082943906,
+      6697.384315135717,
+      1781.2593953857672
+     ],
+     "image_sha": "7850eb74ad88ac367ef67d396e0c3350ce7c0b434418156c337f9467304bb903"
+    },
+    {
+     "t": 30.0,
+     "status": "rejected by margin",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.014952109887588263,
+     "nis": 8.292741916533055,
+     "ncc": 0.5420003878086526,
+     "prior_error": 60.16054447211523,
+     "fix_error": 905.243625871664,
+     "pass2_error": null,
+     "posterior": [
+      -1672.5070228784596,
+      6709.148390638849
+     ],
+     "rendered_at": [
+      -1703.0580424184932,
+      6657.322467431965,
+      1487.3410241692266
+     ],
+     "image_sha": "fe8e85a32f6b9071a83d9328f932708a24055c468ebf8fc6554b1dcefebd6a73"
+    },
+    {
+     "t": 40.0,
+     "status": "rejected by margin",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.012407835714992384,
+     "nis": 11.50129007877982,
+     "ncc": 0.42607904914840006,
+     "prior_error": 60.54927128481945,
+     "fix_error": 1122.7849936451887,
+     "pass2_error": null,
+     "posterior": [
+      -535.999981864917,
+      6667.3747088282935
+     ],
+     "rendered_at": [
+      -566.6450010982549,
+      6615.153094057099,
+      1097.3660054838683
+     ],
+     "image_sha": "9b10fa790e61a13255d3753c27fce7827eed5283c5ecf0c6d1cd81f4729ac137"
+    }
+   ],
+   "min_clearance": null,
+   "min_above_site": null
+  },
+  {
+   "draw": 0,
+   "lander": "notrn",
+   "epoch": 0,
+   "gap": null,
+   "outcome": "safe landing",
+   "kind": "divert",
+   "site": [
+    -11.0,
+    30.0
+   ],
+   "divert": 31.953090617340916,
+   "margin": 15.811388300841896,
+   "q": 58.490671530120686,
+   "miss_target": 46.5020205115002,
+   "miss_true_site": 0.8605724331904173,
+   "miss_true_site_by_pose": 0.7411285253343362,
+   "triggers": [],
+   "frames": 69,
+   "map_shift": [
+    0.2002415249893196,
+    -0.012428689703440007
+   ],
+   "fixes": [],
+   "dem_minus_truth": -0.15162998913382353,
+   "crosses_tile_edge": false,
+   "propellant": 620.4623028032602,
+   "abort": null,
+   "nav_error_h": 58.49067441207297,
+   "seconds": 93.50469645300018,
+   "touchdown": [
+    -41.375385919437576,
+    -21.225346915176488
+   ],
+   "t_touchdown": 142.99990778596646,
+   "v_down": 0.9126092222626109,
+   "v_horizontal": 0.004390914922316346,
+   "distance": 59.55417899975603,
+   "criterion2": true,
+   "gear_safe": true,
+   "safe": true,
+   "scan": {
+    "t0": 62.0,
+    "frames": 69,
+    "t_end": 65.4,
+    "k_dec": 33,
+    "bias": 0.22941590470213358,
+    "map_shift": [
+     0.2002415249893196,
+     -0.012428689703440007
+    ],
+    "strips": 6,
+    "aim_out_of_range": 0,
+    "returns": 1130496,
+    "seconds": 82.62299957699997
+   },
+   "min_clearance": 31.30865480471641,
+   "min_above_site": 22.025151120348635
+  },
+  {
+   "draw": 1,
+   "lander": "trn",
+   "epoch": 0,
+   "gap": 0.0,
+   "outcome": "safe landing",
+   "kind": "divert",
+   "site": [
+    13.0,
+    19.0
+   ],
+   "divert": 23.021728866442675,
+   "margin": 30.528675044947494,
+   "q": 0.07364490089771905,
+   "miss_target": 22.80597403211645,
+   "miss_true_site": 0.43400545395928514,
+   "miss_true_site_by_pose": 0.306395789884999,
+   "triggers": [],
+   "frames": 120,
+   "map_shift": [
+    -0.15808551064037613,
+    -0.0027239197732072135
+   ],
+   "fixes": [
+    [
+     10.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     20.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ]
+   ],
+   "dem_minus_truth": -0.02064150611954574,
+   "crosses_tile_edge": false,
+   "propellant": 625.4182498108066,
+   "abort": null,
+   "nav_error_h": 0.07371266942043839,
+   "seconds": 149.3429814380006,
+   "touchdown": [
+    12.918394672065233,
+    18.794348369930958
+   ],
+   "t_touchdown": 138.33449799396493,
+   "v_down": 0.9114446662589821,
+   "v_horizontal": 0.002449575174429063,
+   "distance": 0.22125103953966138,
+   "criterion2": true,
+   "gear_safe": true,
+   "safe": true,
+   "shared_start_seconds": 0.9259360470005049,
+   "scan": {
+    "t0": 66.0,
+    "frames": 120,
+    "t_end": 71.95,
+    "k_dec": 36,
+    "bias": -0.1762775241609805,
+    "map_shift": [
+     -0.15808551064037613,
+     -0.0027239197732072135
+    ],
+    "strips": 8,
+    "aim_out_of_range": 0,
+    "returns": 1966080,
+    "seconds": 120.80335983199802
+   },
+   "fixes_full": [
+    {
+     "t": 10.0,
+     "status": "accepted",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.6764792834810681,
+     "nis": 3.0496463508653173,
+     "ncc": 0.9423551636241972,
+     "prior_error": 573.6771824439109,
+     "fix_error": 8.725341826036866,
+     "pass2_error": 2.6343781342278696,
+     "posterior": [
+      -4430.117268354614,
+      6465.9722564882795
+     ],
+     "rendered_at": [
+      -4430.818486854583,
+      6468.514552289558,
+      2012.718536470137
+     ],
+     "image_sha": "8e13c01f60c961c838e6c56aebcf4ab8fd364f790f2c049ee23a7a17414a3b9c"
+    },
+    {
+     "t": 20.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.8056118279943599,
+     "nis": 0.3187499181143243,
+     "ncc": 0.9976872685408158,
+     "prior_error": 2.499303996426991,
+     "fix_error": 1.6947360060844707,
+     "pass2_error": 0.02008227430947163,
+     "posterior": [
+      -3170.9912021409714,
+      6480.475542111519
+     ],
+     "rendered_at": [
+      -3170.972443267795,
+      6480.484045437161,
+      1761.8622972775725
+     ],
+     "image_sha": "4bca8585af78e7c0ac7631faf8856323dfe0d2f1d74757d235ea636d3a52c3c4"
+    },
+    {
+     "t": 30.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 1.0,
+     "nis": 0.127280913491298,
+     "ncc": 0.9997713590788918,
+     "prior_error": 0.325606295959829,
+     "fix_error": 0.755818612008984,
+     "pass2_error": 0.07840853318548235,
+     "posterior": [
+      -2047.926817266288,
+      6493.427327445514
+     ],
+     "rendered_at": [
+      -2047.910228523558,
+      6493.336946181782,
+      1577.778854922925
+     ],
+     "image_sha": "2c19864f83bb3df1e2e7f5dbd6c8fbd49c0eca29dfa1332d4a32b0254fd15cbd"
+    },
+    {
+     "t": 40.0,
+     "status": "accepted",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 1.0,
+     "nis": 0.00631358177535615,
+     "ncc": 0.9998491386247261,
+     "prior_error": 0.20927312473913556,
+     "fix_error": 0.11287912281371987,
+     "pass2_error": 0.06263328667267744,
+     "posterior": [
+      -964.6339783905801,
+      6506.284611331016
+     ],
+     "rendered_at": [
+      -964.5861598505953,
+      6506.247156178675,
+      1289.265627516103
+     ],
+     "image_sha": "23cee0c66bbedd08a1cd432b9007ad60c1a1d0e294dbcb6e851f0e4d2b90c58f"
+    }
+   ],
+   "min_clearance": 45.76655334510059,
+   "min_above_site": 45.774800070595845
+  },
+  {
+   "draw": 1,
+   "lander": "trn",
+   "epoch": 0,
+   "gap": 168.0,
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "site": [
+    8.0,
+    18.0
+   ],
+   "divert": 19.697715603592208,
+   "margin": 1.0,
+   "q": 472.00170881014674,
+   "miss_target": 484.1707281823735,
+   "miss_true_site": 1.472673128310303,
+   "miss_true_site_by_pose": 1.207213277936374,
+   "triggers": [],
+   "frames": 84,
+   "map_shift": [
+    -0.15265960177122423,
+    -0.00884384987354738
+   ],
+   "fixes": [
+    [
+     10.0,
+     "rejected by nis",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     20.0,
+     "rejected by margin",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     30.0,
+     "accepted",
+     0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     "rejected by nis",
+     0,
+     0.0,
+     0.0
+    ]
+   ],
+   "dem_minus_truth": -0.2871601837907747,
+   "crosses_tile_edge": false,
+   "propellant": 602.1227080775925,
+   "abort": null,
+   "nav_error_h": 472.0017017398185,
+   "seconds": 309.97537022600045,
+   "touchdown": [
+    462.8157317106161,
+    142.20721679934832
+   ],
+   "t_touchdown": 146.03794601961937,
+   "v_down": 0.9038083906415875,
+   "v_horizontal": 0.0038000441218962074,
+   "distance": 471.47087133406626,
+   "criterion2": true,
+   "gear_safe": false,
+   "safe": false,
+   "shared_start_seconds": 0.9259360470005049,
+   "scan": {
+    "t0": 76.0,
+    "frames": 84,
+    "t_end": 80.15,
+    "k_dec": 41,
+    "bias": -0.1762775241609805,
+    "map_shift": [
+     -0.15265960177122423,
+     -0.00884384987354738
+    ],
+    "strips": 7,
+    "aim_out_of_range": 0,
+    "returns": 1376256,
+    "seconds": 116.40150711500155
+   },
+   "fixes_full": [
+    {
+     "t": 10.0,
+     "status": "rejected by nis",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.1468267583486941,
+     "nis": 13.92525606210777,
+     "ncc": 0.20658088331487146,
+     "prior_error": 573.6771824439109,
+     "fix_error": 1689.0636466798603,
+     "pass2_error": null,
+     "posterior": [
+      -3857.2228546371657,
+      6458.841891958224
+     ],
+     "rendered_at": [
+      -4430.818486854583,
+      6468.514552289558,
+      2012.718536470137
+     ],
+     "image_sha": "8e13c01f60c961c838e6c56aebcf4ab8fd364f790f2c049ee23a7a17414a3b9c"
+    },
+    {
+     "t": 20.0,
+     "status": "rejected by margin",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.014511980868347952,
+     "nis": 3.684622741488564,
+     "ncc": 0.3836662777006806,
+     "prior_error": 573.5865707706711,
+     "fix_error": 68.08347196021823,
+     "pass2_error": null,
+     "posterior": [
+      -2604.649930587232,
+      6472.169730839713
+     ],
+     "rendered_at": [
+      -3178.1565978222134,
+      6481.7434869198805,
+      1740.1891563434276
+     ],
+     "image_sha": "2bb14f9f01d37d89bed2be1ddf0e4ac64ee951324d9ce4feb77fb38dc1b9fc4f"
+    },
+    {
+     "t": 30.0,
+     "status": "accepted",
+     "radius": 50,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.07098929031636224,
+     "nis": 9.056352316994017,
+     "ncc": 0.4639613919469781,
+     "prior_error": 573.5777152381695,
+     "fix_error": 435.73362548866226,
+     "pass2_error": 472.36293964882054,
+     "posterior": [
+      -2457.8073058612063,
+      6373.219221545891
+     ],
+     "rendered_at": [
+      -2001.843722824282,
+      6496.533445979765,
+      1408.515608706529
+     ],
+     "image_sha": "11ebbf7514e78beb4db854c03f7c38ae60781e7f1c18d3e7d0ff50d48544798b"
+    },
+    {
+     "t": 40.0,
+     "status": "rejected by nis",
+     "radius": 5,
+     "truncated_cells": 0,
+     "truncated": false,
+     "off_map_m": 0.0,
+     "off_map": false,
+     "off_map_fraction": 0.0,
+     "margin": 0.3256024492075914,
+     "nis": 2461.8424596594778,
+     "ncc": 0.08722104534748992,
+     "prior_error": 472.23467654288197,
+     "fix_error": 356.6567611068392,
+     "pass2_error": null,
+     "posterior": [
+      -1380.3268274920824,
+      6394.7013229571185
+     ],
+     "rendered_at": [
+      -924.4189122213675,
+      6517.8011301181,
+      1089.3717897230947
+     ],
+     "image_sha": "9ef35926c1446c52a77e71ec153b96c1f1a907d02bdbc893615cfc47bf49cad6"
+    }
+   ],
+   "min_clearance": 39.8025300590013,
+   "min_above_site": 99.18839827072873
+  },
+  {
+   "draw": 1,
+   "lander": "notrn",
+   "epoch": 0,
+   "gap": null,
+   "outcome": "safe landing",
+   "kind": "divert",
+   "site": [
+    -8.0,
+    -14.0
+   ],
+   "divert": 16.1245154965971,
+   "margin": 3.605551275463989,
+   "q": 573.6094503799778,
+   "miss_target": 581.5912916888491,
+   "miss_true_site": 0.37901101980201274,
+   "miss_true_site_by_pose": 0.2903375946922364,
+   "triggers": [],
+   "frames": 120,
+   "map_shift": [
+    -0.15612773104820646,
+    -0.0031880415235711365
+   ],
+   "fixes": [],
+   "dem_minus_truth": -0.8555517193281901,
+   "crosses_tile_edge": false,
+   "propellant": 645.4122074319885,
+   "abort": null,
+   "nav_error_h": 573.6094574329073,
+   "seconds": 163.77025776900064,
+   "touchdown": [
+    -581.5755507263052,
+    -4.2789444608188205
+   ],
+   "t_touchdown": 132.17057556120744,
+   "v_down": 0.9116107155001315,
+   "v_horizontal": 0.0031589081853846714,
+   "distance": 573.6579218591686,
+   "criterion2": true,
+   "gear_safe": true,
+   "safe": true,
+   "scan": {
+    "t0": 60.0,
+    "frames": 120,
+    "t_end": 65.95,
+    "k_dec": 33,
+    "bias": -0.1762775241609805,
+    "map_shift": [
+     -0.15612773104820646,
+     -0.0031880415235711365
+    ],
+    "strips": 8,
+    "aim_out_of_range": 0,
+    "returns": 1966080,
+    "seconds": 156.28448336300062
+   },
+   "min_clearance": 45.65209236166129,
+   "min_above_site": -16.57035279640709
+  }
+ ],
+ "seconds_total": 711.5617766330001,
+ "maxrss_mb": 2952.94140625
+}

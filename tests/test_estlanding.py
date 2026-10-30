@@ -51,8 +51,10 @@ def test_predict_holds_each_plan_node_for_its_own_segment():
     v1 = x[3:6] + a0 * CL.DT
     a1 = np.array([0.0, -0.5, 0.0])
     assert np.allclose(p, p1 + v1 * CL.DT + 0.5 * a1 * CL.DT ** 2, atol=1e-9)
-    # from inside the second segment: node 1 applies, not node 0
-    q = EL.predict(np.concatenate([p1, v1]), CL.DT, Plan, 0, 0.0, None, 2 * CL.DT)
+    # from strictly inside the second segment: node 1 applies, not node 0
+    h = 0.5 * CL.DT
+    pm, vm = p1 + v1 * h + 0.5 * a1 * h * h, v1 + a1 * h
+    q = EL.predict(np.concatenate([pm, vm]), CL.DT + h, Plan, 0, 0.0, None, 2 * CL.DT)
     assert np.allclose(q, p, atol=1e-9)
 
 
@@ -131,9 +133,13 @@ def test_strips_planned_causally_from_the_estimate_at_their_first_frame(flown):
     sc = f.s["scan"]
     cx, cy = f.ctx["target"][0], f.ctx["target"][1]
     k, x_lo = 0, cx - L.SQUARE / 2
+    track, cmds = f.s["filt"].track, f.s["cmds"]
     for st in sc["strips"]:
         ik = sc["i0"] + k * NF.ALT_EVERY
-        tiles, strip, x_lo = EL.plan_strip(f._pose_pred(ik), sc["t0"], k, x_lo, (cx, cy), f.ctx["aim"])
+        t = ik * NF.DT
+        plan, kk, t_cmd, origin = cmds[max(j for j in cmds if j * CL.DT < t - 1e-9)]
+        pose = lambda q: EL.predict(track[ik], t, plan, kk, t_cmd, origin, q)  # noqa: E731
+        tiles, strip, x_lo = EL.plan_strip(pose, sc["t0"], k, x_lo, (cx, cy), f.ctx["aim"])
         assert strip == st
         assert tiles == sc["tiles"][k:k + len(tiles)]
         k += len(tiles)
@@ -162,6 +168,14 @@ def test_terminal_descent_on_the_estimate_at_20_hz(flown):
     assert len(cmds) > 20
     t = np.array([c[0] for c in cmds])
     assert np.allclose(np.diff(t), 0.05, atol=1e-12)
+    o, track, veh = f.s["origin"], f.s["filt"].track, NT.nominal().veh
+    off = 0.0
+    for _, thrust, i, m in cmds:
+        x = track[i]
+        est = EF.from_map(x[0:3], x[3:6], m, o[:2], o[2])
+        assert np.array_equal(thrust, EL.descent_thrust(est, veh))
+        off = max(off, float(np.max(np.abs(est[3:6] - EF.from_map(f.s["pos"][i], f.s["vel"][i], m, o[:2], o[2])[3:6]))))
+    assert off > 1e-3, "the fixture must have estimated and true velocity apart"
     assert out["end"] == "touchdown"
     assert np.isfinite(out["q"]) and out["q"] > 0.0
 

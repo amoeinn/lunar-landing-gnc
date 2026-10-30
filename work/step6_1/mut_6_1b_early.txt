@@ -1,0 +1,6 @@
+B1 abort-shoots-from-the-truth: applied, reverted; CAUGHT by test_abort_shoots_from_the_estimate_and_flies_the_truth
+B2 rise-ends-on-the-true-rate: applied, reverted; CAUGHT by test_rise_ends_on_the_estimated_radial_rate
+B6 leaving-the-region-raises: applied, reverted; CAUGHT by test_leaving_the_region_ends_as_its_class_not_an_error
+B7 strike-on-the-dem-inside-the-region: applied, reverted; CAUGHT by test_terrain_strike_against_the_true_ground_inside_and_the_dem_outside
+B9 rays-beyond-the-limits-return: applied, reverted; CAUGHT by test_rays_outside_the_lidar_limits_return_no_range
+B9b out-of-range-frame-raises: applied, reverted; CAUGHT by test_rays_outside_the_lidar_limits_return_no_range

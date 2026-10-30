@@ -41,10 +41,13 @@ def offsets(cell, radius, cx=0.0, cy=0.0):
     return di[m], dj[m], x[m], y[m]
 
 
-def assess(z, x0, y1, cell, cx, cy, batch=None):
+def assess(z, x0, y1, cell, cx, cy, batch=None, plane_rank=False):
     """Mean slope, obstacle span, effective slope, fill and safe at candidate
     centres (cx, cy) (arrays), each a cell corner of the grid z whose (0, 0)
-    cell has its north-west corner at (x0, y1)."""
+    cell has its north-west corner at (x0, y1). With plane_rank (PLAN.md D28),
+    a candidate whose filled cells cannot fix a plane (three or more cells in
+    a line: the normal equations' rank below 3) gets no plane, so it is
+    unverified; without it such a candidate raises, as phase 5 built it."""
     cx = np.asarray(cx, float)
     cy = np.asarray(cy, float)
     j0 = np.rint((cx - x0) / cell).astype(np.int64)
@@ -80,6 +83,8 @@ def assess(z, x0, y1, cell, cx, cy, batch=None):
                       np.stack([Yw.sum(1), (Yw * X).sum(1), (Yw * Y).sum(1)], -1)], 1)
         b = np.stack([Zw.sum(1), (Zw * X).sum(1), (Zw * Y).sum(1)], -1)
         ok = w.sum(1) >= 3
+        if plane_rank:
+            ok &= np.linalg.matrix_rank(A) == 3
         coef = np.full((len(Z), 3), np.nan)
         coef[ok] = np.linalg.solve(A[ok], b[ok][..., None])[..., 0]
         out["mean_slope"][sl] = np.degrees(np.arctan(np.hypot(coef[:, 1], coef[:, 2])))

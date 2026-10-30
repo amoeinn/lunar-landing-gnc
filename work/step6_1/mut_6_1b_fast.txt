@@ -1,0 +1,7 @@
+A1 predict-starts-from-the-commanded-node: applied, reverted; SURVIVED
+A2 descent-law-gain-changed: applied, reverted; CAUGHT by test_descent_law_equals_closed_loop_descend
+A3 frame-noise-not-keyed-by-frame: applied, reverted; CAUGHT by test_scan_noise_keyed_by_draw_and_frame_only
+A4 ray-off-the-region-raises: applied, reverted; CAUGHT by test_ray_cast_on_the_ground_returns_no_range_off_the_region
+B8 rank-check-dropped: applied, reverted; CAUGHT by test_rank_check_marks_a_line_of_cells_unverified
+B10 off-map-fraction-zero: applied, reverted; CAUGHT by test_template_off_the_map_counted_and_its_area_fraction
+B11 fix-row-off-map-fraction-missing: applied, reverted; CAUGHT by test_fix_rows_carry_the_truncation_and_off_map_counts

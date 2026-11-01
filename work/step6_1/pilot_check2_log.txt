@@ -1,0 +1,47 @@
+d00_trn_e1_g0.0.json 98 s 2317 MB ['safe landing'] wall 101 s
+d00_trn_e0_g0.0.json 125 s 2360 MB ['safe landing'] wall 128 s
+d00_trn_e2_g0.0.json 92 s 2336 MB ['safe landing'] wall 193 s
+d00_trn_e3_g0.0.json 91 s 2363 MB ['safe landing'] wall 218 s
+d01_trn_e0_g0.0.json 67 s 2336 MB ['unsafe landing'] wall 259 s
+d01_trn_e1_g0.0.json 69 s 2363 MB ['unsafe landing'] wall 287 s
+d01_trn_e3_g0.0.json 65 s 2363 MB ['unsafe landing'] wall 353 s
+d01_trn_e2_g0.0.json 117 s 2336 MB ['safe landing'] wall 376 s
+d02_trn_e0_g0.0.json 83 s 2363 MB ['safe landing'] wall 435 s
+d02_trn_e1_g0.0.json 83 s 2336 MB ['safe landing'] wall 459 s
+d02_trn_e2_g0.0.json 82 s 2363 MB ['safe landing'] wall 518 s
+d02_trn_e3_g0.0.json 83 s 2336 MB ['safe landing'] wall 543 s
+d03_trn_e0_g0.0.json 91 s 2363 MB ['safe landing'] wall 609 s
+d03_trn_e1_g0.0.json 91 s 2336 MB ['safe landing'] wall 633 s
+d03_trn_e2_g0.0.json 91 s 2363 MB ['safe landing'] wall 699 s
+d03_trn_e3_g0.0.json 91 s 2336 MB ['safe landing'] wall 725 s
+d04_trn_e1_g0.0.json 9 s 2336 MB [] ERROR wall 733 s
+d04_trn_e0_g0.0.json 92 s 2363 MB ['safe landing'] wall 792 s
+d04_trn_e2_g0.0.json 92 s 2336 MB ['safe landing'] wall 825 s
+d04_trn_e3_g0.0.json 92 s 2363 MB ['safe landing'] wall 883 s
+d05_trn_e0_g0.0.json 122 s 2336 MB ['safe landing'] wall 947 s
+d05_trn_e1_g0.0.json 121 s 2363 MB ['safe landing'] wall 1004 s
+d05_trn_e2_g0.0.json 122 s 2336 MB ['safe landing'] wall 1069 s
+d05_trn_e3_g0.0.json 121 s 2363 MB ['safe landing'] wall 1125 s
+d06_trn_e0_g0.0.json 124 s 2336 MB ['safe landing'] wall 1193 s
+d06_trn_e1_g0.0.json 122 s 2363 MB ['safe landing'] wall 1247 s
+d06_trn_e2_g0.0.json 122 s 2336 MB ['safe landing'] wall 1315 s
+d06_trn_e3_g0.0.json 122 s 2363 MB ['safe landing'] wall 1369 s
+d07_trn_e0_g0.0.json 109 s 2336 MB ['safe landing'] wall 1424 s
+d07_trn_e1_g0.0.json 108 s 2363 MB ['safe landing'] wall 1478 s
+d07_trn_e2_g0.0.json 106 s 2336 MB ['safe landing'] wall 1531 s
+d07_trn_e3_g0.0.json 110 s 2363 MB ['safe landing'] wall 1588 s
+d00_notrn_eNone_gNone.json 115 s 2392 MB ['safe landing', 'safe landing', 'safe landing', 'safe landing'] wall 1646 s
+d01_notrn_eNone_gNone.json 85 s 2363 MB ['abort', 'abort', 'abort', 'abort'] wall 1673 s
+check2: wall 1740 s, unfinished 6; STOPPED: gate: 1740 s reached
+total 1740.0 s, peak 313 MB
+Command exited with non-zero status 124
+1800.00 s 320660 KB
+d03_notrn_eNone_gNone.json 147 s 2314 MB ['safe landing', 'safe landing', 'safe landing', 'safe landing'] wall 150 s
+d02_notrn_eNone_gNone.json 187 s 2571 MB ['abort', 'abort', 'abort', 'abort'] wall 190 s
+d04_notrn_eNone_gNone.json 92 s 2314 MB ['abort', 'safe landing', 'safe landing', 'safe landing'] wall 242 s
+d05_notrn_eNone_gNone.json 126 s 2571 MB ['safe landing', 'safe landing', 'safe landing', 'safe landing'] wall 317 s
+d07_notrn_eNone_gNone.json 100 s 2571 MB ['safe landing', 'safe landing', 'safe landing', 'safe landing'] wall 417 s
+d06_notrn_eNone_gNone.json 190 s 2314 MB ['unsafe landing', 'unsafe landing', 'unsafe landing', 'unsafe landing'] wall 432 s
+check2: wall 432 s, unfinished 0
+total 432.1 s, peak 314 MB
+433.66 s 2632452 KB

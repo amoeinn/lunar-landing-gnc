@@ -1,0 +1,19 @@
+d00_trn_e0_g-168.0.json 14 s 517 MB ['abort'] wall 17 s
+d01_trn_e0_g-168.0.json 11 s 517 MB ['abort'] wall 27 s
+d01_trn_e0_g168.0.json 48 s 1040 MB ['abort'] wall 76 s
+d00_trn_e0_g168.0.json 79 s 2067 MB ['unsafe landing'] wall 82 s
+d02_trn_e0_g-168.0.json 12 s 1040 MB ['abort'] wall 88 s
+d03_trn_e0_g-168.0.json 12 s 1040 MB ['abort'] wall 100 s
+d03_trn_e0_g168.0.json 68 s 1783 MB ['unsafe landing'] wall 167 s
+d04_trn_e0_g-168.0.json 12 s 1783 MB ['abort'] wall 180 s
+d02_trn_e0_g168.0.json 129 s 2067 MB ['safe landing'] wall 211 s
+d05_trn_e0_g-168.0.json 11 s 2067 MB ['abort'] wall 223 s
+d04_trn_e0_g168.0.json 108 s 1921 MB ['safe landing'] wall 288 s
+d06_trn_e0_g-168.0.json 12 s 1921 MB ['abort'] wall 299 s
+d05_trn_e0_g168.0.json 79 s 2067 MB ['safe landing'] wall 301 s
+d07_trn_e0_g-168.0.json 12 s 2067 MB ['abort'] wall 314 s
+d07_trn_e0_g168.0.json 53 s 2388 MB ['abort'] wall 367 s
+d06_trn_e0_g168.0.json 157 s 2224 MB ['abort'] wall 456 s
+check3: wall 456 s, unfinished 0
+total 456.2 s, peak 312 MB
+457.69 s 2445552 KB

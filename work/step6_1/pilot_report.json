@@ -1,0 +1,1009 @@
+{
+ "check2": {
+  "jobs": 40,
+  "errors": [
+   [
+    2,
+    4,
+    "trn",
+    1,
+    0.0
+   ]
+  ],
+  "fixes_trn_gap0": {
+   "10": {
+    "status": {
+     "accepted": 30,
+     "rejected by margin": 1
+    },
+    "pass1_all": {
+     "n": 31,
+     "median": 2.582419711911686,
+     "p10": 0.8718069295660635,
+     "p90": 1864.2095024354553,
+     "min": 0.1765906272461886,
+     "max": 2351.1864208199468
+    },
+    "pass2_all": {
+     "n": 30,
+     "median": 1.0372377891080622,
+     "p10": 0.5000242832687296,
+     "p90": 194.17370755884127,
+     "min": 0.11228223238627735,
+     "max": 2302.2208899681245
+    },
+    "pass1_accepted": {
+     "n": 30,
+     "median": 2.466173397778639,
+     "p10": 0.8381331153988676,
+     "p90": 192.85190769704724,
+     "min": 0.1765906272461886,
+     "max": 2284.461335408668
+    }
+   },
+   "20": {
+    "status": {
+     "accepted": 27,
+     "rejected by margin": 3,
+     "rejected by nis": 1
+    },
+    "pass1_all": {
+     "n": 31,
+     "median": 0.5489654454124533,
+     "p10": 0.2552162126263626,
+     "p90": 524.3725667070366,
+     "min": 0.1285107866707254,
+     "max": 2296.601603677203
+    },
+    "pass2_all": {
+     "n": 27,
+     "median": 0.011707603767875531,
+     "p10": 0.003018119501132487,
+     "p90": 0.04157473118913758,
+     "min": 0.0012083458632245602,
+     "max": 0.1189180514428614
+    },
+    "pass1_accepted": {
+     "n": 27,
+     "median": 0.5107200635497953,
+     "p10": 0.24749662445275764,
+     "p90": 1.2777185568948934,
+     "min": 0.1285107866707254,
+     "max": 1.6181739174811562
+    }
+   },
+   "30": {
+    "status": {
+     "accepted": 28,
+     "rejected by nis": 2,
+     "rejected by margin": 1
+    },
+    "pass1_all": {
+     "n": 31,
+     "median": 0.22540102817096716,
+     "p10": 0.06037240933946488,
+     "p90": 348.2369432283074,
+     "min": 0.013579363797732901,
+     "max": 2202.265700770668
+    },
+    "pass2_all": {
+     "n": 28,
+     "median": 0.021892147230398125,
+     "p10": 0.007226888751105779,
+     "p90": 0.07028732760485085,
+     "min": 0.0062936223852038085,
+     "max": 297.3571934659436
+    },
+    "pass1_accepted": {
+     "n": 28,
+     "median": 0.20519655998757508,
+     "p10": 0.05381872163076707,
+     "p90": 0.41011571742722297,
+     "min": 0.013579363797732901,
+     "max": 348.2369432283074
+    }
+   },
+   "40": {
+    "status": {
+     "accepted": 27,
+     "rejected by nis": 4
+    },
+    "pass1_all": {
+     "n": 31,
+     "median": 0.23234899490857316,
+     "p10": 0.09895194995015437,
+     "p90": 380.3703718105228,
+     "min": 0.03833309774756971,
+     "max": 2363.737464431727
+    },
+    "pass2_all": {
+     "n": 27,
+     "median": 0.024881711049013898,
+     "p10": 0.01066000393201026,
+     "p90": 0.06305222311632805,
+     "min": 0.004248363789715735,
+     "max": 0.13608904208755554
+    },
+    "pass1_accepted": {
+     "n": 27,
+     "median": 0.22218161593347852,
+     "p10": 0.0962469307985735,
+     "p90": 0.2967371281475132,
+     "min": 0.03833309774756971,
+     "max": 0.6047642403574317
+    }
+   }
+  },
+  "trn_gap0": {
+   "n": 31,
+   "outcomes": {
+    "safe landing": 28,
+    "unsafe landing": 3
+   },
+   "kinds": {
+    "divert": 31
+   },
+   "site_from_target": {
+    "n": 31,
+    "median": 28.442925306655784,
+    "p10": 25.942243542145693,
+    "p90": 41.78516483155236,
+    "min": 25.942243542145693,
+    "max": 53.009433122794285
+   },
+   "divert": {
+    "n": 31,
+    "median": 28.442925306655784,
+    "p10": 25.942243542145693,
+    "p90": 41.78516483155236,
+    "min": 25.942243542145693,
+    "max": 53.009433122794285
+   },
+   "margin": {
+    "n": 31,
+    "median": 22.0,
+    "p10": 6.0,
+    "p90": 26.476404589747453,
+    "min": 1.0,
+    "max": 26.476404589747453
+   },
+   "propellant": {
+    "n": 31,
+    "median": 606.6389625735683,
+    "p10": 571.6834848494327,
+    "p90": 623.6326948805909,
+    "min": 468.7897711330679,
+    "max": 624.787390978332
+   },
+   "nav_error_decision": {
+    "n": 31,
+    "median": 0.0805841397523439,
+    "p10": 0.038090064019592494,
+    "p90": 297.14702099733233,
+    "min": 0.014936476136368924,
+    "max": 2309.116994984028
+   },
+   "miss_true_site": {
+    "n": 31,
+    "median": 0.3741418709031723,
+    "p10": 0.07282172617811922,
+    "p90": 0.9070905144676895,
+    "min": 0.06661319155631863,
+    "max": 7.862178680609406
+   }
+  },
+  "notrn": {
+   "n": 32,
+   "outcomes": {
+    "safe landing": 19,
+    "abort (shooting failure)": 9,
+    "unsafe landing": 4
+   },
+   "kinds": {
+    "divert": 23,
+    "hazard": 9
+   },
+   "site_from_target": {
+    "n": 23,
+    "median": 32.449961479175904,
+    "p10": 11.180339887498949,
+    "p90": 55.624579188809236,
+    "min": 11.180339887498949,
+    "max": 57.48912940721924
+   },
+   "divert": {
+    "n": 32,
+    "median": 30.59411708155671,
+    "p10": 0.0,
+    "p90": 48.16637831516918,
+    "min": 0.0,
+    "max": 57.48912940721924
+   },
+   "margin": {
+    "n": 23,
+    "median": 2.8284271247461903,
+    "p10": 1.4142135623730951,
+    "p90": 10.63014581273465,
+    "min": 1.4142135623730951,
+    "max": 10.63014581273465
+   },
+   "propellant": {
+    "n": 32,
+    "median": 623.3119459611548,
+    "p10": 568.6929565657042,
+    "p90": 643.6959030762987,
+    "min": 565.5727580153161,
+    "max": 652.0873801689031
+   },
+   "nav_error_decision": {
+    "n": 32,
+    "median": 409.2947323422809,
+    "p10": 337.4754071486498,
+    "p90": 1295.365870968015,
+    "min": 335.3470317094006,
+    "max": 1384.7624390085568
+   },
+   "miss_true_site": {
+    "n": 23,
+    "median": 0.2758896911266279,
+    "p10": 0.08414168275096161,
+    "p90": 1.4890385911719692,
+    "min": 0.04321368556857848,
+    "max": 1.5845177074888759
+   }
+  },
+  "trn_gap0_by_epoch": {
+   "0": {
+    "n": 8,
+    "outcomes": {
+     "safe landing": 7,
+     "unsafe landing": 1
+    },
+    "kinds": {
+     "divert": 8
+    },
+    "site_from_target": {
+     "n": 8,
+     "median": 30.166681372429867,
+     "p10": 26.316156275466927,
+     "p90": 38.35027392988579,
+     "min": 25.942243542145693,
+     "max": 41.78516483155236
+    },
+    "divert": {
+     "n": 8,
+     "median": 30.166681372429867,
+     "p10": 26.316156275466927,
+     "p90": 38.35027392988579,
+     "min": 25.942243542145693,
+     "max": 41.78516483155236
+    },
+    "margin": {
+     "n": 8,
+     "median": 21.965856099730654,
+     "p10": 13.72426406871193,
+     "p90": 24.640525995551425,
+     "min": 1.4142135623730951,
+     "max": 26.476404589747453
+    },
+    "propellant": {
+     "n": 8,
+     "median": 607.9689992223971,
+     "p10": 578.7328095426348,
+     "p90": 623.9131841193984,
+     "min": 546.7421688421164,
+     "max": 624.5676590099492
+    },
+    "nav_error_decision": {
+     "n": 8,
+     "median": 0.12852389546543783,
+     "p10": 0.05265967380473706,
+     "p90": 577.277856689669,
+     "min": 0.023585385458338486,
+     "max": 1923.7236511175493
+    },
+    "miss_true_site": {
+     "n": 8,
+     "median": 0.3091832658430752,
+     "p10": 0.13214894863275856,
+     "p90": 2.9666943283257106,
+     "min": 0.06964913270580333,
+     "max": 7.772436560661096
+    }
+   },
+   "1": {
+    "n": 7,
+    "outcomes": {
+     "safe landing": 6,
+     "unsafe landing": 1
+    },
+    "kinds": {
+     "divert": 7
+    },
+    "site_from_target": {
+     "n": 7,
+     "median": 27.892651361962706,
+     "p10": 26.160433142417364,
+     "p90": 40.7148710794024,
+     "min": 25.942243542145693,
+     "max": 47.43416490252569
+    },
+    "divert": {
+     "n": 7,
+     "median": 27.892651361962706,
+     "p10": 26.160433142417364,
+     "p90": 40.7148710794024,
+     "min": 25.942243542145693,
+     "max": 47.43416490252569
+    },
+    "margin": {
+     "n": 7,
+     "median": 23.0,
+     "p10": 14.601247829862382,
+     "p90": 24.990561835898983,
+     "min": 3.605551275463989,
+     "max": 26.476404589747453
+    },
+    "propellant": {
+     "n": 7,
+     "median": 606.5790562527764,
+     "p10": 576.8342045464409,
+     "p90": 621.715258640305,
+     "min": 537.9865613591055,
+     "max": 623.5982159147661
+    },
+    "nav_error_decision": {
+     "n": 7,
+     "median": 0.07060753720732937,
+     "p10": 0.028828628866303066,
+     "p90": 774.7359380230223,
+     "min": 0.014936476136368924,
+     "max": 1936.7024029692548
+    },
+    "miss_true_site": {
+     "n": 7,
+     "median": 0.3753390932574986,
+     "p10": 0.07150628690947233,
+     "p90": 3.425736164575466,
+     "min": 0.06661319155631863,
+     "max": 7.862178680609406
+    }
+   },
+   "2": {
+    "n": 8,
+    "outcomes": {
+     "safe landing": 8
+    },
+    "kinds": {
+     "divert": 8
+    },
+    "site_from_target": {
+     "n": 8,
+     "median": 29.408130736938233,
+     "p10": 26.196798075795975,
+     "p90": 41.2675692416291,
+     "min": 25.942243542145693,
+     "max": 53.009433122794285
+    },
+    "divert": {
+     "n": 8,
+     "median": 29.408130736938233,
+     "p10": 26.196798075795975,
+     "p90": 41.2675692416291,
+     "min": 25.942243542145693,
+     "max": 53.009433122794285
+    },
+    "margin": {
+     "n": 8,
+     "median": 22.5974135047432,
+     "p10": 15.100000000000001,
+     "p90": 24.742921376924237,
+     "min": 6.0,
+     "max": 26.476404589747453
+    },
+    "propellant": {
+     "n": 8,
+     "median": 608.1675167474605,
+     "p10": 593.5776696365576,
+     "p90": 621.1257157321818,
+     "min": 571.6834848494327,
+     "max": 623.5924155735538
+    },
+    "nav_error_decision": {
+     "n": 8,
+     "median": 0.06954143159019048,
+     "p10": 0.043438183973218164,
+     "p90": 89.2123407114629,
+     "min": 0.021185470812045932,
+     "max": 297.14702099733233
+    },
+    "miss_true_site": {
+     "n": 8,
+     "median": 0.3195901607783542,
+     "p10": 0.08141726246693982,
+     "p90": 0.5402304999614629,
+     "min": 0.07282172617811922,
+     "max": 0.7321837139732131
+    }
+   },
+   "3": {
+    "n": 8,
+    "outcomes": {
+     "safe landing": 7,
+     "unsafe landing": 1
+    },
+    "kinds": {
+     "divert": 8
+    },
+    "site_from_target": {
+     "n": 8,
+     "median": 29.408130736938233,
+     "p10": 26.196798075795975,
+     "p90": 38.97098786932909,
+     "min": 25.942243542145693,
+     "max": 45.35416188179427
+    },
+    "divert": {
+     "n": 8,
+     "median": 29.408130736938233,
+     "p10": 26.196798075795975,
+     "p90": 38.97098786932909,
+     "min": 25.942243542145693,
+     "max": 45.35416188179427
+    },
+    "margin": {
+     "n": 8,
+     "median": 22.5974135047432,
+     "p10": 13.600000000000001,
+     "p90": 24.742921376924237,
+     "min": 1.0,
+     "max": 26.476404589747453
+    },
+    "propellant": {
+     "n": 8,
+     "median": 608.2468976447458,
+     "p10": 562.542403550637,
+     "p90": 623.9837007697308,
+     "min": 468.7897711330679,
+     "max": 624.787390978332
+    },
+    "nav_error_decision": {
+     "n": 8,
+     "median": 0.07945086580983476,
+     "p10": 0.04540658658865892,
+     "p90": 692.8345693435209,
+     "min": 0.042719216246634634,
+     "max": 2309.116994984028
+    },
+    "miss_true_site": {
+     "n": 8,
+     "median": 0.3146469702005807,
+     "p10": 0.07972208431909508,
+     "p90": 2.260938165239197,
+     "min": 0.06766292172474343,
+     "max": 6.467813588707557
+    }
+   }
+  },
+  "phase5_seed_20261050": {
+   "n": 400,
+   "safe": 400,
+   "kinds": {
+    "divert": 400
+   },
+   "site_from_target": {
+    "n": 400,
+    "median": 26.626994319712757,
+    "p10": 16.12108380934735,
+    "p90": 33.94259831652878,
+    "min": 4.242640687119285,
+    "max": 42.42640687119285
+   },
+   "divert": {
+    "n": 400,
+    "median": 26.626994319712757,
+    "p10": 16.12108380934735,
+    "p90": 33.94259831652878,
+    "min": 4.242640687119285,
+    "max": 42.42640687119285
+   },
+   "margin": {
+    "n": 400,
+    "median": 24.269243497506643,
+    "p10": 19.79898987322333,
+    "p90": 29.5296461204668,
+    "min": 15.811388300841896,
+    "max": 35.0
+   },
+   "propellant": {
+    "n": 400,
+    "median": 613.5948736833707,
+    "p10": 593.7826630634642,
+    "p90": 641.0712421420351,
+    "min": 577.7251745579724,
+    "max": 654.9833096171405
+   }
+  }
+ },
+ "check3": {
+  "jobs": 16,
+  "errors": [],
+  "flights": [
+   {
+    "draw": 0,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 0,
+    "gap": 168.0,
+    "outcome": "unsafe landing",
+    "kind": "divert",
+    "accepted": 1,
+    "worst_accepted": 762.2204435148492,
+    "nav_error_decision": 753.117535212922,
+    "margin": 3.1622776601683795,
+    "miss_true_site": 0.5637138652383163,
+    "modes": [
+     "fix rejected x3 (10 s rejected by margin, 20 s rejected by nis, 30 s rejected by margin)",
+     "wrong fix accepted (40 s 762 m)",
+     "divert from a wrong position (error 753 m, margin 3.2 m)",
+     "unsafe landing (truth gear check fails)"
+    ]
+   },
+   {
+    "draw": 1,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 1,
+    "gap": 168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": "hazard",
+    "accepted": 1,
+    "worst_accepted": 1663.596164401752,
+    "nav_error_decision": 1678.6082493780666,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x3 (20 s rejected by nis, 30 s rejected by nis, 40 s rejected by nis)",
+     "wrong fix accepted (10 s 1664 m)",
+     "abort on hazard at 58 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 2,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 2,
+    "gap": 168.0,
+    "outcome": "safe landing",
+    "kind": "divert",
+    "accepted": 1,
+    "worst_accepted": 64.48126247144927,
+    "nav_error_decision": 70.23021155186348,
+    "margin": 14.422205101855956,
+    "miss_true_site": 0.37162269551461397,
+    "modes": [
+     "fix rejected x3 (20 s rejected by margin, 30 s rejected by nis, 40 s rejected by margin)",
+     "wrong fix accepted (10 s 64 m)",
+     "divert from a wrong position (error 70 m, margin 14.4 m)"
+    ]
+   },
+   {
+    "draw": 3,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 3,
+    "gap": 168.0,
+    "outcome": "unsafe landing",
+    "kind": "divert",
+    "accepted": 1,
+    "worst_accepted": 627.6131105032797,
+    "nav_error_decision": 627.2558611758647,
+    "margin": 1.0,
+    "miss_true_site": 0.4939981486783747,
+    "modes": [
+     "fix rejected x3 (10 s rejected by margin, 30 s rejected by margin, 40 s rejected by margin)",
+     "wrong fix accepted (20 s 628 m)",
+     "divert from a wrong position (error 627 m, margin 1.0 m)",
+     "unsafe landing (truth gear check fails)"
+    ]
+   },
+   {
+    "draw": 4,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 4,
+    "gap": 168.0,
+    "outcome": "safe landing",
+    "kind": "divert",
+    "accepted": 1,
+    "worst_accepted": 69.07099246944928,
+    "nav_error_decision": 72.91781450759139,
+    "margin": 9.0,
+    "miss_true_site": 0.8355798020664051,
+    "modes": [
+     "fix rejected x3 (20 s rejected by nis, 30 s rejected by margin, 40 s rejected by margin)",
+     "wrong fix accepted (10 s 69 m)",
+     "divert from a wrong position (error 73 m, margin 9.0 m)"
+    ]
+   },
+   {
+    "draw": 5,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 5,
+    "gap": 168.0,
+    "outcome": "safe landing",
+    "kind": "divert",
+    "accepted": 1,
+    "worst_accepted": 85.73631146624734,
+    "nav_error_decision": 80.94403138184639,
+    "margin": 13.601470508735444,
+    "miss_true_site": 0.36281522720865483,
+    "modes": [
+     "fix rejected x3 (20 s rejected by nis, 30 s rejected by margin, 40 s rejected by margin)",
+     "wrong fix accepted (10 s 86 m)",
+     "divert from a wrong position (error 81 m, margin 13.6 m)"
+    ]
+   },
+   {
+    "draw": 6,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 6,
+    "gap": 168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": "hazard",
+    "accepted": 1,
+    "worst_accepted": 570.6089165879226,
+    "nav_error_decision": 579.5454764728413,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x3 (10 s rejected by nis, 30 s rejected by margin, 40 s rejected by nis)",
+     "wrong fix accepted (20 s 571 m)",
+     "abort on hazard at 80 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 7,
+    "gap": -168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": null,
+    "accepted": 0,
+    "worst_accepted": null,
+    "nav_error_decision": null,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x4 (10 s undefined, 20 s undefined, 30 s undefined, 40 s undefined)",
+     "lost lock",
+     "abort on lost lock at 40 s, end state shooting failure"
+    ]
+   },
+   {
+    "draw": 7,
+    "gap": 168.0,
+    "outcome": "abort (shooting failure)",
+    "kind": "hazard",
+    "accepted": 1,
+    "worst_accepted": 1527.1914353284212,
+    "nav_error_decision": 1511.8741827827098,
+    "margin": null,
+    "miss_true_site": null,
+    "modes": [
+     "fix rejected x3 (10 s rejected by margin, 30 s rejected by nis, 40 s rejected by margin)",
+     "wrong fix accepted (20 s 1527 m)",
+     "abort on hazard at 84 s, end state shooting failure"
+    ]
+   }
+  ],
+  "fixes": {
+   "10": {
+    "status": {
+     "undefined": 8,
+     "rejected by margin": 3,
+     "accepted": 4,
+     "rejected by nis": 1
+    },
+    "pass1_all": {
+     "n": 8,
+     "median": 1236.0629747938872,
+     "p10": 67.69407347004928,
+     "p90": 1599.1848112164869,
+     "min": 64.48126247144927,
+     "max": 1663.596164401752
+    },
+    "pass2_all": {
+     "n": 4,
+     "median": 76.87809816671808,
+     "p10": 71.05740670600039,
+     "p90": 1190.9117258430845,
+     "min": 70.18263577395062,
+     "max": 1666.7348980104118
+    },
+    "pass1_accepted": {
+     "n": 4,
+     "median": 77.4036519678483,
+     "p10": 65.85818147084927,
+     "p90": 1190.238208521101,
+     "min": 64.48126247144927,
+     "max": 1663.596164401752
+    }
+   },
+   "20": {
+    "status": {
+     "undefined": 8,
+     "rejected by nis": 4,
+     "rejected by margin": 1,
+     "accepted": 3
+    },
+    "pass1_all": {
+     "n": 8,
+     "median": 599.1110135456012,
+     "p10": 76.75411716958988,
+     "p90": 1618.258368835097,
+     "min": 36.73241433301962,
+     "max": 1665.0995823449157
+    },
+    "pass2_all": {
+     "n": 3,
+     "median": 627.3426669146403,
+     "p10": 590.6148553442646,
+     "p90": 1338.6889613416997,
+     "min": 581.4329024516707,
+     "max": 1516.5255349484646
+    },
+    "pass1_accepted": {
+     "n": 3,
+     "median": 627.6131105032797,
+     "p10": 582.0097553709941,
+     "p90": 1347.275770363393,
+     "min": 570.6089165879226,
+     "max": 1527.1914353284212
+    }
+   },
+   "30": {
+    "status": {
+     "undefined": 8,
+     "rejected by margin": 5,
+     "rejected by nis": 3
+    },
+    "pass1_all": {
+     "n": 8,
+     "median": 638.8815137162512,
+     "p10": 45.95298201834074,
+     "p90": 1463.62473835117,
+     "min": 22.655097287737924,
+     "max": 1670.3037128122394
+    },
+    "pass2_all": {
+     "n": 0
+    },
+    "pass1_accepted": {
+     "n": 0
+    }
+   },
+   "40": {
+    "status": {
+     "undefined": 8,
+     "accepted": 1,
+     "rejected by nis": 2,
+     "rejected by margin": 5
+    },
+    "pass1_all": {
+     "n": 8,
+     "median": 660.7863819224344,
+     "p10": 27.259979565079732,
+     "p90": 1448.5273261276566,
+     "min": 22.65242418695005,
+     "max": 1619.8816237005171
+    },
+    "pass2_all": {
+     "n": 1,
+     "median": 753.4758258146489,
+     "p10": 753.4758258146489,
+     "p90": 753.4758258146489,
+     "min": 753.4758258146489,
+     "max": 753.4758258146489
+    },
+    "pass1_accepted": {
+     "n": 1,
+     "median": 762.2204435148492,
+     "p10": 762.2204435148492,
+     "p90": 762.2204435148492,
+     "min": 762.2204435148492,
+     "max": 762.2204435148492
+    }
+   }
+  }
+ },
+ "cost": {
+  "check2": {
+   "notrn gap None": {
+    "seconds": {
+     "n": 8,
+     "median": 120.63295203349935,
+     "p10": 89.99274185800023,
+     "p90": 188.05959377120035,
+     "min": 85.0355383340002,
+     "max": 189.96925974199985
+    },
+    "maxrss_mb": {
+     "n": 8,
+     "median": 2377.556640625,
+     "p10": 2314.01171875,
+     "p90": 2570.75390625,
+     "min": 2314.01171875,
+     "max": 2570.75390625
+    }
+   },
+   "trn gap 0.0": {
+    "seconds": {
+     "n": 31,
+     "median": 92.4091404080009,
+     "p10": 82.23434209399966,
+     "p90": 121.87006512199969,
+     "min": 65.39457649499946,
+     "max": 124.71472481799992
+    },
+    "maxrss_mb": {
+     "n": 31,
+     "median": 2360.04296875,
+     "p10": 2335.609375,
+     "p90": 2362.6171875,
+     "min": 2316.7734375,
+     "max": 2362.6171875
+    }
+   }
+  },
+  "check3": {
+   "trn gap -168.0": {
+    "seconds": {
+     "n": 8,
+     "median": 12.04333595349999,
+     "p10": 11.156583097298972,
+     "p90": 12.69963807350059,
+     "min": 10.70468114399955,
+     "max": 13.576497466000546
+    },
+    "maxrss_mb": {
+     "n": 8,
+     "median": 1411.673828125,
+     "p10": 516.89453125,
+     "p90": 2066.8515625,
+     "min": 516.89453125,
+     "max": 2066.8515625
+    }
+   },
+   "trn gap 168.0": {
+    "seconds": {
+     "n": 8,
+     "median": 78.75540531250044,
+     "p10": 51.69449501439949,
+     "p90": 137.6195676534996,
+     "min": 48.3248486349994,
+     "max": 156.61187506100032
+    },
+    "maxrss_mb": {
+     "n": 8,
+     "median": 2066.8515625,
+     "p10": 1560.341796875,
+     "p90": 2272.944921875,
+     "min": 1040.00390625,
+     "max": 2388.234375
+    }
+   }
+  },
+  "projection": {
+   "workers": 2,
+   "trn_gap0_s": 92.4091404080009,
+   "trn_gap168_s": 30.950673050499972,
+   "notrn_job_s": 120.63295203349935,
+   "cpu_per_draw_s": 1233.0856668775023,
+   "cpu_per_draw_upper_s": 2708.0888834575244,
+   "wall_h": {
+    "16": 2.740190370838894,
+    "32": 5.480380741677788,
+    "50": 8.563094908871543,
+    "100": 17.126189817743086
+   },
+   "wall_h_upper": {
+    "16": 6.017975296572277,
+    "32": 12.035950593144554,
+    "50": 18.806172801788364,
+    "100": 37.61234560357673
+   }
+  }
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "seed": 1,
+ "draw": 1,
+ "gap": 168.0,
+ "outcome": "unsafe landing",
+ "total": 122.4435601539999,
+ "stages": {
+  "filter": 0.5169963089883822,
+  "guidance re-solve": 24.81297350499881,
+  "image rendering": 5.111755353999797,
+  "fixes": 2.1744004120009777,
+  "ground tiles": 12.458260204000908,
+  "scan planning": 0.004971630998625187,
+  "ray casting": 75.33456368799762,
+  "hazard map": 0.3537889620001806,
+  "site selection": 0.08602172799965047,
+  "descent": 0.5079111220147752,
+  "other": 1.0819172390001768
+ },
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1"
+ },
+ "tiles_built": 25,
+ "frames": 84,
+ "maxrss_mb": 2242.3125
+}

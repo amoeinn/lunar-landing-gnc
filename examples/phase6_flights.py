@@ -15,13 +15,18 @@ Commands, writing under work/step6_1/:
              pieces switched in one at a time (1b), every epoch.
   smoke_landing  step 6.1b's smoke run: as smoke, each flight to touchdown or
              abort (work/step6_1/smoke_landing.json). Reported only.
+  pilot STAGE WORKERS DEADLINE_S
+             step 6.1c's pilot on development seed 2, 8 draws: check2 (gap
+             0, every epoch, and the no-TRN lander) or check3 (epoch 0, gaps
+             -168 and +168 h); each job saved under work/step6_1/pilot_STAGE/.
   check1a_d28  check 1a alone (phase 5's pieces), re-run with D28's rank
              check on in the flight.
+  check1a_final  the same, on step 6.1b's final code (D29, D32, D36 in).
   manifest   work/step3_2a/maps_manifest.json: each of the 68 reference maps'
              sha256 and the commands that regenerate them.
 
 Needs LLG_DATA. Usage: python examples/phase6_flights.py smoke | reach N | smoke_landing | check1 | check1a_d28 |
-manifest
+check1a_final | pilot STAGE WORKERS DEADLINE_S | manifest
 """
 import json
 import multiprocessing
@@ -273,6 +278,93 @@ def cmd_smoke_landing():
     return dict(seed=SMOKE_SEED, epoch=SMOKE_EPOCH, rows=rows)
 
 
+PILOT_SEED = 2                      # development seed (PLAN.md 6.1c); never a registered seed
+PILOT_DRAWS = 8
+
+
+def pilot_jobs(stage):
+    """check2: per draw the TRN lander at gap 0 at each landing epoch, and the
+    no-TRN lander (one flight branched at each epoch, D18); check3: per draw
+    the TRN lander at landing epoch 0, gaps -168 h and +168 h."""
+    if stage == "check2":
+        return [(PILOT_SEED, d, "trn", e, 0.0) for d in range(PILOT_DRAWS) for e in range(4)] + \
+            [(PILOT_SEED, d, "notrn", None, None) for d in range(PILOT_DRAWS)]
+    return [(PILOT_SEED, d, "trn", 0, g) for d in range(PILOT_DRAWS) for g in (-168.0, 168.0)]
+
+
+def pilot_row(out):
+    c = out.get("choice") or {}
+    r = landing_row(out)
+    r.update(fixes_full=[dict(t=f["t"], status=f["status"], fix_error=f["fix_error"], pass2_error=f["pass2_error"],
+                              truncated_cells=f["truncated_cells"], off_map_fraction=f["off_map_fraction"])
+                         for f in out["fixes"]],
+             nav_error_decision=c.get("nav_error_h"), lost_lock=out.get("lost_lock"), true_site=c.get("true_site"),
+             min_clearance=out.get("min_clearance"), min_above_site=out.get("min_above_site"))
+    return r
+
+
+def pilot_job(job):
+    """One pilot flight (or the no-TRN lander's flight with its four branches);
+    never raises; the draw's ground is dropped after it to bound memory."""
+    import traceback
+    seed, d, lander, epoch, gap = job
+    ctx = landing_context()
+    a = time.perf_counter()
+    rec = dict(job=list(job))
+    try:
+        if lander == "trn":
+            out = EF.from_shared(ctx, EF.shared_start(ctx, seed, d, until="touchdown"), epoch, gap)
+            rec["rows"] = [pilot_row(out)]
+        else:
+            snap, out = EF.shared_notrn(ctx, seed, d)
+            rec["shared_seconds"] = time.perf_counter() - a
+            rec["rows"] = [pilot_row(out)] * 4 if snap is None else \
+                [pilot_row(EF.from_notrn(ctx, snap, e)) for e in range(4)]
+    except Exception:
+        rec["error"] = traceback.format_exc()
+    ctx["grounds_clear"]()
+    rec.update(seconds=time.perf_counter() - a, maxrss_mb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024)
+    return rec
+
+
+def cmd_pilot(stage, workers, deadline_s):
+    """A pilot stage on workers processes: each finished job saved at once
+    under work/step6_1/pilot_<stage>/, the stage stopped at deadline_s (the
+    gate) with the unfinished jobs listed."""
+    import baselines_5_2 as BL
+    from concurrent.futures import FIRST_COMPLETED, wait
+    folder = OUT / f"pilot_{stage}"
+    folder.mkdir(parents=True, exist_ok=True)
+    name = lambda j: f"d{j[1]:02d}_{j[2]}_e{j[3]}_g{j[4]}.json"  # noqa: E731
+    todo = [j for j in pilot_jobs(stage) if not (folder / name(j)).exists()]
+    t0, stop = time.time(), None
+    with ProcessPoolExecutor(workers, mp_context=multiprocessing.get_context("spawn"), initializer=_set_lits,
+                             initargs=(BL.epochs_lit(),)) as ex:
+        running = {ex.submit(pilot_job, j): j for j in todo[:workers]}
+        todo = todo[workers:]
+        while running:
+            done, _ = wait(running, timeout=max(deadline_s - (time.time() - t0), 0.0), return_when=FIRST_COMPLETED)
+            if not done:
+                stop = f"gate: {deadline_s:.0f} s reached"
+                for fut in running:
+                    fut.cancel()
+                ex.shutdown(wait=False, cancel_futures=True)
+                break
+            for fut in done:
+                j = running.pop(fut)
+                r = fut.result()
+                (folder / name(j)).write_text(json.dumps(r, default=float))
+                print(f"{name(j)} {r['seconds']:.0f} s {r['maxrss_mb']:.0f} MB "
+                      f"{[x['outcome'] for x in r.get('rows', [])]}{' ERROR' if 'error' in r else ''} "
+                      f"wall {time.time() - t0:.0f} s", flush=True)
+                if todo and stop is None:
+                    nj = todo.pop(0)
+                    running[ex.submit(pilot_job, nj)] = nj
+    left = [name(j) for j in pilot_jobs(stage) if not (folder / name(j)).exists()]
+    print(f"{stage}: wall {time.time() - t0:.0f} s, unfinished {len(left)}" + (f"; STOPPED: {stop}" if stop else ""))
+    return dict(stage=stage, workers=workers, deadline_s=deadline_s, wall=time.time() - t0, unfinished=left, stop=stop)
+
+
 if __name__ == "__main__":
     t0 = time.perf_counter()
     cmd = sys.argv[1]
@@ -283,9 +375,12 @@ if __name__ == "__main__":
         res = cmd_reach(int(sys.argv[2]))
     elif cmd == "check1":
         res = cmd_check1()
+    elif cmd == "pilot":
+        res = cmd_pilot(sys.argv[2], int(sys.argv[3]), float(sys.argv[4]))
+        cmd = f"pilot_{sys.argv[2]}"
     elif cmd == "smoke_landing":
         res = cmd_smoke_landing()
-    elif cmd == "check1a_d28":
+    elif cmd in ("check1a_d28", "check1a_final"):
         res = cmd_check1(("phase 5 pieces",))
     elif cmd == "manifest":
         res = cmd_manifest()

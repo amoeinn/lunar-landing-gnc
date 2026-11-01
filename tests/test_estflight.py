@@ -30,7 +30,9 @@ TRUTH_DRAWS = (0, 1, 2)
 
 @pytest.fixture(scope="module")
 def ctx():
-    return PF.context()
+    """The landing context: an abort is judged on the true ground (D47, D53),
+    which context() alone does not carry."""
+    return PF.landing_context()
 
 
 def flown(ctx, *args, **kw):

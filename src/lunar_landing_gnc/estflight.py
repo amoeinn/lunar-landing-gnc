@@ -578,7 +578,8 @@ class Flight:
         d = L.frame_dirs(o_nav, aim)
         ax, ay = aim[0] + o_true[0] - o_nav[0], aim[1] + o_true[1] - o_nav[1]
         hw = r_aim * L.FOV + 30.0
-        r = EL.ray_cast_ground(ground, o_true, d, (ax - hw, ax + hw, ay - hw, ay + hw))
+        cast = EL.ray_cast_ground_cpp if self.ctx.get("cast") == "cpp" else EL.ray_cast_ground
+        r = cast(ground, o_true, d, (ax - hw, ax + hw, ay - hw, ay + hw))
         ok = np.isfinite(r) & (r >= L.RANGE_MIN) & (r <= L.RANGE_MAX)
         if s["pieces"]["scan_noise"] == "phase5":
             meas = r[ok] + (sc["rng"].normal(0.0, L.SIGMA_RANGE, ok.sum()) + sc["bias"])
@@ -910,6 +911,9 @@ class Flight:
                 c = self._abort_clearance(pos)
                 if np.isfinite(c):
                     low = min(low, c)
+                if self.ctx.get("free_tiles"):          # D45, as at the ticks: the burn flies east
+                    g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+                    g.drop_west(g.tile_of(pos[0], pos[1])[0] - 1)
             x = sol.y[:, -1]
         return low
 

@@ -1,0 +1,22 @@
+{
+ "draw 0": {
+  "tiles_made": 33,
+  "by_part": {
+   "descent clearance": 2,
+   "abort clearance": 31
+  },
+  "max_held": 24,
+  "max_rss_mb": 1941.2109375
+ },
+ "draw 1": {
+  "tiles_made": 80,
+  "by_part": {
+   "descent clearance": 10,
+   "scan cast": 10,
+   "abort clearance": 60
+  },
+  "max_held": 39,
+  "max_rss_mb": 3375.7890625
+ }
+}
+207.64 s 3455792 KB

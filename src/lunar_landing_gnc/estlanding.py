@@ -16,7 +16,8 @@ depend on how many others returned. No epoch in either key.
 Ray casting on the D5 ground (ray_cast_ground): lidar.ray_cast's march and
 bisection, with the raster's bounds replaced by the ground region's and the
 highest and lowest heights by those of the tiles near the frame. A ray that
-leaves the region returns no range.
+leaves the region returns no range. ray_cast_ground_cpp is the same cast in
+C++ (D56), selected by a flight's ctx["cast"] = "cpp"; Python is the default.
 
 The terminal controller (descent_thrust): closed_loop.descend's velocity law
 and pointing limit, as a function of a state, for the 20 Hz zero-order hold
@@ -145,6 +146,31 @@ def ray_cast_ground(ground, origin, dirs, near, step=L.STEP, tol=L.TOL):
         t[active] = nxt
         active = active[~hit & ~gone]
     return rng
+
+
+def ray_cast_ground_cpp(ground, origin, dirs, near, step=L.STEP, tol=L.TOL):
+    """ray_cast_ground in C++ (lunar_landing_gnc._flight.raycast, D56): the
+    same march, steps, bisection and order of operations, ray by ray, on the
+    ground's own tile arrays. The tiles within near are made first, as in
+    Python; a tile a ray reaches beyond them is made and the frame cast
+    again, so the ranges never depend on which tiles were made before."""
+    from . import _flight
+    o = np.ascontiguousarray(origin, float)
+    d = np.ascontiguousarray(dirs, float)
+    near_tiles = {id(t) for t in ground.tiles_in(*near)}
+    lo, hi = ground.bounds()
+    iters = int(np.ceil(np.log2(step / tol)))
+    while True:
+        keys = list(ground.tiles)
+        tiles = [(i, j, ground.tiles[(i, j)].z, ground.tiles[(i, j)].x0, ground.tiles[(i, j)].y1,
+                  ground.tiles[(i, j)].cell) for i, j in keys]
+        idx = [k for k, key in enumerate(keys) if id(ground.tiles[key]) in near_tiles]
+        rng, missing = _flight.raycast.cast_ground(o, d, tiles, idx, ground.cx, ground.cy, ground.size, ground.cell,
+                                                   ground.n, ground.half, lo, hi, step, iters)
+        if not missing:
+            return rng
+        for i, j in missing:
+            ground.tile(i, j)
 
 
 def descent_thrust(yy, veh):

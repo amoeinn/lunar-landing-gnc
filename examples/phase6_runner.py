@@ -16,7 +16,7 @@ stage on the same folder runs only the jobs not yet written.
   compare FOLDER_A FOLDER_B       every saved field but run time and memory
 
 Seed 2 only (a development seed). Nothing is scored. Needs LLG_DATA.
-Usage: python examples/phase6_runner.py ref|cut|full FOLDER WORKERS DEADLINE_S | compare A B
+Usage: python examples/phase6_runner.py ref|cut|full FOLDER WORKERS DEADLINE_S [python|cpp] | compare A B
 """
 import json
 import multiprocessing
@@ -59,11 +59,13 @@ def units(stage):
     return [[j for j in jobs if j[1] == d] for d in draws]
 
 
-def draw_unit(jobs, folder):
-    """A draw's jobs on this worker with the cuts, each written as it ends."""
+def draw_unit(jobs, folder, cast="python"):
+    """A draw's jobs on this worker with the cuts, each written as it ends;
+    cast "cpp" flies the scan on the C++ ray cast (D56)."""
     import traceback
     ctx = P.landing_context()
     ctx["free_tiles"] = True
+    ctx["cast"] = cast
     seed, d = jobs[0][0], jobs[0][1]
     snap = None
     for job in jobs:
@@ -98,7 +100,7 @@ def one_job(job, folder):
     return job
 
 
-def run(stage, folder, workers, deadline_s):
+def run(stage, folder, workers, deadline_s, cast="python"):
     """The stage on workers processes, the gate at deadline_s: running
     workers are terminated there and the unfinished jobs listed."""
     import baselines_5_2 as BL
@@ -111,7 +113,7 @@ def run(stage, folder, workers, deadline_s):
     if stage == "ref":
         tasks = [pool.apply_async(one_job, (j, str(folder))) for j in sorted(expected, key=lambda j: j[2] != "notrn")]
     else:
-        tasks = [pool.apply_async(draw_unit, (u, str(folder))) for u in us]
+        tasks = [pool.apply_async(draw_unit, (u, str(folder), cast)) for u in us]
     pool.close()
     stop = None
     for tk in tasks:
@@ -124,7 +126,7 @@ def run(stage, folder, workers, deadline_s):
         tk.get()
     pool.join()
     unfinished = [name(j) for j in expected if not (folder / name(j)).exists()]
-    res = dict(stage=stage, folder=str(folder), workers=workers, deadline_s=deadline_s, wall=time.time() - t0,
+    res = dict(stage=stage, folder=str(folder), workers=workers, deadline_s=deadline_s, cast=cast, wall=time.time() - t0,
                stop=stop, unfinished=unfinished, jobs=len(expected))
     (folder / "_stage.json").write_text(json.dumps(res, indent=1))
     print(json.dumps(res, indent=1))
@@ -154,11 +156,11 @@ def compare(a, b):
     for n, v in out:
         print(n, v)
     print(f"{sum(v == 'identical' for _, v in out)} of {len(out)} identical")
-    (P.OUT / f"compare_{a}_{b}.json").write_text(json.dumps(out, indent=1))
+    (P.OUT / f"compare_{a}_{b}.json".replace("/", "_")).write_text(json.dumps(out, indent=1))
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "compare":
         compare(sys.argv[2], sys.argv[3])
     else:
-        run(sys.argv[1], sys.argv[2], int(sys.argv[3]), float(sys.argv[4]))
+        run(sys.argv[1], sys.argv[2], int(sys.argv[3]), float(sys.argv[4]), *sys.argv[5:6])

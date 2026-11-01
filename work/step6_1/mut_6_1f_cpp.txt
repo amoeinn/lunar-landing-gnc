@@ -1,0 +1,7 @@
+C1 seam-reads-one-tile: applied, reverted; CAUGHT by RayCast.RayCrossingOntoAHigherTileStopsThere, RayCast.SeamBetweenTilesIsBilinearAcrossThem
+C2 missing-tile-invented: applied, reverted; CAUGHT by RayCast.AMissingTileIsReportedNotInvented
+C3 range-from-the-near-side: applied, reverted; CAUGHT by RayCast.RangeIsTheFirstCrossingWithinTheBisectionTolerance
+C4 three-bisections-short: applied, reverted; CAUGHT by RayCast.RangeIsTheFirstCrossingWithinTheBisectionTolerance, RayCast.RayCrossingOntoAHigherTileStopsThere
+C5 no-region-entry: applied, reverted; CAUGHT by RayCast.ARayFromOutsideStartsWhereItEntersTheRegion
+C6 tile-surface-outside-its-centres: applied, reverted; CAUGHT by RayCast.NoHeightBeyondTheRegion, RayCast.RayCrossingOntoAHigherTileStopsThere, RayCast.SeamBetweenTilesIsBilinearAcrossThem
+rebuilt clean

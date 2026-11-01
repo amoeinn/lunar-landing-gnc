@@ -1,0 +1,241 @@
+.....................................................EE.EE.F............ [ 13%]
+........................................................................ [ 27%]
+........................................................................ [ 40%]
+........................................................................ [ 54%]
+........................................................................ [ 67%]
+........................................................................ [ 81%]
+........................................................................ [ 94%]
+.............................                                            [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_guidance_and_triggers_read_the_estimate_with_true_mass _
+
+ctx = {'dem': <lunar_landing_gnc.navfilter.DEM object at 0x735351f3a750>, 'grid': Grid(x0=-7000.0, y1=14000.0, cell_m=20.0, ...9473739, 'k_x': 0.005941143991821415, 's0_y': 2.442992399583752, ...}, 'maps': <function _maps at 0x73534d1cd3a0>, ...}
+
+    @pytest.fixture(scope="module")
+    def gaps(ctx):
+        """Draw DRAW's TRN flight at gaps 0 and +168 h from the start, and at +168
+        h from the shared start."""
+        snap = EF.shared_start(ctx, SEED, DRAW)
+        shared = EF.Flight.resume(ctx, snap, 0, 168.0)
+>       shared.run()
+
+tests/test_estflight.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lunar_landing_gnc/estflight.py:381: in run
+    self._step()
+src/lunar_landing_gnc/estflight.py:436: in _step
+    return self._abort(fired, t, i)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:778: in _abort
+    asc, rise = self._abort_on_estimate(i)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:804: in _abort_on_estimate
+    max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:919: in _abort_clearance
+    return self._clearance(pos)
+           ^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:476: in _clearance
+    return float(p[2] - self.true_height(p[0], p[1]))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lunar_landing_gnc.estflight.Flight object at 0x735362a1eb40>
+x = np.float64(-566.6450010982549), y = np.float64(6615.153094057099)
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
+>       g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ground'
+
+src/lunar_landing_gnc/estflight.py:481: KeyError
+_______________ ERROR at setup of test_online_filter_equals_run ________________
+
+ctx = {'dem': <lunar_landing_gnc.navfilter.DEM object at 0x735351f3a750>, 'grid': Grid(x0=-7000.0, y1=14000.0, cell_m=20.0, ...9473739, 'k_x': 0.005941143991821415, 's0_y': 2.442992399583752, ...}, 'maps': <function _maps at 0x73534d1cd3a0>, ...}
+
+    @pytest.fixture(scope="module")
+    def gaps(ctx):
+        """Draw DRAW's TRN flight at gaps 0 and +168 h from the start, and at +168
+        h from the shared start."""
+        snap = EF.shared_start(ctx, SEED, DRAW)
+        shared = EF.Flight.resume(ctx, snap, 0, 168.0)
+>       shared.run()
+
+tests/test_estflight.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lunar_landing_gnc/estflight.py:381: in run
+    self._step()
+src/lunar_landing_gnc/estflight.py:436: in _step
+    return self._abort(fired, t, i)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:778: in _abort
+    asc, rise = self._abort_on_estimate(i)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:804: in _abort_on_estimate
+    max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:919: in _abort_clearance
+    return self._clearance(pos)
+           ^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:476: in _clearance
+    return float(p[2] - self.true_height(p[0], p[1]))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lunar_landing_gnc.estflight.Flight object at 0x735362a1eb40>
+x = np.float64(-566.6450010982549), y = np.float64(6615.153094057099)
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
+>       g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ground'
+
+src/lunar_landing_gnc/estflight.py:481: KeyError
+__ ERROR at setup of test_pairing_same_noise_and_same_flight_to_the_first_fix __
+
+ctx = {'dem': <lunar_landing_gnc.navfilter.DEM object at 0x735351f3a750>, 'grid': Grid(x0=-7000.0, y1=14000.0, cell_m=20.0, ...9473739, 'k_x': 0.005941143991821415, 's0_y': 2.442992399583752, ...}, 'maps': <function _maps at 0x73534d1cd3a0>, ...}
+
+    @pytest.fixture(scope="module")
+    def gaps(ctx):
+        """Draw DRAW's TRN flight at gaps 0 and +168 h from the start, and at +168
+        h from the shared start."""
+        snap = EF.shared_start(ctx, SEED, DRAW)
+        shared = EF.Flight.resume(ctx, snap, 0, 168.0)
+>       shared.run()
+
+tests/test_estflight.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lunar_landing_gnc/estflight.py:381: in run
+    self._step()
+src/lunar_landing_gnc/estflight.py:436: in _step
+    return self._abort(fired, t, i)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:778: in _abort
+    asc, rise = self._abort_on_estimate(i)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:804: in _abort_on_estimate
+    max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:919: in _abort_clearance
+    return self._clearance(pos)
+           ^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:476: in _clearance
+    return float(p[2] - self.true_height(p[0], p[1]))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lunar_landing_gnc.estflight.Flight object at 0x735362a1eb40>
+x = np.float64(-566.6450010982549), y = np.float64(6615.153094057099)
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
+>       g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ground'
+
+src/lunar_landing_gnc/estflight.py:481: KeyError
+_______ ERROR at setup of test_shared_start_equals_flying_from_the_start _______
+
+ctx = {'dem': <lunar_landing_gnc.navfilter.DEM object at 0x735351f3a750>, 'grid': Grid(x0=-7000.0, y1=14000.0, cell_m=20.0, ...9473739, 'k_x': 0.005941143991821415, 's0_y': 2.442992399583752, ...}, 'maps': <function _maps at 0x73534d1cd3a0>, ...}
+
+    @pytest.fixture(scope="module")
+    def gaps(ctx):
+        """Draw DRAW's TRN flight at gaps 0 and +168 h from the start, and at +168
+        h from the shared start."""
+        snap = EF.shared_start(ctx, SEED, DRAW)
+        shared = EF.Flight.resume(ctx, snap, 0, 168.0)
+>       shared.run()
+
+tests/test_estflight.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lunar_landing_gnc/estflight.py:381: in run
+    self._step()
+src/lunar_landing_gnc/estflight.py:436: in _step
+    return self._abort(fired, t, i)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:778: in _abort
+    asc, rise = self._abort_on_estimate(i)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:804: in _abort_on_estimate
+    max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:919: in _abort_clearance
+    return self._clearance(pos)
+           ^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:476: in _clearance
+    return float(p[2] - self.true_height(p[0], p[1]))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lunar_landing_gnc.estflight.Flight object at 0x735362a1eb40>
+x = np.float64(-566.6450010982549), y = np.float64(6615.153094057099)
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
+>       g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ground'
+
+src/lunar_landing_gnc/estflight.py:481: KeyError
+=================================== FAILURES ===================================
+________________ test_lost_lock_fires_online_for_the_trn_lander ________________
+
+ctx = {'dem': <lunar_landing_gnc.navfilter.DEM object at 0x735351f3a750>, 'grid': Grid(x0=-7000.0, y1=14000.0, cell_m=20.0, ...9473739, 'k_x': 0.005941143991821415, 's0_y': 2.442992399583752, ...}, 'maps': <function _maps at 0x73534d1cd3a0>, ...}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x735351bb50a0>
+
+    def test_lost_lock_fires_online_for_the_trn_lander(ctx, monkeypatch):
+        """Invariant (D2): a TRN lander with no fix accepted by 40 s aborts at
+        the first re-solve at 40 s with the lost lock trigger, and the abort is
+        flown. Fixture: every fix candidate returned empty."""
+        f = EF.Flight(ctx, SEED, DRAW, 0, 0.0)
+        f.s["filt"].trn = lambda *a: None
+>       out = f.run()
+              ^^^^^^^
+
+tests/test_estflight.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lunar_landing_gnc/estflight.py:381: in run
+    self._step()
+src/lunar_landing_gnc/estflight.py:436: in _step
+    return self._abort(fired, t, i)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:778: in _abort
+    asc, rise = self._abort_on_estimate(i)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:804: in _abort_on_estimate
+    max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:919: in _abort_clearance
+    return self._clearance(pos)
+           ^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/estflight.py:476: in _clearance
+    return float(p[2] - self.true_height(p[0], p[1]))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lunar_landing_gnc.estflight.Flight object at 0x735351bb5b80>
+x = np.float64(-566.6450010982549), y = np.float64(6615.153094057099)
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
+>       g = self.ctx["ground"](self.s["seed"], self.s["draw"])
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ground'
+
+src/lunar_landing_gnc/estflight.py:481: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_estflight.py::test_lost_lock_fires_online_for_the_trn_lander
+ERROR tests/test_estflight.py::test_guidance_and_triggers_read_the_estimate_with_true_mass
+ERROR tests/test_estflight.py::test_online_filter_equals_run - KeyError: 'gro...
+ERROR tests/test_estflight.py::test_pairing_same_noise_and_same_flight_to_the_first_fix
+ERROR tests/test_estflight.py::test_shared_start_equals_flying_from_the_start
+1 failed, 528 passed, 4 errors in 1184.14s (0:19:44)
+Command exited with non-zero status 1
+1184.71 s 4455012 KB

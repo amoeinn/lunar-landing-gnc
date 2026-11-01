@@ -1,0 +1,11 @@
+{
+ "stage": "cut",
+ "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_1/proof_cpp",
+ "workers": 2,
+ "deadline_s": 1700.0,
+ "cast": "cpp",
+ "wall": 192.80892515182495,
+ "stop": null,
+ "unfinished": [],
+ "jobs": 6
+}

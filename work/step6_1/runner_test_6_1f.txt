@@ -1,0 +1,30 @@
+== uninterrupted
+00:35:29
+2026-11-01 00:35:30 seed 2, draws 0 to 0, 4 flights, 0 already written; 4 workers, cast cpp
+2026-11-01 00:35:30 stage 1: 4 flights left
+2026-11-01 00:36:30 stage 1: 1 of 4 done, 3 left, about 3 min left, pool 1.28 GB (stage peak 1.28 GB)
+2026-11-01 00:37:30 stage 1: 2 of 4 done, 2 left, about 2 min left, pool 1.91 GB (stage peak 1.91 GB)
+2026-11-01 00:38:19 stage 1 ended (exit 0): 4 flights written, 0 left, sampled pool peak 1.91 GB
+2026-11-01 00:38:19 finished in 2.8 min: 4 of 4 written
+== killed
+00:38:20
+2026-11-01 00:38:21 seed 2, draws 0 to 0, 4 flights, 0 already written; 4 workers, cast cpp
+2026-11-01 00:38:21 stage 1: 4 flights left
+2026-11-01 00:39:21 stage 1: 1 of 4 done, 3 left, about 3 min left, pool 1.28 GB (stage peak 1.28 GB)
+work/step6_1/runner_test_6_1f.sh: line 23: 78069 Killed                  "${PY[@]}" "${ARGS[@]}" --out "$W/run_kill"
+killed at 00:40:03; written: d00_notrn_eNone_gNone.json d00_trn_e0_g0.0.json 
+no stage left running
+== restarted
+00:40:03
+2026-11-01 00:40:04 seed 2, draws 0 to 0, 4 flights, 2 already written; 4 workers, cast cpp
+2026-11-01 00:40:04 stage 1: 2 flights left
+2026-11-01 00:41:04 stage 1: 3 of 4 done, 1 left, about 1 min left, pool 1.74 GB (stage peak 1.74 GB)
+2026-11-01 00:41:27 stage 1 ended (exit 0): 2 flights written, 0 left, sampled pool peak 1.74 GB
+2026-11-01 00:41:27 finished in 1.4 min: 4 of 4 written
+flights written before the kill kept untouched
+d00_notrn_eNone_gNone.json identical
+d00_trn_e0_g0.0.json identical
+d00_trn_e1_g0.0.json identical
+d00_trn_e2_g0.0.json identical
+4 of 4 identical
+00:41:29

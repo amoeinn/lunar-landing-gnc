@@ -1,0 +1,1046 @@
+{
+ "summary": {
+  "draw 0": {
+   "tiles_made": 33,
+   "by_part": {
+    "descent clearance": 2,
+    "abort clearance": 31
+   },
+   "max_held": 24,
+   "max_rss_mb": 1941.2109375
+  },
+  "draw 1": {
+   "tiles_made": 80,
+   "by_part": {
+    "descent clearance": 10,
+    "scan cast": 10,
+    "abort clearance": 60
+   },
+   "max_held": 39,
+   "max_rss_mb": 3375.7890625
+  }
+ },
+ "log": {
+  "draw 0": [
+   {
+    "tile": [
+     -16,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 1,
+    "rss_mb": 360.015625
+   },
+   {
+    "tile": [
+     -15,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 2,
+    "rss_mb": 428.68359375
+   },
+   {
+    "tile": [
+     -14,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 497.54296875
+   },
+   {
+    "tile": [
+     -13,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 497.59375
+   },
+   {
+    "tile": [
+     -12,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 497.68359375
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 497.78125
+   },
+   {
+    "tile": [
+     -10,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 497.91796875
+   },
+   {
+    "tile": [
+     -9,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 498.01953125
+   },
+   {
+    "tile": [
+     -8,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 498.12890625
+   },
+   {
+    "tile": [
+     -7,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 498.2578125
+   },
+   {
+    "tile": [
+     -6,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 498.37109375
+   },
+   {
+    "tile": [
+     -5,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 3,
+    "rss_mb": 499.18359375
+   },
+   {
+    "tile": [
+     -4,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 4,
+    "rss_mb": 567.8515625
+   },
+   {
+    "tile": [
+     -3,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 5,
+    "rss_mb": 636.51953125
+   },
+   {
+    "tile": [
+     -2,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 6,
+    "rss_mb": 705.1875
+   },
+   {
+    "tile": [
+     -1,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 7,
+    "rss_mb": 773.85546875
+   },
+   {
+    "tile": [
+     0,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 8,
+    "rss_mb": 842.5234375
+   },
+   {
+    "tile": [
+     1,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 9,
+    "rss_mb": 911.19140625
+   },
+   {
+    "tile": [
+     2,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 10,
+    "rss_mb": 979.859375
+   },
+   {
+    "tile": [
+     3,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 11,
+    "rss_mb": 1048.52734375
+   },
+   {
+    "tile": [
+     4,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 12,
+    "rss_mb": 1117.1953125
+   },
+   {
+    "tile": [
+     5,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 13,
+    "rss_mb": 1185.86328125
+   },
+   {
+    "tile": [
+     6,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 14,
+    "rss_mb": 1254.53125
+   },
+   {
+    "tile": [
+     7,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 15,
+    "rss_mb": 1323.19921875
+   },
+   {
+    "tile": [
+     8,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 16,
+    "rss_mb": 1391.8671875
+   },
+   {
+    "tile": [
+     9,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 17,
+    "rss_mb": 1460.53515625
+   },
+   {
+    "tile": [
+     10,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 18,
+    "rss_mb": 1529.203125
+   },
+   {
+    "tile": [
+     11,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 19,
+    "rss_mb": 1597.87109375
+   },
+   {
+    "tile": [
+     12,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 20,
+    "rss_mb": 1666.5390625
+   },
+   {
+    "tile": [
+     13,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 21,
+    "rss_mb": 1735.20703125
+   },
+   {
+    "tile": [
+     14,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 22,
+    "rss_mb": 1803.875
+   },
+   {
+    "tile": [
+     15,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 23,
+    "rss_mb": 1872.54296875
+   },
+   {
+    "tile": [
+     16,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 24,
+    "rss_mb": 1941.2109375
+   }
+  ],
+  "draw 1": [
+   {
+    "tile": [
+     -16,
+     1
+    ],
+    "part": "descent clearance",
+    "held": 1,
+    "rss_mb": 362.078125
+   },
+   {
+    "tile": [
+     -16,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 2,
+    "rss_mb": 430.75
+   },
+   {
+    "tile": [
+     -15,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 3,
+    "rss_mb": 499.41796875
+   },
+   {
+    "tile": [
+     -14,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 4,
+    "rss_mb": 568.09375
+   },
+   {
+    "tile": [
+     -13,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 3,
+    "rss_mb": 499.42578125
+   },
+   {
+    "tile": [
+     -10,
+     2
+    ],
+    "part": "scan cast",
+    "held": 3,
+    "rss_mb": 499.484375
+   },
+   {
+    "tile": [
+     -9,
+     2
+    ],
+    "part": "scan cast",
+    "held": 4,
+    "rss_mb": 568.15234375
+   },
+   {
+    "tile": [
+     -8,
+     2
+    ],
+    "part": "scan cast",
+    "held": 5,
+    "rss_mb": 636.8203125
+   },
+   {
+    "tile": [
+     -12,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 6,
+    "rss_mb": 705.48828125
+   },
+   {
+    "tile": [
+     -10,
+     3
+    ],
+    "part": "scan cast",
+    "held": 6,
+    "rss_mb": 705.48828125
+   },
+   {
+    "tile": [
+     -9,
+     3
+    ],
+    "part": "scan cast",
+    "held": 7,
+    "rss_mb": 774.15625
+   },
+   {
+    "tile": [
+     -8,
+     3
+    ],
+    "part": "scan cast",
+    "held": 8,
+    "rss_mb": 842.82421875
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 9,
+    "rss_mb": 923.25390625
+   },
+   {
+    "tile": [
+     -7,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 7,
+    "rss_mb": 1044.8125
+   },
+   {
+    "tile": [
+     -6,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 8,
+    "rss_mb": 1113.48046875
+   },
+   {
+    "tile": [
+     -5,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 9,
+    "rss_mb": 1182.1484375
+   },
+   {
+    "tile": [
+     -4,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 10,
+    "rss_mb": 1250.81640625
+   },
+   {
+    "tile": [
+     -3,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 11,
+    "rss_mb": 1319.484375
+   },
+   {
+    "tile": [
+     -2,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 12,
+    "rss_mb": 1388.15234375
+   },
+   {
+    "tile": [
+     -1,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 13,
+    "rss_mb": 1456.8203125
+   },
+   {
+    "tile": [
+     0,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 14,
+    "rss_mb": 1525.48828125
+   },
+   {
+    "tile": [
+     1,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 15,
+    "rss_mb": 1594.15625
+   },
+   {
+    "tile": [
+     1,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 16,
+    "rss_mb": 1662.82421875
+   },
+   {
+    "tile": [
+     2,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 17,
+    "rss_mb": 1731.4921875
+   },
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 18,
+    "rss_mb": 1800.16015625
+   },
+   {
+    "tile": [
+     4,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 19,
+    "rss_mb": 1868.828125
+   },
+   {
+    "tile": [
+     5,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 20,
+    "rss_mb": 1937.49609375
+   },
+   {
+    "tile": [
+     6,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 21,
+    "rss_mb": 2006.1640625
+   },
+   {
+    "tile": [
+     7,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 22,
+    "rss_mb": 2074.83203125
+   },
+   {
+    "tile": [
+     8,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 23,
+    "rss_mb": 2143.5
+   },
+   {
+    "tile": [
+     9,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 24,
+    "rss_mb": 2212.16796875
+   },
+   {
+    "tile": [
+     10,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 25,
+    "rss_mb": 2280.8359375
+   },
+   {
+    "tile": [
+     11,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 26,
+    "rss_mb": 2349.50390625
+   },
+   {
+    "tile": [
+     12,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 27,
+    "rss_mb": 2418.171875
+   },
+   {
+    "tile": [
+     13,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 28,
+    "rss_mb": 2486.83984375
+   },
+   {
+    "tile": [
+     14,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 29,
+    "rss_mb": 2555.5078125
+   },
+   {
+    "tile": [
+     15,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 30,
+    "rss_mb": 2624.17578125
+   },
+   {
+    "tile": [
+     16,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 31,
+    "rss_mb": 2692.84375
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 32,
+    "rss_mb": 2833.0546875
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 32,
+    "rss_mb": 2916.53515625
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "descent clearance",
+    "held": 32,
+    "rss_mb": 2988.7421875
+   },
+   {
+    "tile": [
+     -15,
+     4
+    ],
+    "part": "scan cast",
+    "held": 1,
+    "rss_mb": 766.40625
+   },
+   {
+    "tile": [
+     -15,
+     5
+    ],
+    "part": "scan cast",
+    "held": 2,
+    "rss_mb": 835.07421875
+   },
+   {
+    "tile": [
+     -14,
+     4
+    ],
+    "part": "scan cast",
+    "held": 3,
+    "rss_mb": 903.7421875
+   },
+   {
+    "tile": [
+     -14,
+     5
+    ],
+    "part": "scan cast",
+    "held": 4,
+    "rss_mb": 972.41015625
+   },
+   {
+    "tile": [
+     -16,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 5,
+    "rss_mb": 1041.078125
+   },
+   {
+    "tile": [
+     -15,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 6,
+    "rss_mb": 1109.74609375
+   },
+   {
+    "tile": [
+     -14,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 7,
+    "rss_mb": 1178.4140625
+   },
+   {
+    "tile": [
+     -13,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 8,
+    "rss_mb": 1247.08203125
+   },
+   {
+    "tile": [
+     -12,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 9,
+    "rss_mb": 1315.75
+   },
+   {
+    "tile": [
+     -11,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 10,
+    "rss_mb": 1384.41796875
+   },
+   {
+    "tile": [
+     -10,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 11,
+    "rss_mb": 1453.0859375
+   },
+   {
+    "tile": [
+     -9,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 12,
+    "rss_mb": 1521.75390625
+   },
+   {
+    "tile": [
+     -8,
+     2
+    ],
+    "part": "abort clearance",
+    "held": 13,
+    "rss_mb": 1590.421875
+   },
+   {
+    "tile": [
+     -8,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 14,
+    "rss_mb": 1659.08984375
+   },
+   {
+    "tile": [
+     -7,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 15,
+    "rss_mb": 1727.7578125
+   },
+   {
+    "tile": [
+     -6,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 16,
+    "rss_mb": 1796.42578125
+   },
+   {
+    "tile": [
+     -5,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 17,
+    "rss_mb": 1865.09375
+   },
+   {
+    "tile": [
+     -4,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 18,
+    "rss_mb": 1933.76171875
+   },
+   {
+    "tile": [
+     -3,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 19,
+    "rss_mb": 2002.4296875
+   },
+   {
+    "tile": [
+     -2,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 20,
+    "rss_mb": 2071.09765625
+   },
+   {
+    "tile": [
+     -1,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 21,
+    "rss_mb": 2139.765625
+   },
+   {
+    "tile": [
+     0,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 22,
+    "rss_mb": 2208.43359375
+   },
+   {
+    "tile": [
+     1,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 23,
+    "rss_mb": 2277.1015625
+   },
+   {
+    "tile": [
+     2,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 24,
+    "rss_mb": 2345.76953125
+   },
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 25,
+    "rss_mb": 2414.4375
+   },
+   {
+    "tile": [
+     4,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 26,
+    "rss_mb": 2483.10546875
+   },
+   {
+    "tile": [
+     5,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 27,
+    "rss_mb": 2551.7734375
+   },
+   {
+    "tile": [
+     6,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 28,
+    "rss_mb": 2620.44140625
+   },
+   {
+    "tile": [
+     7,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 29,
+    "rss_mb": 2689.109375
+   },
+   {
+    "tile": [
+     8,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 30,
+    "rss_mb": 2757.77734375
+   },
+   {
+    "tile": [
+     9,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 31,
+    "rss_mb": 2826.4453125
+   },
+   {
+    "tile": [
+     10,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 32,
+    "rss_mb": 2895.11328125
+   },
+   {
+    "tile": [
+     11,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 33,
+    "rss_mb": 2963.78125
+   },
+   {
+    "tile": [
+     12,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 34,
+    "rss_mb": 3032.44921875
+   },
+   {
+    "tile": [
+     13,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 35,
+    "rss_mb": 3101.1171875
+   },
+   {
+    "tile": [
+     14,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 36,
+    "rss_mb": 3169.78515625
+   },
+   {
+    "tile": [
+     15,
+     3
+    ],
+    "part": "abort clearance",
+    "held": 37,
+    "rss_mb": 3238.453125
+   },
+   {
+    "tile": [
+     15,
+     4
+    ],
+    "part": "abort clearance",
+    "held": 38,
+    "rss_mb": 3307.12109375
+   },
+   {
+    "tile": [
+     16,
+     4
+    ],
+    "part": "abort clearance",
+    "held": 39,
+    "rss_mb": 3375.7890625
+   }
+  ]
+ }
+}

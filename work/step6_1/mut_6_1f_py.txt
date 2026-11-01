@@ -1,0 +1,3 @@
+P1 no-recast-on-a-missing-tile: applied, reverted; CAUGHT by test_cpp_cast_makes_a_tile_a_ray_reaches_beyond_near
+P2 refusal-removed: applied, reverted; CAUGHT by test_runner_refuses_a_registered_seed_without_the_flag
+P3 refusal-of-one-seed-only: applied, reverted; CAUGHT by test_runner_refuses_a_registered_seed_without_the_flag

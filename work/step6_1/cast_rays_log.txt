@@ -1,0 +1,26 @@
+flight seed 2 draw 0 epoch 0 gap +0 h         frames  125 rays  2048000 ranged  2048000 max diff 0.000e+00 identical  2048000 hit/miss differ 0 returned differ 0 python 88.01 s C++ 21.36 s
+flight seed 2 draw 0 epoch 0 gap +168 h       frames   40 rays   655360 ranged   655360 max diff 0.000e+00 identical   655360 hit/miss differ 0 returned differ 0 python 26.78 s C++ 7.60 s
+tile edge x                                   frames    4 rays    65536 ranged    65536 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 3.11 s C++ 0.74 s
+tile edge y                                   frames    4 rays    65536 ranged    65536 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.08 s C++ 0.28 s
+tile corner ne                                frames    4 rays    65536 ranged    65536 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 3.15 s C++ 0.85 s
+tile corner sw                                frames    4 rays    65536 ranged    65536 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 3.28 s C++ 0.74 s
+region edge east                              frames    4 rays    65536 ranged    32731 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.19 s C++ 0.29 s
+region edge north                             frames    4 rays    65536 ranged    32732 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.19 s C++ 0.33 s
+region edge west                              frames    4 rays    65536 ranged    32732 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.61 s C++ 0.37 s
+region edge south                             frames    4 rays    65536 ranged    32719 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.69 s C++ 0.39 s
+region corner ne                              frames    4 rays    65536 ranged    16348 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 0.63 s C++ 0.16 s
+region corner sw                              frames    4 rays    65536 ranged    16352 max diff 0.000e+00 identical    65536 hit/miss differ 0 returned differ 0 python 1.28 s C++ 0.28 s
+{
+ "frames": 205,
+ "rays": 3358720,
+ "ranged": 3129118,
+ "max_diff": 0.0,
+ "identical": 3358720,
+ "hit_miss_differ": 0,
+ "returned_differ": 0,
+ "python_s": 132.982561083998,
+ "cpp_s": 33.38572411894711,
+ "speedup": 3.98321631755555,
+ "agree": true
+}
+408.61 s 4287380 KB

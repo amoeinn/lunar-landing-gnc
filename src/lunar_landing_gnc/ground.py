@@ -75,6 +75,13 @@ class Ground:
     def inside(self, i, j):
         return max(abs(i), abs(j)) <= self.half
 
+    def valid(self, x, y):
+        """D44: (x, y) lies strictly inside the region's outermost cell
+        centres, the area where the ground's interpolation is defined (on the
+        east and south centres themselves it reads a cell beyond the region)."""
+        lo, hi = self.bounds()
+        return bool(lo[0] < x < hi[0] and lo[1] < y < hi[1])
+
     def bounds(self):
         """The region's outermost cell centres: ((x, y) low, (x, y) high)."""
         e = (self.half + 0.5) * self.size

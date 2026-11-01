@@ -1,0 +1,7 @@
+D1 valid-is-the-tile-test: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond
+D2 valid-a-cell-wider-in-x: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond
+D3 valid-ignores-y: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond
+D4 true-height-always-the-ground: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond, test_descent_off_the_valid_area_flown_over_the_dem_and_off_the_modelled_ground
+D5 true-height-always-the-dem: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond
+D6 descent-ground-reverted: applied, reverted; CAUGHT by test_descent_off_the_valid_area_flown_over_the_dem_and_off_the_modelled_ground
+D7 clearance-reverted-to-the-tile-test: applied, reverted; CAUGHT by test_true_height_uses_the_ground_inside_its_cell_centres_and_the_dem_beyond

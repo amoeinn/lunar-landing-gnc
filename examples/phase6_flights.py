@@ -22,11 +22,12 @@ Commands, writing under work/step6_1/:
   check1a_d28  check 1a alone (phase 5's pieces), re-run with D28's rank
              check on in the flight.
   check1a_final  the same, on step 6.1b's final code (D29, D32, D36 in).
+  check1a_6_1d  the same, after step 6.1d's region edge fix (D44).
   manifest   work/step3_2a/maps_manifest.json: each of the 68 reference maps'
              sha256 and the commands that regenerate them.
 
 Needs LLG_DATA. Usage: python examples/phase6_flights.py smoke | reach N | smoke_landing | check1 | check1a_d28 |
-check1a_final | pilot STAGE WORKERS DEADLINE_S | manifest
+check1a_final | check1a_6_1d | pilot STAGE WORKERS DEADLINE_S | manifest
 """
 import json
 import multiprocessing
@@ -380,7 +381,7 @@ if __name__ == "__main__":
         cmd = f"pilot_{sys.argv[2]}"
     elif cmd == "smoke_landing":
         res = cmd_smoke_landing()
-    elif cmd in ("check1a_d28", "check1a_final"):
+    elif cmd in ("check1a_d28", "check1a_final", "check1a_6_1d"):
         res = cmd_check1(("phase 5 pieces",))
     elif cmd == "manifest":
         res = cmd_manifest()

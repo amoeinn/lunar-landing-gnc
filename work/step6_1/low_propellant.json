@@ -1,0 +1,78 @@
+{
+ "flights": [
+  {
+   "seed": 2,
+   "draw": 1,
+   "epoch": 3,
+   "outcome": "unsafe landing",
+   "propellant": 468.7897711330679,
+   "t_decision": 48.0,
+   "t_guided_end": 116.0,
+   "t_descent": 58.71352358019208,
+   "t_touchdown": 174.7135235801921,
+   "error_decision": [
+    2209.7188263128874,
+    -670.1969898190118,
+    410.1601426866155
+   ],
+   "error_descent_start": [
+    2203.2131318750185,
+    -670.0823554495564,
+    399.92037984808417
+   ],
+   "mass_descent_start": 7562.821383136824,
+   "mass_high_gate": 8359.767983516287,
+   "divert": 45.35416188179427
+  },
+  {
+   "seed": 2,
+   "draw": 0,
+   "epoch": 3,
+   "outcome": "safe landing",
+   "propellant": 606.6389625735683,
+   "t_decision": 68.0,
+   "t_guided_end": 94.0,
+   "t_descent": 48.697842446541884,
+   "t_touchdown": 142.69784244654187,
+   "error_decision": [
+    -0.04706531003739656,
+    -0.027307997076604806,
+    0.2301706752312498
+   ],
+   "error_descent_start": [
+    0.010538348547243004,
+    -0.04963515707186161,
+    0.2403393440667969
+   ],
+   "mass_descent_start": 7665.314508603208,
+   "mass_high_gate": 8359.767983516287,
+   "divert": 31.89043743820395
+  },
+  {
+   "seed": 2,
+   "draw": 1,
+   "epoch": 0,
+   "outcome": "unsafe landing",
+   "propellant": 546.7421688421164,
+   "t_decision": 56.0,
+   "t_guided_end": 106.0,
+   "t_descent": 51.40991961968515,
+   "t_touchdown": 157.40991961968516,
+   "error_decision": [
+    1704.8507612943622,
+    -891.177068591348,
+    348.56805284686743
+   ],
+   "error_descent_start": [
+    1695.5520014729577,
+    -891.4500509072805,
+    343.9972494593318
+   ],
+   "mass_descent_start": 7613.37699730156,
+   "mass_high_gate": 8359.767983516287,
+   "divert": 41.78516483155236
+  }
+ ],
+ "seconds": 264.56987641699925,
+ "maxrss_mb": 2336.8984375
+}

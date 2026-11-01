@@ -440,15 +440,17 @@ class Flight:
                     return self._finish("terrain strike", t + (n + 1) * NF.DT, i + 1 + n)
 
     def _clearance(self, p):
-        """D32: the true lander's height above the true ground, the D5
-        ground inside its region and the 20 m DEM outside it (NaN off the
-        DEM); a strike at or below zero."""
+        """D32: the true lander's height above the true ground (true_height);
+        a strike at or below zero."""
+        return float(p[2] - self.true_height(p[0], p[1]))
+
+    def true_height(self, x, y):
+        """D44: the D5 ground inside its valid area (Ground.valid, the
+        outermost cell centres), the 20 m DEM elsewhere (NaN off the DEM)."""
         g = self.ctx["ground"](self.s["seed"], self.s["draw"])
-        if g.inside(*g.tile_of(p[0], p[1])):
-            h = float(g.height(np.array([p[0]]), np.array([p[1]]))[0])
-        else:
-            h, _ = self.ctx["dem"].at(p[0], p[1])
-        return float(p[2] - h)
+        if g.valid(x, y):
+            return float(g.height(np.array([x]), np.array([y]))[0])
+        return float(self.ctx["dem"].at(x, y)[0])
 
     # the scan (D20, D3, D22, D27)
     def _begin_scan(self, t0, i0, info):
@@ -601,12 +603,13 @@ class Flight:
 
     # terminal descent (D24) and the verdict
     def _descent(self, t, i):
-        s, ctx = self.s, self.ctx
+        s = self.s
         nom = NT.nominal()
         y_end = s["y"].copy()
         origin = s["origin"]
-        ground = ctx["ground"](s["seed"], s["draw"])
-        gfun = LD.truth_ground(ground, origin)
+
+        def gfun(yy):                                   # D44: the true ground under the state, as truth_ground
+            return self.true_height(origin[0] + yy[2], origin[1] - yy[1]) - origin[2]
         cut = []
         try:
             if s["pieces"]["descent"] == "continuous":
@@ -693,7 +696,7 @@ class Flight:
         verdict = CL.landing_verdict(f)
         x, y = origin[0] + td[2], origin[1] - td[1]
         ground = ctx["ground"](s["seed"], s["draw"])
-        try:
+        try:                                            # D44, D17: off the valid area, the gear's crop raises
             i0, j0 = ground.tile_of(x, y)
             reach = FOOTPRINT + 4 * TS.CELL
             crosses = ground.tile_of(x - reach, y - reach) != ground.tile_of(x + reach, y + reach)

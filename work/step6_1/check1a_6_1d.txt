@@ -1,0 +1,14 @@
+draw 0 phase 5 pieces  epoch 0 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 0 phase 5 pieces  epoch 1 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 0 phase 5 pieces  epoch 2 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 0 phase 5 pieces  epoch 3 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 1 phase 5 pieces  epoch 0 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 1 phase 5 pieces  epoch 1 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 1 phase 5 pieces  epoch 2 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 1 phase 5 pieces  epoch 3 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 2 phase 5 pieces  epoch 0 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 2 phase 5 pieces  epoch 1 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 2 phase 5 pieces  epoch 2 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+draw 2 phase 5 pieces  epoch 3 {"kind": ["divert", "divert"], "safe": [true, true], "divert": 0.0, "margin": 0.0, "site": 0.0, "propellant": 0.0, "t_touchdown": 0.0, "v_down": 0.0, "v_horizontal": 0.0, "distance": 0.0, "touchdown": 0.0}
+total 112.5 s, peak 310 MB
+114.31 s 1932880 KB

@@ -75,6 +75,21 @@ class Ground:
     def inside(self, i, j):
         return max(abs(i), abs(j)) <= self.half
 
+    def drop_west(self, i_min):
+        """Free the tiles west of column i_min, which a flight flying east has
+        passed (D45); a tile needed again is made again, the same."""
+        for k in [k for k in self.tiles if k[0] < i_min]:
+            del self.tiles[k]
+            self.rocks.pop(k, None)
+
+    def keep_within(self, half):
+        """Free every tile more than half tiles from the target's (D45:
+        between a draw's jobs, so the tiles they share stay and the rest of
+        what one flight made does not accumulate); made again, the same."""
+        for k in [k for k in self.tiles if max(abs(k[0]), abs(k[1])) > half]:
+            del self.tiles[k]
+            self.rocks.pop(k, None)
+
     def valid(self, x, y):
         """D44: (x, y) lies strictly inside the region's outermost cell
         centres, the area where the ground's interpolation is defined (on the

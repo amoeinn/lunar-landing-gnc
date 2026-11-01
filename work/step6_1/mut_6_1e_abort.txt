@@ -1,0 +1,8 @@
+E1 outcome-from-the-solver-tolerance: applied, reverted; CAUGHT by test_abort_judged_by_vis_viva_on_the_true_burnout_not_the_solver_tolerance
+E2 floor-at-9000-m: applied, reverted; CAUGHT by test_abort_outcome_classes_and_the_safe_perilune_floor
+E3 floor-at-the-insertion-perilune: applied, reverted; CAUGHT by test_abort_outcome_classes_and_the_safe_perilune_floor
+E4 perilune-from-the-estimated-burnout: applied, reverted; CAUGHT by test_abort_judged_by_vis_viva_on_the_true_burnout_not_the_solver_tolerance
+E5 ground-pass-against-the-dem: applied, reverted; CAUGHT by test_abort_ground_pass_against_the_true_ground_not_the_dem
+E6 dark-map-not-labelled: applied, reverted; CAUGHT by test_wholly_dark_reference_labelled_dark_map_and_still_no_fix
+E7 dark-map-over-the-whole-reference: applied, reverted; CAUGHT by test_wholly_dark_reference_labelled_dark_map_and_still_no_fix
+E8 dark-map-without-finite-cells: applied, reverted; CAUGHT by test_wholly_dark_reference_labelled_dark_map_and_still_no_fix

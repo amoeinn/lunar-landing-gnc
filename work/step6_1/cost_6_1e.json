@@ -1,0 +1,137 @@
+{
+ "stage": {
+  "stage": "full",
+  "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_1/cost_full",
+  "workers": 2,
+  "deadline_s": 840.0,
+  "wall": 840.0167427062988,
+  "stop": "gate: 840 s reached",
+  "unfinished": [
+   "d01_trn_e3_g168.0.json"
+  ],
+  "jobs": 58
+ },
+ "flights": {
+  "TRN gap +0 h": {
+   "n": 8,
+   "median": 86.70381397200072,
+   "min": 63.47634871899936,
+   "max": 118.354990060001
+  },
+  "TRN gap +168 h": {
+   "n": 7,
+   "median": 77.28627259999848,
+   "min": 28.090020513998752,
+   "max": 148.52272269699824
+  },
+  "TRN gap +24 h": {
+   "n": 8,
+   "median": 85.11296149850023,
+   "min": 27.150460077999014,
+   "max": 178.81729986400023
+  },
+  "TRN gap +72 h": {
+   "n": 8,
+   "median": 78.56114478699965,
+   "min": 67.71426024899847,
+   "max": 152.23271689299872
+  },
+  "TRN gap -168 h": {
+   "n": 8,
+   "median": 29.833386018499368,
+   "min": 28.045644972000446,
+   "max": 106.33622268099862
+  },
+  "TRN gap -24 h": {
+   "n": 8,
+   "median": 101.88886112,
+   "min": 54.206151307000255,
+   "max": 193.165179394
+  },
+  "TRN gap -72 h": {
+   "n": 8,
+   "median": 91.1279110384985,
+   "min": 27.991436652999255,
+   "max": 146.2434786119993
+  },
+  "no-TRN job": {
+   "n": 2,
+   "median": 112.27108978650085,
+   "min": 105.25439646300038,
+   "max": 119.28778311000133
+  }
+ },
+ "peak_mb_per_worker": {
+  "0": 2751.76953125,
+  "1": 3437.13671875
+ },
+ "peak_mb": 3437.13671875,
+ "workers_allowed": 1,
+ "seconds_per_draw": {
+  "0": 2373.2110232829964,
+  "1": 2543.8370395889997
+ },
+ "seconds_per_draw_median": 2458.524031435998,
+ "cpp_assumption": {
+  "ray_share": 0.7,
+  "speedup": 10.0,
+  "flight_factor": 0.37
+ },
+ "projection": {
+  "16": {
+   "hours": 10.92677347304888,
+   "hours_cpp": 4.042906185028086
+  },
+  "32": {
+   "hours": 21.85354694609776,
+   "hours_cpp": 8.085812370056171
+  },
+  "50": {
+   "hours": 34.14616710327775,
+   "hours_cpp": 12.634081828212768
+  },
+  "100": {
+   "hours": 68.2923342065555,
+   "hours_cpp": 25.268163656425536
+  }
+ },
+ "outcomes": {
+  "TRN gap +0 h": {
+   "safe landing": 5,
+   "unsafe landing": 3
+  },
+  "TRN gap +168 h": {
+   "unsafe landing": 1,
+   "safe landing": 2,
+   "abort: safe orbit": 4
+  },
+  "TRN gap +24 h": {
+   "unsafe landing": 4,
+   "safe landing": 2,
+   "abort: safe orbit": 2
+  },
+  "TRN gap +72 h": {
+   "unsafe landing": 2,
+   "safe landing": 5,
+   "abort: safe orbit": 1
+  },
+  "TRN gap -168 h": {
+   "abort: safe orbit": 6,
+   "unsafe landing": 2
+  },
+  "TRN gap -24 h": {
+   "unsafe landing": 2,
+   "safe landing": 4,
+   "abort: safe orbit": 2
+  },
+  "TRN gap -72 h": {
+   "abort: safe orbit": 3,
+   "unsafe landing": 3,
+   "safe landing": 2
+  },
+  "no-TRN job": {
+   "safe landing": 4,
+   "abort: safe orbit": 4
+  }
+ }
+}

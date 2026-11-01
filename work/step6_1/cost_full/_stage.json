@@ -1,0 +1,12 @@
+{
+ "stage": "full",
+ "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_1/cost_full",
+ "workers": 2,
+ "deadline_s": 840.0,
+ "wall": 840.0167427062988,
+ "stop": "gate: 840 s reached",
+ "unfinished": [
+  "d01_trn_e3_g168.0.json"
+ ],
+ "jobs": 58
+}

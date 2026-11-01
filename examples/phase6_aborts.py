@@ -6,7 +6,7 @@ state's vis-viva perilune and apolune), and phase 5's abort solved and flown
 on the truth from the same true state (D30's piece), so the navigation effect
 is separated. Nothing is scored. Writes work/step6_1/aborts.json.
 Needs LLG_DATA.
-Usage: python examples/phase6_aborts.py WORKERS
+Usage: python examples/phase6_aborts.py WORKERS [OUT_NAME]   (default aborts; 6.1e wrote aborts_d47)
 """
 import json
 import multiprocessing
@@ -88,7 +88,8 @@ def main():
         recs = list(ex.map(job, sorted(JOBS, key=lambda j: j[2] == "trn" and j[4] < 0)))
     rec = dict(jobs=recs, wall=time.perf_counter() - t0, insertion=dict(perilune=AB.ALT_PERILUNE,
                                                                        apolune=AB.ALT_APOLUNE))
-    (P.OUT / "aborts.json").write_text(json.dumps(rec, indent=1, default=float))
+    name = sys.argv[2] if len(sys.argv) > 2 else "aborts"
+    (P.OUT / f"{name}.json").write_text(json.dumps(rec, indent=1, default=float))
     for r in recs:
         print(r["job"], f"{r['seconds']:.0f} s {r['maxrss_mb']:.0f} MB", [x["outcome"] for x in r["rows"]], flush=True)
     print(f"wall {rec['wall']:.0f} s")

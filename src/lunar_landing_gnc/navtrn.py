@@ -6,7 +6,8 @@ given map position and height (z above the 1737.4 km sphere) with the image's
 own attitude and optics (trn.orthorectify), correlated with the reference map
 over a given radius (trn.correlate, the step 3.2 correlator unchanged); the
 fix is that position plus the recovered offset. A template with no spread is
-dark, a surface with no finite cell undefined; neither gives a fix.
+dark, a surface with no finite cell undefined (labelled "dark map" when the
+reference has no spread over the search square, D49); neither gives a fix.
 
 First pass: from the filter's estimate, over the radius the filter gives (3
 sigma of its horizontal covariance, 5 to 50 cells). The filter gates it. Only
@@ -28,6 +29,21 @@ from .projection import MOON_RADIUS_M, map_to_latlon, unit_vector
 SECOND_PASS_CELLS = 3
 
 
+def dark_map(template, reference, radius):
+    """D49: the reference has finite cells and no spread over the search
+    square, every cell the template's finite cells meet at any whole-cell
+    offset within radius (trn.ncc_surface's indexing)."""
+    rows, cols = np.nonzero(np.isfinite(template))
+    if not rows.size:
+        return False
+    ref = np.asarray(reference, float)
+    r0, r1 = max(rows.min() - radius, 0), min(rows.max() + radius, ref.shape[0] - 1)
+    c0, c1 = max(cols.min() - radius, 0), min(cols.max() + radius, ref.shape[1] - 1)
+    w = ref[r0:r1 + 1, c0:c1 + 1]
+    w = w[np.isfinite(w)]
+    return bool(w.size and w.max() == w.min())
+
+
 def fix_pass(img, cam, xy, z, grid, heights, reference, radius, subcell="parabola"):
     """One correlation pass from map position xy at height z; subcell the
     sub-cell estimator: the parabola, or a revision 3b remedy ("gaussian",
@@ -40,7 +56,7 @@ def fix_pass(img, cam, xy, z, grid, heights, reference, radius, subcell="parabol
         return dict(fix=None, status="dark", cells=cells)
     p = trn.correlate(ortho, reference, radius)
     if p["dx_int"] is None:
-        return dict(fix=None, status="undefined", cells=cells)
+        return dict(fix=None, status="dark map" if dark_map(ortho, reference, radius) else "undefined", cells=cells)
     if subcell == "gaussian":
         p = dict(trn.peak_gaussian(p["surface"]), surface=p["surface"])
     elif subcell == "fine":

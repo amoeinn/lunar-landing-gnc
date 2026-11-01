@@ -1,0 +1,10 @@
+{
+ "stage": "ref",
+ "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_1/proof_ref",
+ "workers": 1,
+ "deadline_s": 1700.0,
+ "wall": 530.7296786308289,
+ "stop": null,
+ "unfinished": [],
+ "jobs": 6
+}

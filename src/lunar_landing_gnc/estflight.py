@@ -90,6 +90,7 @@ from . import navtruth as NT
 from . import navtrn
 from . import trn as TRN
 from . import truthsurface as TS
+from . import visviva as VV
 from .ground import OffGround
 from .keyednoise import Noise
 from .navonline import Online
@@ -100,6 +101,8 @@ N_PER = int(round(CL.DT / NF.DT))           # IMU samples per guided step
 LOST_LOCK_T = max(NF.FIX_TIMES)
 FIRST_FIX = int(round(min(NF.FIX_TIMES) / NF.DT))
 BRANCH = "combined"
+SAFE_PERILUNE = 9144.0                      # m, 30,000 ft: Bennett, NASA TM X-58040 (1970), the safe abort orbit (D47)
+SAFE_ORBIT, UNSAFE_ORBIT = "safe orbit", "unsafe orbit"
 PIECES = dict(scan="loop", scan_noise="keyed", planner="causal", descent="20hz", criterion2="true site",
               abort="estimate")
 PHASE5_PIECES = dict(scan="phase5", scan_noise="phase5", planner="phase5", descent="continuous", criterion2="site",
@@ -107,6 +110,31 @@ PHASE5_PIECES = dict(scan="phase5", scan_noise="phase5", planner="phase5", desce
 TICK = NF.ALT_EVERY * NF.DT                 # s, the 20 Hz measurement ticks (D24)
 DESCENT_MAX = 300.0
 FOOTPRINT = H.FOOT_R + H.PAD_R          # m, a pad centre and the pad: the lander's reach on the ground
+
+
+def _abort_fields(a):
+    """D47's record beside the outcome: the solver's convergence, the
+    closest true pass to the ground, vis-viva on the true burnout and its
+    miss against the 9 x 45 nmi insertion (None for phase 5's piece)."""
+    pe, ap = a.apsides
+    return dict(converged=getattr(a, "converged", None), closest_true_pass=getattr(a, "true_low", None),
+                perilune=float(pe), apolune=float(ap),
+                insertion_miss=dict(perilune=float(pe - AB.ALT_PERILUNE), apolune=float(ap - AB.ALT_APOLUNE)))
+
+
+def abort_outcome(ground, margin, converged, perilune):
+    """D47: physics failure at the true ground or for propellant (phase 2c's
+    classes, abort.outcome_of), shooting failure only when the solve from the
+    estimate did not converge, else a safe orbit when vis-viva on the true
+    burnout gives a perilune of at least SAFE_PERILUNE above the mean radius,
+    an unsafe orbit below it."""
+    if ground:
+        return AB.PHYSICS_GROUND
+    if margin < 0.0:
+        return AB.PHYSICS_PROPELLANT
+    if not converged:
+        return AB.SHOOTING_FAILURE
+    return SAFE_ORBIT if perilune >= SAFE_PERILUNE else UNSAFE_ORBIT
 
 
 def from_map(pos, vel, m, site, h_site):
@@ -438,6 +466,9 @@ class Flight:
                     s["filt"].advance(i + N_PER)
                     s["pending"] = None
                     return self._finish("terrain strike", t + (n + 1) * NF.DT, i + 1 + n)
+            if self.ctx.get("free_tiles"):              # D45: tiles more than one column behind are freed
+                g = self.ctx["ground"](s["seed"], s["draw"])
+                g.drop_west(g.tile_of(pos[-1][0], pos[-1][1])[0] - 1)
 
     def _clearance(self, p):
         """D32: the true lander's height above the true ground (true_height);
@@ -748,7 +779,7 @@ class Flight:
         out = self._base(t, i)
         out.update(outcome="abort", end="abort", trigger=trigger, choice=s["choice"], scan=self._scan_row(),
                    abort=dict(trigger=trigger, t=t, outcome=asc.outcome, reached=bool(asc.reached),
-                              propellant=float(asc.propellant), rise=rise,
+                              propellant=float(asc.propellant), rise=rise, **_abort_fields(asc),
                               **(dict(seconds=time.perf_counter() - a) if s["until"] == "touchdown" else {})))
         s["done"], s["out"] = True, out
         return out
@@ -770,13 +801,14 @@ class Flight:
         dps = AB.descent_engine(s["kappa"], s["isp"])
         p, w = AB.approach_to_plane(y[0:3], y[3:6])
         ctx = dict(i=i, tau=0.0, cross0=float(y[1]), vcross0=float(y[4]), low=float(np.linalg.norm(p) - AB.R_MOON),
-                   max_speed=0.0, max_range=0.0)
+                   max_speed=0.0, max_range=0.0, true_low=self._abort_clearance(s["pos"][min(i, len(s["pos"]) - 1)]))
         st, ended, dur = self._rise(np.concatenate([p, w, [y[6]]]), dps, m_empty, ctx)
         rise = dict(duration=dur, ended=ended, est_rate=self._est_rate(),
                     true_rate=float(AB.radial_transverse(st[0:2], st[2:4])[1]))
         if ended == "ground":
             a = AB._stopped(st[0:2], st[2:4], st[4], m_empty, "combined", None, rise, dps)
             a.dv_available, a.dv_margin = AB.combined_margin(st[4], m_empty, dps)
+            a.converged, a.true_low = None, ctx["true_low"]
         elif ended == "propellant":
             a = self._ascent_stage(st, ctx, rise)
         else:
@@ -787,7 +819,11 @@ class Flight:
             dv, margin = AB.combined_margin(float(st[4]), m_empty, dps)
             a = self._ascent_from(burnout, law, low_t, ctx, "combined", AB.M_ASCENT_DRY)
             a.staging, a.dv_available, a.dv_margin = staged, dv, margin
-            a.outcome = AB.outcome_of(False, margin, a.reached)
+            t_d = max(0.0, (float(st[4]) - m_empty) / dps.outflow)
+            arcs = ([(dps, 0.0, t_d)] if t_d > 0.0 else []) + [(None, t_d, t_d + AB.FREE_FALL_S),
+                                                                (AB.APS, t_d + AB.FREE_FALL_S,
+                                                                 t_d + AB.FREE_FALL_S + law.t_b)]
+            self._judge(a, margin, law.reached, self._burn_low(st, law, arcs, ctx), ctx)
             rise.update(est_reached=bool(law.reached), law=[float(law.a), float(law.b), float(law.t_b)])
         rise.update(residual=[float(v) for v in a.residual], lowest=float(a.min_altitude),
                     max_speed=ctx["max_speed"], max_range=ctx["max_range"],
@@ -815,12 +851,14 @@ class Flight:
         fall = dict(p=fall_st[0:2], w=fall_st[2:4], crashed=hit, duration=AB.FREE_FALL_S)
         if hit:
             a = AB._stopped(fall_st[0:2], fall_st[2:4], m, AB.M_ASCENT_DRY, "ascent", fall, None, AB.APS)
+            a.converged, a.true_low = None, ctx["true_low"]
         else:
             st2, ended, dur = self._rise(fall_st, AB.APS, AB.M_ASCENT_DRY, ctx)
             rise["ascent_rise"] = dict(duration=dur, ended=ended, est_rate=self._est_rate(),
                                        true_rate=float(AB.radial_transverse(st2[0:2], st2[2:4])[1]))
             if ended == "ground":
                 a = AB._stopped(st2[0:2], st2[2:4], st2[4], AB.M_ASCENT_DRY, "ascent", fall, None, AB.APS)
+                a.converged, a.true_low = None, ctx["true_low"]
             else:
                 dv, margin = AB.rocket_margin(st2[4], AB.M_ASCENT_DRY, AB.APS)
                 pe, we = self._est_plane()
@@ -832,9 +870,65 @@ class Flight:
                     burnout, low_t = st2, float(np.linalg.norm(st2[0:2]) - AB.R_MOON)
                 a = self._ascent_from(burnout, law, low_t, ctx, "ascent", AB.M_ASCENT_DRY)
                 a.free_fall, a.dv_available, a.dv_margin = fall, dv, margin
-                a.outcome = AB.outcome_of(False, margin, a.reached)
+                low = self._burn_low(st2, law, [(AB.APS, 0.0, law.t_b)], ctx) if np.isfinite(law.a) else np.inf
+                self._judge(a, margin, law.reached, low, ctx)
         a.branch, a.staging = "combined", dict(t=rise["duration"], in_rise=True)
         return a
+
+    def _judge(self, a, margin, converged, burn_low, ctx):
+        """D47 on a flown law: the closest true pass over the abort's stages
+        and the open-loop burn, the solver's convergence, vis-viva on the
+        true burnout, the outcome (abort_outcome)."""
+        a.converged = bool(converged)
+        a.true_low = float(min(burn_low, ctx["true_low"]))
+        a.apsides = VV.altitudes(a.burnout[0:2], a.burnout[2:4])
+        a.outcome = abort_outcome(a.true_low <= 0.0, margin, a.converged, a.apsides[0])
+
+    def _burn_low(self, st, law, arcs, ctx):
+        """The closest true pass to the true ground (D32's clearance) at the
+        20 Hz ticks of the open-loop burn from plane state st under law:
+        arcs (engine, t0, t1) in the law's time, engine None for the fall
+        (mass staged to the ascent stage), as abort.fly_combined and
+        abort.fly fly them."""
+        p0 = st[0:2]
+        e_r0 = p0 / np.linalg.norm(p0)
+        e_t0 = np.array([-e_r0[1], e_r0[0]])
+        x, low, tau0 = np.asarray(st, float), np.inf, ctx["tau"]
+        for k, (eng, t0, t1) in enumerate(arcs):
+            if eng is None:
+                x = np.concatenate([x[0:4], [AB.stage(x[4])]])
+                sol = solve_ivp(lambda t, q: np.concatenate([AB._gravity(t, q[0:4]), [0.0]]), (t0, t1), x,
+                                method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, dense_output=True)
+            else:
+                if k > 0 and eng is AB.APS:
+                    x = np.concatenate([x[0:4], [AB.M_ASCENT_STAGE]])
+                sol = solve_ivp(AB._rhs, (t0, t1), x, method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, dense_output=True,
+                                args=(law.a, law.b, e_t0, e_r0, eng.outflow, eng.thrust))
+            for tt in np.append(np.arange(t0, t1, TICK)[1:], t1):
+                q = sol.sol(tt)
+                _, pos, _ = self._plane_map(q[0:2], q[2:4], q[4], tau0 + tt, ctx)
+                c = self._abort_clearance(pos)
+                if np.isfinite(c):
+                    low = min(low, c)
+            x = sol.y[:, -1]
+        return low
+
+    def _abort_clearance(self, pos):
+        """D47: an abort's true pass judged on the true ground (D32's
+        clearance, true_height)."""
+        return self._clearance(pos)
+
+    def _plane_map(self, pp, ww, m, tau, ctx):
+        """A plane state at tau after the trigger as the approach-frame state
+        and the map position and velocity: up |p| - R, downrange R theta, the
+        crossrange held at its value and rate at the trigger."""
+        rn = np.linalg.norm(pp)
+        e_r = pp / rn
+        e_t = np.array([-e_r[1], e_r[0]])
+        yy = np.array([rn - AB.R_MOON, ctx["cross0"] + ctx["vcross0"] * tau,
+                       AB.R_MOON * np.arctan2(pp[0], -pp[1]), ww @ e_r, ctx["vcross0"], ww @ e_t, m])
+        pos, vel = NT.to_map(yy, self.s["origin"][:2], self.s["origin"][2])
+        return yy, pos, vel
 
     def _est_plane(self):
         """The estimate in the abort's plane (abort.approach_to_plane)."""
@@ -883,27 +977,14 @@ class Flight:
         crossrange held at its value and rate at the trigger), step the
         filter: (state at the tick's end or at the surface, hit)."""
         s = self.s
-
-        def ground(tt, ss, *a):
-            return np.linalg.norm(ss[0:2]) - AB.R_MOON
-        ground.terminal, ground.direction = True, -1.0
-        ode = solve_ivp(rhs, (0.0, h), st, method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, dense_output=True,
-                        events=(ground,), args=args)
-        if ode.t_events[0].size:
-            return ode.y_events[0][0], True
+        ode = solve_ivp(rhs, (0.0, h), st, method="DOP853", rtol=AB.RTOL, atol=AB.ATOL, dense_output=True, args=args)
         n_tick = int(round(TICK / NF.DT))
         ss = ode.sol(np.arange(1, n_tick + 1) * h / n_tick).T
         ctx["low"] = min(ctx["low"], float(np.min(np.linalg.norm(ss[:, 0:2], axis=1)) - AB.R_MOON))
         i = ctx["i"]
         for n in range(n_tick):
-            pp, ww = ss[n, 0:2], ss[n, 2:4]
-            rn = np.linalg.norm(pp)
-            e_r = pp / rn
-            e_t = np.array([-e_r[1], e_r[0]])
             tau = ctx["tau"] + (n + 1) * h / n_tick
-            yy = np.array([rn - AB.R_MOON, ctx["cross0"] + ctx["vcross0"] * tau,
-                           AB.R_MOON * np.arctan2(pp[0], -pp[1]), ww @ e_r, ctx["vcross0"], ww @ e_t, ss[n, 4]])
-            pos, vel = NT.to_map(yy, s["origin"][:2], s["origin"][2])
+            yy, pos, vel = self._plane_map(ss[n, 0:2], ss[n, 2:4], ss[n, 4], tau, ctx)
             s["pos"].append(pos)
             s["vel"].append(vel)
             self._sense(i + 1 + n, pos, vel, s["vel"][-2])
@@ -915,7 +996,13 @@ class Flight:
         ctx["i"] = i + n_tick
         ctx["tau"] += h
         s["filt"].advance(ctx["i"])
-        return ode.y[:, -1], False
+        c = self._abort_clearance(pos)                  # D47, D32: the true ground at the tick
+        if np.isfinite(c):
+            ctx["true_low"] = min(ctx["true_low"], c)
+        if self.ctx.get("free_tiles"):                  # D45, as in the guided steps
+            g = self.ctx["ground"](s["seed"], s["draw"])
+            g.drop_west(g.tile_of(pos[0], pos[1])[0] - 1)
+        return ode.y[:, -1], c <= 0.0
 
     def _base(self, t, i):
         s = self.s

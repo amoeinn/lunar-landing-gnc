@@ -1,0 +1,2744 @@
+{
+ "seed": 20261061,
+ "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_2/seed_20261061",
+ "files": 2900,
+ "errors": [
+  {
+   "file": "d15_trn_e0_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 145.5 m at t = 75.40 s"
+  },
+  {
+   "file": "d20_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 121.8 m at t = 75.30 s"
+  },
+  {
+   "file": "d45_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 147.0 m at t = 73.20 s"
+  },
+  {
+   "file": "d49_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 142.1 m at t = 77.95 s"
+  },
+  {
+   "file": "d89_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 141.7 m at t = 82.25 s"
+  },
+  {
+   "file": "d94_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 142.7 m at t = 81.90 s"
+  }
+ ],
+ "criteria": [
+  {
+   "criterion": "1: flights at 0 h not ending in a safe landing",
+   "value": 0,
+   "op": "<=",
+   "threshold": 2,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "1: Hp(0 h)",
+   "value": 0.0,
+   "op": "<=",
+   "threshold": 0.01,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "1: median Q at 0 h, m",
+   "value": 0.13873357565976652,
+   "op": "<=",
+   "threshold": 1.0,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "2(a) -24 h: sign test over draws, 66 fewer against 0 more, p",
+   "value": 1.3552527156068805e-20,
+   "op": "<",
+   "threshold": 0.01,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "2(b) -24 h: median Q, m",
+   "value": 2.109238172642983,
+   "op": ">=",
+   "threshold": 1.0,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "2(a) +24 h: sign test over draws, 75 fewer against 0 more, p",
+   "value": 2.6469779601696886e-23,
+   "op": "<",
+   "threshold": 0.01,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "2(b) +24 h: median Q, m",
+   "value": 3.4023413249309664,
+   "op": ">=",
+   "threshold": 1.0,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: safe-landing fraction at -24 h above that at -72 h",
+   "value": 0.835,
+   "op": ">",
+   "threshold": 0.455,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: median Q at -72 h above that at -24 h, m",
+   "value": 10.019334665721885,
+   "op": ">",
+   "threshold": 2.109238172642983,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: safe-landing fraction at -72 h above that at -168 h",
+   "value": 0.455,
+   "op": ">",
+   "threshold": 0.11,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: median Q at -168 h above that at -72 h, m",
+   "value": 748.2596821356804,
+   "op": ">",
+   "threshold": 10.019334665721885,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: safe-landing fraction at +24 h above that at +72 h",
+   "value": 0.74,
+   "op": ">",
+   "threshold": 0.4425,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: median Q at +72 h above that at +24 h, m",
+   "value": 14.790552466903367,
+   "op": ">",
+   "threshold": 3.4023413249309664,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: safe-landing fraction at +72 h above that at +168 h",
+   "value": 0.4425,
+   "op": ">",
+   "threshold": 0.3025,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "3: median Q at +168 h above that at +72 h, m",
+   "value": 631.1950956524456,
+   "op": ">",
+   "threshold": 14.790552466903367,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "4 -168 h: Hp",
+   "value": 0.7380952380952381,
+   "op": ">=",
+   "threshold": 0.5,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "4 -168 h: no-TRN safe-landing fraction minus TRN's",
+   "value": 0.4375,
+   "op": ">=",
+   "threshold": 0.1,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "4 +168 h: Hp",
+   "value": 0.7474747474747475,
+   "op": ">=",
+   "threshold": 0.5,
+   "verdict": "PASS"
+  },
+  {
+   "criterion": "4 +168 h: no-TRN safe-landing fraction minus TRN's",
+   "value": 0.245,
+   "op": ">=",
+   "threshold": 0.1,
+   "verdict": "PASS"
+  }
+ ],
+ "verdict": "PASS",
+ "d63": {
+  "reproduced": true,
+  "n": 491,
+  "not_exact": 0
+ },
+ "summary_6_2": {
+  "outcomes": {
+   "+0 h": {
+    "epoch 0": {
+     "safe landing": 100
+    },
+    "epoch 1": {
+     "safe landing": 100
+    },
+    "epoch 2": {
+     "safe landing": 100
+    },
+    "epoch 3": {
+     "safe landing": 100
+    },
+    "pooled": {
+     "safe landing": 400
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "unsafe landing": 58,
+     "safe landing": 38,
+     "abort: infeasible: safe orbit": 3,
+     "terrain strike": 1
+    },
+    "epoch 1": {
+     "safe landing": 96,
+     "unsafe landing": 4
+    },
+    "epoch 2": {
+     "safe landing": 100
+    },
+    "epoch 3": {
+     "safe landing": 100
+    },
+    "pooled": {
+     "unsafe landing": 62,
+     "safe landing": 334,
+     "abort: infeasible: safe orbit": 3,
+     "terrain strike": 1
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "unsafe landing": 37,
+     "safe landing": 62,
+     "error": 1
+    },
+    "epoch 1": {
+     "safe landing": 78,
+     "unsafe landing": 22
+    },
+    "epoch 2": {
+     "safe landing": 100
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": 35,
+     "safe landing": 56,
+     "unsafe landing": 2,
+     "error": 5,
+     "abort: lost lock: safe orbit": 2
+    },
+    "pooled": {
+     "unsafe landing": 61,
+     "safe landing": 296,
+     "abort: hazard: safe orbit": 35,
+     "error": 6,
+     "abort: lost lock: safe orbit": 2
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "abort: lost lock: safe orbit": 100
+    },
+    "epoch 1": {
+     "unsafe landing": 67,
+     "safe landing": 32,
+     "abort: infeasible: safe orbit": 1
+    },
+    "epoch 2": {
+     "safe landing": 67,
+     "unsafe landing": 33
+    },
+    "epoch 3": {
+     "safe landing": 83,
+     "unsafe landing": 16,
+     "abort: hazard: safe orbit": 1
+    },
+    "pooled": {
+     "abort: lost lock: safe orbit": 100,
+     "unsafe landing": 116,
+     "safe landing": 182,
+     "abort: infeasible: safe orbit": 1,
+     "abort: hazard: safe orbit": 1
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "unsafe landing": 75,
+     "safe landing": 25
+    },
+    "epoch 1": {
+     "unsafe landing": 67,
+     "safe landing": 33
+    },
+    "epoch 2": {
+     "safe landing": 86,
+     "unsafe landing": 13,
+     "abort: hazard: safe orbit": 1
+    },
+    "epoch 3": {
+     "safe landing": 33,
+     "abort: lost lock: safe orbit": 45,
+     "abort: hazard: safe orbit": 20,
+     "unsafe landing": 2
+    },
+    "pooled": {
+     "unsafe landing": 157,
+     "safe landing": 177,
+     "abort: lost lock: safe orbit": 45,
+     "abort: hazard: safe orbit": 21
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "abort: lost lock: safe orbit": 100
+    },
+    "epoch 1": {
+     "abort: lost lock: safe orbit": 100
+    },
+    "epoch 2": {
+     "unsafe landing": 14,
+     "abort: hazard: safe orbit": 48,
+     "abort: infeasible: safe orbit": 3,
+     "safe landing": 15,
+     "abort: lost lock: safe orbit": 20
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": 33,
+     "unsafe landing": 11,
+     "safe landing": 29,
+     "abort: lost lock: safe orbit": 25,
+     "abort: infeasible: safe orbit": 2
+    },
+    "pooled": {
+     "abort: lost lock: safe orbit": 245,
+     "unsafe landing": 25,
+     "abort: hazard: safe orbit": 81,
+     "safe landing": 44,
+     "abort: infeasible: safe orbit": 5
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "abort: hazard: safe orbit": 42,
+     "safe landing": 38,
+     "unsafe landing": 9,
+     "abort: lost lock: safe orbit": 10,
+     "abort: infeasible: safe orbit": 1
+    },
+    "epoch 1": {
+     "safe landing": 61,
+     "unsafe landing": 16,
+     "abort: hazard: safe orbit": 19,
+     "abort: lost lock: safe orbit": 4
+    },
+    "epoch 2": {
+     "safe landing": 22,
+     "abort: lost lock: safe orbit": 62,
+     "abort: hazard: safe orbit": 14,
+     "unsafe landing": 2
+    },
+    "epoch 3": {
+     "abort: lost lock: safe orbit": 100
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": 75,
+     "safe landing": 121,
+     "abort: lost lock: safe orbit": 176,
+     "unsafe landing": 27,
+     "abort: infeasible: safe orbit": 1
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "safe landing": 51,
+     "abort: hazard: safe orbit": 39,
+     "unsafe landing": 10
+    },
+    "epoch 1": {
+     "safe landing": 56,
+     "abort: hazard: safe orbit": 33,
+     "unsafe landing": 11
+    },
+    "epoch 2": {
+     "safe landing": 56,
+     "abort: hazard: safe orbit": 33,
+     "unsafe landing": 11
+    },
+    "epoch 3": {
+     "safe landing": 56,
+     "abort: hazard: safe orbit": 33,
+     "unsafe landing": 11
+    },
+    "pooled": {
+     "safe landing": 219,
+     "abort: hazard: safe orbit": 138,
+     "unsafe landing": 43
+    }
+   }
+  },
+  "q": {
+   "+0 h": {
+    "epoch 0": {
+     "n": 100,
+     "median": 0.13277794153443084,
+     "p90": 0.2566173763772316,
+     "p95": 0.30355681192341427,
+     "max": 25.47009885060264
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 0.13829197763607326,
+     "p90": 0.2622561822519214,
+     "p95": 0.31509193617355236,
+     "max": 24.503309504940088
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 0.14231258576320388,
+     "p90": 0.2594819392060784,
+     "p95": 0.3062852769179786,
+     "max": 29.521674827134042
+    },
+    "epoch 3": {
+     "n": 100,
+     "median": 0.1371844445096049,
+     "p90": 0.24404935480978046,
+     "p95": 0.2967297938669864,
+     "max": 29.68582151393517
+    },
+    "pooled": {
+     "n": 400,
+     "median": 0.13873357565976652,
+     "p90": 0.25932156472380946,
+     "p95": 0.3091916843113745,
+     "max": 29.68582151393517
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "n": 96,
+     "median": 12.366169359627547,
+     "p90": 20.34072479411671,
+     "p95": 23.44019212262557,
+     "max": 106.31805452271617
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 2.451334384939001,
+     "p90": 5.087738644933986,
+     "p95": 5.902844788054971,
+     "max": 24.503309504940088
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 0.6986097448571622,
+     "p90": 1.6263179980844233,
+     "p95": 2.5341735255691225,
+     "max": 29.68582151393517
+    },
+    "epoch 3": {
+     "n": 100,
+     "median": 1.9381706706304636,
+     "p90": 2.327045376440296,
+     "p95": 2.5460155788419425,
+     "max": 29.68582151393517
+    },
+    "pooled": {
+     "n": 396,
+     "median": 2.109238172642983,
+     "p90": 13.568672697765503,
+     "p95": 18.572176392869856,
+     "max": 106.31805452271617
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "n": 99,
+     "median": 10.561440820492203,
+     "p90": 20.98515679074339,
+     "p95": 22.980275876670742,
+     "max": 26.97105159428956
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 2.4638967239285265,
+     "p90": 11.354021850140265,
+     "p95": 12.144146614422484,
+     "max": 24.503309504940088
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 2.343911149748121,
+     "p90": 2.997177953498363,
+     "p95": 3.1002344857139352,
+     "max": 29.68582151393517
+    },
+    "epoch 3": {
+     "n": 58,
+     "median": 6.635032522125005,
+     "p90": 1266.908867994716,
+     "p95": 1297.9016138085071,
+     "max": 1701.8254632390328
+    },
+    "pooled": {
+     "n": 357,
+     "median": 3.4023413249309664,
+     "p90": 16.422925804647345,
+     "p95": 25.770289399340005,
+     "max": 1701.8254632390328
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "n": 0
+    },
+    "epoch 1": {
+     "n": 99,
+     "median": 21.111578320656694,
+     "p90": 28.960087507291057,
+     "p95": 30.812627965576254,
+     "max": 32.130763174706246
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 9.918051754675872,
+     "p90": 13.8142688407221,
+     "p95": 14.50659922286016,
+     "max": 30.13021840328209
+    },
+    "epoch 3": {
+     "n": 99,
+     "median": 7.553640054841822,
+     "p90": 13.954489418420712,
+     "p95": 15.243806964805058,
+     "max": 17.76601092127359
+    },
+    "pooled": {
+     "n": 298,
+     "median": 10.019334665721885,
+     "p90": 25.627865251904822,
+     "p95": 28.2680259525523,
+     "max": 32.130763174706246
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "n": 100,
+     "median": 19.443750773422252,
+     "p90": 22.203814080265904,
+     "p95": 23.672716768021427,
+     "max": 26.791521807713224
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 12.262170602819793,
+     "p90": 16.942884204267425,
+     "p95": 17.832692470226448,
+     "max": 24.503309504940088
+    },
+    "epoch 2": {
+     "n": 99,
+     "median": 4.890847731580612,
+     "p90": 778.0990605270968,
+     "p95": 832.7021069186619,
+     "max": 862.5616615428403
+    },
+    "epoch 3": {
+     "n": 35,
+     "median": 1004.3330641181201,
+     "p90": 1636.1296697094358,
+     "p95": 1655.8823986727255,
+     "max": 1705.8619181666043
+    },
+    "pooled": {
+     "n": 334,
+     "median": 14.790552466903367,
+     "p90": 757.7478252586635,
+     "p95": 1026.2095215417046,
+     "max": 1705.8619181666043
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "n": 0
+    },
+    "epoch 1": {
+     "n": 0
+    },
+    "epoch 2": {
+     "n": 29,
+     "median": 764.683308939843,
+     "p90": 1440.4805747775163,
+     "p95": 1483.3515463949307,
+     "max": 1629.3316795495386
+    },
+    "epoch 3": {
+     "n": 40,
+     "median": 590.3021557309136,
+     "p90": 1125.1257638667703,
+     "p95": 1133.497072585674,
+     "max": 1238.1835096703062
+    },
+    "pooled": {
+     "n": 69,
+     "median": 748.2596821356804,
+     "p90": 1157.5888430969387,
+     "p95": 1431.8786383370466,
+     "max": 1629.3316795495386
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "n": 47,
+     "median": 78.53480290177464,
+     "p90": 608.6519113592778,
+     "p95": 761.9901799639807,
+     "max": 1438.6080655062353
+    },
+    "epoch 1": {
+     "n": 77,
+     "median": 650.4304016270198,
+     "p90": 905.0026309402872,
+     "p95": 1062.771802003306,
+     "max": 1620.8333615167446
+    },
+    "epoch 2": {
+     "n": 24,
+     "median": 1241.6649097043219,
+     "p90": 1797.7996966217843,
+     "p95": 1838.4517684993714,
+     "max": 1851.2756897976349
+    },
+    "epoch 3": {
+     "n": 0
+    },
+    "pooled": {
+     "n": 148,
+     "median": 631.1950956524456,
+     "p90": 1150.7038621772895,
+     "p95": 1425.909949694588,
+     "max": 1851.2756897976349
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "n": 61,
+     "median": 361.1922652303594,
+     "p90": 610.459108952134,
+     "p95": 695.1524968700455,
+     "max": 968.5700654475634
+    },
+    "epoch 1": {
+     "n": 67,
+     "median": 363.03652865469564,
+     "p90": 615.9510902028034,
+     "p95": 677.8266335705198,
+     "max": 968.5700654475634
+    },
+    "epoch 2": {
+     "n": 67,
+     "median": 363.03652865469564,
+     "p90": 615.9510902028034,
+     "p95": 677.8266335705198,
+     "max": 968.5700654475634
+    },
+    "epoch 3": {
+     "n": 67,
+     "median": 363.03652865469564,
+     "p90": 615.9510902028034,
+     "p95": 677.8266335705198,
+     "max": 968.5700654475634
+    },
+    "pooled": {
+     "n": 262,
+     "median": 363.03652865469564,
+     "p90": 610.620762777098,
+     "p95": 695.1524968700455,
+     "max": 968.5700654475634
+    }
+   }
+  },
+  "miss": {
+   "+0 h": {
+    "epoch 0": {
+     "n": 100,
+     "median": 27.63838997379403,
+     "p90": 35.376568736606174,
+     "p95": 37.05686572661357,
+     "max": 42.81091496528317
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 28.076150076846172,
+     "p90": 36.74409955298613,
+     "p95": 37.71150808131918,
+     "max": 44.748512144954816
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 27.98061651443854,
+     "p90": 36.14347334880433,
+     "p95": 37.70123965971636,
+     "max": 52.52172404125711
+    },
+    "epoch 3": {
+     "n": 100,
+     "median": 28.201331974245647,
+     "p90": 36.1131964232875,
+     "p95": 37.181445274994964,
+     "max": 47.40130281262169
+    },
+    "pooled": {
+     "n": 400,
+     "median": 27.952459031807102,
+     "p90": 36.18973146538202,
+     "p95": 37.561986498865934,
+     "max": 52.52172404125711
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "n": 96,
+     "median": 29.348329318606286,
+     "p90": 39.15075520083866,
+     "p95": 41.3402939697581,
+     "max": 101.64143035698899
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 28.145339937716418,
+     "p90": 36.877033743318876,
+     "p95": 38.28969341696913,
+     "max": 41.85517876391749
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 27.931684490648628,
+     "p90": 36.494656272050975,
+     "p95": 38.94478616751256,
+     "max": 47.40130281262169
+    },
+    "epoch 3": {
+     "n": 100,
+     "median": 27.88185909608965,
+     "p90": 36.286045926153264,
+     "p95": 38.10848634949125,
+     "max": 47.40130281262169
+    },
+    "pooled": {
+     "n": 396,
+     "median": 28.06538693330119,
+     "p90": 37.41311521723085,
+     "p95": 39.41915052113351,
+     "max": 101.64143035698899
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "n": 99,
+     "median": 27.181260995413016,
+     "p90": 40.42188586518763,
+     "p95": 44.32463169413533,
+     "max": 48.59341325747032
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 27.149892990513425,
+     "p90": 37.057614847265036,
+     "p95": 38.547699154137,
+     "max": 45.89078964872772
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 27.473919063838373,
+     "p90": 37.34353706456046,
+     "p95": 40.78461846443988,
+     "max": 47.40130281262169
+    },
+    "epoch 3": {
+     "n": 58,
+     "median": 32.65911070375586,
+     "p90": 1308.8240296426268,
+     "p95": 1325.4697691312606,
+     "max": 1669.8675652607344
+    },
+    "pooled": {
+     "n": 357,
+     "median": 28.133391269468163,
+     "p90": 40.80842766225011,
+     "p95": 47.37486405717325,
+     "max": 1669.8675652607344
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "n": 0
+    },
+    "epoch 1": {
+     "n": 99,
+     "median": 29.286966879029293,
+     "p90": 43.638243884387364,
+     "p95": 47.2497337830533,
+     "max": 52.863360321538835
+    },
+    "epoch 2": {
+     "n": 100,
+     "median": 28.424451906534884,
+     "p90": 37.88502782185169,
+     "p95": 42.84703930213709,
+     "max": 52.50798324840128
+    },
+    "epoch 3": {
+     "n": 99,
+     "median": 27.10576576793036,
+     "p90": 40.0103837143104,
+     "p95": 44.081239658061925,
+     "max": 55.69336178541307
+    },
+    "pooled": {
+     "n": 298,
+     "median": 28.14707707961145,
+     "p90": 40.949323678830346,
+     "p95": 44.93728317418507,
+     "max": 55.69336178541307
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "n": 100,
+     "median": 24.083926929369746,
+     "p90": 39.210429498641794,
+     "p95": 41.34935392861209,
+     "max": 45.199921775090914
+    },
+    "epoch 1": {
+     "n": 100,
+     "median": 27.98571219104994,
+     "p90": 37.47604662147373,
+     "p95": 40.11406442722877,
+     "max": 46.71494824869041
+    },
+    "epoch 2": {
+     "n": 99,
+     "median": 31.74180576995313,
+     "p90": 759.3507372300453,
+     "p95": 841.5097306620717,
+     "max": 891.097230732152
+    },
+    "epoch 3": {
+     "n": 35,
+     "median": 961.0175163765764,
+     "p90": 1645.2067481862066,
+     "p95": 1659.0470993789709,
+     "max": 1752.199923906246
+    },
+    "pooled": {
+     "n": 334,
+     "median": 29.624217881877986,
+     "p90": 756.6400484632057,
+     "p95": 1002.0424289292749,
+     "max": 1752.199923906246
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "n": 0
+    },
+    "epoch 1": {
+     "n": 0
+    },
+    "epoch 2": {
+     "n": 29,
+     "median": 779.6510516592742,
+     "p90": 1436.6119464658875,
+     "p95": 1487.6239727563052,
+     "max": 1660.6466077862528
+    },
+    "epoch 3": {
+     "n": 40,
+     "median": 594.7826179174207,
+     "p90": 1121.9483085748454,
+     "p95": 1126.878919154124,
+     "max": 1267.889682754393
+    },
+    "pooled": {
+     "n": 69,
+     "median": 744.1423580924998,
+     "p90": 1156.0428265508504,
+     "p95": 1405.8653015191971,
+     "max": 1660.6466077862528
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "n": 47,
+     "median": 75.53199433959418,
+     "p90": 622.1591395453223,
+     "p95": 757.5929890685882,
+     "max": 1436.106069384345
+    },
+    "epoch 1": {
+     "n": 77,
+     "median": 648.5809743773035,
+     "p90": 942.109331555751,
+     "p95": 1056.692354070299,
+     "max": 1599.4165502059318
+    },
+    "epoch 2": {
+     "n": 24,
+     "median": 1269.551013405045,
+     "p90": 1812.7317215246235,
+     "p95": 1819.1520070843371,
+     "max": 1856.4185921365195
+    },
+    "epoch 3": {
+     "n": 0
+    },
+    "pooled": {
+     "n": 148,
+     "median": 610.9229091978889,
+     "p90": 1174.0199533503026,
+     "p95": 1418.231106182223,
+     "max": 1856.4185921365195
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "n": 61,
+     "median": 362.20327738331144,
+     "p90": 603.7239886812972,
+     "p95": 674.7175472182012,
+     "max": 961.7813023961659
+    },
+    "epoch 1": {
+     "n": 67,
+     "median": 366.09213944866264,
+     "p90": 604.2110756419804,
+     "p95": 668.0399252069088,
+     "max": 961.7813023961659
+    },
+    "epoch 2": {
+     "n": 67,
+     "median": 366.09213944866264,
+     "p90": 604.2110756419804,
+     "p95": 668.0399252069088,
+     "max": 961.7813023961659
+    },
+    "epoch 3": {
+     "n": 67,
+     "median": 366.09213944866264,
+     "p90": 604.2110756419804,
+     "p95": 668.0399252069088,
+     "max": 961.7813023961659
+    },
+    "pooled": {
+     "n": 262,
+     "median": 366.09213944866264,
+     "p90": 604.8199343428344,
+     "p95": 674.7175472182012,
+     "max": 961.7813023961659
+    }
+   }
+  },
+  "safe_fraction": {
+   "+0 h": {
+    "epoch 0": 1.0,
+    "epoch 1": 1.0,
+    "epoch 2": 1.0,
+    "epoch 3": 1.0,
+    "pooled": 1.0
+   },
+   "-24 h": {
+    "epoch 0": 0.38,
+    "epoch 1": 0.96,
+    "epoch 2": 1.0,
+    "epoch 3": 1.0,
+    "pooled": 0.835
+   },
+   "+24 h": {
+    "epoch 0": 0.62,
+    "epoch 1": 0.78,
+    "epoch 2": 1.0,
+    "epoch 3": 0.56,
+    "pooled": 0.74
+   },
+   "-72 h": {
+    "epoch 0": 0.0,
+    "epoch 1": 0.32,
+    "epoch 2": 0.67,
+    "epoch 3": 0.83,
+    "pooled": 0.455
+   },
+   "+72 h": {
+    "epoch 0": 0.25,
+    "epoch 1": 0.33,
+    "epoch 2": 0.86,
+    "epoch 3": 0.33,
+    "pooled": 0.4425
+   },
+   "-168 h": {
+    "epoch 0": 0.0,
+    "epoch 1": 0.0,
+    "epoch 2": 0.15,
+    "epoch 3": 0.29,
+    "pooled": 0.11
+   },
+   "+168 h": {
+    "epoch 0": 0.38,
+    "epoch 1": 0.61,
+    "epoch 2": 0.22,
+    "epoch 3": 0.0,
+    "pooled": 0.3025
+   },
+   "no-TRN": {
+    "epoch 0": 0.51,
+    "epoch 1": 0.56,
+    "epoch 2": 0.56,
+    "epoch 3": 0.56,
+    "pooled": 0.5475
+   }
+  },
+  "hp": {
+   "+0 h": {
+    "epoch 0": {
+     "cells": {
+      "both touched down: TRN Q not worse": 61,
+      "TRN touched down, no-TRN did not": 39
+     },
+     "hp": 0.0,
+     "n_both": 61
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 3": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "pooled": {
+     "cells": {
+      "both touched down: TRN Q not worse": 262,
+      "TRN touched down, no-TRN did not": 138
+     },
+     "hp": 0.0,
+     "n_both": 262
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "cells": {
+      "both touched down: TRN Q not worse": 60,
+      "TRN touched down, no-TRN did not": 36,
+      "neither touched down": 3,
+      "TRN did not touch down, no-TRN did": 1
+     },
+     "hp": 0.0,
+     "n_both": 60
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 3": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "pooled": {
+     "cells": {
+      "both touched down: TRN Q not worse": 261,
+      "TRN touched down, no-TRN did not": 135,
+      "neither touched down": 3,
+      "TRN did not touch down, no-TRN did": 1
+     },
+     "hp": 0.0,
+     "n_both": 261
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "cells": {
+      "both touched down: TRN Q not worse": 60,
+      "TRN touched down, no-TRN did not": 39,
+      "error: TRN": 1
+     },
+     "hp": 0.0,
+     "n_both": 60
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 20,
+      "both touched down: TRN Q not worse": 30,
+      "neither touched down": 17,
+      "TRN touched down, no-TRN did not": 14,
+      "both touched down: TRN Q worse": 14,
+      "error: TRN": 5
+     },
+     "hp": 0.3181818181818182,
+     "n_both": 44
+    },
+    "pooled": {
+     "cells": {
+      "both touched down: TRN Q not worse": 224,
+      "TRN did not touch down, no-TRN did": 20,
+      "TRN touched down, no-TRN did not": 119,
+      "neither touched down": 17,
+      "both touched down: TRN Q worse": 14,
+      "error: TRN": 6
+     },
+     "hp": 0.058823529411764705,
+     "n_both": 238
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 61,
+      "neither touched down": 39
+     },
+     "hp": null,
+     "n_both": 0
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q not worse": 66,
+      "TRN touched down, no-TRN did not": 32,
+      "neither touched down": 1,
+      "both touched down: TRN Q worse": 1
+     },
+     "hp": 0.014925373134328358,
+     "n_both": 67
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 3": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 32,
+      "neither touched down": 1
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 61,
+      "both touched down: TRN Q not worse": 200,
+      "neither touched down": 41,
+      "TRN touched down, no-TRN did not": 97,
+      "both touched down: TRN Q worse": 1
+     },
+     "hp": 0.004975124378109453,
+     "n_both": 201
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "cells": {
+      "both touched down: TRN Q not worse": 61,
+      "TRN touched down, no-TRN did not": 39
+     },
+     "hp": 0.0,
+     "n_both": 61
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q not worse": 67,
+      "TRN touched down, no-TRN did not": 33
+     },
+     "hp": 0.0,
+     "n_both": 67
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q not worse": 54,
+      "TRN touched down, no-TRN did not": 33,
+      "both touched down: TRN Q worse": 12,
+      "TRN did not touch down, no-TRN did": 1
+     },
+     "hp": 0.18181818181818182,
+     "n_both": 66
+    },
+    "epoch 3": {
+     "cells": {
+      "both touched down: TRN Q worse": 20,
+      "TRN did not touch down, no-TRN did": 45,
+      "neither touched down": 20,
+      "TRN touched down, no-TRN did not": 13,
+      "both touched down: TRN Q not worse": 2
+     },
+     "hp": 0.9090909090909091,
+     "n_both": 22
+    },
+    "pooled": {
+     "cells": {
+      "both touched down: TRN Q not worse": 184,
+      "both touched down: TRN Q worse": 32,
+      "TRN did not touch down, no-TRN did": 46,
+      "TRN touched down, no-TRN did not": 118,
+      "neither touched down": 20
+     },
+     "hp": 0.14814814814814814,
+     "n_both": 216
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 61,
+      "neither touched down": 39
+     },
+     "hp": null,
+     "n_both": 0
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 67,
+      "neither touched down": 33
+     },
+     "hp": null,
+     "n_both": 0
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q worse": 13,
+      "TRN did not touch down, no-TRN did": 47,
+      "neither touched down": 24,
+      "both touched down: TRN Q not worse": 7,
+      "TRN touched down, no-TRN did not": 9
+     },
+     "hp": 0.65,
+     "n_both": 20
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 45,
+      "both touched down: TRN Q not worse": 4,
+      "TRN touched down, no-TRN did not": 18,
+      "neither touched down": 15,
+      "both touched down: TRN Q worse": 18
+     },
+     "hp": 0.8181818181818182,
+     "n_both": 22
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 220,
+      "both touched down: TRN Q worse": 31,
+      "both touched down: TRN Q not worse": 11,
+      "neither touched down": 111,
+      "TRN touched down, no-TRN did not": 27
+     },
+     "hp": 0.7380952380952381,
+     "n_both": 42
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 32,
+      "TRN touched down, no-TRN did not": 18,
+      "both touched down: TRN Q not worse": 19,
+      "both touched down: TRN Q worse": 10,
+      "neither touched down": 21
+     },
+     "hp": 0.3448275862068966,
+     "n_both": 29
+    },
+    "epoch 1": {
+     "cells": {
+      "both touched down: TRN Q worse": 49,
+      "TRN touched down, no-TRN did not": 22,
+      "neither touched down": 11,
+      "both touched down: TRN Q not worse": 6,
+      "TRN did not touch down, no-TRN did": 12
+     },
+     "hp": 0.8909090909090909,
+     "n_both": 55
+    },
+    "epoch 2": {
+     "cells": {
+      "both touched down: TRN Q worse": 15,
+      "TRN did not touch down, no-TRN did": 52,
+      "neither touched down": 24,
+      "TRN touched down, no-TRN did not": 9
+     },
+     "hp": 1.0,
+     "n_both": 15
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 67,
+      "neither touched down": 33
+     },
+     "hp": null,
+     "n_both": 0
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": 163,
+      "both touched down: TRN Q worse": 74,
+      "TRN touched down, no-TRN did not": 49,
+      "neither touched down": 89,
+      "both touched down: TRN Q not worse": 25
+     },
+     "hp": 0.7474747474747475,
+     "n_both": 99
+    }
+   }
+  },
+  "against_zero": {
+   "-24 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 62,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.168404344971009e-19
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 4,
+     "safe_gained_at_g": 0,
+     "p_safe": 0.0625
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 0,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.0
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 0,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.0
+    },
+    "pooled": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 66,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.3552527156068805e-20
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 38,
+     "safe_gained_at_g": 0,
+     "p_safe": 3.637978807091713e-12
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 22,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.384185791015625e-07
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 0,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.0
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 14,
+     "q_worse_at_0_only": 0,
+     "p_q": 6.103515625e-05,
+     "safe_lost_at_g": 44,
+     "safe_gained_at_g": 0,
+     "p_safe": 5.684341886080802e-14
+    },
+    "pooled": {
+     "q_worse_at_g_only": 14,
+     "q_worse_at_0_only": 0,
+     "p_q": 6.103515625e-05,
+     "safe_lost_at_g": 104,
+     "safe_gained_at_g": 0,
+     "p_safe": 4.930380657631324e-32
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 100,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.888609052210118e-31
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 1,
+     "q_worse_at_0_only": 0,
+     "p_q": 0.5,
+     "safe_lost_at_g": 68,
+     "safe_gained_at_g": 0,
+     "p_safe": 3.3881317890172014e-21
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 33,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.1641532182693481e-10
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 17,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.62939453125e-06
+    },
+    "pooled": {
+     "q_worse_at_g_only": 1,
+     "q_worse_at_0_only": 0,
+     "p_q": 0.5,
+     "safe_lost_at_g": 218,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.3738919364399497e-66
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 75,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.6469779601696886e-23
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 67,
+     "safe_gained_at_g": 0,
+     "p_safe": 6.776263578034403e-21
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 12,
+     "q_worse_at_0_only": 0,
+     "p_q": 0.000244140625,
+     "safe_lost_at_g": 14,
+     "safe_gained_at_g": 0,
+     "p_safe": 6.103515625e-05
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 20,
+     "q_worse_at_0_only": 0,
+     "p_q": 9.5367431640625e-07,
+     "safe_lost_at_g": 67,
+     "safe_gained_at_g": 0,
+     "p_safe": 6.776263578034403e-21
+    },
+    "pooled": {
+     "q_worse_at_g_only": 32,
+     "q_worse_at_0_only": 0,
+     "p_q": 2.3283064365386963e-10,
+     "safe_lost_at_g": 223,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.418412301374843e-68
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 100,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.888609052210118e-31
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 100,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.888609052210118e-31
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 13,
+     "q_worse_at_0_only": 0,
+     "p_q": 0.0001220703125,
+     "safe_lost_at_g": 85,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.5849394142282115e-26
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 18,
+     "q_worse_at_0_only": 0,
+     "p_q": 3.814697265625e-06,
+     "safe_lost_at_g": 71,
+     "safe_gained_at_g": 0,
+     "p_safe": 4.235164736271502e-22
+    },
+    "pooled": {
+     "q_worse_at_g_only": 31,
+     "q_worse_at_0_only": 0,
+     "p_q": 4.656612873077393e-10,
+     "safe_lost_at_g": 356,
+     "safe_gained_at_g": 0,
+     "p_safe": 6.812735744013041e-108
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "q_worse_at_g_only": 10,
+     "q_worse_at_0_only": 0,
+     "p_q": 0.0009765625,
+     "safe_lost_at_g": 62,
+     "safe_gained_at_g": 0,
+     "p_safe": 2.168404344971009e-19
+    },
+    "epoch 1": {
+     "q_worse_at_g_only": 49,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.7763568394002505e-15,
+     "safe_lost_at_g": 39,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.8189894035458565e-12
+    },
+    "epoch 2": {
+     "q_worse_at_g_only": 15,
+     "q_worse_at_0_only": 0,
+     "p_q": 3.0517578125e-05,
+     "safe_lost_at_g": 78,
+     "safe_gained_at_g": 0,
+     "p_safe": 3.308722450212111e-24
+    },
+    "epoch 3": {
+     "q_worse_at_g_only": 0,
+     "q_worse_at_0_only": 0,
+     "p_q": 1.0,
+     "safe_lost_at_g": 100,
+     "safe_gained_at_g": 0,
+     "p_safe": 7.888609052210118e-31
+    },
+    "pooled": {
+     "q_worse_at_g_only": 74,
+     "q_worse_at_0_only": 0,
+     "p_q": 5.293955920339377e-23,
+     "safe_lost_at_g": 279,
+     "safe_gained_at_g": 0,
+     "p_safe": 1.0295115178936058e-84
+    }
+   }
+  },
+  "fixes": {
+   "+0 h": {
+    "10": {
+     "status": {
+      "accepted": 396,
+      "accepted, second pass parabola": 3,
+      "rejected by margin": 1
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 399,
+     "accepted_error": {
+      "n": 399,
+      "median": 3.745915152963386,
+      "p90": 7.793755066057981
+     }
+    },
+    "20": {
+     "status": {
+      "accepted": 396,
+      "rejected by nis": 3,
+      "accepted, second pass parabola": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 397,
+     "accepted_error": {
+      "n": 397,
+      "median": 0.3301637314534649,
+      "p90": 1.03564872290592
+     }
+    },
+    "30": {
+     "status": {
+      "accepted": 396,
+      "rejected by nis": 4
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 396,
+     "accepted_error": {
+      "n": 396,
+      "median": 0.22499845741345337,
+      "p90": 0.5491578519363689
+     }
+    },
+    "40": {
+     "status": {
+      "accepted": 396,
+      "rejected by nis": 4
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 396,
+     "accepted_error": {
+      "n": 396,
+      "median": 0.18373700989717073,
+      "p90": 0.38316746961802584
+     }
+    }
+   },
+   "-24 h": {
+    "10": {
+     "status": {
+      "accepted": 396,
+      "accepted, first pass only": 1,
+      "accepted, second pass parabola": 1,
+      "rejected by margin": 2
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 398,
+     "accepted_error": {
+      "n": 398,
+      "median": 4.373055403275592,
+      "p90": 8.329177044654001
+     }
+    },
+    "20": {
+     "status": {
+      "accepted": 396,
+      "rejected by nis": 2,
+      "accepted, second pass parabola": 2
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 398,
+     "accepted_error": {
+      "n": 398,
+      "median": 1.1990493637075323,
+      "p90": 8.278878981336392
+     }
+    },
+    "30": {
+     "status": {
+      "accepted": 379,
+      "rejected by nis": 18,
+      "rejected by margin": 3
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 379,
+     "accepted_error": {
+      "n": 379,
+      "median": 1.4597224528039061,
+      "p90": 5.693386074005258
+     }
+    },
+    "40": {
+     "status": {
+      "rejected by nis": 66,
+      "accepted": 294,
+      "rejected by margin": 9,
+      "dark map": 29,
+      "undefined": 2
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 294,
+     "accepted_error": {
+      "n": 294,
+      "median": 1.1358539807829737,
+      "p90": 3.577749728986348
+     }
+    }
+   },
+   "+24 h": {
+    "10": {
+     "status": {
+      "accepted": 298,
+      "dark map": 81,
+      "accepted, second pass parabola": 7,
+      "rejected by nis": 4,
+      "rejected by margin": 4
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 305,
+     "accepted_error": {
+      "n": 305,
+      "median": 3.4644824778633305,
+      "p90": 8.454863393061364
+     }
+    },
+    "20": {
+     "status": {
+      "accepted": 312,
+      "rejected by margin": 56,
+      "accepted, second pass parabola": 5,
+      "rejected by nis": 19,
+      "accepted, first pass only": 1,
+      "dark map": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 318,
+     "accepted_error": {
+      "n": 318,
+      "median": 2.0333224743325817,
+      "p90": 4.507712451654956
+     }
+    },
+    "30": {
+     "status": {
+      "accepted": 307,
+      "rejected by margin": 45,
+      "rejected by nis": 34,
+      "accepted, second pass parabola": 7,
+      "accepted, first pass only": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 315,
+     "accepted_error": {
+      "n": 315,
+      "median": 2.890535994944377,
+      "p90": 8.10354006064423
+     }
+    },
+    "40": {
+     "status": {
+      "accepted": 272,
+      "rejected by nis": 90,
+      "rejected by margin": 27,
+      "accepted, second pass parabola": 5
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 277,
+     "accepted_error": {
+      "n": 277,
+      "median": 1.856634997978388,
+      "p90": 10.195397875801515
+     }
+    }
+   },
+   "-72 h": {
+    "10": {
+     "status": {
+      "dark map": 100,
+      "accepted": 297,
+      "accepted, second pass parabola": 1,
+      "rejected by margin": 2
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 298,
+     "accepted_error": {
+      "n": 298,
+      "median": 5.047279372018674,
+      "p90": 9.290823544877798
+     }
+    },
+    "20": {
+     "status": {
+      "dark map": 100,
+      "accepted": 295,
+      "rejected by nis": 3,
+      "rejected by margin": 2
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 295,
+     "accepted_error": {
+      "n": 295,
+      "median": 2.466321255093555,
+      "p90": 6.438218836756141
+     }
+    },
+    "30": {
+     "status": {
+      "dark map": 100,
+      "accepted": 279,
+      "rejected by nis": 16,
+      "rejected by margin": 4,
+      "accepted, second pass parabola": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 280,
+     "accepted_error": {
+      "n": 280,
+      "median": 5.065681772197503,
+      "p90": 10.152348094708369
+     }
+    },
+    "40": {
+     "status": {
+      "dark map": 100,
+      "rejected by margin": 25,
+      "accepted": 175,
+      "rejected by nis": 95,
+      "accepted, second pass parabola": 5
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 180,
+     "accepted_error": {
+      "n": 180,
+      "median": 2.7960402868028336,
+      "p90": 6.997741591715664
+     }
+    }
+   },
+   "+72 h": {
+    "10": {
+     "status": {
+      "accepted": 222,
+      "rejected by margin": 62,
+      "dark map": 100,
+      "accepted, second pass parabola": 16
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 238,
+     "accepted_error": {
+      "n": 238,
+      "median": 4.867553343890588,
+      "p90": 423.33130299985106
+     }
+    },
+    "20": {
+     "status": {
+      "accepted": 268,
+      "accepted, second pass parabola": 13,
+      "dark map": 79,
+      "rejected by margin": 24,
+      "rejected by nis": 15,
+      "accepted, first pass only": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 282,
+     "accepted_error": {
+      "n": 282,
+      "median": 3.0942500610256873,
+      "p90": 11.74805842857524
+     }
+    },
+    "30": {
+     "status": {
+      "accepted": 269,
+      "rejected by margin": 48,
+      "rejected by nis": 51,
+      "accepted, second pass parabola": 30,
+      "accepted, first pass only": 1,
+      "dark map": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 300,
+     "accepted_error": {
+      "n": 300,
+      "median": 6.105920409714004,
+      "p90": 429.51663682386226
+     }
+    },
+    "40": {
+     "status": {
+      "rejected by nis": 186,
+      "accepted": 135,
+      "rejected by margin": 79
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 135,
+     "accepted_error": {
+      "n": 135,
+      "median": 3.7164415421401005,
+      "p90": 9.735613914012141
+     }
+    }
+   },
+   "-168 h": {
+    "10": {
+     "status": {
+      "dark map": 200,
+      "accepted": 96,
+      "rejected by margin": 89,
+      "rejected by nis": 15
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 96,
+     "accepted_error": {
+      "n": 96,
+      "median": 774.5277514138077,
+      "p90": 851.6837181293772
+     }
+    },
+    "20": {
+     "status": {
+      "dark map": 290,
+      "rejected by nis": 28,
+      "accepted": 18,
+      "rejected by margin": 63,
+      "undefined": 1
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 18,
+     "accepted_error": {
+      "n": 18,
+      "median": 581.4630717697287,
+      "p90": 1336.9547870548342
+     }
+    },
+    "30": {
+     "status": {
+      "dark map": 300,
+      "rejected by nis": 30,
+      "rejected by margin": 42,
+      "accepted": 28
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 28,
+     "accepted_error": {
+      "n": 28,
+      "median": 1114.4848342269818,
+      "p90": 1573.1817794718434
+     }
+    },
+    "40": {
+     "status": {
+      "dark map": 291,
+      "rejected by nis": 43,
+      "accepted": 13,
+      "rejected by margin": 53
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 13,
+     "accepted_error": {
+      "n": 13,
+      "median": 1356.3318574369955,
+      "p90": 1579.2951479495284
+     }
+    }
+   },
+   "+168 h": {
+    "10": {
+     "status": {
+      "accepted": 45,
+      "rejected by nis": 27,
+      "dark map": 282,
+      "rejected by margin": 44,
+      "accepted, second pass parabola": 1,
+      "undefined": 1
+     },
+     "truncated": 4,
+     "off_map": 0,
+     "accepted": 46,
+     "accepted_error": {
+      "n": 46,
+      "median": 88.6389737002485,
+      "p90": 1471.8864088758987
+     }
+    },
+    "20": {
+     "status": {
+      "rejected by margin": 51,
+      "accepted": 50,
+      "dark map": 205,
+      "rejected by nis": 35,
+      "accepted, second pass parabola": 59
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 109,
+     "accepted_error": {
+      "n": 109,
+      "median": 640.5582874361738,
+      "p90": 1042.7711440373284
+     }
+    },
+    "30": {
+     "status": {
+      "rejected by nis": 127,
+      "accepted": 21,
+      "dark map": 151,
+      "accepted, second pass parabola": 20,
+      "rejected by margin": 79,
+      "undefined": 2
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 41,
+     "accepted_error": {
+      "n": 41,
+      "median": 1214.190075776522,
+      "p90": 1754.559819128997
+     }
+    },
+    "40": {
+     "status": {
+      "rejected by nis": 126,
+      "rejected by margin": 146,
+      "dark map": 100,
+      "accepted, first pass only": 1,
+      "accepted": 24,
+      "accepted, second pass parabola": 3
+     },
+     "truncated": 0,
+     "off_map": 0,
+     "accepted": 28,
+     "accepted_error": {
+      "n": 28,
+      "median": 934.6287592842295,
+      "p90": 1215.5062916344182
+     }
+    }
+   }
+  },
+  "monotonic": {
+   "+": {
+    "hp": {
+     "+24 h": 0.058823529411764705,
+     "+72 h": 0.14814814814814814,
+     "+168 h": 0.7474747474747475
+    },
+    "safe_fraction": {
+     "+0 h": 1.0,
+     "+24 h": 0.74,
+     "+72 h": 0.4425,
+     "+168 h": 0.3025
+    }
+   },
+   "-": {
+    "hp": {
+     "-24 h": 0.0,
+     "-72 h": 0.004975124378109453,
+     "-168 h": 0.7380952380952381
+    },
+    "safe_fraction": {
+     "+0 h": 1.0,
+     "-24 h": 0.835,
+     "-72 h": 0.455,
+     "-168 h": 0.11
+    }
+   }
+  },
+  "unsafe_d38": {
+   "+0 h": {},
+   "-24 h": {
+    "neither gear check fails": 61,
+    "hazard-map false safe": 1
+   },
+   "+24 h": {
+    "neither gear check fails": 59,
+    "hazard-map false safe": 1,
+    "drift beyond the margin": 1
+   },
+   "-72 h": {
+    "neither gear check fails": 116
+   },
+   "+72 h": {
+    "neither gear check fails": 150,
+    "hazard-map false safe": 4,
+    "drift beyond the margin": 3
+   },
+   "-168 h": {
+    "neither gear check fails": 14,
+    "drift beyond the margin": 6,
+    "hazard-map false safe": 5
+   },
+   "+168 h": {
+    "drift beyond the margin": 11,
+    "hazard-map false safe": 15,
+    "neither gear check fails": 1
+   },
+   "no-TRN": {
+    "hazard-map false safe": 37,
+    "drift beyond the margin": 6
+   }
+  }
+ },
+ "three_way": {
+  "+0 h": {
+   "epoch 0": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 400,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 400
+   }
+  },
+  "-24 h": {
+   "epoch 0": {
+    "safe landing": 38,
+    "abort to a safe orbit": 3,
+    "unsafe outcome": 59,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 96,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 4,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 334,
+    "abort to a safe orbit": 3,
+    "unsafe outcome": 63,
+    "flights": 400
+   }
+  },
+  "+24 h": {
+   "epoch 0": {
+    "safe landing": 62,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 38,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 78,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 22,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 100,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 56,
+    "abort to a safe orbit": 37,
+    "unsafe outcome": 7,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 296,
+    "abort to a safe orbit": 37,
+    "unsafe outcome": 67,
+    "flights": 400
+   }
+  },
+  "-72 h": {
+   "epoch 0": {
+    "safe landing": 0,
+    "abort to a safe orbit": 100,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 32,
+    "abort to a safe orbit": 1,
+    "unsafe outcome": 67,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 67,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 33,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 83,
+    "abort to a safe orbit": 1,
+    "unsafe outcome": 16,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 182,
+    "abort to a safe orbit": 102,
+    "unsafe outcome": 116,
+    "flights": 400
+   }
+  },
+  "+72 h": {
+   "epoch 0": {
+    "safe landing": 25,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 75,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 33,
+    "abort to a safe orbit": 0,
+    "unsafe outcome": 67,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 86,
+    "abort to a safe orbit": 1,
+    "unsafe outcome": 13,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 33,
+    "abort to a safe orbit": 65,
+    "unsafe outcome": 2,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 177,
+    "abort to a safe orbit": 66,
+    "unsafe outcome": 157,
+    "flights": 400
+   }
+  },
+  "-168 h": {
+   "epoch 0": {
+    "safe landing": 0,
+    "abort to a safe orbit": 100,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 0,
+    "abort to a safe orbit": 100,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 15,
+    "abort to a safe orbit": 71,
+    "unsafe outcome": 14,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 29,
+    "abort to a safe orbit": 60,
+    "unsafe outcome": 11,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 44,
+    "abort to a safe orbit": 331,
+    "unsafe outcome": 25,
+    "flights": 400
+   }
+  },
+  "+168 h": {
+   "epoch 0": {
+    "safe landing": 38,
+    "abort to a safe orbit": 53,
+    "unsafe outcome": 9,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 61,
+    "abort to a safe orbit": 23,
+    "unsafe outcome": 16,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 22,
+    "abort to a safe orbit": 76,
+    "unsafe outcome": 2,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 0,
+    "abort to a safe orbit": 100,
+    "unsafe outcome": 0,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 121,
+    "abort to a safe orbit": 252,
+    "unsafe outcome": 27,
+    "flights": 400
+   }
+  },
+  "no-TRN": {
+   "epoch 0": {
+    "safe landing": 51,
+    "abort to a safe orbit": 39,
+    "unsafe outcome": 10,
+    "flights": 100
+   },
+   "epoch 1": {
+    "safe landing": 56,
+    "abort to a safe orbit": 33,
+    "unsafe outcome": 11,
+    "flights": 100
+   },
+   "epoch 2": {
+    "safe landing": 56,
+    "abort to a safe orbit": 33,
+    "unsafe outcome": 11,
+    "flights": 100
+   },
+   "epoch 3": {
+    "safe landing": 56,
+    "abort to a safe orbit": 33,
+    "unsafe outcome": 11,
+    "flights": 100
+   },
+   "pooled": {
+    "safe landing": 219,
+    "abort to a safe orbit": 138,
+    "unsafe outcome": 43,
+    "flights": 400
+   }
+  }
+ },
+ "unsafe_split": {
+  "+0 h": {
+   "classes": {},
+   "unsafe_landings": 0,
+   "touchdown_on_gear_unsafe_ground": 0,
+   "site_or_touchdown_gear_unsafe": 0
+  },
+  "-24 h": {
+   "classes": {
+    "off the verified site": 61,
+    "hazard-map false safe": 1
+   },
+   "unsafe_landings": 62,
+   "touchdown_on_gear_unsafe_ground": 1,
+   "site_or_touchdown_gear_unsafe": 1
+  },
+  "+24 h": {
+   "classes": {
+    "off the verified site": 59,
+    "hazard-map false safe": 1,
+    "drift beyond the margin": 1
+   },
+   "unsafe_landings": 61,
+   "touchdown_on_gear_unsafe_ground": 2,
+   "site_or_touchdown_gear_unsafe": 2
+  },
+  "-72 h": {
+   "classes": {
+    "off the verified site": 116
+   },
+   "unsafe_landings": 116,
+   "touchdown_on_gear_unsafe_ground": 0,
+   "site_or_touchdown_gear_unsafe": 0
+  },
+  "+72 h": {
+   "classes": {
+    "off the verified site": 150,
+    "hazard-map false safe": 4,
+    "drift beyond the margin": 3
+   },
+   "unsafe_landings": 157,
+   "touchdown_on_gear_unsafe_ground": 6,
+   "site_or_touchdown_gear_unsafe": 7
+  },
+  "-168 h": {
+   "classes": {
+    "off the verified site": 14,
+    "drift beyond the margin": 6,
+    "hazard-map false safe": 5
+   },
+   "unsafe_landings": 25,
+   "touchdown_on_gear_unsafe_ground": 10,
+   "site_or_touchdown_gear_unsafe": 11
+  },
+  "+168 h": {
+   "classes": {
+    "drift beyond the margin": 11,
+    "hazard-map false safe": 15,
+    "off the verified site": 1
+   },
+   "unsafe_landings": 27,
+   "touchdown_on_gear_unsafe_ground": 26,
+   "site_or_touchdown_gear_unsafe": 26
+  },
+  "no-TRN": {
+   "classes": {
+    "hazard-map false safe": 37,
+    "drift beyond the margin": 6
+   },
+   "unsafe_landings": 43,
+   "touchdown_on_gear_unsafe_ground": 43,
+   "site_or_touchdown_gear_unsafe": 43
+  },
+  "all": {
+   "classes": {
+    "off the verified site": 401,
+    "drift beyond the margin": 27,
+    "hazard-map false safe": 63
+   },
+   "unsafe_landings": 491,
+   "touchdown_on_gear_unsafe_ground": 88,
+   "site_or_touchdown_gear_unsafe": 90
+  }
+ },
+ "aborts": {
+  "+0 h": {
+   "classes": {},
+   "perilune": {
+    "n": 0,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 0,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 0,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "-24 h": {
+   "classes": {
+    "infeasible: safe orbit": 3
+   },
+   "perilune": {
+    "n": 3,
+    "median": 16645.898226805963,
+    "p90": 16653.190881096012,
+    "p95": 16654.10246288227,
+    "max": 16655.014044668525,
+    "min": 16629.302512201713,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 3,
+    "median": 83254.52463997761,
+    "p90": 83257.90252077309,
+    "p95": 83258.32475587253,
+    "max": 83258.74699097197,
+    "min": 83217.05429228419,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 3,
+    "median": 6.738484084608331,
+    "p90": 10.133440038763206,
+    "p95": 10.557809533032565,
+    "max": 10.982179027301925,
+    "min": 5.719274884420599,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "+24 h": {
+   "classes": {
+    "hazard: safe orbit": 35,
+    "lost lock: safe orbit": 2
+   },
+   "perilune": {
+    "n": 37,
+    "median": 16440.295179330045,
+    "p90": 17013.623998105388,
+    "p95": 17147.21553612519,
+    "max": 17151.68281134311,
+    "min": 16315.53221355402,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 37,
+    "median": 82669.9366365911,
+    "p90": 84376.50914658136,
+    "p95": 84847.0211727098,
+    "max": 84924.08814288117,
+    "min": 82314.39668973838,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 37,
+    "median": 991.5795213394316,
+    "p90": 1115.9264410601802,
+    "p95": 1146.714718379099,
+    "max": 1400.3629950407187,
+    "min": 2.5384608539588953,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "-72 h": {
+   "classes": {
+    "lost lock: safe orbit": 100,
+    "infeasible: safe orbit": 1,
+    "hazard: safe orbit": 1
+   },
+   "perilune": {
+    "n": 102,
+    "median": 16668.757863628212,
+    "p90": 16712.89403262383,
+    "p95": 16720.617109158426,
+    "max": 16776.2361539891,
+    "min": 16580.173746709712,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 102,
+    "median": 83344.72596196772,
+    "p90": 83470.51109008638,
+    "p95": 83489.08615618247,
+    "max": 83636.83597952989,
+    "min": 83070.27891487163,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 102,
+    "median": 962.1424360734916,
+    "p90": 1219.052675756682,
+    "p95": 1242.987973740021,
+    "max": 1449.7679878700328,
+    "min": 8.191721101488781,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "+72 h": {
+   "classes": {
+    "lost lock: safe orbit": 45,
+    "hazard: safe orbit": 21
+   },
+   "perilune": {
+    "n": 66,
+    "median": 16663.40964626905,
+    "p90": 16774.062645205995,
+    "p95": 16834.00985818758,
+    "max": 16855.603134259814,
+    "min": 16373.23626776482,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 66,
+    "median": 83330.6302389761,
+    "p90": 83642.3382396833,
+    "p95": 83817.61407217942,
+    "max": 83909.57853756449,
+    "min": 82506.3576366168,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 66,
+    "median": 1015.5797987720894,
+    "p90": 1237.5936675088751,
+    "p95": 1262.0256564362173,
+    "max": 1400.3629950407187,
+    "min": 284.82198191346595,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "-168 h": {
+   "classes": {
+    "lost lock: safe orbit": 245,
+    "hazard: safe orbit": 81,
+    "infeasible: safe orbit": 5
+   },
+   "perilune": {
+    "n": 331,
+    "median": 16678.1862013496,
+    "p90": 16768.140370722394,
+    "p95": 16870.200113519793,
+    "max": 17200.1144510156,
+    "min": 16441.23834538483,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 331,
+    "median": 83365.5092605839,
+    "p90": 83632.34285668982,
+    "p95": 83993.95425268763,
+    "max": 85210.49337771977,
+    "min": 82683.7276978225,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 331,
+    "median": 885.0401462623533,
+    "p90": 1204.2064370959592,
+    "p95": 1240.9786797034674,
+    "max": 1449.7679878700328,
+    "min": 8.246809164697027,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "+168 h": {
+   "classes": {
+    "hazard: safe orbit": 75,
+    "lost lock: safe orbit": 176,
+    "infeasible: safe orbit": 1
+   },
+   "perilune": {
+    "n": 252,
+    "median": 16662.156710571493,
+    "p90": 16712.98870451958,
+    "p95": 16724.083009234397,
+    "max": 16776.2361539891,
+    "min": 16248.211376437452,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 252,
+    "median": 83329.44709560205,
+    "p90": 83471.24649246417,
+    "p95": 83507.35622324212,
+    "max": 83636.83597952989,
+    "min": 82153.78518872662,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 252,
+    "median": 939.2902086444649,
+    "p90": 1204.2064370959592,
+    "p95": 1241.9304505628875,
+    "max": 1449.7679878700328,
+    "min": 7.779448289922243,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  },
+  "no-TRN": {
+   "classes": {
+    "hazard: safe orbit": 138
+   },
+   "perilune": {
+    "n": 138,
+    "median": 16685.219451422803,
+    "p90": 16746.896987198154,
+    "p95": 16777.137364923023,
+    "max": 16790.04882897553,
+    "min": 16565.802578617586,
+    "not_finite": 0
+   },
+   "apolune": {
+    "n": 138,
+    "median": 83393.44865566608,
+    "p90": 83558.43389954465,
+    "p95": 83651.52604316594,
+    "max": 83682.4794251523,
+    "min": 83046.68457756075,
+    "not_finite": 0
+   },
+   "closest_true_pass": {
+    "n": 138,
+    "median": 157.99941812741008,
+    "p90": 248.93998692610535,
+    "p95": 256.4855933315534,
+    "max": 276.3212719680246,
+    "min": 26.994559245598225,
+    "not_finite": 0
+   },
+   "not_converged": 0
+  }
+ },
+ "decomposition": "Not possible from the records. They hold the scan's placement error as a vector (the chosen site minus true_site), the estimate's horizontal error at the decision as a magnitude only (nav_error_decision) and at contact as a magnitude only (q). The miss from the verified site is a vector sum, and without the estimate's error vectors at the scan and at contact it cannot be split into the part from the estimate moving and the part from the scan's placement, so it is left out.",
+ "seconds": {
+  "criteria": 0.16433382034301758,
+  "d63": 115.51273679733276
+ }
+}

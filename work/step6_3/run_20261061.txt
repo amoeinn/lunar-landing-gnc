@@ -1,0 +1,86 @@
+# Step 6.3 score, seed 20261061
+
+Overall verdict: **PASS**. Flight files 2900; errors 6.
+
+| criterion | value | test | threshold | verdict |
+|---|---|---|---|---|
+| 1: flights at 0 h not ending in a safe landing | 0 | <= | 2 | PASS |
+| 1: Hp(0 h) | 0.000 | <= | 0.010 | PASS |
+| 1: median Q at 0 h, m | 0.139 | <= | 1.000 | PASS |
+| 2(a) -24 h: sign test over draws, 66 fewer against 0 more, p | 1.36e-20 | < | 0.010 | PASS |
+| 2(b) -24 h: median Q, m | 2.109 | >= | 1.000 | PASS |
+| 2(a) +24 h: sign test over draws, 75 fewer against 0 more, p | 2.65e-23 | < | 0.010 | PASS |
+| 2(b) +24 h: median Q, m | 3.402 | >= | 1.000 | PASS |
+| 3: safe-landing fraction at -24 h above that at -72 h | 0.835 | > | 0.455 | PASS |
+| 3: median Q at -72 h above that at -24 h, m | 10.019 | > | 2.109 | PASS |
+| 3: safe-landing fraction at -72 h above that at -168 h | 0.455 | > | 0.110 | PASS |
+| 3: median Q at -168 h above that at -72 h, m | 748.260 | > | 10.019 | PASS |
+| 3: safe-landing fraction at +24 h above that at +72 h | 0.740 | > | 0.443 | PASS |
+| 3: median Q at +72 h above that at +24 h, m | 14.791 | > | 3.402 | PASS |
+| 3: safe-landing fraction at +72 h above that at +168 h | 0.443 | > | 0.302 | PASS |
+| 3: median Q at +168 h above that at +72 h, m | 631.195 | > | 14.791 | PASS |
+| 4 -168 h: Hp | 0.738 | >= | 0.500 | PASS |
+| 4 -168 h: no-TRN safe-landing fraction minus TRN's | 0.438 | >= | 0.100 | PASS |
+| 4 +168 h: Hp | 0.747 | >= | 0.500 | PASS |
+| 4 +168 h: no-TRN safe-landing fraction minus TRN's | 0.245 | >= | 0.100 | PASS |
+
+## Three-way split (D69), pooled over epochs
+
+| set | safe landing | abort to a safe orbit | unsafe outcome | flights |
+|---|---|---|---|---|
+| +0 h | 400 | 0 | 0 | 400 |
+| -24 h | 334 | 3 | 63 | 400 |
+| +24 h | 296 | 37 | 67 | 400 |
+| -72 h | 182 | 102 | 116 | 400 |
+| +72 h | 177 | 66 | 157 | 400 |
+| -168 h | 44 | 331 | 25 | 400 |
+| +168 h | 121 | 252 | 27 | 400 |
+| no-TRN | 219 | 138 | 43 | 400 |
+
+## Safe-landing fraction, Q and Hp, pooled over epochs
+
+| set | safe fraction | Q median | Q p90 | Q max | Hp |
+|---|---|---|---|---|---|
+| +0 h | 1.000 | 0.139 | 0.259 | 29.686 | 0.000 |
+| -24 h | 0.835 | 2.109 | 13.569 | 106.318 | 0.000 |
+| +24 h | 0.740 | 3.402 | 16.423 | 1701.825 | 0.059 |
+| -72 h | 0.455 | 10.019 | 25.628 | 32.131 | 0.00498 |
+| +72 h | 0.443 | 14.791 | 757.748 | 1705.862 | 0.148 |
+| -168 h | 0.110 | 748.260 | 1157.589 | 1629.332 | 0.738 |
+| +168 h | 0.302 | 631.195 | 1150.704 | 1851.276 | 0.747 |
+| no-TRN | 0.547 | 363.037 | 610.621 | 968.570 | none |
+
+## Unsafe landings (D67)
+
+| set | unsafe landings | classes | touchdown on gear-unsafe ground |
+|---|---|---|---|
+| +0 h | 0 |  | 0 |
+| -24 h | 62 | hazard-map false safe 1, off the verified site 61 | 1 |
+| +24 h | 61 | drift beyond the margin 1, hazard-map false safe 1, off the verified site 59 | 2 |
+| -72 h | 116 | off the verified site 116 | 0 |
+| +72 h | 157 | drift beyond the margin 3, hazard-map false safe 4, off the verified site 150 | 6 |
+| -168 h | 25 | drift beyond the margin 6, hazard-map false safe 5, off the verified site 14 | 10 |
+| +168 h | 27 | drift beyond the margin 11, hazard-map false safe 15, off the verified site 1 | 26 |
+| no-TRN | 43 | drift beyond the margin 6, hazard-map false safe 37 | 43 |
+| all | 491 | drift beyond the margin 27, hazard-map false safe 63, off the verified site 401 | 88 |
+
+## Aborts
+
+| set | classes | perilune min, median (m) | closest true pass min, median (m) |
+|---|---|---|---|
+| +0 h |  | none, none | none, none |
+| -24 h | infeasible: safe orbit 3 | 16629.303, 16645.898 | 5.719, 6.738 |
+| +24 h | hazard: safe orbit 35, lost lock: safe orbit 2 | 16315.532, 16440.295 | 2.538, 991.580 |
+| -72 h | hazard: safe orbit 1, infeasible: safe orbit 1, lost lock: safe orbit 100 | 16580.174, 16668.758 | 8.192, 962.142 |
+| +72 h | hazard: safe orbit 21, lost lock: safe orbit 45 | 16373.236, 16663.410 | 284.822, 1015.580 |
+| -168 h | hazard: safe orbit 81, infeasible: safe orbit 5, lost lock: safe orbit 245 | 16441.238, 16678.186 | 8.247, 885.040 |
+| +168 h | hazard: safe orbit 75, infeasible: safe orbit 1, lost lock: safe orbit 176 | 16248.211, 16662.157 | 7.779, 939.290 |
+| no-TRN | hazard: safe orbit 138 | 16565.803, 16685.219 | 26.995, 157.999 |
+
+## Scan to contact
+
+Not possible from the records. They hold the scan's placement error as a vector (the chosen site minus true_site), the estimate's horizontal error at the decision as a magnitude only (nav_error_decision) and at contact as a magnitude only (q). The miss from the verified site is a vector sum, and without the estimate's error vectors at the scan and at contact it cannot be split into the part from the estimate moving and the part from the scan's placement, so it is left out.
+
+Per epoch values, the fix counts, the sign tests against gap 0 and the abort orbits in full are in score_20261061.json.
+
+seconds: {'criteria': 0.16433382034301758, 'd63': 115.51273679733276}

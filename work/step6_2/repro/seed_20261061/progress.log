@@ -1,0 +1,6 @@
+2026-11-07 00:53:52 seed 20261061, draws 0 to 0, 3 flights, 0 already written; 4 workers, cast cpp
+2026-11-07 00:53:52 stage 1: 3 flights left
+2026-11-07 00:54:52 stage 1: 1 of 3 done, 2 left, about 2 min left, pool 1.09 GB (stage peak 1.09 GB)
+2026-11-07 00:55:52 stage 1: 2 of 3 done, 1 left, about 1 min left, pool 1.58 GB (stage peak 1.58 GB)
+2026-11-07 00:56:39 stage 1 ended (exit 0): 3 flights written, 0 left, sampled pool peak 1.58 GB
+2026-11-07 00:56:39 finished in 2.8 min: 3 of 3 written

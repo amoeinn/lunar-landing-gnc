@@ -1,0 +1,28 @@
+S1 load_seed-error-no-trn-one-row: applied, reverted; CAUGHT by test_load_seed_gives_a_failed_no_trn_job_one_error_row_per_epoch
+S2 load_seed-error-dropped: applied, reverted; CAUGHT by test_load_seed_keeps_an_error_job_as_its_own_row_with_no_q, test_load_seed_gives_a_failed_no_trn_job_one_error_row_per_epoch, test_hp_counts_each_pair_in_one_cell_and_ties_are_not_worse, test_against_zero_counts_discordant_pairs_and_their_sign_test, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S3 flat-miss-from-the-true-site: applied, reverted; CAUGHT by test_load_seed_keeps_an_error_job_as_its_own_row_with_no_q, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S4 outcome_class-no-trigger: applied, reverted; CAUGHT by test_outcome_class_splits_aborts_by_trigger_and_d47_class, test_per_seed_safe_fraction_counts_an_error_as_not_safe, test_concordant_pairs_are_not_discordant_and_q_is_over_touchdowns_only
+S5 touched-includes-terrain-strike: applied, reverted; CAUGHT by test_only_a_landing_counts_as_touching_down
+S6 safe-error-counted-safe: applied, reverted; CAUGHT by test_against_zero_counts_discordant_pairs_and_their_sign_test, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S7 quantiles-p90-nearest: applied, reverted; CAUGHT by test_quantiles_are_numpys_linear_percentiles_over_present_values
+S8 quantiles-p95-as-p90: applied, reverted; CAUGHT by test_quantiles_are_numpys_linear_percentiles_over_present_values
+S9 sign_test-strict-tail: applied, reverted; CAUGHT by test_sign_test_is_the_exact_one_sided_binomial_tail, test_against_zero_counts_discordant_pairs_and_their_sign_test
+S10 sign_test-two-sided: applied, reverted; CAUGHT by test_sign_test_is_the_exact_one_sided_binomial_tail, test_against_zero_counts_discordant_pairs_and_their_sign_test
+S11 counts-by-outcome-only: applied, reverted; CAUGHT by test_per_seed_safe_fraction_counts_an_error_as_not_safe, test_concordant_pairs_are_not_discordant_and_q_is_over_touchdowns_only
+S12 hp-tie-counted-worse: applied, reverted; CAUGHT by test_hp_counts_each_pair_in_one_cell_and_ties_are_not_worse, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S13 hp-over-all-pairs: applied, reverted; CAUGHT by test_hp_counts_each_pair_in_one_cell_and_ties_are_not_worse, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S14 hp-error-as-abort: applied, reverted; CAUGHT by test_hp_counts_each_pair_in_one_cell_and_ties_are_not_worse
+S15 q_worse-no-trn-may-abort: applied, reverted; CAUGHT by test_q_worse_needs_both_landers_to_have_touched_down, test_against_zero_counts_discordant_pairs_and_their_sign_test, test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S16 against_zero-not-discordant: applied, reverted; CAUGHT by test_concordant_pairs_are_not_discordant_and_q_is_over_touchdowns_only
+S17 against_zero-safe-lost-not-discordant: applied, reverted; CAUGHT by test_concordant_pairs_are_not_discordant_and_q_is_over_touchdowns_only
+S18 per_seed-error-out-of-the-denominator: applied, reverted; CAUGHT by test_per_seed_safe_fraction_counts_an_error_as_not_safe
+S19 per_seed-q-over-all-flights: applied, reverted; CAUGHT by test_concordant_pairs_are_not_discordant_and_q_is_over_touchdowns_only
+S20 fix_table-truncated-always: applied, reverted; CAUGHT by test_fix_table_counts_statuses_and_attributes_and_accepted_errors
+S21 fix_table-first-pass-accepted-only: applied, reverted; CAUGHT by test_fix_table_counts_statuses_and_attributes_and_accepted_errors
+S22 fix_table-off-map-from-truncated: applied, reverted; CAUGHT by test_fix_table_counts_statuses_and_attributes_and_accepted_errors
+S23 d38-touchdown-first: applied, reverted; CAUGHT by test_d38_class_puts_a_failing_site_before_the_touchdown
+S24 same_record-ignores-q: applied, reverted; CAUGHT by test_same_record_ignores_run_time_and_memory_only
+S25 stage_log-launch-not-closing: applied, reverted; CAUGHT by test_stage_log_lists_interrupted_and_nonzero_stages
+S26 stage_log-nonzero-missed: applied, reverted; CAUGHT by test_stage_log_lists_interrupted_and_nonzero_stages
+S27 spread-diff-reversed: applied, reverted; CAUGHT by test_spread_sets_the_seeds_side_by_side_with_their_difference
+S28 spread-missing-count-none: applied, reverted; CAUGHT by test_spread_sets_the_seeds_side_by_side_with_their_difference

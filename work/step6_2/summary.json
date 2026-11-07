@@ -1,0 +1,9134 @@
+{
+ "integrity": {
+  "20261060": {
+   "files": 2900,
+   "missing": [],
+   "errors": [
+    {
+     "file": "d07_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 149.9 m at t = 75.70 s"
+    },
+    {
+     "file": "d49_trn_e0_g168.0.json",
+     "error": "ValueError: scan plan reaches slant 145.4 m at t = 85.85 s"
+    },
+    {
+     "file": "d61_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 128.6 m at t = 79.80 s"
+    },
+    {
+     "file": "d65_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 128.2 m at t = 76.15 s"
+    }
+   ],
+   "rows": 3200,
+   "rows_from_records": 3196,
+   "stages": 21,
+   "casts": [
+    "cpp"
+   ],
+   "workers": [
+    4
+   ],
+   "stages_logged_started": 23,
+   "stages_ended_nonzero": [],
+   "stages_interrupted": [
+    "2026-11-02 01:12:46 stage 11",
+    "2026-11-03 02:58:16 stage 8"
+   ],
+   "first": "2026-11-01T20:23:36",
+   "last": "2026-11-04T00:32:12"
+  },
+  "20261061": {
+   "files": 2900,
+   "missing": [],
+   "errors": [
+    {
+     "file": "d15_trn_e0_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 145.5 m at t = 75.40 s"
+    },
+    {
+     "file": "d20_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 121.8 m at t = 75.30 s"
+    },
+    {
+     "file": "d45_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 147.0 m at t = 73.20 s"
+    },
+    {
+     "file": "d49_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 142.1 m at t = 77.95 s"
+    },
+    {
+     "file": "d89_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 141.7 m at t = 82.25 s"
+    },
+    {
+     "file": "d94_trn_e3_g24.0.json",
+     "error": "ValueError: scan plan reaches slant 142.7 m at t = 81.90 s"
+    }
+   ],
+   "rows": 3200,
+   "rows_from_records": 3194,
+   "stages": 20,
+   "casts": [
+    "cpp"
+   ],
+   "workers": [
+    4
+   ],
+   "stages_logged_started": 22,
+   "stages_ended_nonzero": [],
+   "stages_interrupted": [
+    "2026-11-04 01:59:17 stage 4",
+    "2026-11-05 02:58:21 stage 10"
+   ],
+   "first": "2026-11-04T00:33:11",
+   "last": "2026-11-06T02:47:27"
+  }
+ },
+ "seeds": {
+  "20261060": {
+   "outcomes": {
+    "+0 h": {
+     "epoch 0": {
+      "safe landing": 100
+     },
+     "epoch 1": {
+      "safe landing": 100
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "safe landing": 100
+     },
+     "pooled": {
+      "safe landing": 400
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "safe landing": 40,
+      "unsafe landing": 58,
+      "abort: infeasible: safe orbit": 2
+     },
+     "epoch 1": {
+      "safe landing": 98,
+      "unsafe landing": 2
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "safe landing": 100
+     },
+     "pooled": {
+      "safe landing": 338,
+      "unsafe landing": 60,
+      "abort: infeasible: safe orbit": 2
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "safe landing": 67,
+      "unsafe landing": 33
+     },
+     "epoch 1": {
+      "safe landing": 81,
+      "unsafe landing": 19
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "safe landing": 63,
+      "abort: hazard: safe orbit": 28,
+      "error": 3,
+      "unsafe landing": 4,
+      "abort: hazard: physics: ground": 2
+     },
+     "pooled": {
+      "safe landing": 311,
+      "unsafe landing": 56,
+      "abort: hazard: safe orbit": 28,
+      "error": 3,
+      "abort: hazard: physics: ground": 2
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 1": {
+      "safe landing": 33,
+      "unsafe landing": 66,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 2": {
+      "safe landing": 66,
+      "unsafe landing": 33,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 3": {
+      "safe landing": 72,
+      "unsafe landing": 28
+     },
+     "pooled": {
+      "abort: lost lock: safe orbit": 100,
+      "safe landing": 171,
+      "unsafe landing": 127,
+      "abort: infeasible: safe orbit": 2
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "unsafe landing": 80,
+      "safe landing": 20
+     },
+     "epoch 1": {
+      "unsafe landing": 54,
+      "safe landing": 46
+     },
+     "epoch 2": {
+      "safe landing": 86,
+      "unsafe landing": 12,
+      "abort: hazard: safe orbit": 1,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 3": {
+      "abort: lost lock: safe orbit": 49,
+      "abort: hazard: safe orbit": 17,
+      "safe landing": 29,
+      "unsafe landing": 5
+     },
+     "pooled": {
+      "unsafe landing": 151,
+      "safe landing": 181,
+      "abort: lost lock: safe orbit": 49,
+      "abort: hazard: safe orbit": 18,
+      "abort: infeasible: safe orbit": 1
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 1": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 2": {
+      "abort: lost lock: safe orbit": 22,
+      "abort: hazard: safe orbit": 52,
+      "safe landing": 9,
+      "unsafe landing": 16,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 3": {
+      "abort: hazard: safe orbit": 32,
+      "abort: lost lock: safe orbit": 28,
+      "safe landing": 22,
+      "unsafe landing": 16,
+      "abort: infeasible: safe orbit": 2
+     },
+     "pooled": {
+      "abort: lost lock: safe orbit": 250,
+      "abort: hazard: safe orbit": 84,
+      "safe landing": 31,
+      "unsafe landing": 32,
+      "abort: infeasible: safe orbit": 3
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "abort: hazard: safe orbit": 43,
+      "safe landing": 42,
+      "abort: lost lock: safe orbit": 10,
+      "unsafe landing": 4,
+      "error": 1
+     },
+     "epoch 1": {
+      "safe landing": 51,
+      "unsafe landing": 11,
+      "abort: lost lock: safe orbit": 11,
+      "abort: hazard: safe orbit": 25,
+      "terrain strike": 1,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 2": {
+      "abort: lost lock: safe orbit": 62,
+      "safe landing": 16,
+      "abort: hazard: safe orbit": 21,
+      "unsafe landing": 1
+     },
+     "epoch 3": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "pooled": {
+      "abort: hazard: safe orbit": 89,
+      "safe landing": 109,
+      "abort: lost lock: safe orbit": 183,
+      "unsafe landing": 16,
+      "error": 1,
+      "terrain strike": 1,
+      "abort: infeasible: safe orbit": 1
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "safe landing": 55,
+      "abort: hazard: safe orbit": 38,
+      "unsafe landing": 7
+     },
+     "epoch 1": {
+      "safe landing": 61,
+      "abort: hazard: safe orbit": 34,
+      "unsafe landing": 5
+     },
+     "epoch 2": {
+      "safe landing": 61,
+      "abort: hazard: safe orbit": 34,
+      "unsafe landing": 5
+     },
+     "epoch 3": {
+      "safe landing": 61,
+      "abort: hazard: safe orbit": 34,
+      "unsafe landing": 5
+     },
+     "pooled": {
+      "safe landing": 238,
+      "abort: hazard: safe orbit": 140,
+      "unsafe landing": 22
+     }
+    }
+   },
+   "q": {
+    "+0 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 0.126024782748523,
+      "p90": 0.2118231501794968,
+      "p95": 0.2716075688255757,
+      "max": 0.3194482504604459
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 0.11461978251473125,
+      "p90": 0.2054479849885264,
+      "p95": 0.24434479018395944,
+      "max": 0.3002867391889793
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 0.10727084324247325,
+      "p90": 0.20316211650981422,
+      "p95": 0.2297832547823688,
+      "max": 0.3390656255746917
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 0.11211263862995406,
+      "p90": 0.2151309780534599,
+      "p95": 0.2407855292763521,
+      "max": 0.2813497923341732
+     },
+     "pooled": {
+      "n": 400,
+      "median": 0.1155620408246622,
+      "p90": 0.21166479111128647,
+      "p95": 0.2517822379981723,
+      "max": 0.3390656255746917
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "n": 98,
+      "median": 11.681930001243884,
+      "p90": 22.454673324287857,
+      "p95": 24.901881424928032,
+      "max": 32.90782013465661
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 2.425373105256581,
+      "p90": 4.177268173746785,
+      "p95": 6.094653894864559,
+      "max": 14.570608552035555
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 0.8239578295698979,
+      "p90": 2.2763396076463285,
+      "p95": 2.4119532793354472,
+      "max": 3.5119645363660448
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 1.7784591207430913,
+      "p90": 2.4840322286756433,
+      "p95": 2.7985093337314204,
+      "max": 4.691115363545926
+     },
+     "pooled": {
+      "n": 398,
+      "median": 2.0856470806180036,
+      "p90": 13.120852873851666,
+      "p95": 17.580999248343854,
+      "max": 32.90782013465661
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 10.846171661088889,
+      "p90": 21.00687364363246,
+      "p95": 23.443043749347957,
+      "max": 25.209412179033887
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 2.469923184206177,
+      "p90": 11.849284898233368,
+      "p95": 12.248262677788077,
+      "max": 13.403612297693886
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 2.275853280228351,
+      "p90": 3.015837669906626,
+      "p95": 3.1595153804153098,
+      "max": 3.638496574974668
+     },
+     "epoch 3": {
+      "n": 67,
+      "median": 7.493504837010744,
+      "p90": 1164.5461719866148,
+      "p95": 1273.6620358536823,
+      "max": 1472.2660426349757
+     },
+     "pooled": {
+      "n": 367,
+      "median": 3.9763303075441274,
+      "p90": 15.24510337232968,
+      "p95": 336.08042873087004,
+      "max": 1472.2660426349757
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 99,
+      "median": 21.96052589212604,
+      "p90": 29.15380066771958,
+      "p95": 30.687540093074205,
+      "max": 39.051933058463234
+     },
+     "epoch 2": {
+      "n": 99,
+      "median": 9.819190937421212,
+      "p90": 14.223271621363358,
+      "p95": 14.732814724102036,
+      "max": 15.60519521263656
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 8.110956176287594,
+      "p90": 15.419103853868268,
+      "p95": 16.318811188359657,
+      "max": 20.815015159838232
+     },
+     "pooled": {
+      "n": 298,
+      "median": 10.258080358247344,
+      "p90": 25.19267269010281,
+      "p95": 28.25114515826222,
+      "max": 39.051933058463234
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 19.580604523415168,
+      "p90": 22.721127222755936,
+      "p95": 24.37525985804655,
+      "max": 30.097606452683422
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 11.236872624942986,
+      "p90": 17.323043828478394,
+      "p95": 19.11275122797356,
+      "max": 21.046378137425975
+     },
+     "epoch 2": {
+      "n": 98,
+      "median": 3.9559792926528115,
+      "p90": 753.2065454985118,
+      "p95": 777.4044716983774,
+      "max": 848.25293439691
+     },
+     "epoch 3": {
+      "n": 34,
+      "median": 565.9212191946021,
+      "p90": 1674.0923076513016,
+      "p95": 1746.0662495029674,
+      "max": 1863.8469810782192
+     },
+     "pooled": {
+      "n": 332,
+      "median": 14.553483640369574,
+      "p90": 473.90008022501735,
+      "p95": 827.9507085497572,
+      "max": 1863.8469810782192
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 0
+     },
+     "epoch 2": {
+      "n": 25,
+      "median": 763.393349178002,
+      "p90": 779.7569227731858,
+      "p95": 1415.1480521120434,
+      "max": 1674.3099394105593
+     },
+     "epoch 3": {
+      "n": 38,
+      "median": 597.539484703791,
+      "p90": 1117.8872010158075,
+      "p95": 1179.9854171321979,
+      "max": 1480.8911646768568
+     },
+     "pooled": {
+      "n": 63,
+      "median": 611.1829951353152,
+      "p90": 1081.5666590589242,
+      "p95": 1232.221175341372,
+      "max": 1674.3099394105593
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "n": 46,
+      "median": 81.22168058659491,
+      "p90": 556.5657575524201,
+      "p95": 607.5079171199645,
+      "max": 988.781048375391
+     },
+     "epoch 1": {
+      "n": 62,
+      "median": 645.1943499279598,
+      "p90": 843.8813031784094,
+      "p95": 1043.6809436445722,
+      "max": 1648.7164427644525
+     },
+     "epoch 2": {
+      "n": 17,
+      "median": 932.2656130266839,
+      "p90": 1399.814480187845,
+      "p95": 1572.9379017309632,
+      "max": 1795.3305356090275
+     },
+     "epoch 3": {
+      "n": 0
+     },
+     "pooled": {
+      "n": 125,
+      "median": 563.757458815407,
+      "p90": 941.316310360289,
+      "p95": 1084.668417992356,
+      "max": 1795.3305356090275
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "n": 62,
+      "median": 312.2993878325267,
+      "p90": 610.0480951324075,
+      "p95": 658.0198902310082,
+      "max": 787.4963168887671
+     },
+     "epoch 1": {
+      "n": 66,
+      "median": 321.7413949937045,
+      "p90": 640.0096581372533,
+      "p95": 771.2808822583376,
+      "max": 802.6856698571478
+     },
+     "epoch 2": {
+      "n": 66,
+      "median": 321.7413949937045,
+      "p90": 640.0096581372533,
+      "p95": 771.2808822583376,
+      "max": 802.6856698571478
+     },
+     "epoch 3": {
+      "n": 66,
+      "median": 321.7413949937045,
+      "p90": 640.0096581372533,
+      "p95": 771.2808822583376,
+      "max": 802.6856698571478
+     },
+     "pooled": {
+      "n": 260,
+      "median": 316.89561459573287,
+      "p90": 627.5363696916808,
+      "p95": 775.0615507148269,
+      "max": 802.6856698571478
+     }
+    }
+   },
+   "miss": {
+    "+0 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 26.21645846745338,
+      "p90": 35.20410969354196,
+      "p95": 39.222326662792796,
+      "max": 49.29622676211015
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 26.979103348684028,
+      "p90": 35.04092227820679,
+      "p95": 37.979221811076336,
+      "max": 41.98139263774251
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 27.02128774329598,
+      "p90": 34.58997152540573,
+      "p95": 37.6056050202469,
+      "max": 41.99145138528166
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 26.92162216927336,
+      "p90": 34.38617232998244,
+      "p95": 36.446379459792375,
+      "max": 41.28883631623687
+     },
+     "pooled": {
+      "n": 400,
+      "median": 26.930278611869156,
+      "p90": 35.18940083956486,
+      "p95": 37.685495093435684,
+      "max": 49.29622676211015
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "n": 98,
+      "median": 26.9261156845687,
+      "p90": 40.46723886503715,
+      "p95": 43.45526776019777,
+      "max": 52.630035439744034
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 26.994633299238206,
+      "p90": 34.44662274328325,
+      "p95": 36.82231965584148,
+      "max": 41.177832311546105
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 27.115782079090415,
+      "p90": 36.7929464316578,
+      "p95": 38.729472530904346,
+      "max": 40.885258021558826
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 27.04603392820595,
+      "p90": 34.26963470415159,
+      "p95": 37.143359201747614,
+      "max": 39.30077806554909
+     },
+     "pooled": {
+      "n": 398,
+      "median": 27.115782079090415,
+      "p90": 36.817245805119065,
+      "p95": 39.22627724970369,
+      "max": 52.630035439744034
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 27.463470344258262,
+      "p90": 42.01398306572113,
+      "p95": 45.24366812416983,
+      "max": 50.18116878861181
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 26.68820018215314,
+      "p90": 37.42623388841019,
+      "p95": 38.622019838833566,
+      "max": 46.95930052694683
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 26.577553704800444,
+      "p90": 36.84532090046981,
+      "p95": 39.52821019067755,
+      "max": 48.428448773728945
+     },
+     "epoch 3": {
+      "n": 67,
+      "median": 30.74647421674952,
+      "p90": 1166.2705540373008,
+      "p95": 1309.5722115789756,
+      "max": 1444.898379386627
+     },
+     "pooled": {
+      "n": 367,
+      "median": 27.869743933264868,
+      "p90": 42.82972086556347,
+      "p95": 337.17129240939016,
+      "max": 1444.898379386627
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 99,
+      "median": 29.505640529184586,
+      "p90": 43.38992748829335,
+      "p95": 45.26353605242525,
+      "max": 48.84243511012519
+     },
+     "epoch 2": {
+      "n": 99,
+      "median": 26.868055686677135,
+      "p90": 37.71604712760747,
+      "p95": 41.53217194259758,
+      "max": 52.35820819064569
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 27.044883067996647,
+      "p90": 38.79359436232284,
+      "p95": 41.24195467142382,
+      "max": 49.52751713961888
+     },
+     "pooled": {
+      "n": 298,
+      "median": 28.242080968009308,
+      "p90": 41.22179813482923,
+      "p95": 44.05820911022153,
+      "max": 52.35820819064569
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 26.01892266181209,
+      "p90": 40.31945829421345,
+      "p95": 44.201762807176245,
+      "max": 56.42072709765529
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 26.469484081404413,
+      "p90": 38.32144139131568,
+      "p95": 42.45586905822391,
+      "max": 53.42053372030719
+     },
+     "epoch 2": {
+      "n": 98,
+      "median": 31.895305216911368,
+      "p90": 741.8075776932776,
+      "p95": 758.3527599627571,
+      "max": 881.0409181417017
+     },
+     "epoch 3": {
+      "n": 34,
+      "median": 563.5730687923442,
+      "p90": 1680.5669689266892,
+      "p95": 1753.7068939302144,
+      "max": 1880.8158098481415
+     },
+     "pooled": {
+      "n": 332,
+      "median": 29.751286445137467,
+      "p90": 479.3995626179869,
+      "p95": 816.9060350049036,
+      "max": 1880.8158098481415
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 0
+     },
+     "epoch 2": {
+      "n": 25,
+      "median": 782.3273926128826,
+      "p90": 795.0187496882356,
+      "p95": 1428.9252204750778,
+      "max": 1659.732584416603
+     },
+     "epoch 3": {
+      "n": 38,
+      "median": 597.1269416426678,
+      "p90": 1133.5561913628787,
+      "p95": 1191.2706630644661,
+      "max": 1472.1342595083186
+     },
+     "pooled": {
+      "n": 63,
+      "median": 606.9197444789224,
+      "p90": 1082.7222832139394,
+      "p95": 1258.7707990564666,
+      "max": 1659.732584416603
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "n": 46,
+      "median": 73.79780920635028,
+      "p90": 549.44329955276,
+      "p95": 599.4590338188339,
+      "max": 994.1775300596233
+     },
+     "epoch 1": {
+      "n": 62,
+      "median": 656.2859241592018,
+      "p90": 814.4904633414136,
+      "p95": 1035.196482996062,
+      "max": 1666.5371900978143
+     },
+     "epoch 2": {
+      "n": 17,
+      "median": 907.9991706898493,
+      "p90": 1429.9034786728691,
+      "p95": 1592.4060883005752,
+      "max": 1800.2104656762256
+     },
+     "epoch 3": {
+      "n": 0
+     },
+     "pooled": {
+      "n": 125,
+      "median": 607.0542420255542,
+      "p90": 942.6244110248942,
+      "p95": 1129.1295315106227,
+      "max": 1800.2104656762256
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "n": 62,
+      "median": 299.1658735802964,
+      "p90": 599.9896036949038,
+      "p95": 659.6240769196247,
+      "max": 776.9290836362786
+     },
+     "epoch 1": {
+      "n": 66,
+      "median": 304.50798585856717,
+      "p90": 633.3417443116675,
+      "p95": 755.856384584161,
+      "max": 776.9290836362786
+     },
+     "epoch 2": {
+      "n": 66,
+      "median": 304.50798585856717,
+      "p90": 633.3417443116675,
+      "p95": 755.856384584161,
+      "max": 776.9290836362786
+     },
+     "epoch 3": {
+      "n": 66,
+      "median": 304.50798585856717,
+      "p90": 633.3417443116675,
+      "p95": 755.856384584161,
+      "max": 776.9290836362786
+     },
+     "pooled": {
+      "n": 260,
+      "median": 299.2762538700085,
+      "p90": 616.1468233196094,
+      "p95": 760.5856258787984,
+      "max": 776.9290836362786
+     }
+    }
+   },
+   "safe_fraction": {
+    "+0 h": {
+     "epoch 0": 1.0,
+     "epoch 1": 1.0,
+     "epoch 2": 1.0,
+     "epoch 3": 1.0,
+     "pooled": 1.0
+    },
+    "-24 h": {
+     "epoch 0": 0.4,
+     "epoch 1": 0.98,
+     "epoch 2": 1.0,
+     "epoch 3": 1.0,
+     "pooled": 0.845
+    },
+    "+24 h": {
+     "epoch 0": 0.67,
+     "epoch 1": 0.81,
+     "epoch 2": 1.0,
+     "epoch 3": 0.63,
+     "pooled": 0.7775
+    },
+    "-72 h": {
+     "epoch 0": 0.0,
+     "epoch 1": 0.33,
+     "epoch 2": 0.66,
+     "epoch 3": 0.72,
+     "pooled": 0.4275
+    },
+    "+72 h": {
+     "epoch 0": 0.2,
+     "epoch 1": 0.46,
+     "epoch 2": 0.86,
+     "epoch 3": 0.29,
+     "pooled": 0.4525
+    },
+    "-168 h": {
+     "epoch 0": 0.0,
+     "epoch 1": 0.0,
+     "epoch 2": 0.09,
+     "epoch 3": 0.22,
+     "pooled": 0.0775
+    },
+    "+168 h": {
+     "epoch 0": 0.42,
+     "epoch 1": 0.51,
+     "epoch 2": 0.16,
+     "epoch 3": 0.0,
+     "pooled": 0.2725
+    },
+    "no-TRN": {
+     "epoch 0": 0.55,
+     "epoch 1": 0.61,
+     "epoch 2": 0.61,
+     "epoch 3": 0.61,
+     "pooled": 0.595
+    }
+   },
+   "hp": {
+    "+0 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 62,
+       "TRN touched down, no-TRN did not": 38
+      },
+      "hp": 0.0,
+      "n_both": 62
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 260,
+       "TRN touched down, no-TRN did not": 140
+      },
+      "hp": 0.0,
+      "n_both": 260
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 60,
+       "TRN touched down, no-TRN did not": 38,
+       "TRN did not touch down, no-TRN did": 2
+      },
+      "hp": 0.0,
+      "n_both": 60
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 258,
+       "TRN touched down, no-TRN did not": 140,
+       "TRN did not touch down, no-TRN did": 2
+      },
+      "hp": 0.0,
+      "n_both": 258
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 62,
+       "TRN touched down, no-TRN did not": 38
+      },
+      "hp": 0.0,
+      "n_both": 62
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 33,
+       "TRN did not touch down, no-TRN did": 20,
+       "neither touched down": 10,
+       "TRN touched down, no-TRN did not": 22,
+       "error: TRN": 3,
+       "both touched down: TRN Q worse": 12
+      },
+      "hp": 0.26666666666666666,
+      "n_both": 45
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 227,
+       "TRN did not touch down, no-TRN did": 20,
+       "TRN touched down, no-TRN did not": 128,
+       "neither touched down": 10,
+       "error: TRN": 3,
+       "both touched down: TRN Q worse": 12
+      },
+      "hp": 0.0502092050209205,
+      "n_both": 239
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 62,
+       "neither touched down": 38
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 33,
+       "neither touched down": 1
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 65,
+       "TRN touched down, no-TRN did not": 34,
+       "TRN did not touch down, no-TRN did": 1
+      },
+      "hp": 0.0,
+      "n_both": 65
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 63,
+       "both touched down: TRN Q not worse": 197,
+       "neither touched down": 39,
+       "TRN touched down, no-TRN did not": 101
+      },
+      "hp": 0.0,
+      "n_both": 197
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 62,
+       "TRN touched down, no-TRN did not": 38
+      },
+      "hp": 0.0,
+      "n_both": 62
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 34
+      },
+      "hp": 0.0,
+      "n_both": 66
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 56,
+       "TRN touched down, no-TRN did not": 32,
+       "both touched down: TRN Q worse": 10,
+       "neither touched down": 2
+      },
+      "hp": 0.15151515151515152,
+      "n_both": 66
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 44,
+       "TRN touched down, no-TRN did not": 12,
+       "neither touched down": 22,
+       "both touched down: TRN Q worse": 18,
+       "both touched down: TRN Q not worse": 4
+      },
+      "hp": 0.8181818181818182,
+      "n_both": 22
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 188,
+       "TRN did not touch down, no-TRN did": 44,
+       "TRN touched down, no-TRN did not": 116,
+       "neither touched down": 24,
+       "both touched down: TRN Q worse": 28
+      },
+      "hp": 0.12962962962962962,
+      "n_both": 216
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 62,
+       "neither touched down": 38
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 1": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 66,
+       "neither touched down": 34
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 2": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 51,
+       "neither touched down": 24,
+       "TRN touched down, no-TRN did not": 10,
+       "both touched down: TRN Q worse": 10,
+       "both touched down: TRN Q not worse": 5
+      },
+      "hp": 0.6666666666666666,
+      "n_both": 15
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 41,
+       "both touched down: TRN Q worse": 16,
+       "TRN touched down, no-TRN did not": 13,
+       "neither touched down": 21,
+       "both touched down: TRN Q not worse": 9
+      },
+      "hp": 0.64,
+      "n_both": 25
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 220,
+       "both touched down: TRN Q worse": 26,
+       "neither touched down": 117,
+       "TRN touched down, no-TRN did not": 23,
+       "both touched down: TRN Q not worse": 14
+      },
+      "hp": 0.65,
+      "n_both": 40
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 35,
+       "both touched down: TRN Q not worse": 19,
+       "neither touched down": 18,
+       "TRN touched down, no-TRN did not": 19,
+       "both touched down: TRN Q worse": 8,
+       "error: TRN": 1
+      },
+      "hp": 0.2962962962962963,
+      "n_both": 27
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q worse": 35,
+       "TRN did not touch down, no-TRN did": 27,
+       "TRN touched down, no-TRN did not": 23,
+       "neither touched down": 11,
+       "both touched down: TRN Q not worse": 4
+      },
+      "hp": 0.8974358974358975,
+      "n_both": 39
+     },
+     "epoch 2": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 56,
+       "both touched down: TRN Q worse": 10,
+       "neither touched down": 27,
+       "TRN touched down, no-TRN did not": 7
+      },
+      "hp": 1.0,
+      "n_both": 10
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 66,
+       "neither touched down": 34
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 184,
+       "both touched down: TRN Q worse": 53,
+       "both touched down: TRN Q not worse": 23,
+       "neither touched down": 90,
+       "TRN touched down, no-TRN did not": 49,
+       "error: TRN": 1
+      },
+      "hp": 0.6973684210526315,
+      "n_both": 76
+     }
+    }
+   },
+   "against_zero": {
+    "-24 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 60,
+      "safe_gained_at_g": 0,
+      "p_safe": 8.673617379884035e-19
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 2,
+      "safe_gained_at_g": 0,
+      "p_safe": 0.25
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "pooled": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 62,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.168404344971009e-19
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 33,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.1641532182693481e-10
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 19,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.9073486328125e-06
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 12,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.000244140625,
+      "safe_lost_at_g": 37,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.275957614183426e-12
+     },
+     "pooled": {
+      "q_worse_at_g_only": 12,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.000244140625,
+      "safe_lost_at_g": 89,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.6155871338926322e-27
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 67,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.776263578034403e-21
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 34,
+      "safe_gained_at_g": 0,
+      "p_safe": 5.820766091346741e-11
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 28,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.725290298461914e-09
+     },
+     "pooled": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 229,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.1591269220898192e-69
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 80,
+      "safe_gained_at_g": 0,
+      "p_safe": 8.271806125530277e-25
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 54,
+      "safe_gained_at_g": 0,
+      "p_safe": 5.551115123125783e-17
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 10,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.0009765625,
+      "safe_lost_at_g": 14,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.103515625e-05
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 18,
+      "q_worse_at_0_only": 0,
+      "p_q": 3.814697265625e-06,
+      "safe_lost_at_g": 71,
+      "safe_gained_at_g": 0,
+      "p_safe": 4.235164736271502e-22
+     },
+     "pooled": {
+      "q_worse_at_g_only": 28,
+      "q_worse_at_0_only": 0,
+      "p_q": 3.725290298461914e-09,
+      "safe_lost_at_g": 219,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.1869459682199748e-66
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 10,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.0009765625,
+      "safe_lost_at_g": 91,
+      "safe_gained_at_g": 0,
+      "p_safe": 4.0389678347315804e-28
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 16,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.52587890625e-05,
+      "safe_lost_at_g": 78,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.308722450212111e-24
+     },
+     "pooled": {
+      "q_worse_at_g_only": 26,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.4901161193847656e-08,
+      "safe_lost_at_g": 369,
+      "safe_gained_at_g": 0,
+      "p_safe": 8.31632781251592e-112
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 8,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.00390625,
+      "safe_lost_at_g": 58,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.469446951953614e-18
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 35,
+      "q_worse_at_0_only": 0,
+      "p_q": 2.9103830456733704e-11,
+      "safe_lost_at_g": 49,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.7763568394002505e-15
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 10,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.0009765625,
+      "safe_lost_at_g": 84,
+      "safe_gained_at_g": 0,
+      "p_safe": 5.169878828456423e-26
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "pooled": {
+      "q_worse_at_g_only": 53,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.1102230246251565e-16,
+      "safe_lost_at_g": 291,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.513455854232436e-88
+     }
+    }
+   },
+   "fixes": {
+    "+0 h": {
+     "10": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 3.4288929281271945,
+       "p90": 7.463784931323347
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 0.32600569084611286,
+       "p90": 0.9689632421197975
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 0.21911835029490673,
+       "p90": 0.534022372475955
+      }
+     },
+     "40": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 0.19511342204210635,
+       "p90": 0.3731707899607583
+      }
+     }
+    },
+    "-24 h": {
+     "10": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 3.7260694953103437,
+       "p90": 8.108882303711601
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 400
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 400,
+      "accepted_error": {
+       "n": 400,
+       "median": 1.2097570433103013,
+       "p90": 8.126836445425091
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 377,
+       "rejected by nis": 21,
+       "rejected by margin": 2
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 377,
+      "accepted_error": {
+       "n": 377,
+       "median": 1.4969762179649198,
+       "p90": 5.63838430266611
+      }
+     },
+     "40": {
+      "status": {
+       "dark map": 16,
+       "accepted": 303,
+       "rejected by nis": 66,
+       "rejected by margin": 10,
+       "undefined": 5
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 303,
+      "accepted_error": {
+       "n": 303,
+       "median": 1.0956357918665596,
+       "p90": 3.9278761083805636
+      }
+     }
+    },
+    "+24 h": {
+     "10": {
+      "status": {
+       "accepted": 301,
+       "dark map": 87,
+       "rejected by margin": 6,
+       "accepted, second pass parabola": 2,
+       "rejected by nis": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 303,
+      "accepted_error": {
+       "n": 303,
+       "median": 3.266334189588065,
+       "p90": 7.340711368194142
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 319,
+       "rejected by margin": 62,
+       "rejected by nis": 12,
+       "accepted, second pass parabola": 4
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 323,
+      "accepted_error": {
+       "n": 323,
+       "median": 2.0101218175364832,
+       "p90": 4.583013102365721
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 306,
+       "rejected by margin": 45,
+       "accepted, second pass parabola": 13,
+       "rejected by nis": 32,
+       "accepted, first pass only": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 320,
+      "accepted_error": {
+       "n": 320,
+       "median": 2.9847949980596002,
+       "p90": 8.701547451923426
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by margin": 28,
+       "accepted": 288,
+       "rejected by nis": 75,
+       "accepted, second pass parabola": 6
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 294,
+      "accepted_error": {
+       "n": 294,
+       "median": 1.993316137761989,
+       "p90": 10.494303762043595
+      }
+     }
+    },
+    "-72 h": {
+     "10": {
+      "status": {
+       "dark map": 100,
+       "accepted": 300
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 300,
+      "accepted_error": {
+       "n": 300,
+       "median": 4.5333101637975375,
+       "p90": 9.434863438761388
+      }
+     },
+     "20": {
+      "status": {
+       "dark map": 100,
+       "accepted": 300
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 300,
+      "accepted_error": {
+       "n": 300,
+       "median": 2.704513292697345,
+       "p90": 6.475137492337991
+      }
+     },
+     "30": {
+      "status": {
+       "dark map": 100,
+       "accepted": 280,
+       "rejected by nis": 14,
+       "rejected by margin": 6
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 280,
+      "accepted_error": {
+       "n": 280,
+       "median": 5.281919626258248,
+       "p90": 10.302678942143796
+      }
+     },
+     "40": {
+      "status": {
+       "dark map": 100,
+       "rejected by margin": 27,
+       "rejected by nis": 106,
+       "accepted": 167
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 167,
+      "accepted_error": {
+       "n": 167,
+       "median": 2.883747517215727,
+       "p90": 7.436140968142662
+      }
+     }
+    },
+    "+72 h": {
+     "10": {
+      "status": {
+       "accepted": 220,
+       "rejected by margin": 65,
+       "dark map": 100,
+       "accepted, second pass parabola": 15
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 235,
+      "accepted_error": {
+       "n": 235,
+       "median": 4.620181626815457,
+       "p90": 14.312617803633685
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 281,
+       "dark map": 87,
+       "rejected by margin": 17,
+       "accepted, second pass parabola": 6,
+       "rejected by nis": 9
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 287,
+      "accepted_error": {
+       "n": 287,
+       "median": 3.0480752052560605,
+       "p90": 11.04093713734287
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 280,
+       "rejected by nis": 43,
+       "rejected by margin": 49,
+       "accepted, second pass parabola": 28
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 308,
+      "accepted_error": {
+       "n": 308,
+       "median": 6.291176067410829,
+       "p90": 369.4385288255908
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by nis": 179,
+       "accepted": 150,
+       "rejected by margin": 70,
+       "accepted, second pass parabola": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 151,
+      "accepted_error": {
+       "n": 151,
+       "median": 3.8922869161154967,
+       "p90": 11.325282140501942
+      }
+     }
+    },
+    "-168 h": {
+     "10": {
+      "status": {
+       "dark map": 200,
+       "rejected by nis": 13,
+       "rejected by margin": 90,
+       "accepted": 97
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 97,
+      "accepted_error": {
+       "n": 97,
+       "median": 802.559431839506,
+       "p90": 1249.8104687406076
+      }
+     },
+     "20": {
+      "status": {
+       "dark map": 286,
+       "rejected by margin": 56,
+       "accepted": 24,
+       "rejected by nis": 32,
+       "undefined": 1,
+       "accepted, second pass parabola": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 25,
+      "accepted_error": {
+       "n": 25,
+       "median": 588.9321548694986,
+       "p90": 1390.4148143764671
+      }
+     },
+     "30": {
+      "status": {
+       "dark map": 300,
+       "accepted": 18,
+       "rejected by margin": 47,
+       "rejected by nis": 35
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 18,
+      "accepted_error": {
+       "n": 18,
+       "median": 998.589513826216,
+       "p90": 1574.1364620067084
+      }
+     },
+     "40": {
+      "status": {
+       "dark map": 294,
+       "rejected by nis": 41,
+       "rejected by margin": 54,
+       "accepted": 10,
+       "accepted, second pass parabola": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 11,
+      "accepted_error": {
+       "n": 11,
+       "median": 1359.9547322388603,
+       "p90": 1577.2715601458272
+      }
+     }
+    },
+    "+168 h": {
+     "10": {
+      "status": {
+       "rejected by nis": 22,
+       "dark map": 287,
+       "accepted": 45,
+       "rejected by margin": 42,
+       "accepted, second pass parabola": 2,
+       "undefined": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 47,
+      "accepted_error": {
+       "n": 47,
+       "median": 119.75839493540049,
+       "p90": 1399.9160981438479
+      }
+     },
+     "20": {
+      "status": {
+       "rejected by margin": 49,
+       "accepted, second pass parabola": 53,
+       "dark map": 201,
+       "accepted": 48,
+       "rejected by nis": 45,
+       "undefined": 2,
+       "accepted, first pass only": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 102,
+      "accepted_error": {
+       "n": 102,
+       "median": 635.6184708477099,
+       "p90": 1107.47572302656
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 21,
+       "rejected by margin": 87,
+       "dark map": 168,
+       "rejected by nis": 108,
+       "accepted, second pass parabola": 14,
+       "undefined": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 35,
+      "accepted_error": {
+       "n": 35,
+       "median": 1008.5625008874985,
+       "p90": 1450.9844651192932
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by nis": 131,
+       "rejected by margin": 135,
+       "dark map": 100,
+       "accepted, second pass parabola": 4,
+       "accepted": 29
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 33,
+      "accepted_error": {
+       "n": 33,
+       "median": 921.8493914455103,
+       "p90": 1082.5277404914027
+      }
+     }
+    }
+   },
+   "monotonic": {
+    "+": {
+     "hp": {
+      "+24 h": 0.0502092050209205,
+      "+72 h": 0.12962962962962962,
+      "+168 h": 0.6973684210526315
+     },
+     "safe_fraction": {
+      "+0 h": 1.0,
+      "+24 h": 0.7775,
+      "+72 h": 0.4525,
+      "+168 h": 0.2725
+     }
+    },
+    "-": {
+     "hp": {
+      "-24 h": 0.0,
+      "-72 h": 0.0,
+      "-168 h": 0.65
+     },
+     "safe_fraction": {
+      "+0 h": 1.0,
+      "-24 h": 0.845,
+      "-72 h": 0.4275,
+      "-168 h": 0.0775
+     }
+    }
+   },
+   "unsafe_d38": {
+    "+0 h": {},
+    "-24 h": {
+     "neither gear check fails": 60
+    },
+    "+24 h": {
+     "neither gear check fails": 52,
+     "drift beyond the margin": 3,
+     "hazard-map false safe": 1
+    },
+    "-72 h": {
+     "neither gear check fails": 127
+    },
+    "+72 h": {
+     "neither gear check fails": 143,
+     "hazard-map false safe": 4,
+     "drift beyond the margin": 4
+    },
+    "-168 h": {
+     "neither gear check fails": 21,
+     "hazard-map false safe": 5,
+     "drift beyond the margin": 6
+    },
+    "+168 h": {
+     "drift beyond the margin": 6,
+     "hazard-map false safe": 8,
+     "neither gear check fails": 2
+    },
+    "no-TRN": {
+     "drift beyond the margin": 5,
+     "hazard-map false safe": 17
+    }
+   }
+  },
+  "20261061": {
+   "outcomes": {
+    "+0 h": {
+     "epoch 0": {
+      "safe landing": 100
+     },
+     "epoch 1": {
+      "safe landing": 100
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "safe landing": 100
+     },
+     "pooled": {
+      "safe landing": 400
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "unsafe landing": 58,
+      "safe landing": 38,
+      "abort: infeasible: safe orbit": 3,
+      "terrain strike": 1
+     },
+     "epoch 1": {
+      "safe landing": 96,
+      "unsafe landing": 4
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "safe landing": 100
+     },
+     "pooled": {
+      "unsafe landing": 62,
+      "safe landing": 334,
+      "abort: infeasible: safe orbit": 3,
+      "terrain strike": 1
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "unsafe landing": 37,
+      "safe landing": 62,
+      "error": 1
+     },
+     "epoch 1": {
+      "safe landing": 78,
+      "unsafe landing": 22
+     },
+     "epoch 2": {
+      "safe landing": 100
+     },
+     "epoch 3": {
+      "abort: hazard: safe orbit": 35,
+      "safe landing": 56,
+      "unsafe landing": 2,
+      "error": 5,
+      "abort: lost lock: safe orbit": 2
+     },
+     "pooled": {
+      "unsafe landing": 61,
+      "safe landing": 296,
+      "abort: hazard: safe orbit": 35,
+      "error": 6,
+      "abort: lost lock: safe orbit": 2
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 1": {
+      "unsafe landing": 67,
+      "safe landing": 32,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 2": {
+      "safe landing": 67,
+      "unsafe landing": 33
+     },
+     "epoch 3": {
+      "safe landing": 83,
+      "unsafe landing": 16,
+      "abort: hazard: safe orbit": 1
+     },
+     "pooled": {
+      "abort: lost lock: safe orbit": 100,
+      "unsafe landing": 116,
+      "safe landing": 182,
+      "abort: infeasible: safe orbit": 1,
+      "abort: hazard: safe orbit": 1
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "unsafe landing": 75,
+      "safe landing": 25
+     },
+     "epoch 1": {
+      "unsafe landing": 67,
+      "safe landing": 33
+     },
+     "epoch 2": {
+      "safe landing": 86,
+      "unsafe landing": 13,
+      "abort: hazard: safe orbit": 1
+     },
+     "epoch 3": {
+      "safe landing": 33,
+      "abort: lost lock: safe orbit": 45,
+      "abort: hazard: safe orbit": 20,
+      "unsafe landing": 2
+     },
+     "pooled": {
+      "unsafe landing": 157,
+      "safe landing": 177,
+      "abort: lost lock: safe orbit": 45,
+      "abort: hazard: safe orbit": 21
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 1": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "epoch 2": {
+      "unsafe landing": 14,
+      "abort: hazard: safe orbit": 48,
+      "abort: infeasible: safe orbit": 3,
+      "safe landing": 15,
+      "abort: lost lock: safe orbit": 20
+     },
+     "epoch 3": {
+      "abort: hazard: safe orbit": 33,
+      "unsafe landing": 11,
+      "safe landing": 29,
+      "abort: lost lock: safe orbit": 25,
+      "abort: infeasible: safe orbit": 2
+     },
+     "pooled": {
+      "abort: lost lock: safe orbit": 245,
+      "unsafe landing": 25,
+      "abort: hazard: safe orbit": 81,
+      "safe landing": 44,
+      "abort: infeasible: safe orbit": 5
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "abort: hazard: safe orbit": 42,
+      "safe landing": 38,
+      "unsafe landing": 9,
+      "abort: lost lock: safe orbit": 10,
+      "abort: infeasible: safe orbit": 1
+     },
+     "epoch 1": {
+      "safe landing": 61,
+      "unsafe landing": 16,
+      "abort: hazard: safe orbit": 19,
+      "abort: lost lock: safe orbit": 4
+     },
+     "epoch 2": {
+      "safe landing": 22,
+      "abort: lost lock: safe orbit": 62,
+      "abort: hazard: safe orbit": 14,
+      "unsafe landing": 2
+     },
+     "epoch 3": {
+      "abort: lost lock: safe orbit": 100
+     },
+     "pooled": {
+      "abort: hazard: safe orbit": 75,
+      "safe landing": 121,
+      "abort: lost lock: safe orbit": 176,
+      "unsafe landing": 27,
+      "abort: infeasible: safe orbit": 1
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "safe landing": 51,
+      "abort: hazard: safe orbit": 39,
+      "unsafe landing": 10
+     },
+     "epoch 1": {
+      "safe landing": 56,
+      "abort: hazard: safe orbit": 33,
+      "unsafe landing": 11
+     },
+     "epoch 2": {
+      "safe landing": 56,
+      "abort: hazard: safe orbit": 33,
+      "unsafe landing": 11
+     },
+     "epoch 3": {
+      "safe landing": 56,
+      "abort: hazard: safe orbit": 33,
+      "unsafe landing": 11
+     },
+     "pooled": {
+      "safe landing": 219,
+      "abort: hazard: safe orbit": 138,
+      "unsafe landing": 43
+     }
+    }
+   },
+   "q": {
+    "+0 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 0.13277794153443084,
+      "p90": 0.2566173763772316,
+      "p95": 0.30355681192341427,
+      "max": 25.47009885060264
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 0.13829197763607326,
+      "p90": 0.2622561822519214,
+      "p95": 0.31509193617355236,
+      "max": 24.503309504940088
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 0.14231258576320388,
+      "p90": 0.2594819392060784,
+      "p95": 0.3062852769179786,
+      "max": 29.521674827134042
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 0.1371844445096049,
+      "p90": 0.24404935480978046,
+      "p95": 0.2967297938669864,
+      "max": 29.68582151393517
+     },
+     "pooled": {
+      "n": 400,
+      "median": 0.13873357565976652,
+      "p90": 0.25932156472380946,
+      "p95": 0.3091916843113745,
+      "max": 29.68582151393517
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "n": 96,
+      "median": 12.366169359627547,
+      "p90": 20.34072479411671,
+      "p95": 23.44019212262557,
+      "max": 106.31805452271617
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 2.451334384939001,
+      "p90": 5.087738644933986,
+      "p95": 5.902844788054971,
+      "max": 24.503309504940088
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 0.6986097448571622,
+      "p90": 1.6263179980844233,
+      "p95": 2.5341735255691225,
+      "max": 29.68582151393517
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 1.9381706706304636,
+      "p90": 2.327045376440296,
+      "p95": 2.5460155788419425,
+      "max": 29.68582151393517
+     },
+     "pooled": {
+      "n": 396,
+      "median": 2.109238172642983,
+      "p90": 13.568672697765503,
+      "p95": 18.572176392869856,
+      "max": 106.31805452271617
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "n": 99,
+      "median": 10.561440820492203,
+      "p90": 20.98515679074339,
+      "p95": 22.980275876670742,
+      "max": 26.97105159428956
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 2.4638967239285265,
+      "p90": 11.354021850140265,
+      "p95": 12.144146614422484,
+      "max": 24.503309504940088
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 2.343911149748121,
+      "p90": 2.997177953498363,
+      "p95": 3.1002344857139352,
+      "max": 29.68582151393517
+     },
+     "epoch 3": {
+      "n": 58,
+      "median": 6.635032522125005,
+      "p90": 1266.908867994716,
+      "p95": 1297.9016138085071,
+      "max": 1701.8254632390328
+     },
+     "pooled": {
+      "n": 357,
+      "median": 3.4023413249309664,
+      "p90": 16.422925804647345,
+      "p95": 25.770289399340005,
+      "max": 1701.8254632390328
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 99,
+      "median": 21.111578320656694,
+      "p90": 28.960087507291057,
+      "p95": 30.812627965576254,
+      "max": 32.130763174706246
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 9.918051754675872,
+      "p90": 13.8142688407221,
+      "p95": 14.50659922286016,
+      "max": 30.13021840328209
+     },
+     "epoch 3": {
+      "n": 99,
+      "median": 7.553640054841822,
+      "p90": 13.954489418420712,
+      "p95": 15.243806964805058,
+      "max": 17.76601092127359
+     },
+     "pooled": {
+      "n": 298,
+      "median": 10.019334665721885,
+      "p90": 25.627865251904822,
+      "p95": 28.2680259525523,
+      "max": 32.130763174706246
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 19.443750773422252,
+      "p90": 22.203814080265904,
+      "p95": 23.672716768021427,
+      "max": 26.791521807713224
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 12.262170602819793,
+      "p90": 16.942884204267425,
+      "p95": 17.832692470226448,
+      "max": 24.503309504940088
+     },
+     "epoch 2": {
+      "n": 99,
+      "median": 4.890847731580612,
+      "p90": 778.0990605270968,
+      "p95": 832.7021069186619,
+      "max": 862.5616615428403
+     },
+     "epoch 3": {
+      "n": 35,
+      "median": 1004.3330641181201,
+      "p90": 1636.1296697094358,
+      "p95": 1655.8823986727255,
+      "max": 1705.8619181666043
+     },
+     "pooled": {
+      "n": 334,
+      "median": 14.790552466903367,
+      "p90": 757.7478252586635,
+      "p95": 1026.2095215417046,
+      "max": 1705.8619181666043
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 0
+     },
+     "epoch 2": {
+      "n": 29,
+      "median": 764.683308939843,
+      "p90": 1440.4805747775163,
+      "p95": 1483.3515463949307,
+      "max": 1629.3316795495386
+     },
+     "epoch 3": {
+      "n": 40,
+      "median": 590.3021557309136,
+      "p90": 1125.1257638667703,
+      "p95": 1133.497072585674,
+      "max": 1238.1835096703062
+     },
+     "pooled": {
+      "n": 69,
+      "median": 748.2596821356804,
+      "p90": 1157.5888430969387,
+      "p95": 1431.8786383370466,
+      "max": 1629.3316795495386
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "n": 47,
+      "median": 78.53480290177464,
+      "p90": 608.6519113592778,
+      "p95": 761.9901799639807,
+      "max": 1438.6080655062353
+     },
+     "epoch 1": {
+      "n": 77,
+      "median": 650.4304016270198,
+      "p90": 905.0026309402872,
+      "p95": 1062.771802003306,
+      "max": 1620.8333615167446
+     },
+     "epoch 2": {
+      "n": 24,
+      "median": 1241.6649097043219,
+      "p90": 1797.7996966217843,
+      "p95": 1838.4517684993714,
+      "max": 1851.2756897976349
+     },
+     "epoch 3": {
+      "n": 0
+     },
+     "pooled": {
+      "n": 148,
+      "median": 631.1950956524456,
+      "p90": 1150.7038621772895,
+      "p95": 1425.909949694588,
+      "max": 1851.2756897976349
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "n": 61,
+      "median": 361.1922652303594,
+      "p90": 610.459108952134,
+      "p95": 695.1524968700455,
+      "max": 968.5700654475634
+     },
+     "epoch 1": {
+      "n": 67,
+      "median": 363.03652865469564,
+      "p90": 615.9510902028034,
+      "p95": 677.8266335705198,
+      "max": 968.5700654475634
+     },
+     "epoch 2": {
+      "n": 67,
+      "median": 363.03652865469564,
+      "p90": 615.9510902028034,
+      "p95": 677.8266335705198,
+      "max": 968.5700654475634
+     },
+     "epoch 3": {
+      "n": 67,
+      "median": 363.03652865469564,
+      "p90": 615.9510902028034,
+      "p95": 677.8266335705198,
+      "max": 968.5700654475634
+     },
+     "pooled": {
+      "n": 262,
+      "median": 363.03652865469564,
+      "p90": 610.620762777098,
+      "p95": 695.1524968700455,
+      "max": 968.5700654475634
+     }
+    }
+   },
+   "miss": {
+    "+0 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 27.63838997379403,
+      "p90": 35.376568736606174,
+      "p95": 37.05686572661357,
+      "max": 42.81091496528317
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 28.076150076846172,
+      "p90": 36.74409955298613,
+      "p95": 37.71150808131918,
+      "max": 44.748512144954816
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 27.98061651443854,
+      "p90": 36.14347334880433,
+      "p95": 37.70123965971636,
+      "max": 52.52172404125711
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 28.201331974245647,
+      "p90": 36.1131964232875,
+      "p95": 37.181445274994964,
+      "max": 47.40130281262169
+     },
+     "pooled": {
+      "n": 400,
+      "median": 27.952459031807102,
+      "p90": 36.18973146538202,
+      "p95": 37.561986498865934,
+      "max": 52.52172404125711
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "n": 96,
+      "median": 29.348329318606286,
+      "p90": 39.15075520083866,
+      "p95": 41.3402939697581,
+      "max": 101.64143035698899
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 28.145339937716418,
+      "p90": 36.877033743318876,
+      "p95": 38.28969341696913,
+      "max": 41.85517876391749
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 27.931684490648628,
+      "p90": 36.494656272050975,
+      "p95": 38.94478616751256,
+      "max": 47.40130281262169
+     },
+     "epoch 3": {
+      "n": 100,
+      "median": 27.88185909608965,
+      "p90": 36.286045926153264,
+      "p95": 38.10848634949125,
+      "max": 47.40130281262169
+     },
+     "pooled": {
+      "n": 396,
+      "median": 28.06538693330119,
+      "p90": 37.41311521723085,
+      "p95": 39.41915052113351,
+      "max": 101.64143035698899
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "n": 99,
+      "median": 27.181260995413016,
+      "p90": 40.42188586518763,
+      "p95": 44.32463169413533,
+      "max": 48.59341325747032
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 27.149892990513425,
+      "p90": 37.057614847265036,
+      "p95": 38.547699154137,
+      "max": 45.89078964872772
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 27.473919063838373,
+      "p90": 37.34353706456046,
+      "p95": 40.78461846443988,
+      "max": 47.40130281262169
+     },
+     "epoch 3": {
+      "n": 58,
+      "median": 32.65911070375586,
+      "p90": 1308.8240296426268,
+      "p95": 1325.4697691312606,
+      "max": 1669.8675652607344
+     },
+     "pooled": {
+      "n": 357,
+      "median": 28.133391269468163,
+      "p90": 40.80842766225011,
+      "p95": 47.37486405717325,
+      "max": 1669.8675652607344
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 99,
+      "median": 29.286966879029293,
+      "p90": 43.638243884387364,
+      "p95": 47.2497337830533,
+      "max": 52.863360321538835
+     },
+     "epoch 2": {
+      "n": 100,
+      "median": 28.424451906534884,
+      "p90": 37.88502782185169,
+      "p95": 42.84703930213709,
+      "max": 52.50798324840128
+     },
+     "epoch 3": {
+      "n": 99,
+      "median": 27.10576576793036,
+      "p90": 40.0103837143104,
+      "p95": 44.081239658061925,
+      "max": 55.69336178541307
+     },
+     "pooled": {
+      "n": 298,
+      "median": 28.14707707961145,
+      "p90": 40.949323678830346,
+      "p95": 44.93728317418507,
+      "max": 55.69336178541307
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "n": 100,
+      "median": 24.083926929369746,
+      "p90": 39.210429498641794,
+      "p95": 41.34935392861209,
+      "max": 45.199921775090914
+     },
+     "epoch 1": {
+      "n": 100,
+      "median": 27.98571219104994,
+      "p90": 37.47604662147373,
+      "p95": 40.11406442722877,
+      "max": 46.71494824869041
+     },
+     "epoch 2": {
+      "n": 99,
+      "median": 31.74180576995313,
+      "p90": 759.3507372300453,
+      "p95": 841.5097306620717,
+      "max": 891.097230732152
+     },
+     "epoch 3": {
+      "n": 35,
+      "median": 961.0175163765764,
+      "p90": 1645.2067481862066,
+      "p95": 1659.0470993789709,
+      "max": 1752.199923906246
+     },
+     "pooled": {
+      "n": 334,
+      "median": 29.624217881877986,
+      "p90": 756.6400484632057,
+      "p95": 1002.0424289292749,
+      "max": 1752.199923906246
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "n": 0
+     },
+     "epoch 1": {
+      "n": 0
+     },
+     "epoch 2": {
+      "n": 29,
+      "median": 779.6510516592742,
+      "p90": 1436.6119464658875,
+      "p95": 1487.6239727563052,
+      "max": 1660.6466077862528
+     },
+     "epoch 3": {
+      "n": 40,
+      "median": 594.7826179174207,
+      "p90": 1121.9483085748454,
+      "p95": 1126.878919154124,
+      "max": 1267.889682754393
+     },
+     "pooled": {
+      "n": 69,
+      "median": 744.1423580924998,
+      "p90": 1156.0428265508504,
+      "p95": 1405.8653015191971,
+      "max": 1660.6466077862528
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "n": 47,
+      "median": 75.53199433959418,
+      "p90": 622.1591395453223,
+      "p95": 757.5929890685882,
+      "max": 1436.106069384345
+     },
+     "epoch 1": {
+      "n": 77,
+      "median": 648.5809743773035,
+      "p90": 942.109331555751,
+      "p95": 1056.692354070299,
+      "max": 1599.4165502059318
+     },
+     "epoch 2": {
+      "n": 24,
+      "median": 1269.551013405045,
+      "p90": 1812.7317215246235,
+      "p95": 1819.1520070843371,
+      "max": 1856.4185921365195
+     },
+     "epoch 3": {
+      "n": 0
+     },
+     "pooled": {
+      "n": 148,
+      "median": 610.9229091978889,
+      "p90": 1174.0199533503026,
+      "p95": 1418.231106182223,
+      "max": 1856.4185921365195
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "n": 61,
+      "median": 362.20327738331144,
+      "p90": 603.7239886812972,
+      "p95": 674.7175472182012,
+      "max": 961.7813023961659
+     },
+     "epoch 1": {
+      "n": 67,
+      "median": 366.09213944866264,
+      "p90": 604.2110756419804,
+      "p95": 668.0399252069088,
+      "max": 961.7813023961659
+     },
+     "epoch 2": {
+      "n": 67,
+      "median": 366.09213944866264,
+      "p90": 604.2110756419804,
+      "p95": 668.0399252069088,
+      "max": 961.7813023961659
+     },
+     "epoch 3": {
+      "n": 67,
+      "median": 366.09213944866264,
+      "p90": 604.2110756419804,
+      "p95": 668.0399252069088,
+      "max": 961.7813023961659
+     },
+     "pooled": {
+      "n": 262,
+      "median": 366.09213944866264,
+      "p90": 604.8199343428344,
+      "p95": 674.7175472182012,
+      "max": 961.7813023961659
+     }
+    }
+   },
+   "safe_fraction": {
+    "+0 h": {
+     "epoch 0": 1.0,
+     "epoch 1": 1.0,
+     "epoch 2": 1.0,
+     "epoch 3": 1.0,
+     "pooled": 1.0
+    },
+    "-24 h": {
+     "epoch 0": 0.38,
+     "epoch 1": 0.96,
+     "epoch 2": 1.0,
+     "epoch 3": 1.0,
+     "pooled": 0.835
+    },
+    "+24 h": {
+     "epoch 0": 0.62,
+     "epoch 1": 0.78,
+     "epoch 2": 1.0,
+     "epoch 3": 0.56,
+     "pooled": 0.74
+    },
+    "-72 h": {
+     "epoch 0": 0.0,
+     "epoch 1": 0.32,
+     "epoch 2": 0.67,
+     "epoch 3": 0.83,
+     "pooled": 0.455
+    },
+    "+72 h": {
+     "epoch 0": 0.25,
+     "epoch 1": 0.33,
+     "epoch 2": 0.86,
+     "epoch 3": 0.33,
+     "pooled": 0.4425
+    },
+    "-168 h": {
+     "epoch 0": 0.0,
+     "epoch 1": 0.0,
+     "epoch 2": 0.15,
+     "epoch 3": 0.29,
+     "pooled": 0.11
+    },
+    "+168 h": {
+     "epoch 0": 0.38,
+     "epoch 1": 0.61,
+     "epoch 2": 0.22,
+     "epoch 3": 0.0,
+     "pooled": 0.3025
+    },
+    "no-TRN": {
+     "epoch 0": 0.51,
+     "epoch 1": 0.56,
+     "epoch 2": 0.56,
+     "epoch 3": 0.56,
+     "pooled": 0.5475
+    }
+   },
+   "hp": {
+    "+0 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 61,
+       "TRN touched down, no-TRN did not": 39
+      },
+      "hp": 0.0,
+      "n_both": 61
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 262,
+       "TRN touched down, no-TRN did not": 138
+      },
+      "hp": 0.0,
+      "n_both": 262
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 60,
+       "TRN touched down, no-TRN did not": 36,
+       "neither touched down": 3,
+       "TRN did not touch down, no-TRN did": 1
+      },
+      "hp": 0.0,
+      "n_both": 60
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 261,
+       "TRN touched down, no-TRN did not": 135,
+       "neither touched down": 3,
+       "TRN did not touch down, no-TRN did": 1
+      },
+      "hp": 0.0,
+      "n_both": 261
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 60,
+       "TRN touched down, no-TRN did not": 39,
+       "error: TRN": 1
+      },
+      "hp": 0.0,
+      "n_both": 60
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 20,
+       "both touched down: TRN Q not worse": 30,
+       "neither touched down": 17,
+       "TRN touched down, no-TRN did not": 14,
+       "both touched down: TRN Q worse": 14,
+       "error: TRN": 5
+      },
+      "hp": 0.3181818181818182,
+      "n_both": 44
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 224,
+       "TRN did not touch down, no-TRN did": 20,
+       "TRN touched down, no-TRN did not": 119,
+       "neither touched down": 17,
+       "both touched down: TRN Q worse": 14,
+       "error: TRN": 6
+      },
+      "hp": 0.058823529411764705,
+      "n_both": 238
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 61,
+       "neither touched down": 39
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 66,
+       "TRN touched down, no-TRN did not": 32,
+       "neither touched down": 1,
+       "both touched down: TRN Q worse": 1
+      },
+      "hp": 0.014925373134328358,
+      "n_both": 67
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 32,
+       "neither touched down": 1
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 61,
+       "both touched down: TRN Q not worse": 200,
+       "neither touched down": 41,
+       "TRN touched down, no-TRN did not": 97,
+       "both touched down: TRN Q worse": 1
+      },
+      "hp": 0.004975124378109453,
+      "n_both": 201
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "cells": {
+       "both touched down: TRN Q not worse": 61,
+       "TRN touched down, no-TRN did not": 39
+      },
+      "hp": 0.0,
+      "n_both": 61
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q not worse": 67,
+       "TRN touched down, no-TRN did not": 33
+      },
+      "hp": 0.0,
+      "n_both": 67
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q not worse": 54,
+       "TRN touched down, no-TRN did not": 33,
+       "both touched down: TRN Q worse": 12,
+       "TRN did not touch down, no-TRN did": 1
+      },
+      "hp": 0.18181818181818182,
+      "n_both": 66
+     },
+     "epoch 3": {
+      "cells": {
+       "both touched down: TRN Q worse": 20,
+       "TRN did not touch down, no-TRN did": 45,
+       "neither touched down": 20,
+       "TRN touched down, no-TRN did not": 13,
+       "both touched down: TRN Q not worse": 2
+      },
+      "hp": 0.9090909090909091,
+      "n_both": 22
+     },
+     "pooled": {
+      "cells": {
+       "both touched down: TRN Q not worse": 184,
+       "both touched down: TRN Q worse": 32,
+       "TRN did not touch down, no-TRN did": 46,
+       "TRN touched down, no-TRN did not": 118,
+       "neither touched down": 20
+      },
+      "hp": 0.14814814814814814,
+      "n_both": 216
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 61,
+       "neither touched down": 39
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 1": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 67,
+       "neither touched down": 33
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q worse": 13,
+       "TRN did not touch down, no-TRN did": 47,
+       "neither touched down": 24,
+       "both touched down: TRN Q not worse": 7,
+       "TRN touched down, no-TRN did not": 9
+      },
+      "hp": 0.65,
+      "n_both": 20
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 45,
+       "both touched down: TRN Q not worse": 4,
+       "TRN touched down, no-TRN did not": 18,
+       "neither touched down": 15,
+       "both touched down: TRN Q worse": 18
+      },
+      "hp": 0.8181818181818182,
+      "n_both": 22
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 220,
+       "both touched down: TRN Q worse": 31,
+       "both touched down: TRN Q not worse": 11,
+       "neither touched down": 111,
+       "TRN touched down, no-TRN did not": 27
+      },
+      "hp": 0.7380952380952381,
+      "n_both": 42
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 32,
+       "TRN touched down, no-TRN did not": 18,
+       "both touched down: TRN Q not worse": 19,
+       "both touched down: TRN Q worse": 10,
+       "neither touched down": 21
+      },
+      "hp": 0.3448275862068966,
+      "n_both": 29
+     },
+     "epoch 1": {
+      "cells": {
+       "both touched down: TRN Q worse": 49,
+       "TRN touched down, no-TRN did not": 22,
+       "neither touched down": 11,
+       "both touched down: TRN Q not worse": 6,
+       "TRN did not touch down, no-TRN did": 12
+      },
+      "hp": 0.8909090909090909,
+      "n_both": 55
+     },
+     "epoch 2": {
+      "cells": {
+       "both touched down: TRN Q worse": 15,
+       "TRN did not touch down, no-TRN did": 52,
+       "neither touched down": 24,
+       "TRN touched down, no-TRN did not": 9
+      },
+      "hp": 1.0,
+      "n_both": 15
+     },
+     "epoch 3": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 67,
+       "neither touched down": 33
+      },
+      "hp": null,
+      "n_both": 0
+     },
+     "pooled": {
+      "cells": {
+       "TRN did not touch down, no-TRN did": 163,
+       "both touched down: TRN Q worse": 74,
+       "TRN touched down, no-TRN did not": 49,
+       "neither touched down": 89,
+       "both touched down: TRN Q not worse": 25
+      },
+      "hp": 0.7474747474747475,
+      "n_both": 99
+     }
+    }
+   },
+   "against_zero": {
+    "-24 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 62,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.168404344971009e-19
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 4,
+      "safe_gained_at_g": 0,
+      "p_safe": 0.0625
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "pooled": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 66,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.3552527156068805e-20
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 38,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.637978807091713e-12
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 22,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.384185791015625e-07
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 0,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 14,
+      "q_worse_at_0_only": 0,
+      "p_q": 6.103515625e-05,
+      "safe_lost_at_g": 44,
+      "safe_gained_at_g": 0,
+      "p_safe": 5.684341886080802e-14
+     },
+     "pooled": {
+      "q_worse_at_g_only": 14,
+      "q_worse_at_0_only": 0,
+      "p_q": 6.103515625e-05,
+      "safe_lost_at_g": 104,
+      "safe_gained_at_g": 0,
+      "p_safe": 4.930380657631324e-32
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 1,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.5,
+      "safe_lost_at_g": 68,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.3881317890172014e-21
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 33,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.1641532182693481e-10
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 17,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.62939453125e-06
+     },
+     "pooled": {
+      "q_worse_at_g_only": 1,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.5,
+      "safe_lost_at_g": 218,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.3738919364399497e-66
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 75,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.6469779601696886e-23
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 67,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.776263578034403e-21
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 12,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.000244140625,
+      "safe_lost_at_g": 14,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.103515625e-05
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 20,
+      "q_worse_at_0_only": 0,
+      "p_q": 9.5367431640625e-07,
+      "safe_lost_at_g": 67,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.776263578034403e-21
+     },
+     "pooled": {
+      "q_worse_at_g_only": 32,
+      "q_worse_at_0_only": 0,
+      "p_q": 2.3283064365386963e-10,
+      "safe_lost_at_g": 223,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.418412301374843e-68
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 13,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.0001220703125,
+      "safe_lost_at_g": 85,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.5849394142282115e-26
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 18,
+      "q_worse_at_0_only": 0,
+      "p_q": 3.814697265625e-06,
+      "safe_lost_at_g": 71,
+      "safe_gained_at_g": 0,
+      "p_safe": 4.235164736271502e-22
+     },
+     "pooled": {
+      "q_worse_at_g_only": 31,
+      "q_worse_at_0_only": 0,
+      "p_q": 4.656612873077393e-10,
+      "safe_lost_at_g": 356,
+      "safe_gained_at_g": 0,
+      "p_safe": 6.812735744013041e-108
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "q_worse_at_g_only": 10,
+      "q_worse_at_0_only": 0,
+      "p_q": 0.0009765625,
+      "safe_lost_at_g": 62,
+      "safe_gained_at_g": 0,
+      "p_safe": 2.168404344971009e-19
+     },
+     "epoch 1": {
+      "q_worse_at_g_only": 49,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.7763568394002505e-15,
+      "safe_lost_at_g": 39,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.8189894035458565e-12
+     },
+     "epoch 2": {
+      "q_worse_at_g_only": 15,
+      "q_worse_at_0_only": 0,
+      "p_q": 3.0517578125e-05,
+      "safe_lost_at_g": 78,
+      "safe_gained_at_g": 0,
+      "p_safe": 3.308722450212111e-24
+     },
+     "epoch 3": {
+      "q_worse_at_g_only": 0,
+      "q_worse_at_0_only": 0,
+      "p_q": 1.0,
+      "safe_lost_at_g": 100,
+      "safe_gained_at_g": 0,
+      "p_safe": 7.888609052210118e-31
+     },
+     "pooled": {
+      "q_worse_at_g_only": 74,
+      "q_worse_at_0_only": 0,
+      "p_q": 5.293955920339377e-23,
+      "safe_lost_at_g": 279,
+      "safe_gained_at_g": 0,
+      "p_safe": 1.0295115178936058e-84
+     }
+    }
+   },
+   "fixes": {
+    "+0 h": {
+     "10": {
+      "status": {
+       "accepted": 396,
+       "accepted, second pass parabola": 3,
+       "rejected by margin": 1
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 399,
+      "accepted_error": {
+       "n": 399,
+       "median": 3.745915152963386,
+       "p90": 7.793755066057981
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 396,
+       "rejected by nis": 3,
+       "accepted, second pass parabola": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 397,
+      "accepted_error": {
+       "n": 397,
+       "median": 0.3301637314534649,
+       "p90": 1.03564872290592
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 396,
+       "rejected by nis": 4
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 396,
+      "accepted_error": {
+       "n": 396,
+       "median": 0.22499845741345337,
+       "p90": 0.5491578519363689
+      }
+     },
+     "40": {
+      "status": {
+       "accepted": 396,
+       "rejected by nis": 4
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 396,
+      "accepted_error": {
+       "n": 396,
+       "median": 0.18373700989717073,
+       "p90": 0.38316746961802584
+      }
+     }
+    },
+    "-24 h": {
+     "10": {
+      "status": {
+       "accepted": 396,
+       "accepted, first pass only": 1,
+       "accepted, second pass parabola": 1,
+       "rejected by margin": 2
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 398,
+      "accepted_error": {
+       "n": 398,
+       "median": 4.373055403275592,
+       "p90": 8.329177044654001
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 396,
+       "rejected by nis": 2,
+       "accepted, second pass parabola": 2
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 398,
+      "accepted_error": {
+       "n": 398,
+       "median": 1.1990493637075323,
+       "p90": 8.278878981336392
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 379,
+       "rejected by nis": 18,
+       "rejected by margin": 3
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 379,
+      "accepted_error": {
+       "n": 379,
+       "median": 1.4597224528039061,
+       "p90": 5.693386074005258
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by nis": 66,
+       "accepted": 294,
+       "rejected by margin": 9,
+       "dark map": 29,
+       "undefined": 2
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 294,
+      "accepted_error": {
+       "n": 294,
+       "median": 1.1358539807829737,
+       "p90": 3.577749728986348
+      }
+     }
+    },
+    "+24 h": {
+     "10": {
+      "status": {
+       "accepted": 298,
+       "dark map": 81,
+       "accepted, second pass parabola": 7,
+       "rejected by nis": 4,
+       "rejected by margin": 4
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 305,
+      "accepted_error": {
+       "n": 305,
+       "median": 3.4644824778633305,
+       "p90": 8.454863393061364
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 312,
+       "rejected by margin": 56,
+       "accepted, second pass parabola": 5,
+       "rejected by nis": 19,
+       "accepted, first pass only": 1,
+       "dark map": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 318,
+      "accepted_error": {
+       "n": 318,
+       "median": 2.0333224743325817,
+       "p90": 4.507712451654956
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 307,
+       "rejected by margin": 45,
+       "rejected by nis": 34,
+       "accepted, second pass parabola": 7,
+       "accepted, first pass only": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 315,
+      "accepted_error": {
+       "n": 315,
+       "median": 2.890535994944377,
+       "p90": 8.10354006064423
+      }
+     },
+     "40": {
+      "status": {
+       "accepted": 272,
+       "rejected by nis": 90,
+       "rejected by margin": 27,
+       "accepted, second pass parabola": 5
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 277,
+      "accepted_error": {
+       "n": 277,
+       "median": 1.856634997978388,
+       "p90": 10.195397875801515
+      }
+     }
+    },
+    "-72 h": {
+     "10": {
+      "status": {
+       "dark map": 100,
+       "accepted": 297,
+       "accepted, second pass parabola": 1,
+       "rejected by margin": 2
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 298,
+      "accepted_error": {
+       "n": 298,
+       "median": 5.047279372018674,
+       "p90": 9.290823544877798
+      }
+     },
+     "20": {
+      "status": {
+       "dark map": 100,
+       "accepted": 295,
+       "rejected by nis": 3,
+       "rejected by margin": 2
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 295,
+      "accepted_error": {
+       "n": 295,
+       "median": 2.466321255093555,
+       "p90": 6.438218836756141
+      }
+     },
+     "30": {
+      "status": {
+       "dark map": 100,
+       "accepted": 279,
+       "rejected by nis": 16,
+       "rejected by margin": 4,
+       "accepted, second pass parabola": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 280,
+      "accepted_error": {
+       "n": 280,
+       "median": 5.065681772197503,
+       "p90": 10.152348094708369
+      }
+     },
+     "40": {
+      "status": {
+       "dark map": 100,
+       "rejected by margin": 25,
+       "accepted": 175,
+       "rejected by nis": 95,
+       "accepted, second pass parabola": 5
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 180,
+      "accepted_error": {
+       "n": 180,
+       "median": 2.7960402868028336,
+       "p90": 6.997741591715664
+      }
+     }
+    },
+    "+72 h": {
+     "10": {
+      "status": {
+       "accepted": 222,
+       "rejected by margin": 62,
+       "dark map": 100,
+       "accepted, second pass parabola": 16
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 238,
+      "accepted_error": {
+       "n": 238,
+       "median": 4.867553343890588,
+       "p90": 423.33130299985106
+      }
+     },
+     "20": {
+      "status": {
+       "accepted": 268,
+       "accepted, second pass parabola": 13,
+       "dark map": 79,
+       "rejected by margin": 24,
+       "rejected by nis": 15,
+       "accepted, first pass only": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 282,
+      "accepted_error": {
+       "n": 282,
+       "median": 3.0942500610256873,
+       "p90": 11.74805842857524
+      }
+     },
+     "30": {
+      "status": {
+       "accepted": 269,
+       "rejected by margin": 48,
+       "rejected by nis": 51,
+       "accepted, second pass parabola": 30,
+       "accepted, first pass only": 1,
+       "dark map": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 300,
+      "accepted_error": {
+       "n": 300,
+       "median": 6.105920409714004,
+       "p90": 429.51663682386226
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by nis": 186,
+       "accepted": 135,
+       "rejected by margin": 79
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 135,
+      "accepted_error": {
+       "n": 135,
+       "median": 3.7164415421401005,
+       "p90": 9.735613914012141
+      }
+     }
+    },
+    "-168 h": {
+     "10": {
+      "status": {
+       "dark map": 200,
+       "accepted": 96,
+       "rejected by margin": 89,
+       "rejected by nis": 15
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 96,
+      "accepted_error": {
+       "n": 96,
+       "median": 774.5277514138077,
+       "p90": 851.6837181293772
+      }
+     },
+     "20": {
+      "status": {
+       "dark map": 290,
+       "rejected by nis": 28,
+       "accepted": 18,
+       "rejected by margin": 63,
+       "undefined": 1
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 18,
+      "accepted_error": {
+       "n": 18,
+       "median": 581.4630717697287,
+       "p90": 1336.9547870548342
+      }
+     },
+     "30": {
+      "status": {
+       "dark map": 300,
+       "rejected by nis": 30,
+       "rejected by margin": 42,
+       "accepted": 28
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 28,
+      "accepted_error": {
+       "n": 28,
+       "median": 1114.4848342269818,
+       "p90": 1573.1817794718434
+      }
+     },
+     "40": {
+      "status": {
+       "dark map": 291,
+       "rejected by nis": 43,
+       "accepted": 13,
+       "rejected by margin": 53
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 13,
+      "accepted_error": {
+       "n": 13,
+       "median": 1356.3318574369955,
+       "p90": 1579.2951479495284
+      }
+     }
+    },
+    "+168 h": {
+     "10": {
+      "status": {
+       "accepted": 45,
+       "rejected by nis": 27,
+       "dark map": 282,
+       "rejected by margin": 44,
+       "accepted, second pass parabola": 1,
+       "undefined": 1
+      },
+      "truncated": 4,
+      "off_map": 0,
+      "accepted": 46,
+      "accepted_error": {
+       "n": 46,
+       "median": 88.6389737002485,
+       "p90": 1471.8864088758987
+      }
+     },
+     "20": {
+      "status": {
+       "rejected by margin": 51,
+       "accepted": 50,
+       "dark map": 205,
+       "rejected by nis": 35,
+       "accepted, second pass parabola": 59
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 109,
+      "accepted_error": {
+       "n": 109,
+       "median": 640.5582874361738,
+       "p90": 1042.7711440373284
+      }
+     },
+     "30": {
+      "status": {
+       "rejected by nis": 127,
+       "accepted": 21,
+       "dark map": 151,
+       "accepted, second pass parabola": 20,
+       "rejected by margin": 79,
+       "undefined": 2
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 41,
+      "accepted_error": {
+       "n": 41,
+       "median": 1214.190075776522,
+       "p90": 1754.559819128997
+      }
+     },
+     "40": {
+      "status": {
+       "rejected by nis": 126,
+       "rejected by margin": 146,
+       "dark map": 100,
+       "accepted, first pass only": 1,
+       "accepted": 24,
+       "accepted, second pass parabola": 3
+      },
+      "truncated": 0,
+      "off_map": 0,
+      "accepted": 28,
+      "accepted_error": {
+       "n": 28,
+       "median": 934.6287592842295,
+       "p90": 1215.5062916344182
+      }
+     }
+    }
+   },
+   "monotonic": {
+    "+": {
+     "hp": {
+      "+24 h": 0.058823529411764705,
+      "+72 h": 0.14814814814814814,
+      "+168 h": 0.7474747474747475
+     },
+     "safe_fraction": {
+      "+0 h": 1.0,
+      "+24 h": 0.74,
+      "+72 h": 0.4425,
+      "+168 h": 0.3025
+     }
+    },
+    "-": {
+     "hp": {
+      "-24 h": 0.0,
+      "-72 h": 0.004975124378109453,
+      "-168 h": 0.7380952380952381
+     },
+     "safe_fraction": {
+      "+0 h": 1.0,
+      "-24 h": 0.835,
+      "-72 h": 0.455,
+      "-168 h": 0.11
+     }
+    }
+   },
+   "unsafe_d38": {
+    "+0 h": {},
+    "-24 h": {
+     "neither gear check fails": 61,
+     "hazard-map false safe": 1
+    },
+    "+24 h": {
+     "neither gear check fails": 59,
+     "hazard-map false safe": 1,
+     "drift beyond the margin": 1
+    },
+    "-72 h": {
+     "neither gear check fails": 116
+    },
+    "+72 h": {
+     "neither gear check fails": 150,
+     "hazard-map false safe": 4,
+     "drift beyond the margin": 3
+    },
+    "-168 h": {
+     "neither gear check fails": 14,
+     "drift beyond the margin": 6,
+     "hazard-map false safe": 5
+    },
+    "+168 h": {
+     "drift beyond the margin": 11,
+     "hazard-map false safe": 15,
+     "neither gear check fails": 1
+    },
+    "no-TRN": {
+     "hazard-map false safe": 37,
+     "drift beyond the margin": 6
+    }
+   }
+  }
+ },
+ "spread": {
+  "outcomes": {
+   "+0 h": {
+    "epoch 0": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "safe landing": {
+      "a": 400,
+      "b": 400,
+      "diff": 0
+     }
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "abort: hazard: safe orbit": {
+      "a": 43,
+      "b": 42,
+      "diff": -1
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 10,
+      "b": 10,
+      "diff": 0
+     },
+     "error": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 42,
+      "b": 38,
+      "diff": -4
+     },
+     "unsafe landing": {
+      "a": 4,
+      "b": 9,
+      "diff": 5
+     }
+    },
+    "epoch 1": {
+     "abort: hazard: safe orbit": {
+      "a": 25,
+      "b": 19,
+      "diff": -6
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 11,
+      "b": 4,
+      "diff": -7
+     },
+     "safe landing": {
+      "a": 51,
+      "b": 61,
+      "diff": 10
+     },
+     "terrain strike": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "unsafe landing": {
+      "a": 11,
+      "b": 16,
+      "diff": 5
+     }
+    },
+    "epoch 2": {
+     "abort: hazard: safe orbit": {
+      "a": 21,
+      "b": 14,
+      "diff": -7
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 62,
+      "b": 62,
+      "diff": 0
+     },
+     "safe landing": {
+      "a": 16,
+      "b": 22,
+      "diff": 6
+     },
+     "unsafe landing": {
+      "a": 1,
+      "b": 2,
+      "diff": 1
+     }
+    },
+    "epoch 3": {
+     "abort: lost lock: safe orbit": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": {
+      "a": 89,
+      "b": 75,
+      "diff": -14
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 1,
+      "diff": 0
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 183,
+      "b": 176,
+      "diff": -7
+     },
+     "error": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 109,
+      "b": 121,
+      "diff": 12
+     },
+     "terrain strike": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "unsafe landing": {
+      "a": 16,
+      "b": 27,
+      "diff": 11
+     }
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "error": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "safe landing": {
+      "a": 67,
+      "b": 62,
+      "diff": -5
+     },
+     "unsafe landing": {
+      "a": 33,
+      "b": 37,
+      "diff": 4
+     }
+    },
+    "epoch 1": {
+     "safe landing": {
+      "a": 81,
+      "b": 78,
+      "diff": -3
+     },
+     "unsafe landing": {
+      "a": 19,
+      "b": 22,
+      "diff": 3
+     }
+    },
+    "epoch 2": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "abort: hazard: physics: ground": {
+      "a": 2,
+      "b": 0,
+      "diff": -2
+     },
+     "abort: hazard: safe orbit": {
+      "a": 28,
+      "b": 35,
+      "diff": 7
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 0,
+      "b": 2,
+      "diff": 2
+     },
+     "error": {
+      "a": 3,
+      "b": 5,
+      "diff": 2
+     },
+     "safe landing": {
+      "a": 63,
+      "b": 56,
+      "diff": -7
+     },
+     "unsafe landing": {
+      "a": 4,
+      "b": 2,
+      "diff": -2
+     }
+    },
+    "pooled": {
+     "abort: hazard: physics: ground": {
+      "a": 2,
+      "b": 0,
+      "diff": -2
+     },
+     "abort: hazard: safe orbit": {
+      "a": 28,
+      "b": 35,
+      "diff": 7
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 0,
+      "b": 2,
+      "diff": 2
+     },
+     "error": {
+      "a": 3,
+      "b": 6,
+      "diff": 3
+     },
+     "safe landing": {
+      "a": 311,
+      "b": 296,
+      "diff": -15
+     },
+     "unsafe landing": {
+      "a": 56,
+      "b": 61,
+      "diff": 5
+     }
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "safe landing": {
+      "a": 20,
+      "b": 25,
+      "diff": 5
+     },
+     "unsafe landing": {
+      "a": 80,
+      "b": 75,
+      "diff": -5
+     }
+    },
+    "epoch 1": {
+     "safe landing": {
+      "a": 46,
+      "b": 33,
+      "diff": -13
+     },
+     "unsafe landing": {
+      "a": 54,
+      "b": 67,
+      "diff": 13
+     }
+    },
+    "epoch 2": {
+     "abort: hazard: safe orbit": {
+      "a": 1,
+      "b": 1,
+      "diff": 0
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 86,
+      "b": 86,
+      "diff": 0
+     },
+     "unsafe landing": {
+      "a": 12,
+      "b": 13,
+      "diff": 1
+     }
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": {
+      "a": 17,
+      "b": 20,
+      "diff": 3
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 49,
+      "b": 45,
+      "diff": -4
+     },
+     "safe landing": {
+      "a": 29,
+      "b": 33,
+      "diff": 4
+     },
+     "unsafe landing": {
+      "a": 5,
+      "b": 2,
+      "diff": -3
+     }
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": {
+      "a": 18,
+      "b": 21,
+      "diff": 3
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 49,
+      "b": 45,
+      "diff": -4
+     },
+     "safe landing": {
+      "a": 181,
+      "b": 177,
+      "diff": -4
+     },
+     "unsafe landing": {
+      "a": 151,
+      "b": 157,
+      "diff": 6
+     }
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "abort: lost lock: safe orbit": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "abort: lost lock: safe orbit": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "abort: hazard: safe orbit": {
+      "a": 52,
+      "b": 48,
+      "diff": -4
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 3,
+      "diff": 2
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 22,
+      "b": 20,
+      "diff": -2
+     },
+     "safe landing": {
+      "a": 9,
+      "b": 15,
+      "diff": 6
+     },
+     "unsafe landing": {
+      "a": 16,
+      "b": 14,
+      "diff": -2
+     }
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": {
+      "a": 32,
+      "b": 33,
+      "diff": 1
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 2,
+      "b": 2,
+      "diff": 0
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 28,
+      "b": 25,
+      "diff": -3
+     },
+     "safe landing": {
+      "a": 22,
+      "b": 29,
+      "diff": 7
+     },
+     "unsafe landing": {
+      "a": 16,
+      "b": 11,
+      "diff": -5
+     }
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": {
+      "a": 84,
+      "b": 81,
+      "diff": -3
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 3,
+      "b": 5,
+      "diff": 2
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 250,
+      "b": 245,
+      "diff": -5
+     },
+     "safe landing": {
+      "a": 31,
+      "b": 44,
+      "diff": 13
+     },
+     "unsafe landing": {
+      "a": 32,
+      "b": 25,
+      "diff": -7
+     }
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "abort: infeasible: safe orbit": {
+      "a": 2,
+      "b": 3,
+      "diff": 1
+     },
+     "safe landing": {
+      "a": 40,
+      "b": 38,
+      "diff": -2
+     },
+     "terrain strike": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "unsafe landing": {
+      "a": 58,
+      "b": 58,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "safe landing": {
+      "a": 98,
+      "b": 96,
+      "diff": -2
+     },
+     "unsafe landing": {
+      "a": 2,
+      "b": 4,
+      "diff": 2
+     }
+    },
+    "epoch 2": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "safe landing": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "abort: infeasible: safe orbit": {
+      "a": 2,
+      "b": 3,
+      "diff": 1
+     },
+     "safe landing": {
+      "a": 338,
+      "b": 334,
+      "diff": -4
+     },
+     "terrain strike": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "unsafe landing": {
+      "a": 60,
+      "b": 62,
+      "diff": 2
+     }
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "abort: lost lock: safe orbit": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 1,
+      "diff": 0
+     },
+     "safe landing": {
+      "a": 33,
+      "b": 32,
+      "diff": -1
+     },
+     "unsafe landing": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "abort: infeasible: safe orbit": {
+      "a": 1,
+      "b": 0,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "unsafe landing": {
+      "a": 33,
+      "b": 33,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "safe landing": {
+      "a": 72,
+      "b": 83,
+      "diff": 11
+     },
+     "unsafe landing": {
+      "a": 28,
+      "b": 16,
+      "diff": -12
+     }
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "abort: infeasible: safe orbit": {
+      "a": 2,
+      "b": 1,
+      "diff": -1
+     },
+     "abort: lost lock: safe orbit": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "safe landing": {
+      "a": 171,
+      "b": 182,
+      "diff": 11
+     },
+     "unsafe landing": {
+      "a": 127,
+      "b": 116,
+      "diff": -11
+     }
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "abort: hazard: safe orbit": {
+      "a": 38,
+      "b": 39,
+      "diff": 1
+     },
+     "safe landing": {
+      "a": 55,
+      "b": 51,
+      "diff": -4
+     },
+     "unsafe landing": {
+      "a": 7,
+      "b": 10,
+      "diff": 3
+     }
+    },
+    "epoch 1": {
+     "abort: hazard: safe orbit": {
+      "a": 34,
+      "b": 33,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 61,
+      "b": 56,
+      "diff": -5
+     },
+     "unsafe landing": {
+      "a": 5,
+      "b": 11,
+      "diff": 6
+     }
+    },
+    "epoch 2": {
+     "abort: hazard: safe orbit": {
+      "a": 34,
+      "b": 33,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 61,
+      "b": 56,
+      "diff": -5
+     },
+     "unsafe landing": {
+      "a": 5,
+      "b": 11,
+      "diff": 6
+     }
+    },
+    "epoch 3": {
+     "abort: hazard: safe orbit": {
+      "a": 34,
+      "b": 33,
+      "diff": -1
+     },
+     "safe landing": {
+      "a": 61,
+      "b": 56,
+      "diff": -5
+     },
+     "unsafe landing": {
+      "a": 5,
+      "b": 11,
+      "diff": 6
+     }
+    },
+    "pooled": {
+     "abort: hazard: safe orbit": {
+      "a": 140,
+      "b": 138,
+      "diff": -2
+     },
+     "safe landing": {
+      "a": 238,
+      "b": 219,
+      "diff": -19
+     },
+     "unsafe landing": {
+      "a": 22,
+      "b": 43,
+      "diff": 21
+     }
+    }
+   }
+  },
+  "q": {
+   "+0 h": {
+    "epoch 0": {
+     "max": {
+      "a": 0.3194482504604459,
+      "b": 25.47009885060264,
+      "diff": 25.150650600142193
+     },
+     "median": {
+      "a": 0.126024782748523,
+      "b": 0.13277794153443084,
+      "diff": 0.006753158785907848
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 0.2118231501794968,
+      "b": 0.2566173763772316,
+      "diff": 0.04479422619773479
+     },
+     "p95": {
+      "a": 0.2716075688255757,
+      "b": 0.30355681192341427,
+      "diff": 0.03194924309783859
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 0.3002867391889793,
+      "b": 24.503309504940088,
+      "diff": 24.203022765751108
+     },
+     "median": {
+      "a": 0.11461978251473125,
+      "b": 0.13829197763607326,
+      "diff": 0.023672195121342013
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 0.2054479849885264,
+      "b": 0.2622561822519214,
+      "diff": 0.05680819726339498
+     },
+     "p95": {
+      "a": 0.24434479018395944,
+      "b": 0.31509193617355236,
+      "diff": 0.07074714598959292
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 0.3390656255746917,
+      "b": 29.521674827134042,
+      "diff": 29.18260920155935
+     },
+     "median": {
+      "a": 0.10727084324247325,
+      "b": 0.14231258576320388,
+      "diff": 0.035041742520730626
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 0.20316211650981422,
+      "b": 0.2594819392060784,
+      "diff": 0.056319822696264205
+     },
+     "p95": {
+      "a": 0.2297832547823688,
+      "b": 0.3062852769179786,
+      "diff": 0.07650202213560978
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 0.2813497923341732,
+      "b": 29.68582151393517,
+      "diff": 29.404471721601
+     },
+     "median": {
+      "a": 0.11211263862995406,
+      "b": 0.1371844445096049,
+      "diff": 0.02507180587965084
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 0.2151309780534599,
+      "b": 0.24404935480978046,
+      "diff": 0.028918376756320557
+     },
+     "p95": {
+      "a": 0.2407855292763521,
+      "b": 0.2967297938669864,
+      "diff": 0.055944264590634285
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 0.3390656255746917,
+      "b": 29.68582151393517,
+      "diff": 29.34675588836048
+     },
+     "median": {
+      "a": 0.1155620408246622,
+      "b": 0.13873357565976652,
+      "diff": 0.023171534835104313
+     },
+     "n": {
+      "a": 400,
+      "b": 400,
+      "diff": 0
+     },
+     "p90": {
+      "a": 0.21166479111128647,
+      "b": 0.25932156472380946,
+      "diff": 0.04765677361252299
+     },
+     "p95": {
+      "a": 0.2517822379981723,
+      "b": 0.3091916843113745,
+      "diff": 0.05740944631320222
+     }
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "max": {
+      "a": 988.781048375391,
+      "b": 1438.6080655062353,
+      "diff": 449.8270171308443
+     },
+     "median": {
+      "a": 81.22168058659491,
+      "b": 78.53480290177464,
+      "diff": -2.6868776848202742
+     },
+     "n": {
+      "a": 46,
+      "b": 47,
+      "diff": 1
+     },
+     "p90": {
+      "a": 556.5657575524201,
+      "b": 608.6519113592778,
+      "diff": 52.08615380685774
+     },
+     "p95": {
+      "a": 607.5079171199645,
+      "b": 761.9901799639807,
+      "diff": 154.4822628440162
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 1648.7164427644525,
+      "b": 1620.8333615167446,
+      "diff": -27.883081247707878
+     },
+     "median": {
+      "a": 645.1943499279598,
+      "b": 650.4304016270198,
+      "diff": 5.236051699059999
+     },
+     "n": {
+      "a": 62,
+      "b": 77,
+      "diff": 15
+     },
+     "p90": {
+      "a": 843.8813031784094,
+      "b": 905.0026309402872,
+      "diff": 61.12132776187775
+     },
+     "p95": {
+      "a": 1043.6809436445722,
+      "b": 1062.771802003306,
+      "diff": 19.09085835873384
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 1795.3305356090275,
+      "b": 1851.2756897976349,
+      "diff": 55.945154188607376
+     },
+     "median": {
+      "a": 932.2656130266839,
+      "b": 1241.6649097043219,
+      "diff": 309.39929667763795
+     },
+     "n": {
+      "a": 17,
+      "b": 24,
+      "diff": 7
+     },
+     "p90": {
+      "a": 1399.814480187845,
+      "b": 1797.7996966217843,
+      "diff": 397.9852164339393
+     },
+     "p95": {
+      "a": 1572.9379017309632,
+      "b": 1838.4517684993714,
+      "diff": 265.5138667684082
+     }
+    },
+    "epoch 3": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1795.3305356090275,
+      "b": 1851.2756897976349,
+      "diff": 55.945154188607376
+     },
+     "median": {
+      "a": 563.757458815407,
+      "b": 631.1950956524456,
+      "diff": 67.43763683703867
+     },
+     "n": {
+      "a": 125,
+      "b": 148,
+      "diff": 23
+     },
+     "p90": {
+      "a": 941.316310360289,
+      "b": 1150.7038621772895,
+      "diff": 209.38755181700049
+     },
+     "p95": {
+      "a": 1084.668417992356,
+      "b": 1425.909949694588,
+      "diff": 341.2415317022321
+     }
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "max": {
+      "a": 25.209412179033887,
+      "b": 26.97105159428956,
+      "diff": 1.7616394152556722
+     },
+     "median": {
+      "a": 10.846171661088889,
+      "b": 10.561440820492203,
+      "diff": -0.2847308405966853
+     },
+     "n": {
+      "a": 100,
+      "b": 99,
+      "diff": -1
+     },
+     "p90": {
+      "a": 21.00687364363246,
+      "b": 20.98515679074339,
+      "diff": -0.021716852889070992
+     },
+     "p95": {
+      "a": 23.443043749347957,
+      "b": 22.980275876670742,
+      "diff": -0.4627678726772153
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 13.403612297693886,
+      "b": 24.503309504940088,
+      "diff": 11.099697207246201
+     },
+     "median": {
+      "a": 2.469923184206177,
+      "b": 2.4638967239285265,
+      "diff": -0.006026460277650525
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 11.849284898233368,
+      "b": 11.354021850140265,
+      "diff": -0.4952630480931024
+     },
+     "p95": {
+      "a": 12.248262677788077,
+      "b": 12.144146614422484,
+      "diff": -0.10411606336559309
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 3.638496574974668,
+      "b": 29.68582151393517,
+      "diff": 26.047324938960504
+     },
+     "median": {
+      "a": 2.275853280228351,
+      "b": 2.343911149748121,
+      "diff": 0.06805786951977
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 3.015837669906626,
+      "b": 2.997177953498363,
+      "diff": -0.018659716408262916
+     },
+     "p95": {
+      "a": 3.1595153804153098,
+      "b": 3.1002344857139352,
+      "diff": -0.05928089470137454
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1472.2660426349757,
+      "b": 1701.8254632390328,
+      "diff": 229.5594206040571
+     },
+     "median": {
+      "a": 7.493504837010744,
+      "b": 6.635032522125005,
+      "diff": -0.8584723148857387
+     },
+     "n": {
+      "a": 67,
+      "b": 58,
+      "diff": -9
+     },
+     "p90": {
+      "a": 1164.5461719866148,
+      "b": 1266.908867994716,
+      "diff": 102.36269600810124
+     },
+     "p95": {
+      "a": 1273.6620358536823,
+      "b": 1297.9016138085071,
+      "diff": 24.23957795482488
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1472.2660426349757,
+      "b": 1701.8254632390328,
+      "diff": 229.5594206040571
+     },
+     "median": {
+      "a": 3.9763303075441274,
+      "b": 3.4023413249309664,
+      "diff": -0.573988982613161
+     },
+     "n": {
+      "a": 367,
+      "b": 357,
+      "diff": -10
+     },
+     "p90": {
+      "a": 15.24510337232968,
+      "b": 16.422925804647345,
+      "diff": 1.1778224323176651
+     },
+     "p95": {
+      "a": 336.08042873087004,
+      "b": 25.770289399340005,
+      "diff": -310.31013933153
+     }
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "max": {
+      "a": 30.097606452683422,
+      "b": 26.791521807713224,
+      "diff": -3.3060846449701984
+     },
+     "median": {
+      "a": 19.580604523415168,
+      "b": 19.443750773422252,
+      "diff": -0.1368537499929161
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 22.721127222755936,
+      "b": 22.203814080265904,
+      "diff": -0.5173131424900319
+     },
+     "p95": {
+      "a": 24.37525985804655,
+      "b": 23.672716768021427,
+      "diff": -0.7025430900251237
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 21.046378137425975,
+      "b": 24.503309504940088,
+      "diff": 3.4569313675141125
+     },
+     "median": {
+      "a": 11.236872624942986,
+      "b": 12.262170602819793,
+      "diff": 1.0252979778768072
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 17.323043828478394,
+      "b": 16.942884204267425,
+      "diff": -0.38015962421096816
+     },
+     "p95": {
+      "a": 19.11275122797356,
+      "b": 17.832692470226448,
+      "diff": -1.2800587577471134
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 848.25293439691,
+      "b": 862.5616615428403,
+      "diff": 14.308727145930334
+     },
+     "median": {
+      "a": 3.9559792926528115,
+      "b": 4.890847731580612,
+      "diff": 0.9348684389278006
+     },
+     "n": {
+      "a": 98,
+      "b": 99,
+      "diff": 1
+     },
+     "p90": {
+      "a": 753.2065454985118,
+      "b": 778.0990605270968,
+      "diff": 24.892515028584967
+     },
+     "p95": {
+      "a": 777.4044716983774,
+      "b": 832.7021069186619,
+      "diff": 55.29763522028452
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1863.8469810782192,
+      "b": 1705.8619181666043,
+      "diff": -157.98506291161493
+     },
+     "median": {
+      "a": 565.9212191946021,
+      "b": 1004.3330641181201,
+      "diff": 438.41184492351795
+     },
+     "n": {
+      "a": 34,
+      "b": 35,
+      "diff": 1
+     },
+     "p90": {
+      "a": 1674.0923076513016,
+      "b": 1636.1296697094358,
+      "diff": -37.96263794186575
+     },
+     "p95": {
+      "a": 1746.0662495029674,
+      "b": 1655.8823986727255,
+      "diff": -90.18385083024191
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1863.8469810782192,
+      "b": 1705.8619181666043,
+      "diff": -157.98506291161493
+     },
+     "median": {
+      "a": 14.553483640369574,
+      "b": 14.790552466903367,
+      "diff": 0.23706882653379324
+     },
+     "n": {
+      "a": 332,
+      "b": 334,
+      "diff": 2
+     },
+     "p90": {
+      "a": 473.90008022501735,
+      "b": 757.7478252586635,
+      "diff": 283.84774503364616
+     },
+     "p95": {
+      "a": 827.9507085497572,
+      "b": 1026.2095215417046,
+      "diff": 198.25881299194737
+     }
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 1674.3099394105593,
+      "b": 1629.3316795495386,
+      "diff": -44.97825986102066
+     },
+     "median": {
+      "a": 763.393349178002,
+      "b": 764.683308939843,
+      "diff": 1.2899597618409189
+     },
+     "n": {
+      "a": 25,
+      "b": 29,
+      "diff": 4
+     },
+     "p90": {
+      "a": 779.7569227731858,
+      "b": 1440.4805747775163,
+      "diff": 660.7236520043305
+     },
+     "p95": {
+      "a": 1415.1480521120434,
+      "b": 1483.3515463949307,
+      "diff": 68.20349428288728
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1480.8911646768568,
+      "b": 1238.1835096703062,
+      "diff": -242.70765500655057
+     },
+     "median": {
+      "a": 597.539484703791,
+      "b": 590.3021557309136,
+      "diff": -7.237328972877435
+     },
+     "n": {
+      "a": 38,
+      "b": 40,
+      "diff": 2
+     },
+     "p90": {
+      "a": 1117.8872010158075,
+      "b": 1125.1257638667703,
+      "diff": 7.238562850962808
+     },
+     "p95": {
+      "a": 1179.9854171321979,
+      "b": 1133.497072585674,
+      "diff": -46.48834454652388
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1674.3099394105593,
+      "b": 1629.3316795495386,
+      "diff": -44.97825986102066
+     },
+     "median": {
+      "a": 611.1829951353152,
+      "b": 748.2596821356804,
+      "diff": 137.07668700036515
+     },
+     "n": {
+      "a": 63,
+      "b": 69,
+      "diff": 6
+     },
+     "p90": {
+      "a": 1081.5666590589242,
+      "b": 1157.5888430969387,
+      "diff": 76.02218403801453
+     },
+     "p95": {
+      "a": 1232.221175341372,
+      "b": 1431.8786383370466,
+      "diff": 199.65746299567468
+     }
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "max": {
+      "a": 32.90782013465661,
+      "b": 106.31805452271617,
+      "diff": 73.41023438805956
+     },
+     "median": {
+      "a": 11.681930001243884,
+      "b": 12.366169359627547,
+      "diff": 0.6842393583836621
+     },
+     "n": {
+      "a": 98,
+      "b": 96,
+      "diff": -2
+     },
+     "p90": {
+      "a": 22.454673324287857,
+      "b": 20.34072479411671,
+      "diff": -2.1139485301711467
+     },
+     "p95": {
+      "a": 24.901881424928032,
+      "b": 23.44019212262557,
+      "diff": -1.4616893023024602
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 14.570608552035555,
+      "b": 24.503309504940088,
+      "diff": 9.932700952904533
+     },
+     "median": {
+      "a": 2.425373105256581,
+      "b": 2.451334384939001,
+      "diff": 0.025961279682420013
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 4.177268173746785,
+      "b": 5.087738644933986,
+      "diff": 0.9104704711872014
+     },
+     "p95": {
+      "a": 6.094653894864559,
+      "b": 5.902844788054971,
+      "diff": -0.19180910680958885
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 3.5119645363660448,
+      "b": 29.68582151393517,
+      "diff": 26.173856977569127
+     },
+     "median": {
+      "a": 0.8239578295698979,
+      "b": 0.6986097448571622,
+      "diff": -0.12534808471273573
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 2.2763396076463285,
+      "b": 1.6263179980844233,
+      "diff": -0.6500216095619051
+     },
+     "p95": {
+      "a": 2.4119532793354472,
+      "b": 2.5341735255691225,
+      "diff": 0.12222024623367522
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 4.691115363545926,
+      "b": 29.68582151393517,
+      "diff": 24.994706150389245
+     },
+     "median": {
+      "a": 1.7784591207430913,
+      "b": 1.9381706706304636,
+      "diff": 0.15971154988737224
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 2.4840322286756433,
+      "b": 2.327045376440296,
+      "diff": -0.15698685223534747
+     },
+     "p95": {
+      "a": 2.7985093337314204,
+      "b": 2.5460155788419425,
+      "diff": -0.2524937548894779
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 32.90782013465661,
+      "b": 106.31805452271617,
+      "diff": 73.41023438805956
+     },
+     "median": {
+      "a": 2.0856470806180036,
+      "b": 2.109238172642983,
+      "diff": 0.023591092024979332
+     },
+     "n": {
+      "a": 398,
+      "b": 396,
+      "diff": -2
+     },
+     "p90": {
+      "a": 13.120852873851666,
+      "b": 13.568672697765503,
+      "diff": 0.44781982391383757
+     },
+     "p95": {
+      "a": 17.580999248343854,
+      "b": 18.572176392869856,
+      "diff": 0.9911771445260023
+     }
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 39.051933058463234,
+      "b": 32.130763174706246,
+      "diff": -6.921169883756988
+     },
+     "median": {
+      "a": 21.96052589212604,
+      "b": 21.111578320656694,
+      "diff": -0.8489475714693455
+     },
+     "n": {
+      "a": 99,
+      "b": 99,
+      "diff": 0
+     },
+     "p90": {
+      "a": 29.15380066771958,
+      "b": 28.960087507291057,
+      "diff": -0.1937131604285227
+     },
+     "p95": {
+      "a": 30.687540093074205,
+      "b": 30.812627965576254,
+      "diff": 0.1250878725020499
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 15.60519521263656,
+      "b": 30.13021840328209,
+      "diff": 14.52502319064553
+     },
+     "median": {
+      "a": 9.819190937421212,
+      "b": 9.918051754675872,
+      "diff": 0.09886081725466056
+     },
+     "n": {
+      "a": 99,
+      "b": 100,
+      "diff": 1
+     },
+     "p90": {
+      "a": 14.223271621363358,
+      "b": 13.8142688407221,
+      "diff": -0.4090027806412575
+     },
+     "p95": {
+      "a": 14.732814724102036,
+      "b": 14.50659922286016,
+      "diff": -0.22621550124187628
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 20.815015159838232,
+      "b": 17.76601092127359,
+      "diff": -3.049004238564642
+     },
+     "median": {
+      "a": 8.110956176287594,
+      "b": 7.553640054841822,
+      "diff": -0.5573161214457718
+     },
+     "n": {
+      "a": 100,
+      "b": 99,
+      "diff": -1
+     },
+     "p90": {
+      "a": 15.419103853868268,
+      "b": 13.954489418420712,
+      "diff": -1.4646144354475563
+     },
+     "p95": {
+      "a": 16.318811188359657,
+      "b": 15.243806964805058,
+      "diff": -1.0750042235545987
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 39.051933058463234,
+      "b": 32.130763174706246,
+      "diff": -6.921169883756988
+     },
+     "median": {
+      "a": 10.258080358247344,
+      "b": 10.019334665721885,
+      "diff": -0.23874569252545896
+     },
+     "n": {
+      "a": 298,
+      "b": 298,
+      "diff": 0
+     },
+     "p90": {
+      "a": 25.19267269010281,
+      "b": 25.627865251904822,
+      "diff": 0.4351925618020118
+     },
+     "p95": {
+      "a": 28.25114515826222,
+      "b": 28.2680259525523,
+      "diff": 0.01688079429008127
+     }
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "max": {
+      "a": 787.4963168887671,
+      "b": 968.5700654475634,
+      "diff": 181.0737485587963
+     },
+     "median": {
+      "a": 312.2993878325267,
+      "b": 361.1922652303594,
+      "diff": 48.892877397832706
+     },
+     "n": {
+      "a": 62,
+      "b": 61,
+      "diff": -1
+     },
+     "p90": {
+      "a": 610.0480951324075,
+      "b": 610.459108952134,
+      "diff": 0.4110138197264632
+     },
+     "p95": {
+      "a": 658.0198902310082,
+      "b": 695.1524968700455,
+      "diff": 37.13260663903736
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 802.6856698571478,
+      "b": 968.5700654475634,
+      "diff": 165.88439559041558
+     },
+     "median": {
+      "a": 321.7413949937045,
+      "b": 363.03652865469564,
+      "diff": 41.295133660991155
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 640.0096581372533,
+      "b": 615.9510902028034,
+      "diff": -24.05856793444991
+     },
+     "p95": {
+      "a": 771.2808822583376,
+      "b": 677.8266335705198,
+      "diff": -93.45424868781777
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 802.6856698571478,
+      "b": 968.5700654475634,
+      "diff": 165.88439559041558
+     },
+     "median": {
+      "a": 321.7413949937045,
+      "b": 363.03652865469564,
+      "diff": 41.295133660991155
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 640.0096581372533,
+      "b": 615.9510902028034,
+      "diff": -24.05856793444991
+     },
+     "p95": {
+      "a": 771.2808822583376,
+      "b": 677.8266335705198,
+      "diff": -93.45424868781777
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 802.6856698571478,
+      "b": 968.5700654475634,
+      "diff": 165.88439559041558
+     },
+     "median": {
+      "a": 321.7413949937045,
+      "b": 363.03652865469564,
+      "diff": 41.295133660991155
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 640.0096581372533,
+      "b": 615.9510902028034,
+      "diff": -24.05856793444991
+     },
+     "p95": {
+      "a": 771.2808822583376,
+      "b": 677.8266335705198,
+      "diff": -93.45424868781777
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 802.6856698571478,
+      "b": 968.5700654475634,
+      "diff": 165.88439559041558
+     },
+     "median": {
+      "a": 316.89561459573287,
+      "b": 363.03652865469564,
+      "diff": 46.14091405896278
+     },
+     "n": {
+      "a": 260,
+      "b": 262,
+      "diff": 2
+     },
+     "p90": {
+      "a": 627.5363696916808,
+      "b": 610.620762777098,
+      "diff": -16.91560691458278
+     },
+     "p95": {
+      "a": 775.0615507148269,
+      "b": 695.1524968700455,
+      "diff": -79.9090538447814
+     }
+    }
+   }
+  },
+  "miss": {
+   "+0 h": {
+    "epoch 0": {
+     "max": {
+      "a": 49.29622676211015,
+      "b": 42.81091496528317,
+      "diff": -6.485311796826984
+     },
+     "median": {
+      "a": 26.21645846745338,
+      "b": 27.63838997379403,
+      "diff": 1.421931506340652
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 35.20410969354196,
+      "b": 35.376568736606174,
+      "diff": 0.17245904306421522
+     },
+     "p95": {
+      "a": 39.222326662792796,
+      "b": 37.05686572661357,
+      "diff": -2.1654609361792225
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 41.98139263774251,
+      "b": 44.748512144954816,
+      "diff": 2.767119507212307
+     },
+     "median": {
+      "a": 26.979103348684028,
+      "b": 28.076150076846172,
+      "diff": 1.0970467281621445
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 35.04092227820679,
+      "b": 36.74409955298613,
+      "diff": 1.7031772747793354
+     },
+     "p95": {
+      "a": 37.979221811076336,
+      "b": 37.71150808131918,
+      "diff": -0.2677137297571548
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 41.99145138528166,
+      "b": 52.52172404125711,
+      "diff": 10.530272655975452
+     },
+     "median": {
+      "a": 27.02128774329598,
+      "b": 27.98061651443854,
+      "diff": 0.9593287711425624
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 34.58997152540573,
+      "b": 36.14347334880433,
+      "diff": 1.553501823398598
+     },
+     "p95": {
+      "a": 37.6056050202469,
+      "b": 37.70123965971636,
+      "diff": 0.09563463946945916
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 41.28883631623687,
+      "b": 47.40130281262169,
+      "diff": 6.112466496384819
+     },
+     "median": {
+      "a": 26.92162216927336,
+      "b": 28.201331974245647,
+      "diff": 1.2797098049722884
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 34.38617232998244,
+      "b": 36.1131964232875,
+      "diff": 1.7270240933050545
+     },
+     "p95": {
+      "a": 36.446379459792375,
+      "b": 37.181445274994964,
+      "diff": 0.7350658152025886
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 49.29622676211015,
+      "b": 52.52172404125711,
+      "diff": 3.225497279146957
+     },
+     "median": {
+      "a": 26.930278611869156,
+      "b": 27.952459031807102,
+      "diff": 1.0221804199379463
+     },
+     "n": {
+      "a": 400,
+      "b": 400,
+      "diff": 0
+     },
+     "p90": {
+      "a": 35.18940083956486,
+      "b": 36.18973146538202,
+      "diff": 1.0003306258171563
+     },
+     "p95": {
+      "a": 37.685495093435684,
+      "b": 37.561986498865934,
+      "diff": -0.12350859456974916
+     }
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "max": {
+      "a": 994.1775300596233,
+      "b": 1436.106069384345,
+      "diff": 441.92853932472156
+     },
+     "median": {
+      "a": 73.79780920635028,
+      "b": 75.53199433959418,
+      "diff": 1.7341851332438978
+     },
+     "n": {
+      "a": 46,
+      "b": 47,
+      "diff": 1
+     },
+     "p90": {
+      "a": 549.44329955276,
+      "b": 622.1591395453223,
+      "diff": 72.71583999256234
+     },
+     "p95": {
+      "a": 599.4590338188339,
+      "b": 757.5929890685882,
+      "diff": 158.1339552497543
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 1666.5371900978143,
+      "b": 1599.4165502059318,
+      "diff": -67.12063989188255
+     },
+     "median": {
+      "a": 656.2859241592018,
+      "b": 648.5809743773035,
+      "diff": -7.7049497818983355
+     },
+     "n": {
+      "a": 62,
+      "b": 77,
+      "diff": 15
+     },
+     "p90": {
+      "a": 814.4904633414136,
+      "b": 942.109331555751,
+      "diff": 127.61886821433745
+     },
+     "p95": {
+      "a": 1035.196482996062,
+      "b": 1056.692354070299,
+      "diff": 21.495871074236902
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 1800.2104656762256,
+      "b": 1856.4185921365195,
+      "diff": 56.2081264602939
+     },
+     "median": {
+      "a": 907.9991706898493,
+      "b": 1269.551013405045,
+      "diff": 361.5518427151958
+     },
+     "n": {
+      "a": 17,
+      "b": 24,
+      "diff": 7
+     },
+     "p90": {
+      "a": 1429.9034786728691,
+      "b": 1812.7317215246235,
+      "diff": 382.82824285175434
+     },
+     "p95": {
+      "a": 1592.4060883005752,
+      "b": 1819.1520070843371,
+      "diff": 226.7459187837619
+     }
+    },
+    "epoch 3": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1800.2104656762256,
+      "b": 1856.4185921365195,
+      "diff": 56.2081264602939
+     },
+     "median": {
+      "a": 607.0542420255542,
+      "b": 610.9229091978889,
+      "diff": 3.8686671723346535
+     },
+     "n": {
+      "a": 125,
+      "b": 148,
+      "diff": 23
+     },
+     "p90": {
+      "a": 942.6244110248942,
+      "b": 1174.0199533503026,
+      "diff": 231.39554232540831
+     },
+     "p95": {
+      "a": 1129.1295315106227,
+      "b": 1418.231106182223,
+      "diff": 289.10157467160025
+     }
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "max": {
+      "a": 50.18116878861181,
+      "b": 48.59341325747032,
+      "diff": -1.5877555311414895
+     },
+     "median": {
+      "a": 27.463470344258262,
+      "b": 27.181260995413016,
+      "diff": -0.28220934884524596
+     },
+     "n": {
+      "a": 100,
+      "b": 99,
+      "diff": -1
+     },
+     "p90": {
+      "a": 42.01398306572113,
+      "b": 40.42188586518763,
+      "diff": -1.5920972005334946
+     },
+     "p95": {
+      "a": 45.24366812416983,
+      "b": 44.32463169413533,
+      "diff": -0.9190364300345024
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 46.95930052694683,
+      "b": 45.89078964872772,
+      "diff": -1.068510878219115
+     },
+     "median": {
+      "a": 26.68820018215314,
+      "b": 27.149892990513425,
+      "diff": 0.4616928083602865
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 37.42623388841019,
+      "b": 37.057614847265036,
+      "diff": -0.368619041145152
+     },
+     "p95": {
+      "a": 38.622019838833566,
+      "b": 38.547699154137,
+      "diff": -0.07432068469656627
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 48.428448773728945,
+      "b": 47.40130281262169,
+      "diff": -1.0271459611072586
+     },
+     "median": {
+      "a": 26.577553704800444,
+      "b": 27.473919063838373,
+      "diff": 0.8963653590379295
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 36.84532090046981,
+      "b": 37.34353706456046,
+      "diff": 0.4982161640906497
+     },
+     "p95": {
+      "a": 39.52821019067755,
+      "b": 40.78461846443988,
+      "diff": 1.2564082737623323
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1444.898379386627,
+      "b": 1669.8675652607344,
+      "diff": 224.96918587410732
+     },
+     "median": {
+      "a": 30.74647421674952,
+      "b": 32.65911070375586,
+      "diff": 1.9126364870063384
+     },
+     "n": {
+      "a": 67,
+      "b": 58,
+      "diff": -9
+     },
+     "p90": {
+      "a": 1166.2705540373008,
+      "b": 1308.8240296426268,
+      "diff": 142.55347560532596
+     },
+     "p95": {
+      "a": 1309.5722115789756,
+      "b": 1325.4697691312606,
+      "diff": 15.89755755228498
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1444.898379386627,
+      "b": 1669.8675652607344,
+      "diff": 224.96918587410732
+     },
+     "median": {
+      "a": 27.869743933264868,
+      "b": 28.133391269468163,
+      "diff": 0.26364733620329517
+     },
+     "n": {
+      "a": 367,
+      "b": 357,
+      "diff": -10
+     },
+     "p90": {
+      "a": 42.82972086556347,
+      "b": 40.80842766225011,
+      "diff": -2.0212932033133626
+     },
+     "p95": {
+      "a": 337.17129240939016,
+      "b": 47.37486405717325,
+      "diff": -289.79642835221694
+     }
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "max": {
+      "a": 56.42072709765529,
+      "b": 45.199921775090914,
+      "diff": -11.220805322564374
+     },
+     "median": {
+      "a": 26.01892266181209,
+      "b": 24.083926929369746,
+      "diff": -1.9349957324423457
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 40.31945829421345,
+      "b": 39.210429498641794,
+      "diff": -1.1090287955716533
+     },
+     "p95": {
+      "a": 44.201762807176245,
+      "b": 41.34935392861209,
+      "diff": -2.8524088785641553
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 53.42053372030719,
+      "b": 46.71494824869041,
+      "diff": -6.705585471616779
+     },
+     "median": {
+      "a": 26.469484081404413,
+      "b": 27.98571219104994,
+      "diff": 1.5162281096455281
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 38.32144139131568,
+      "b": 37.47604662147373,
+      "diff": -0.8453947698419526
+     },
+     "p95": {
+      "a": 42.45586905822391,
+      "b": 40.11406442722877,
+      "diff": -2.341804630995142
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 881.0409181417017,
+      "b": 891.097230732152,
+      "diff": 10.056312590450261
+     },
+     "median": {
+      "a": 31.895305216911368,
+      "b": 31.74180576995313,
+      "diff": -0.1534994469582358
+     },
+     "n": {
+      "a": 98,
+      "b": 99,
+      "diff": 1
+     },
+     "p90": {
+      "a": 741.8075776932776,
+      "b": 759.3507372300453,
+      "diff": 17.54315953676769
+     },
+     "p95": {
+      "a": 758.3527599627571,
+      "b": 841.5097306620717,
+      "diff": 83.15697069931457
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1880.8158098481415,
+      "b": 1752.199923906246,
+      "diff": -128.61588594189539
+     },
+     "median": {
+      "a": 563.5730687923442,
+      "b": 961.0175163765764,
+      "diff": 397.4444475842322
+     },
+     "n": {
+      "a": 34,
+      "b": 35,
+      "diff": 1
+     },
+     "p90": {
+      "a": 1680.5669689266892,
+      "b": 1645.2067481862066,
+      "diff": -35.360220740482646
+     },
+     "p95": {
+      "a": 1753.7068939302144,
+      "b": 1659.0470993789709,
+      "diff": -94.65979455124352
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1880.8158098481415,
+      "b": 1752.199923906246,
+      "diff": -128.61588594189539
+     },
+     "median": {
+      "a": 29.751286445137467,
+      "b": 29.624217881877986,
+      "diff": -0.12706856325948124
+     },
+     "n": {
+      "a": 332,
+      "b": 334,
+      "diff": 2
+     },
+     "p90": {
+      "a": 479.3995626179869,
+      "b": 756.6400484632057,
+      "diff": 277.24048584521887
+     },
+     "p95": {
+      "a": 816.9060350049036,
+      "b": 1002.0424289292749,
+      "diff": 185.1363939243713
+     }
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 1659.732584416603,
+      "b": 1660.6466077862528,
+      "diff": 0.9140233696498399
+     },
+     "median": {
+      "a": 782.3273926128826,
+      "b": 779.6510516592742,
+      "diff": -2.67634095360836
+     },
+     "n": {
+      "a": 25,
+      "b": 29,
+      "diff": 4
+     },
+     "p90": {
+      "a": 795.0187496882356,
+      "b": 1436.6119464658875,
+      "diff": 641.5931967776519
+     },
+     "p95": {
+      "a": 1428.9252204750778,
+      "b": 1487.6239727563052,
+      "diff": 58.69875228122737
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 1472.1342595083186,
+      "b": 1267.889682754393,
+      "diff": -204.24457675392546
+     },
+     "median": {
+      "a": 597.1269416426678,
+      "b": 594.7826179174207,
+      "diff": -2.3443237252471363
+     },
+     "n": {
+      "a": 38,
+      "b": 40,
+      "diff": 2
+     },
+     "p90": {
+      "a": 1133.5561913628787,
+      "b": 1121.9483085748454,
+      "diff": -11.607882788033294
+     },
+     "p95": {
+      "a": 1191.2706630644661,
+      "b": 1126.878919154124,
+      "diff": -64.39174391034203
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 1659.732584416603,
+      "b": 1660.6466077862528,
+      "diff": 0.9140233696498399
+     },
+     "median": {
+      "a": 606.9197444789224,
+      "b": 744.1423580924998,
+      "diff": 137.22261361357732
+     },
+     "n": {
+      "a": 63,
+      "b": 69,
+      "diff": 6
+     },
+     "p90": {
+      "a": 1082.7222832139394,
+      "b": 1156.0428265508504,
+      "diff": 73.32054333691099
+     },
+     "p95": {
+      "a": 1258.7707990564666,
+      "b": 1405.8653015191971,
+      "diff": 147.0945024627306
+     }
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "max": {
+      "a": 52.630035439744034,
+      "b": 101.64143035698899,
+      "diff": 49.01139491724496
+     },
+     "median": {
+      "a": 26.9261156845687,
+      "b": 29.348329318606286,
+      "diff": 2.422213634037586
+     },
+     "n": {
+      "a": 98,
+      "b": 96,
+      "diff": -2
+     },
+     "p90": {
+      "a": 40.46723886503715,
+      "b": 39.15075520083866,
+      "diff": -1.3164836641984934
+     },
+     "p95": {
+      "a": 43.45526776019777,
+      "b": 41.3402939697581,
+      "diff": -2.11497379043967
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 41.177832311546105,
+      "b": 41.85517876391749,
+      "diff": 0.6773464523713884
+     },
+     "median": {
+      "a": 26.994633299238206,
+      "b": 28.145339937716418,
+      "diff": 1.150706638478212
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 34.44662274328325,
+      "b": 36.877033743318876,
+      "diff": 2.430411000035626
+     },
+     "p95": {
+      "a": 36.82231965584148,
+      "b": 38.28969341696913,
+      "diff": 1.4673737611276465
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 40.885258021558826,
+      "b": 47.40130281262169,
+      "diff": 6.5160447910628605
+     },
+     "median": {
+      "a": 27.115782079090415,
+      "b": 27.931684490648628,
+      "diff": 0.8159024115582127
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 36.7929464316578,
+      "b": 36.494656272050975,
+      "diff": -0.2982901596068288
+     },
+     "p95": {
+      "a": 38.729472530904346,
+      "b": 38.94478616751256,
+      "diff": 0.21531363660821512
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 39.30077806554909,
+      "b": 47.40130281262169,
+      "diff": 8.100524747072598
+     },
+     "median": {
+      "a": 27.04603392820595,
+      "b": 27.88185909608965,
+      "diff": 0.8358251678836979
+     },
+     "n": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     },
+     "p90": {
+      "a": 34.26963470415159,
+      "b": 36.286045926153264,
+      "diff": 2.016411222001672
+     },
+     "p95": {
+      "a": 37.143359201747614,
+      "b": 38.10848634949125,
+      "diff": 0.9651271477436367
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 52.630035439744034,
+      "b": 101.64143035698899,
+      "diff": 49.01139491724496
+     },
+     "median": {
+      "a": 27.115782079090415,
+      "b": 28.06538693330119,
+      "diff": 0.9496048542107758
+     },
+     "n": {
+      "a": 398,
+      "b": 396,
+      "diff": -2
+     },
+     "p90": {
+      "a": 36.817245805119065,
+      "b": 37.41311521723085,
+      "diff": 0.5958694121117887
+     },
+     "p95": {
+      "a": 39.22627724970369,
+      "b": 39.41915052113351,
+      "diff": 0.1928732714298178
+     }
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "n": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 48.84243511012519,
+      "b": 52.863360321538835,
+      "diff": 4.020925211413648
+     },
+     "median": {
+      "a": 29.505640529184586,
+      "b": 29.286966879029293,
+      "diff": -0.21867365015529217
+     },
+     "n": {
+      "a": 99,
+      "b": 99,
+      "diff": 0
+     },
+     "p90": {
+      "a": 43.38992748829335,
+      "b": 43.638243884387364,
+      "diff": 0.2483163960940118
+     },
+     "p95": {
+      "a": 45.26353605242525,
+      "b": 47.2497337830533,
+      "diff": 1.9861977306280494
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 52.35820819064569,
+      "b": 52.50798324840128,
+      "diff": 0.14977505775559052
+     },
+     "median": {
+      "a": 26.868055686677135,
+      "b": 28.424451906534884,
+      "diff": 1.5563962198577492
+     },
+     "n": {
+      "a": 99,
+      "b": 100,
+      "diff": 1
+     },
+     "p90": {
+      "a": 37.71604712760747,
+      "b": 37.88502782185169,
+      "diff": 0.16898069424422602
+     },
+     "p95": {
+      "a": 41.53217194259758,
+      "b": 42.84703930213709,
+      "diff": 1.3148673595395124
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 49.52751713961888,
+      "b": 55.69336178541307,
+      "diff": 6.165844645794188
+     },
+     "median": {
+      "a": 27.044883067996647,
+      "b": 27.10576576793036,
+      "diff": 0.06088269993371398
+     },
+     "n": {
+      "a": 100,
+      "b": 99,
+      "diff": -1
+     },
+     "p90": {
+      "a": 38.79359436232284,
+      "b": 40.0103837143104,
+      "diff": 1.2167893519875577
+     },
+     "p95": {
+      "a": 41.24195467142382,
+      "b": 44.081239658061925,
+      "diff": 2.8392849866381056
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 52.35820819064569,
+      "b": 55.69336178541307,
+      "diff": 3.3351535947673767
+     },
+     "median": {
+      "a": 28.242080968009308,
+      "b": 28.14707707961145,
+      "diff": -0.09500388839785856
+     },
+     "n": {
+      "a": 298,
+      "b": 298,
+      "diff": 0
+     },
+     "p90": {
+      "a": 41.22179813482923,
+      "b": 40.949323678830346,
+      "diff": -0.2724744559988821
+     },
+     "p95": {
+      "a": 44.05820911022153,
+      "b": 44.93728317418507,
+      "diff": 0.8790740639635359
+     }
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "max": {
+      "a": 776.9290836362786,
+      "b": 961.7813023961659,
+      "diff": 184.85221875988725
+     },
+     "median": {
+      "a": 299.1658735802964,
+      "b": 362.20327738331144,
+      "diff": 63.037403803015025
+     },
+     "n": {
+      "a": 62,
+      "b": 61,
+      "diff": -1
+     },
+     "p90": {
+      "a": 599.9896036949038,
+      "b": 603.7239886812972,
+      "diff": 3.7343849863933656
+     },
+     "p95": {
+      "a": 659.6240769196247,
+      "b": 674.7175472182012,
+      "diff": 15.093470298576449
+     }
+    },
+    "epoch 1": {
+     "max": {
+      "a": 776.9290836362786,
+      "b": 961.7813023961659,
+      "diff": 184.85221875988725
+     },
+     "median": {
+      "a": 304.50798585856717,
+      "b": 366.09213944866264,
+      "diff": 61.58415359009547
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 633.3417443116675,
+      "b": 604.2110756419804,
+      "diff": -29.13066866968711
+     },
+     "p95": {
+      "a": 755.856384584161,
+      "b": 668.0399252069088,
+      "diff": -87.81645937725216
+     }
+    },
+    "epoch 2": {
+     "max": {
+      "a": 776.9290836362786,
+      "b": 961.7813023961659,
+      "diff": 184.85221875988725
+     },
+     "median": {
+      "a": 304.50798585856717,
+      "b": 366.09213944866264,
+      "diff": 61.58415359009547
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 633.3417443116675,
+      "b": 604.2110756419804,
+      "diff": -29.13066866968711
+     },
+     "p95": {
+      "a": 755.856384584161,
+      "b": 668.0399252069088,
+      "diff": -87.81645937725216
+     }
+    },
+    "epoch 3": {
+     "max": {
+      "a": 776.9290836362786,
+      "b": 961.7813023961659,
+      "diff": 184.85221875988725
+     },
+     "median": {
+      "a": 304.50798585856717,
+      "b": 366.09213944866264,
+      "diff": 61.58415359009547
+     },
+     "n": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     },
+     "p90": {
+      "a": 633.3417443116675,
+      "b": 604.2110756419804,
+      "diff": -29.13066866968711
+     },
+     "p95": {
+      "a": 755.856384584161,
+      "b": 668.0399252069088,
+      "diff": -87.81645937725216
+     }
+    },
+    "pooled": {
+     "max": {
+      "a": 776.9290836362786,
+      "b": 961.7813023961659,
+      "diff": 184.85221875988725
+     },
+     "median": {
+      "a": 299.2762538700085,
+      "b": 366.09213944866264,
+      "diff": 66.81588557865416
+     },
+     "n": {
+      "a": 260,
+      "b": 262,
+      "diff": 2
+     },
+     "p90": {
+      "a": 616.1468233196094,
+      "b": 604.8199343428344,
+      "diff": -11.32688897677508
+     },
+     "p95": {
+      "a": 760.5856258787984,
+      "b": 674.7175472182012,
+      "diff": -85.86807866059723
+     }
+    }
+   }
+  },
+  "safe_fraction": {
+   "+0 h": {
+    "epoch 0": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "epoch 1": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "epoch 2": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "epoch 3": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "pooled": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "a": 0.42,
+     "b": 0.38,
+     "diff": -0.03999999999999998
+    },
+    "epoch 1": {
+     "a": 0.51,
+     "b": 0.61,
+     "diff": 0.09999999999999998
+    },
+    "epoch 2": {
+     "a": 0.16,
+     "b": 0.22,
+     "diff": 0.06
+    },
+    "epoch 3": {
+     "a": 0.0,
+     "b": 0.0,
+     "diff": 0.0
+    },
+    "pooled": {
+     "a": 0.2725,
+     "b": 0.3025,
+     "diff": 0.02999999999999997
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "a": 0.67,
+     "b": 0.62,
+     "diff": -0.050000000000000044
+    },
+    "epoch 1": {
+     "a": 0.81,
+     "b": 0.78,
+     "diff": -0.030000000000000027
+    },
+    "epoch 2": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "epoch 3": {
+     "a": 0.63,
+     "b": 0.56,
+     "diff": -0.06999999999999995
+    },
+    "pooled": {
+     "a": 0.7775,
+     "b": 0.74,
+     "diff": -0.03749999999999998
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "a": 0.2,
+     "b": 0.25,
+     "diff": 0.04999999999999999
+    },
+    "epoch 1": {
+     "a": 0.46,
+     "b": 0.33,
+     "diff": -0.13
+    },
+    "epoch 2": {
+     "a": 0.86,
+     "b": 0.86,
+     "diff": 0.0
+    },
+    "epoch 3": {
+     "a": 0.29,
+     "b": 0.33,
+     "diff": 0.040000000000000036
+    },
+    "pooled": {
+     "a": 0.4525,
+     "b": 0.4425,
+     "diff": -0.010000000000000009
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "a": 0.0,
+     "b": 0.0,
+     "diff": 0.0
+    },
+    "epoch 1": {
+     "a": 0.0,
+     "b": 0.0,
+     "diff": 0.0
+    },
+    "epoch 2": {
+     "a": 0.09,
+     "b": 0.15,
+     "diff": 0.06
+    },
+    "epoch 3": {
+     "a": 0.22,
+     "b": 0.29,
+     "diff": 0.06999999999999998
+    },
+    "pooled": {
+     "a": 0.0775,
+     "b": 0.11,
+     "diff": 0.0325
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "a": 0.4,
+     "b": 0.38,
+     "diff": -0.020000000000000018
+    },
+    "epoch 1": {
+     "a": 0.98,
+     "b": 0.96,
+     "diff": -0.020000000000000018
+    },
+    "epoch 2": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "epoch 3": {
+     "a": 1.0,
+     "b": 1.0,
+     "diff": 0.0
+    },
+    "pooled": {
+     "a": 0.845,
+     "b": 0.835,
+     "diff": -0.010000000000000009
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "a": 0.0,
+     "b": 0.0,
+     "diff": 0.0
+    },
+    "epoch 1": {
+     "a": 0.33,
+     "b": 0.32,
+     "diff": -0.010000000000000009
+    },
+    "epoch 2": {
+     "a": 0.66,
+     "b": 0.67,
+     "diff": 0.010000000000000009
+    },
+    "epoch 3": {
+     "a": 0.72,
+     "b": 0.83,
+     "diff": 0.10999999999999999
+    },
+    "pooled": {
+     "a": 0.4275,
+     "b": 0.455,
+     "diff": 0.027500000000000024
+    }
+   },
+   "no-TRN": {
+    "epoch 0": {
+     "a": 0.55,
+     "b": 0.51,
+     "diff": -0.040000000000000036
+    },
+    "epoch 1": {
+     "a": 0.61,
+     "b": 0.56,
+     "diff": -0.04999999999999993
+    },
+    "epoch 2": {
+     "a": 0.61,
+     "b": 0.56,
+     "diff": -0.04999999999999993
+    },
+    "epoch 3": {
+     "a": 0.61,
+     "b": 0.56,
+     "diff": -0.04999999999999993
+    },
+    "pooled": {
+     "a": 0.595,
+     "b": 0.5475,
+     "diff": -0.04749999999999999
+    }
+   }
+  },
+  "hp": {
+   "+0 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 38,
+       "b": 39,
+       "diff": 1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 62,
+       "b": 61,
+       "diff": -1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 62,
+      "b": 61,
+      "diff": -1
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 140,
+       "b": 138,
+       "diff": -2
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 260,
+       "b": 262,
+       "diff": 2
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 260,
+      "b": 262,
+      "diff": 2
+     }
+    }
+   },
+   "+168 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 35,
+       "b": 32,
+       "diff": -3
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 19,
+       "b": 18,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 19,
+       "b": 19,
+       "diff": 0
+      },
+      "both touched down: TRN Q worse": {
+       "a": 8,
+       "b": 10,
+       "diff": 2
+      },
+      "error: TRN": {
+       "a": 1,
+       "b": 0,
+       "diff": -1
+      },
+      "neither touched down": {
+       "a": 18,
+       "b": 21,
+       "diff": 3
+      }
+     },
+     "hp": {
+      "a": 0.2962962962962963,
+      "b": 0.3448275862068966,
+      "diff": 0.048531289910600295
+     },
+     "n_both": {
+      "a": 27,
+      "b": 29,
+      "diff": 2
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 27,
+       "b": 12,
+       "diff": -15
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 23,
+       "b": 22,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 4,
+       "b": 6,
+       "diff": 2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 35,
+       "b": 49,
+       "diff": 14
+      },
+      "neither touched down": {
+       "a": 11,
+       "b": 11,
+       "diff": 0
+      }
+     },
+     "hp": {
+      "a": 0.8974358974358975,
+      "b": 0.8909090909090909,
+      "diff": -0.0065268065268065945
+     },
+     "n_both": {
+      "a": 39,
+      "b": 55,
+      "diff": 16
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 56,
+       "b": 52,
+       "diff": -4
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 7,
+       "b": 9,
+       "diff": 2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 10,
+       "b": 15,
+       "diff": 5
+      },
+      "neither touched down": {
+       "a": 27,
+       "b": 24,
+       "diff": -3
+      }
+     },
+     "hp": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 10,
+      "b": 15,
+      "diff": 5
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      },
+      "neither touched down": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      }
+     },
+     "hp": null,
+     "n_both": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 184,
+       "b": 163,
+       "diff": -21
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 49,
+       "b": 49,
+       "diff": 0
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 23,
+       "b": 25,
+       "diff": 2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 53,
+       "b": 74,
+       "diff": 21
+      },
+      "error: TRN": {
+       "a": 1,
+       "b": 0,
+       "diff": -1
+      },
+      "neither touched down": {
+       "a": 90,
+       "b": 89,
+       "diff": -1
+      }
+     },
+     "hp": {
+      "a": 0.6973684210526315,
+      "b": 0.7474747474747475,
+      "diff": 0.05010632642211599
+     },
+     "n_both": {
+      "a": 76,
+      "b": 99,
+      "diff": 23
+     }
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 38,
+       "b": 39,
+       "diff": 1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 62,
+       "b": 60,
+       "diff": -2
+      },
+      "error: TRN": {
+       "a": 0,
+       "b": 1,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 62,
+      "b": 60,
+      "diff": -2
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 20,
+       "b": 20,
+       "diff": 0
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 22,
+       "b": 14,
+       "diff": -8
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 33,
+       "b": 30,
+       "diff": -3
+      },
+      "both touched down: TRN Q worse": {
+       "a": 12,
+       "b": 14,
+       "diff": 2
+      },
+      "error: TRN": {
+       "a": 3,
+       "b": 5,
+       "diff": 2
+      },
+      "neither touched down": {
+       "a": 10,
+       "b": 17,
+       "diff": 7
+      }
+     },
+     "hp": {
+      "a": 0.26666666666666666,
+      "b": 0.3181818181818182,
+      "diff": 0.051515151515151514
+     },
+     "n_both": {
+      "a": 45,
+      "b": 44,
+      "diff": -1
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 20,
+       "b": 20,
+       "diff": 0
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 128,
+       "b": 119,
+       "diff": -9
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 227,
+       "b": 224,
+       "diff": -3
+      },
+      "both touched down: TRN Q worse": {
+       "a": 12,
+       "b": 14,
+       "diff": 2
+      },
+      "error: TRN": {
+       "a": 3,
+       "b": 6,
+       "diff": 3
+      },
+      "neither touched down": {
+       "a": 10,
+       "b": 17,
+       "diff": 7
+      }
+     },
+     "hp": {
+      "a": 0.0502092050209205,
+      "b": 0.058823529411764705,
+      "diff": 0.008614324390844204
+     },
+     "n_both": {
+      "a": 239,
+      "b": 238,
+      "diff": -1
+     }
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 38,
+       "b": 39,
+       "diff": 1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 62,
+       "b": 61,
+       "diff": -1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 62,
+      "b": 61,
+      "diff": -1
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 0,
+       "b": 1,
+       "diff": 1
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 32,
+       "b": 33,
+       "diff": 1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 56,
+       "b": 54,
+       "diff": -2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 10,
+       "b": 12,
+       "diff": 2
+      },
+      "neither touched down": {
+       "a": 2,
+       "b": 0,
+       "diff": -2
+      }
+     },
+     "hp": {
+      "a": 0.15151515151515152,
+      "b": 0.18181818181818182,
+      "diff": 0.030303030303030304
+     },
+     "n_both": {
+      "a": 66,
+      "b": 66,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 44,
+       "b": 45,
+       "diff": 1
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 12,
+       "b": 13,
+       "diff": 1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 4,
+       "b": 2,
+       "diff": -2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 18,
+       "b": 20,
+       "diff": 2
+      },
+      "neither touched down": {
+       "a": 22,
+       "b": 20,
+       "diff": -2
+      }
+     },
+     "hp": {
+      "a": 0.8181818181818182,
+      "b": 0.9090909090909091,
+      "diff": 0.09090909090909083
+     },
+     "n_both": {
+      "a": 22,
+      "b": 22,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 44,
+       "b": 46,
+       "diff": 2
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 116,
+       "b": 118,
+       "diff": 2
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 188,
+       "b": 184,
+       "diff": -4
+      },
+      "both touched down: TRN Q worse": {
+       "a": 28,
+       "b": 32,
+       "diff": 4
+      },
+      "neither touched down": {
+       "a": 24,
+       "b": 20,
+       "diff": -4
+      }
+     },
+     "hp": {
+      "a": 0.12962962962962962,
+      "b": 0.14814814814814814,
+      "diff": 0.018518518518518517
+     },
+     "n_both": {
+      "a": 216,
+      "b": 216,
+      "diff": 0
+     }
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 62,
+       "b": 61,
+       "diff": -1
+      },
+      "neither touched down": {
+       "a": 38,
+       "b": 39,
+       "diff": 1
+      }
+     },
+     "hp": null,
+     "n_both": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      },
+      "neither touched down": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      }
+     },
+     "hp": null,
+     "n_both": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 51,
+       "b": 47,
+       "diff": -4
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 10,
+       "b": 9,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 5,
+       "b": 7,
+       "diff": 2
+      },
+      "both touched down: TRN Q worse": {
+       "a": 10,
+       "b": 13,
+       "diff": 3
+      },
+      "neither touched down": {
+       "a": 24,
+       "b": 24,
+       "diff": 0
+      }
+     },
+     "hp": {
+      "a": 0.6666666666666666,
+      "b": 0.65,
+      "diff": -0.016666666666666607
+     },
+     "n_both": {
+      "a": 15,
+      "b": 20,
+      "diff": 5
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 41,
+       "b": 45,
+       "diff": 4
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 13,
+       "b": 18,
+       "diff": 5
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 9,
+       "b": 4,
+       "diff": -5
+      },
+      "both touched down: TRN Q worse": {
+       "a": 16,
+       "b": 18,
+       "diff": 2
+      },
+      "neither touched down": {
+       "a": 21,
+       "b": 15,
+       "diff": -6
+      }
+     },
+     "hp": {
+      "a": 0.64,
+      "b": 0.8181818181818182,
+      "diff": 0.17818181818181822
+     },
+     "n_both": {
+      "a": 25,
+      "b": 22,
+      "diff": -3
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 220,
+       "b": 220,
+       "diff": 0
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 23,
+       "b": 27,
+       "diff": 4
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 14,
+       "b": 11,
+       "diff": -3
+      },
+      "both touched down: TRN Q worse": {
+       "a": 26,
+       "b": 31,
+       "diff": 5
+      },
+      "neither touched down": {
+       "a": 117,
+       "b": 111,
+       "diff": -6
+      }
+     },
+     "hp": {
+      "a": 0.65,
+      "b": 0.7380952380952381,
+      "diff": 0.08809523809523812
+     },
+     "n_both": {
+      "a": 40,
+      "b": 42,
+      "diff": 2
+     }
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 2,
+       "b": 1,
+       "diff": -1
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 38,
+       "b": 36,
+       "diff": -2
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 60,
+       "b": 60,
+       "diff": 0
+      },
+      "neither touched down": {
+       "a": 0,
+       "b": 3,
+       "diff": 3
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 60,
+      "b": 60,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 2,
+       "b": 1,
+       "diff": -1
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 140,
+       "b": 135,
+       "diff": -5
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 258,
+       "b": 261,
+       "diff": 3
+      },
+      "neither touched down": {
+       "a": 0,
+       "b": 3,
+       "diff": 3
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 258,
+      "b": 261,
+      "diff": 3
+     }
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 62,
+       "b": 61,
+       "diff": -1
+      },
+      "neither touched down": {
+       "a": 38,
+       "b": 39,
+       "diff": 1
+      }
+     },
+     "hp": null,
+     "n_both": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 33,
+       "b": 32,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 66,
+       "diff": 0
+      },
+      "both touched down: TRN Q worse": {
+       "a": 0,
+       "b": 1,
+       "diff": 1
+      },
+      "neither touched down": {
+       "a": 1,
+       "b": 1,
+       "diff": 0
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.014925373134328358,
+      "diff": 0.014925373134328358
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 1,
+       "b": 0,
+       "diff": -1
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 33,
+       "diff": -1
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 65,
+       "b": 67,
+       "diff": 2
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 65,
+      "b": 67,
+      "diff": 2
+     }
+    },
+    "epoch 3": {
+     "cells": {
+      "TRN touched down, no-TRN did not": {
+       "a": 34,
+       "b": 32,
+       "diff": -2
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 66,
+       "b": 67,
+       "diff": 1
+      },
+      "neither touched down": {
+       "a": 0,
+       "b": 1,
+       "diff": 1
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "n_both": {
+      "a": 66,
+      "b": 67,
+      "diff": 1
+     }
+    },
+    "pooled": {
+     "cells": {
+      "TRN did not touch down, no-TRN did": {
+       "a": 63,
+       "b": 61,
+       "diff": -2
+      },
+      "TRN touched down, no-TRN did not": {
+       "a": 101,
+       "b": 97,
+       "diff": -4
+      },
+      "both touched down: TRN Q not worse": {
+       "a": 197,
+       "b": 200,
+       "diff": 3
+      },
+      "both touched down: TRN Q worse": {
+       "a": 0,
+       "b": 1,
+       "diff": 1
+      },
+      "neither touched down": {
+       "a": 39,
+       "b": 41,
+       "diff": 2
+      }
+     },
+     "hp": {
+      "a": 0.0,
+      "b": 0.004975124378109453,
+      "diff": 0.004975124378109453
+     },
+     "n_both": {
+      "a": 197,
+      "b": 201,
+      "diff": 4
+     }
+    }
+   }
+  },
+  "against_zero": {
+   "+168 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 0.00390625,
+      "b": 0.0009765625,
+      "diff": -0.0029296875
+     },
+     "p_safe": {
+      "a": 3.469446951953614e-18,
+      "b": 2.168404344971009e-19,
+      "diff": -3.2526065174565133e-18
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 8,
+      "b": 10,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 58,
+      "b": 62,
+      "diff": 4
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 2.9103830456733704e-11,
+      "b": 1.7763568394002505e-15,
+      "diff": -2.9102054099894303e-11
+     },
+     "p_safe": {
+      "a": 1.7763568394002505e-15,
+      "b": 1.8189894035458565e-12,
+      "diff": 1.8172130467064562e-12
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 35,
+      "b": 49,
+      "diff": 14
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 49,
+      "b": 39,
+      "diff": -10
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 0.0009765625,
+      "b": 3.0517578125e-05,
+      "diff": -0.000946044921875
+     },
+     "p_safe": {
+      "a": 5.169878828456423e-26,
+      "b": 3.308722450212111e-24,
+      "diff": 3.2570236619275465e-24
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 10,
+      "b": 15,
+      "diff": 5
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 84,
+      "b": 78,
+      "diff": -6
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 7.888609052210118e-31,
+      "b": 7.888609052210118e-31,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 1.1102230246251565e-16,
+      "b": 5.293955920339377e-23,
+      "diff": -1.1102224952295645e-16
+     },
+     "p_safe": {
+      "a": 2.513455854232436e-88,
+      "b": 1.0295115178936058e-84,
+      "diff": 1.0292601723081825e-84
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 53,
+      "b": 74,
+      "diff": 21
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 291,
+      "b": 279,
+      "diff": -12
+     }
+    }
+   },
+   "+24 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 1.1641532182693481e-10,
+      "b": 3.637978807091713e-12,
+      "diff": -1.127773430198431e-10
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 33,
+      "b": 38,
+      "diff": 5
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 1.9073486328125e-06,
+      "b": 2.384185791015625e-07,
+      "diff": -1.6689300537109375e-06
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 19,
+      "b": 22,
+      "diff": 3
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 0.000244140625,
+      "b": 6.103515625e-05,
+      "diff": -0.00018310546875
+     },
+     "p_safe": {
+      "a": 7.275957614183426e-12,
+      "b": 5.684341886080802e-14,
+      "diff": -7.219114195322618e-12
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 12,
+      "b": 14,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 37,
+      "b": 44,
+      "diff": 7
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 0.000244140625,
+      "b": 6.103515625e-05,
+      "diff": -0.00018310546875
+     },
+     "p_safe": {
+      "a": 1.6155871338926322e-27,
+      "b": 4.930380657631324e-32,
+      "diff": -1.6155378300860559e-27
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 12,
+      "b": 14,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 89,
+      "b": 104,
+      "diff": 15
+     }
+    }
+   },
+   "+72 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 8.271806125530277e-25,
+      "b": 2.6469779601696886e-23,
+      "diff": 2.5642598989143858e-23
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 80,
+      "b": 75,
+      "diff": -5
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 5.551115123125783e-17,
+      "b": 6.776263578034403e-21,
+      "diff": -5.550437496767979e-17
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 54,
+      "b": 67,
+      "diff": 13
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 0.0009765625,
+      "b": 0.000244140625,
+      "diff": -0.000732421875
+     },
+     "p_safe": {
+      "a": 6.103515625e-05,
+      "b": 6.103515625e-05,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 10,
+      "b": 12,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 14,
+      "b": 14,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 3.814697265625e-06,
+      "b": 9.5367431640625e-07,
+      "diff": -2.86102294921875e-06
+     },
+     "p_safe": {
+      "a": 4.235164736271502e-22,
+      "b": 6.776263578034403e-21,
+      "diff": 6.3527471044072525e-21
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 18,
+      "b": 20,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 71,
+      "b": 67,
+      "diff": -4
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 3.725290298461914e-09,
+      "b": 2.3283064365386963e-10,
+      "diff": -3.4924596548080444e-09
+     },
+     "p_safe": {
+      "a": 1.1869459682199748e-66,
+      "b": 7.418412301374843e-68,
+      "diff": -1.1127618452062264e-66
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 28,
+      "b": 32,
+      "diff": 4
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 219,
+      "b": 223,
+      "diff": 4
+     }
+    }
+   },
+   "-168 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 7.888609052210118e-31,
+      "b": 7.888609052210118e-31,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 7.888609052210118e-31,
+      "b": 7.888609052210118e-31,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 0.0009765625,
+      "b": 0.0001220703125,
+      "diff": -0.0008544921875
+     },
+     "p_safe": {
+      "a": 4.0389678347315804e-28,
+      "b": 2.5849394142282115e-26,
+      "diff": 2.5445497358808957e-26
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 10,
+      "b": 13,
+      "diff": 3
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 91,
+      "b": 85,
+      "diff": -6
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 1.52587890625e-05,
+      "b": 3.814697265625e-06,
+      "diff": -1.1444091796875e-05
+     },
+     "p_safe": {
+      "a": 3.308722450212111e-24,
+      "b": 4.235164736271502e-22,
+      "diff": 4.2020775117693806e-22
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 16,
+      "b": 18,
+      "diff": 2
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 78,
+      "b": 71,
+      "diff": -7
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 1.4901161193847656e-08,
+      "b": 4.656612873077393e-10,
+      "diff": -1.4435499906539917e-08
+     },
+     "p_safe": {
+      "a": 8.31632781251592e-112,
+      "b": 6.812735744013041e-108,
+      "diff": 6.8119041112317896e-108
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 26,
+      "b": 31,
+      "diff": 5
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 369,
+      "b": 356,
+      "diff": -13
+     }
+    }
+   },
+   "-24 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 8.673617379884035e-19,
+      "b": 2.168404344971009e-19,
+      "diff": -6.505213034913027e-19
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 60,
+      "b": 62,
+      "diff": 2
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 0.25,
+      "b": 0.0625,
+      "diff": -0.1875
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 2,
+      "b": 4,
+      "diff": 2
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 2.168404344971009e-19,
+      "b": 1.3552527156068805e-20,
+      "diff": -2.0328790734103208e-19
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 62,
+      "b": 66,
+      "diff": 4
+     }
+    }
+   },
+   "-72 h": {
+    "epoch 0": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 7.888609052210118e-31,
+      "b": 7.888609052210118e-31,
+      "diff": 0.0
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 100,
+      "b": 100,
+      "diff": 0
+     }
+    },
+    "epoch 1": {
+     "p_q": {
+      "a": 1.0,
+      "b": 0.5,
+      "diff": -0.5
+     },
+     "p_safe": {
+      "a": 6.776263578034403e-21,
+      "b": 3.3881317890172014e-21,
+      "diff": -3.3881317890172014e-21
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 67,
+      "b": 68,
+      "diff": 1
+     }
+    },
+    "epoch 2": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 5.820766091346741e-11,
+      "b": 1.1641532182693481e-10,
+      "diff": 5.820766091346741e-11
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 34,
+      "b": 33,
+      "diff": -1
+     }
+    },
+    "epoch 3": {
+     "p_q": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "p_safe": {
+      "a": 3.725290298461914e-09,
+      "b": 7.62939453125e-06,
+      "diff": 7.625669240951538e-06
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 28,
+      "b": 17,
+      "diff": -11
+     }
+    },
+    "pooled": {
+     "p_q": {
+      "a": 1.0,
+      "b": 0.5,
+      "diff": -0.5
+     },
+     "p_safe": {
+      "a": 1.1591269220898192e-69,
+      "b": 2.3738919364399497e-66,
+      "diff": 2.3727328095178599e-66
+     },
+     "q_worse_at_0_only": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "q_worse_at_g_only": {
+      "a": 0,
+      "b": 1,
+      "diff": 1
+     },
+     "safe_gained_at_g": {
+      "a": 0,
+      "b": 0,
+      "diff": 0
+     },
+     "safe_lost_at_g": {
+      "a": 229,
+      "b": 218,
+      "diff": -11
+     }
+    }
+   }
+  },
+  "monotonic": {
+   "+": {
+    "hp": {
+     "+168 h": {
+      "a": 0.6973684210526315,
+      "b": 0.7474747474747475,
+      "diff": 0.05010632642211599
+     },
+     "+24 h": {
+      "a": 0.0502092050209205,
+      "b": 0.058823529411764705,
+      "diff": 0.008614324390844204
+     },
+     "+72 h": {
+      "a": 0.12962962962962962,
+      "b": 0.14814814814814814,
+      "diff": 0.018518518518518517
+     }
+    },
+    "safe_fraction": {
+     "+0 h": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "+168 h": {
+      "a": 0.2725,
+      "b": 0.3025,
+      "diff": 0.02999999999999997
+     },
+     "+24 h": {
+      "a": 0.7775,
+      "b": 0.74,
+      "diff": -0.03749999999999998
+     },
+     "+72 h": {
+      "a": 0.4525,
+      "b": 0.4425,
+      "diff": -0.010000000000000009
+     }
+    }
+   },
+   "-": {
+    "hp": {
+     "-168 h": {
+      "a": 0.65,
+      "b": 0.7380952380952381,
+      "diff": 0.08809523809523812
+     },
+     "-24 h": {
+      "a": 0.0,
+      "b": 0.0,
+      "diff": 0.0
+     },
+     "-72 h": {
+      "a": 0.0,
+      "b": 0.004975124378109453,
+      "diff": 0.004975124378109453
+     }
+    },
+    "safe_fraction": {
+     "+0 h": {
+      "a": 1.0,
+      "b": 1.0,
+      "diff": 0.0
+     },
+     "-168 h": {
+      "a": 0.0775,
+      "b": 0.11,
+      "diff": 0.0325
+     },
+     "-24 h": {
+      "a": 0.845,
+      "b": 0.835,
+      "diff": -0.010000000000000009
+     },
+     "-72 h": {
+      "a": 0.4275,
+      "b": 0.455,
+      "diff": 0.027500000000000024
+     }
+    }
+   }
+  }
+ },
+ "d63": {
+  "reproduced": true,
+  "n": 955
+ }
+}

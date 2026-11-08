@@ -1,0 +1,5 @@
+2026-11-07 20:15:30 seed 2, draws 0 to 0, 1 flights, 0 already written; 1 workers, cast cpp, logging
+2026-11-07 20:15:30 stage 1: 1 flights left
+2026-11-07 20:16:30 stage 1: 0 of 1 done, 1 left, about nan min left, pool 1.30 GB (stage peak 1.30 GB)
+2026-11-07 20:16:35 stage 1 ended (exit 0): 1 flights written, 0 left, sampled pool peak 1.30 GB
+2026-11-07 20:16:35 finished in 1.1 min: 1 of 1 written

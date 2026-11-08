@@ -1,0 +1,2778 @@
+{
+ "flights": [
+  {
+   "job": "d00_notrn_eNone_gNone",
+   "epoch": 0,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999976161291215e-07,
+     "largest_error_kg": 2.383870878475136e-12,
+     "n": 982,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.9895968576786345e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 982
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -1.7558195479448528,
+     "lowest_elevation_margin_deg": -1.7558195479448528,
+     "margin_true_site_deg": 6.459340290353488,
+     "true_site_height": 237.829748497937,
+     "n": 1720,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.3714700015483743,
+     "unit": "m",
+     "margin_guided": 44.572647031345895,
+     "flight_min_clearance": 44.240638782211846,
+     "flight_closest_true_pass": null,
+     "n": 2658,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.3320082491340486
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1922460434348066,
+     "margin_down": 1.1922460434348066,
+     "margin_horizontal": 1.2176825425563111,
+     "v_down": 0.9413539565651934,
+     "v_horizontal": 0.0015174574436890068,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.2818387758940561,
+     "margin_lower_limb": 1.014876564528159,
+     "sun_azimuth": 14.890406697865059,
+     "sun_elevation": 1.7174124532790636,
+     "horizon": 0.4355736773850074,
+     "semidiameter": 0.2669622113658972,
+     "landing_utc": "2010-10-20T07:31:57.892",
+     "t": 132.93853506876593,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_notrn_eNone_gNone",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999976161291215e-07,
+     "largest_error_kg": 2.383870878475136e-12,
+     "n": 989,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.9895968576786345e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 989
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -1.74329996159552,
+     "lowest_elevation_margin_deg": -1.74329996159552,
+     "margin_true_site_deg": 6.459340290353488,
+     "true_site_height": 241.12386808676786,
+     "n": 1760,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2806948017378943,
+     "unit": "m",
+     "margin_guided": 44.72304664367019,
+     "flight_min_clearance": 44.48325713678264,
+     "flight_closest_true_pass": null,
+     "n": 2704,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.23978950688754708
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1923426074177923,
+     "margin_down": 1.1923426074177923,
+     "margin_horizontal": 1.2167754139872047,
+     "v_down": 0.9412573925822076,
+     "v_horizontal": 0.0024245860127953584,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.3506158780005488,
+     "margin_lower_limb": 1.085794496116749,
+     "sun_azimuth": 344.6463017511612,
+     "sun_elevation": 1.802363674567292,
+     "horizon": 0.45174779656674313,
+     "semidiameter": 0.26482138188379983,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 135.2432640733172,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_notrn_eNone_gNone",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999976161291215e-07,
+     "largest_error_kg": 2.383870878475136e-12,
+     "n": 989,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.9895968576786345e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 989
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -1.74329996159552,
+     "lowest_elevation_margin_deg": -1.74329996159552,
+     "margin_true_site_deg": 6.459340290353488,
+     "true_site_height": 241.12386808676786,
+     "n": 1760,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2806948017378943,
+     "unit": "m",
+     "margin_guided": 44.72304664367019,
+     "flight_min_clearance": 44.48325713678264,
+     "flight_closest_true_pass": null,
+     "n": 2704,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.23978950688754708
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1923426074177923,
+     "margin_down": 1.1923426074177923,
+     "margin_horizontal": 1.2167754139872047,
+     "v_down": 0.9412573925822076,
+     "v_horizontal": 0.0024245860127953584,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.4486039013335894,
+     "margin_lower_limb": 2.183522865540188,
+     "sun_azimuth": 314.64600928805794,
+     "sun_elevation": 1.7385688147461245,
+     "horizon": -0.710035086587465,
+     "semidiameter": 0.2650810357934013,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 135.2432640733172,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_notrn_eNone_gNone",
+   "epoch": 3,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999976161291215e-07,
+     "largest_error_kg": 2.383870878475136e-12,
+     "n": 989,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.9895968576786345e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 989
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -1.74329996159552,
+     "lowest_elevation_margin_deg": -1.74329996159552,
+     "margin_true_site_deg": 6.459340290353488,
+     "true_site_height": 241.12386808676786,
+     "n": 1760,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2806948017378943,
+     "unit": "m",
+     "margin_guided": 44.72304664367019,
+     "flight_min_clearance": 44.48325713678264,
+     "flight_closest_true_pass": null,
+     "n": 2704,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.23978950688754708
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1923426074177923,
+     "margin_down": 1.1923426074177923,
+     "margin_horizontal": 1.2167754139872047,
+     "v_down": 0.9412573925822076,
+     "v_horizontal": 0.0024245860127953584,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.0840678050625803,
+     "margin_lower_limb": 1.8185778959464596,
+     "sun_azimuth": 284.6460572765719,
+     "sun_elevation": 1.6155893643134107,
+     "horizon": -0.46847844074916944,
+     "semidiameter": 0.26548990911612064,
+     "landing_utc": "2010-09-28T04:14:46.935",
+     "t": 135.2432640733172,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-168.0",
+   "epoch": 0,
+   "outcome": "abort",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 273,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "PASS",
+     "margin": 2.3169631569220176e-06,
+     "margin_low_N": 5.2085904878067595,
+     "margin_high_N": 0.1082168387620186,
+     "margin_tilt_deg": 3.9228133139048964,
+     "abort_engine_rel_error": 0.0,
+     "delivered_max_fraction": 0.5954328266395716,
+     "delivered_min_fraction": 0.09934985709906402,
+     "n": 20
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": null,
+     "n": 800,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 997.6219767368309,
+     "unit": "m",
+     "margin_guided": 1385.9304982905294,
+     "flight_min_clearance": null,
+     "flight_closest_true_pass": 997.063481839564,
+     "n": 8285,
+     "off_terrain": 517,
+     "lowest_phase": "abort burn"
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [
+      [
+       "lost lock",
+       20
+      ]
+     ],
+     "real": [
+      true
+     ],
+     "missed": [],
+     "n_missed": 0,
+     "n": 1
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-24.0",
+   "epoch": 0,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999986322052336e-07,
+     "largest_error_kg": 1.3677947663381929e-12,
+     "n": 1084,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": -9.094947017729282e-13,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -0.0007886992232641887,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249783,
+     "n": 1084
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 256.1455547880536,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2018407087626315,
+     "unit": "m",
+     "margin_guided": 22.663283179888822,
+     "flight_min_clearance": 22.48853131921703,
+     "flight_closest_true_pass": null,
+     "n": 2916,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.17475186067179038
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-72.0",
+   "epoch": 0,
+   "outcome": "abort",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 273,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "PASS",
+     "margin": 2.3169631569220176e-06,
+     "margin_low_N": 5.2085904878067595,
+     "margin_high_N": 0.1082168387620186,
+     "margin_tilt_deg": 3.9228133139048964,
+     "abort_engine_rel_error": 0.0,
+     "delivered_max_fraction": 0.5954328266395716,
+     "delivered_min_fraction": 0.09934985709906402,
+     "n": 20
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": null,
+     "n": 800,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 997.6219767368309,
+     "unit": "m",
+     "margin_guided": 1385.9304982905294,
+     "flight_min_clearance": null,
+     "flight_closest_true_pass": 997.063481839564,
+     "n": 8285,
+     "off_terrain": 517,
+     "lowest_phase": "abort burn"
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [
+      [
+       "lost lock",
+       20
+      ]
+     ],
+     "real": [
+      true
+     ],
+     "missed": [],
+     "n_missed": 0,
+     "n": 1
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g0.0",
+   "epoch": 0,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1021,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006628421811001317,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.5250057351277064e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923932849977594,
+     "n": 1021
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.91538480249494,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2232929859084436,
+     "unit": "m",
+     "margin_guided": 19.888781491415102,
+     "flight_min_clearance": 19.780720749785417,
+     "flight_closest_true_pass": null,
+     "n": 2853,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.10806074162968571
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1944508707997277,
+     "margin_down": 1.1944508707997277,
+     "margin_horizontal": 1.2152025566322773,
+     "v_down": 0.9391491292002724,
+     "v_horizontal": 0.003997443367722887,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.2971483701815563,
+     "margin_lower_limb": 1.0301861586589265,
+     "sun_azimuth": 15.782256507422783,
+     "sun_elevation": 1.7049891551383272,
+     "horizon": 0.4078407849567709,
+     "semidiameter": 0.26696221152262967,
+     "landing_utc": "2010-10-20T07:31:57.892",
+     "t": 142.68033718335116,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g168.0",
+   "epoch": 0,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 994,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.010887111936426663,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -9.071826610096423e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923941898622095,
+     "n": 994
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -12.903163245556316,
+     "lowest_elevation_margin_deg": -12.903163245556316,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 173.69281049767216,
+     "n": 2080,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.2647365449490451,
+     "unit": "m",
+     "margin_guided": 44.69124137786599,
+     "flight_min_clearance": 44.48439613226003,
+     "flight_closest_true_pass": null,
+     "n": 3021,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.20684524560596174
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g24.0",
+   "epoch": 0,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 963,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.4204185568578396,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -6.414181171976452e-06,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09924812049853446,
+     "n": 963
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 256.36005753020004,
+     "n": 1760,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.19990382929296402,
+     "unit": "m",
+     "margin_guided": 38.28496988462632,
+     "flight_min_clearance": 38.24799747914312,
+     "flight_closest_true_pass": null,
+     "n": 2678,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.03697240548319769
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g72.0",
+   "epoch": 0,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.99998749444785e-07,
+     "largest_error_kg": 1.2505552149377763e-12,
+     "n": 1022,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.11411339449023217,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -6.257822770550092e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09924161228487936,
+     "n": 1022
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 257.29043170770666,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.18410475013399719,
+     "unit": "m",
+     "margin_guided": 42.33725096593821,
+     "flight_min_clearance": 42.33176051456957,
+     "flight_closest_true_pass": null,
+     "n": 2854,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.0054904513686437895
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-168.0",
+   "epoch": 1,
+   "outcome": "abort",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 273,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "PASS",
+     "margin": 2.3169631569220176e-06,
+     "margin_low_N": 5.2085904878067595,
+     "margin_high_N": 0.1082168387620186,
+     "margin_tilt_deg": 3.9228133139048964,
+     "abort_engine_rel_error": 0.0,
+     "delivered_max_fraction": 0.5954328266395716,
+     "delivered_min_fraction": 0.09934985709906402,
+     "n": 20
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": null,
+     "n": 800,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 997.6219767368309,
+     "unit": "m",
+     "margin_guided": 1385.9304982905294,
+     "flight_min_clearance": null,
+     "flight_closest_true_pass": 997.063481839564,
+     "n": 8285,
+     "off_terrain": 517,
+     "lowest_phase": "abort burn"
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [
+      [
+       "lost lock",
+       20
+      ]
+     ],
+     "real": [
+      true
+     ],
+     "missed": [],
+     "n_missed": 0,
+     "n": 1
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-24.0",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999979785059167e-07,
+     "largest_error_kg": 2.021494083237485e-12,
+     "n": 1063,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006884274542244384,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -4.001071400239198e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923933393600246,
+     "n": 1063
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.262789847100137,
+     "lowest_elevation_margin_deg": 6.262789847100137,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.88905681261994,
+     "n": 1920,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.34518689584425033,
+     "unit": "m",
+     "margin_guided": 10.828751264870107,
+     "flight_min_clearance": 10.718122324187789,
+     "flight_closest_true_pass": null,
+     "n": 2934,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.11062894068231799
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1986859341654088,
+     "margin_down": 1.2022971829798135,
+     "margin_horizontal": 1.1986859341654088,
+     "v_down": 0.9313028170201865,
+     "v_horizontal": 0.02051406583459117,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.375986514334186,
+     "margin_lower_limb": 1.1111651233999522,
+     "sun_azimuth": 345.773919047026,
+     "sun_elevation": 1.791435568161574,
+     "horizon": 0.4154490538273877,
+     "semidiameter": 0.26482139093423396,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 146.7343861464112,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-72.0",
+   "epoch": 1,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1131,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.004504745013946376,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -0.0008410782074577128,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923928337698983,
+     "n": 1131
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 1.5943409240183168,
+     "lowest_elevation_margin_deg": 1.5943409240183168,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.87492623100798,
+     "n": 1960,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.18206421558798525,
+     "unit": "m",
+     "margin_guided": 18.168051000400936,
+     "flight_min_clearance": 18.06092340676429,
+     "flight_closest_true_pass": null,
+     "n": 3041,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.10712759363664759
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g0.0",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.9999818456331e-07,
+     "largest_error_kg": 1.815436689867056e-12,
+     "n": 1021,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0072479798682252294,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -7.647482362926894e-06,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.0992393416638251,
+     "n": 1021
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.91520999512915,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.22345323007212414,
+     "unit": "m",
+     "margin_guided": 14.466786230993478,
+     "flight_min_clearance": 14.391698286859139,
+     "flight_closest_true_pass": null,
+     "n": 2853,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.07508794413433861
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1944831740066686,
+     "margin_down": 1.1944831740066686,
+     "margin_horizontal": 1.2152262094144184,
+     "v_down": 0.9391168259933314,
+     "v_horizontal": 0.003973790585581639,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.376388987950273,
+     "margin_lower_limb": 1.1115676004125854,
+     "sun_azimuth": 345.7817514192136,
+     "sun_elevation": 1.7914551604399649,
+     "horizon": 0.4150661724896918,
+     "semidiameter": 0.2648213875376877,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 142.6812827085098,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g168.0",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 1161,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": 0.0,
+     "margin_low_N": 0.0028463216449381434,
+     "margin_high_N": 0.0,
+     "margin_tilt_deg": -0.0013525874142814587,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.5954351259749869,
+     "delivered_min_fraction": 0.0992392481396679,
+     "n": 1161
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -9.642653188947179,
+     "lowest_elevation_margin_deg": -9.642653188947179,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 234.16544960501915,
+     "n": 2400,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.12125775376350134,
+     "unit": "m",
+     "margin_guided": 47.256513930516405,
+     "flight_min_clearance": 47.03487778178689,
+     "flight_closest_true_pass": null,
+     "n": 3500,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.22163614872951598
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1915623572123866,
+     "margin_down": 1.1915623572123866,
+     "margin_horizontal": 1.2154872723494645,
+     "v_down": 0.9420376427876135,
+     "v_horizontal": 0.003712727650535562,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.3844876556299053,
+     "margin_lower_limb": 1.1196662413244094,
+     "sun_azimuth": 348.78456426627935,
+     "sun_elevation": 1.7846855814709361,
+     "horizon": 0.40019792584103087,
+     "semidiameter": 0.26482141430549583,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 175.04364370322094,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g24.0",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1015,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006656459856458241,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -1.598434384675329e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923932909551385,
+     "n": 1015
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 257.2886441848422,
+     "n": 1920,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.15758387518093286,
+     "unit": "m",
+     "margin_guided": 12.167839931758124,
+     "flight_min_clearance": 12.077625691365029,
+     "flight_closest_true_pass": null,
+     "n": 2886,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.09021424039309522
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1896624518617465,
+     "margin_down": 1.1926351450360415,
+     "margin_horizontal": 1.1896624518617465,
+     "v_down": 0.9409648549639585,
+     "v_horizontal": 0.029537548138253673,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.3754208132571726,
+     "margin_lower_limb": 1.110599424436664,
+     "sun_azimuth": 345.74094888137273,
+     "sun_elevation": 1.7898070541586089,
+     "horizon": 0.41438624090143633,
+     "semidiameter": 0.26482138882050854,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 144.31632026224491,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g72.0",
+   "epoch": 1,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1055,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -2.4923216471961496e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 1055
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 257.21798993196967,
+     "n": 1960,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.17779385707507345,
+     "unit": "m",
+     "margin_guided": 21.781255213947304,
+     "flight_min_clearance": 21.593216626270305,
+     "flight_closest_true_pass": null,
+     "n": 2965,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.1880385876769992
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1704321098290926,
+     "margin_down": 1.1972169360513778,
+     "margin_horizontal": 1.1704321098290926,
+     "v_down": 0.936383063948622,
+     "v_horizontal": 0.0487678901709074,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.3756524079320356,
+     "margin_lower_limb": 1.110831015788996,
+     "sun_azimuth": 345.7443642896588,
+     "sun_elevation": 1.7898716811657263,
+     "horizon": 0.4142192732336907,
+     "semidiameter": 0.26482139214303957,
+     "landing_utc": "2010-09-23T05:56:54.669",
+     "t": 148.2757550297184,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-168.0",
+   "epoch": 2,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.99998749444785e-07,
+     "largest_error_kg": 1.2505552149377763e-12,
+     "n": 792,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -1.9472623110510324e-17,
+     "margin_low_N": -9.094947017729282e-13,
+     "margin_high_N": 0.0,
+     "margin_tilt_deg": -2.8910985726327e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.5954351259749869,
+     "delivered_min_fraction": 0.09923918766249783,
+     "n": 792
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 0.049048350567236554,
+     "lowest_elevation_margin_deg": 0.049048350567236554,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 322.80216057458694,
+     "n": 1960,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.35914275993479805,
+     "unit": "m",
+     "margin_guided": 35.28318783611218,
+     "flight_min_clearance": 34.958561871676125,
+     "flight_closest_true_pass": null,
+     "n": 2702,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.3246259644360521
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-24.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999982378540153e-07,
+     "largest_error_kg": 1.7621459846850485e-12,
+     "n": 1030,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006532445070661197,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -5.582763738942731e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923932646051183,
+     "n": 1030
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.8112696988949,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.24547935484901018,
+     "unit": "m",
+     "margin_guided": 16.407024124079214,
+     "flight_min_clearance": 16.318311979752707,
+     "flight_closest_true_pass": null,
+     "n": 2862,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.08871214432650731
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.196227878142878,
+     "margin_down": 1.196227878142878,
+     "margin_horizontal": 1.2170654886934076,
+     "v_down": 0.9373721218571219,
+     "v_horizontal": 0.0021345113065925794,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.4852258170653023,
+     "margin_lower_limb": 2.2201447689923617,
+     "sun_azimuth": 315.7929465896902,
+     "sun_elevation": 1.7329604381862749,
+     "horizon": -0.7522653788790274,
+     "semidiameter": 0.26508104807294036,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 143.1458697491508,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-72.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.99998749444785e-07,
+     "largest_error_kg": 1.2505552149377763e-12,
+     "n": 1079,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006657011377683375,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -9.803375483130594e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923932910723228,
+     "n": 1079
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.91786163138931,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.21591176173441795,
+     "unit": "m",
+     "margin_guided": 17.47164983967511,
+     "flight_min_clearance": 17.406914269957213,
+     "flight_closest_true_pass": null,
+     "n": 2911,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.06473556971789662
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.2045924714813587,
+     "margin_down": 1.2045924714813587,
+     "margin_horizontal": 1.2090344372259532,
+     "v_down": 0.9290075285186412,
+     "v_horizontal": 0.010165562774046823,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.4854328355688686,
+     "margin_lower_limb": 2.220351783626323,
+     "sun_azimuth": 315.76966335568824,
+     "sun_elevation": 1.7328865673172265,
+     "horizon": -0.7525462682516422,
+     "semidiameter": 0.26508105194254605,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 145.5794441806272,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g0.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.99998649968802e-07,
+     "largest_error_kg": 1.3500311979441904e-12,
+     "n": 1021,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.007074344581269543,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -1.3014556976997937e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923933797451233,
+     "n": 1021
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.9136489151942,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.24012438713651818,
+     "unit": "m",
+     "margin_guided": 13.979571094861,
+     "flight_min_clearance": 13.908762615714977,
+     "flight_closest_true_pass": null,
+     "n": 2853,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.07080847914602373
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1945799261227723,
+     "margin_down": 1.1945799261227723,
+     "margin_horizontal": 1.215299465172984,
+     "v_down": 0.9390200738772276,
+     "v_horizontal": 0.003900534827016121,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.485160225573069,
+     "margin_lower_limb": 2.220079178214409,
+     "sun_azimuth": 315.78168754837446,
+     "sun_elevation": 1.7329151787275991,
+     "horizon": -0.7522450468454701,
+     "semidiameter": 0.26508104735866,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 142.69863377197044,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g168.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 1016,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.007587331660033669,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -0.0003655638078541301,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923934887419643,
+     "n": 1016
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -18.139048681485654,
+     "lowest_elevation_margin_deg": -18.139048681485654,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 36.66935584426025,
+     "n": 2600,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.21913191839922064,
+     "unit": "m",
+     "margin_guided": 45.02236917480579,
+     "flight_min_clearance": 44.823693528993715,
+     "flight_closest_true_pass": null,
+     "n": 3550,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.19867564581207375
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1938168271783978,
+     "margin_down": 1.1938168271783978,
+     "margin_horizontal": 1.2173007058155894,
+     "v_down": 0.9397831728216021,
+     "v_horizontal": 0.0018992941844107232,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.3483406017325037,
+     "margin_lower_limb": 2.083259496967132,
+     "sun_azimuth": 321.59734745002453,
+     "sun_elevation": 1.7703079720735018,
+     "horizon": -0.5780326296590019,
+     "semidiameter": 0.2650811047653719,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 177.5156503088693,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g24.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1008,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.009884954765766452,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -2.1784642257216547e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923939769290374,
+     "n": 1008
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 255.007989125331,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.20556982051101613,
+     "unit": "m",
+     "margin_guided": 24.27024583842575,
+     "flight_min_clearance": 24.185838813908447,
+     "flight_closest_true_pass": null,
+     "n": 2840,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.08440702451730431
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1914967630029871,
+     "margin_down": 1.1914967630029871,
+     "margin_horizontal": 1.211556697623037,
+     "v_down": 0.9421032369970128,
+     "v_horizontal": 0.0076433023769631,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.485278487997212,
+     "margin_lower_limb": 2.220197441723763,
+     "sun_azimuth": 315.7723880159572,
+     "sun_elevation": 1.732888385654627,
+     "horizon": -0.7523901023425851,
+     "semidiameter": 0.2650810462734492,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 142.01773812646005,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g72.0",
+   "epoch": 2,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987529974987e-07,
+     "largest_error_kg": 1.2470025012589758e-12,
+     "n": 988,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -4.313184419402205e-06,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 988
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 255.17931370341665,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.16220974991082926,
+     "unit": "m",
+     "margin_guided": 18.030206786445262,
+     "flight_min_clearance": 17.90995218713192,
+     "flight_closest_true_pass": null,
+     "n": 2820,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.12025459931334126
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1908625085058637,
+     "margin_down": 1.1908625085058637,
+     "margin_horizontal": 1.1923356304239465,
+     "v_down": 0.9427374914941362,
+     "v_horizontal": 0.026864369576053614,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.4862001008437473,
+     "margin_lower_limb": 2.2211190561668612,
+     "sun_azimuth": 315.744155112799,
+     "sun_elevation": 1.7326231243716192,
+     "horizon": -0.7535769764721281,
+     "semidiameter": 0.26508104467688626,
+     "landing_utc": "2010-09-25T17:06:25.958",
+     "t": 141.0235817636331,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-168.0",
+   "epoch": 3,
+   "outcome": "abort",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 273,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "PASS",
+     "margin": 2.3169631569220176e-06,
+     "margin_low_N": 5.2085904878067595,
+     "margin_high_N": 0.1082168387620186,
+     "margin_tilt_deg": 3.9228133139048964,
+     "abort_engine_rel_error": 0.0,
+     "delivered_max_fraction": 0.5954328266395716,
+     "delivered_min_fraction": 0.09934985709906402,
+     "n": 20
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": null,
+     "n": 800,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 997.6219767368309,
+     "unit": "m",
+     "margin_guided": 1385.9304982905294,
+     "flight_min_clearance": null,
+     "flight_closest_true_pass": 997.063481839564,
+     "n": 8285,
+     "off_terrain": 517,
+     "lowest_phase": "abort burn"
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [
+      [
+       "lost lock",
+       20
+      ]
+     ],
+     "real": [
+      true
+     ],
+     "missed": [],
+     "n_missed": 0,
+     "n": 1
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-24.0",
+   "epoch": 3,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999977795539507e-07,
+     "largest_error_kg": 2.220446049250313e-12,
+     "n": 1021,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.006521695268020267,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -4.350497526672825e-06,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923932623210557,
+     "n": 1021
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.90271816549472,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.20016629249454354,
+     "unit": "m",
+     "margin_guided": 13.959032375253003,
+     "flight_min_clearance": 13.87718193142382,
+     "flight_closest_true_pass": null,
+     "n": 2853,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.0818504438291825
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.194399244890466,
+     "margin_down": 1.194399244890466,
+     "margin_horizontal": 1.2149216677075947,
+     "v_down": 0.9392007551095339,
+     "v_horizontal": 0.0042783322924053535,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.0600671291188926,
+     "margin_lower_limb": 1.7945772035353713,
+     "sun_azimuth": 285.7832311693703,
+     "sun_elevation": 1.6167114061449517,
+     "horizon": -0.44335572297394066,
+     "semidiameter": 0.265489925583521,
+     "landing_utc": "2010-09-28T04:14:46.935",
+     "t": 142.65379819783857,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-72.0",
+   "epoch": 3,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999987814192081e-07,
+     "largest_error_kg": 1.2185807918285718e-12,
+     "n": 1033,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.007403904030070407,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -7.299133727656226e-06,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923934497682103,
+     "n": 1033
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 1.3560982812895759,
+     "lowest_elevation_margin_deg": 1.3560982812895759,
+     "margin_true_site_deg": 2.977351692739518,
+     "true_site_height": 257.01208344777854,
+     "n": 1920,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.20299614612952155,
+     "unit": "m",
+     "margin_guided": 8.886367513946198,
+     "flight_min_clearance": 8.63499960213278,
+     "flight_closest_true_pass": null,
+     "n": 2904,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.2513679118134178
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1975544191074299,
+     "margin_down": 1.1975544191074299,
+     "margin_horizontal": 1.2073957236313029,
+     "v_down": 0.93604558089257,
+     "v_horizontal": 0.011804276368697176,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.0586203776976304,
+     "margin_lower_limb": 1.793130446449839,
+     "sun_azimuth": 285.76962281507224,
+     "sun_elevation": 1.6162228231662712,
+     "horizon": -0.4423975545313593,
+     "semidiameter": 0.2654899312477915,
+     "landing_utc": "2010-09-28T04:14:46.935",
+     "t": 145.22401131241267,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g0.0",
+   "epoch": 3,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999985682563874e-07,
+     "largest_error_kg": 1.4317436125566019e-12,
+     "n": 1021,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": -7.78904924420413e-17,
+     "margin_low_N": 0.0071155967698359746,
+     "margin_high_N": -3.637978807091713e-12,
+     "margin_tilt_deg": -3.211573056205452e-05,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.595435125974987,
+     "delivered_min_fraction": 0.09923933885101749,
+     "n": 1021
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 254.91289971585704,
+     "n": 1880,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.239415055840567,
+     "unit": "m",
+     "margin_guided": 14.100397637061974,
+     "flight_min_clearance": 14.0292441775415,
+     "flight_closest_true_pass": null,
+     "n": 2853,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.07115345952047392
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.1945450565493734,
+     "margin_down": 1.1945450565493734,
+     "margin_horizontal": 1.215264475001299,
+     "v_down": 0.9390549434506267,
+     "v_horizontal": 0.003935524998700946,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 2.0600986820720038,
+     "margin_lower_limb": 1.7946087563913782,
+     "sun_azimuth": 285.78181671591364,
+     "sun_elevation": 1.6167037864777718,
+     "horizon": -0.4433948955942318,
+     "semidiameter": 0.2654899256806253,
+     "landing_utc": "2010-09-28T04:14:46.935",
+     "t": 142.69784244654187,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g168.0",
+   "epoch": 3,
+   "outcome": "abort",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 273,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "PASS",
+     "margin": 2.3169631569220176e-06,
+     "margin_low_N": 5.2085904878067595,
+     "margin_high_N": 0.1082168387620186,
+     "margin_tilt_deg": 3.9228133139048964,
+     "abort_engine_rel_error": 0.0,
+     "delivered_max_fraction": 0.5954328266395716,
+     "delivered_min_fraction": 0.09934985709906402,
+     "n": 20
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "PASS",
+     "margin": 6.459340320035203,
+     "lowest_elevation_margin_deg": 6.459340320035203,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": null,
+     "n": 800,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 997.6219767368309,
+     "unit": "m",
+     "margin_guided": 1385.9304982905294,
+     "flight_min_clearance": null,
+     "flight_closest_true_pass": 997.063481839564,
+     "n": 8285,
+     "off_terrain": 517,
+     "lowest_phase": "abort burn"
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [
+      [
+       "lost lock",
+       20
+      ]
+     ],
+     "real": [
+      true
+     ],
+     "missed": [],
+     "n_missed": 0,
+     "n": 1
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g24.0",
+   "epoch": 3,
+   "outcome": "unsafe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 841,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": 0.0,
+     "margin_low_N": 0.0,
+     "margin_high_N": 0.005855902712937677,
+     "margin_tilt_deg": -0.0003319395706284922,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.5954350015517951,
+     "delivered_min_fraction": 0.09923918766249784,
+     "n": 841
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -12.298082896334751,
+     "lowest_elevation_margin_deg": -12.298082896334751,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 150.2085880454311,
+     "n": 2240,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.3298799771856409,
+     "unit": "m",
+     "margin_guided": 36.91794972015083,
+     "flight_min_clearance": 36.61599744386487,
+     "flight_closest_true_pass": null,
+     "n": 3024,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.30195227628595944
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "margin": null,
+     "n": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g72.0",
+   "epoch": 3,
+   "outcome": "safe landing",
+   "checks": [
+    {
+     "check": "1 mass flow",
+     "verdict": "PASS",
+     "margin": 9.999983550935667e-07,
+     "largest_error_kg": 1.644906433284632e-12,
+     "n": 1293,
+     "unit": "kg"
+    },
+    {
+     "check": "2 thrust and pointing",
+     "verdict": "FAIL",
+     "margin": 0.0,
+     "margin_low_N": 0.04024083671538392,
+     "margin_high_N": 0.0,
+     "margin_tilt_deg": -0.0005704124375043307,
+     "abort_engine_rel_error": null,
+     "delivered_max_fraction": 0.5954351259749869,
+     "delivered_min_fraction": 0.09924004267898198,
+     "n": 1293
+    },
+    {
+     "check": "3 glide slope",
+     "verdict": "FAIL",
+     "margin": -15.203163834918742,
+     "lowest_elevation_margin_deg": -15.203163834918742,
+     "margin_true_site_deg": 6.459340320035203,
+     "true_site_height": 184.32486489518527,
+     "n": 2520,
+     "unit": "deg"
+    },
+    {
+     "check": "4 terrain clearance",
+     "verdict": "PASS",
+     "margin": 0.15313988966815373,
+     "unit": "m",
+     "margin_guided": 56.43995930540575,
+     "flight_min_clearance": 56.29300627965657,
+     "flight_closest_true_pass": null,
+     "n": 3749,
+     "off_terrain": 0,
+     "lowest_phase": "descent",
+     "clearance_minus_recorded": 0.146953025749184
+    },
+    {
+     "check": "5 touchdown velocity",
+     "verdict": "PASS",
+     "margin": 1.191961371931189,
+     "margin_down": 1.191961371931189,
+     "margin_horizontal": 1.217315617681558,
+     "v_down": 0.9416386280688109,
+     "v_horizontal": 0.0018843823184420015,
+     "unit": "m/s",
+     "n": 1
+    },
+    {
+     "check": "6 site lit",
+     "verdict": "PASS",
+     "unit": "deg",
+     "n": 1,
+     "margin": 1.9713828063843826,
+     "margin_lower_limb": 1.7058927807565074,
+     "sun_azimuth": 289.537421730251,
+     "sun_elevation": 1.6322264485533515,
+     "horizon": -0.33915635783103115,
+     "semidiameter": 0.2654900256278752,
+     "landing_utc": "2010-09-28T04:14:46.935",
+     "t": 187.4666298054977,
+     "samples_outside_grid": 0
+    },
+    {
+     "check": "7 triggers",
+     "verdict": "PASS",
+     "margin": null,
+     "fired": [],
+     "real": [],
+     "missed": [],
+     "n_missed": 0,
+     "n": 0
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "1 mass flow": {
+   "PASS": 32,
+   "FAIL": 0,
+   "other": 0,
+   "margin": {
+    "n": 32,
+    "smallest": 9.999976161291215e-07,
+    "median": 9.999983550935667e-07,
+    "largest": 9.999987814192081e-07
+   },
+   "largest_error_kg": {
+    "n": 32,
+    "smallest": 1.2185807918285718e-12,
+    "median": 1.644906433284632e-12,
+    "largest": 2.383870878475136e-12
+   }
+  },
+  "2 thrust and pointing": {
+   "PASS": 5,
+   "FAIL": 27,
+   "other": 0,
+   "margin": {
+    "n": 32,
+    "smallest": -7.78904924420413e-17,
+    "median": -7.78904924420413e-17,
+    "largest": 2.3169631569220176e-06
+   },
+   "margin_low_N": {
+    "n": 32,
+    "smallest": -9.094947017729282e-13,
+    "median": 0.0067706429599638795,
+    "largest": 5.2085904878067595
+   },
+   "margin_high_N": {
+    "n": 32,
+    "smallest": -3.637978807091713e-12,
+    "median": -3.637978807091713e-12,
+    "largest": 0.1082168387620186
+   },
+   "margin_tilt_deg": {
+    "n": 32,
+    "smallest": -0.0013525874142814587,
+    "median": -3.3682893956665794e-05,
+    "largest": 3.9228133139048964
+   },
+   "abort_engine_rel_error": {
+    "n": 5,
+    "smallest": 0.0,
+    "median": 0.0,
+    "largest": 0.0
+   },
+   "delivered_max_fraction": {
+    "n": 32,
+    "smallest": 0.5954328266395716,
+    "median": 0.595435125974987,
+    "largest": 0.595435125974987
+   },
+   "delivered_min_fraction": {
+    "n": 32,
+    "smallest": 0.09923918766249783,
+    "median": 0.09923933152161737,
+    "largest": 0.09934985709906402
+   }
+  },
+  "3 glide slope": {
+   "PASS": 23,
+   "FAIL": 9,
+   "other": 0,
+   "margin": {
+    "n": 32,
+    "smallest": -18.139048681485654,
+    "median": 6.459340320035203,
+    "largest": 6.459340320035203
+   },
+   "margin_true_site_deg": {
+    "n": 32,
+    "smallest": 2.977351692739518,
+    "median": 6.459340320035203,
+    "largest": 6.459340320035203
+   }
+  },
+  "4 terrain clearance": {
+   "PASS": 32,
+   "FAIL": 0,
+   "other": 0,
+   "margin": {
+    "n": 32,
+    "smallest": 0.12125775376350134,
+    "median": 0.23143414295634557,
+    "largest": 997.6219767368309
+   },
+   "clearance_minus_recorded": {
+    "n": 27,
+    "smallest": 0.0054904513686437895,
+    "median": 0.12025459931334126,
+    "largest": 0.3320082491340486
+   }
+  },
+  "5 touchdown velocity": {
+   "PASS": 32,
+   "FAIL": 0,
+   "other": 0,
+   "margin": {
+    "n": 20,
+    "smallest": 1.1704321098290926,
+    "median": 1.1930797172980951,
+    "largest": 1.2045924714813587
+   },
+   "margin_down": {
+    "n": 20,
+    "smallest": 1.1908625085058637,
+    "median": 1.1941080360344318,
+    "largest": 1.2045924714813587
+   },
+   "margin_horizontal": {
+    "n": 20,
+    "smallest": 1.1704321098290926,
+    "median": 1.2152453422078588,
+    "largest": 1.2176825425563111
+   }
+  },
+  "6 site lit": {
+   "PASS": 32,
+   "FAIL": 0,
+   "other": 0,
+   "margin": {
+    "n": 20,
+    "smallest": 1.2818387758940561,
+    "median": 2.0593437534082613,
+    "largest": 2.4862001008437473
+   },
+   "margin_lower_limb": {
+    "n": 20,
+    "smallest": 1.014876564528159,
+    "median": 1.7938538249926053,
+    "largest": 2.2211190561668612
+   },
+   "horizon": {
+    "n": 20,
+    "smallest": -0.7535769764721281,
+    "median": -0.44287663875265,
+    "largest": 0.45174779656674313
+   },
+   "sun_elevation": {
+    "n": 20,
+    "smallest": 1.6155893643134107,
+    "median": 1.7329017821911132,
+    "largest": 1.802363674567292
+   }
+  },
+  "7 triggers": {
+   "PASS": 32,
+   "FAIL": 0,
+   "other": 0,
+   "margin": {
+    "n": 0
+   }
+  }
+ }
+}

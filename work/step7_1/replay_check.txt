@@ -1,0 +1,192 @@
+d00_notrn_eNone_gNone 0 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 1 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 2 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 3 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-168.0 0 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-24.0 0 unsafe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-72.0 0 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g0.0 0 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g168.0 0 unsafe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g24.0 0 unsafe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g72.0 0 unsafe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-168.0 1 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-24.0 1 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-72.0 1 unsafe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g0.0 1 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g168.0 1 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g24.0 1 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g72.0 1 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-168.0 2 unsafe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-24.0 2 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-72.0 2 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g0.0 2 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g168.0 2 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g24.0 2 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g72.0 2 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-168.0 3 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-24.0 3 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-72.0 3 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g0.0 3 safe landing 1:PASS 2:FAIL 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g168.0 3 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g24.0 3 unsafe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g72.0 3 safe landing 1:PASS 2:FAIL 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+{
+ "1 mass flow": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": 9.999976161291215e-07,
+   "median": 9.999983550935667e-07,
+   "largest": 9.999987814192081e-07
+  },
+  "largest_error_kg": {
+   "n": 32,
+   "smallest": 1.2185807918285718e-12,
+   "median": 1.644906433284632e-12,
+   "largest": 2.383870878475136e-12
+  }
+ },
+ "2 thrust and pointing": {
+  "PASS": 5,
+  "FAIL": 27,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": -7.78904924420413e-17,
+   "median": -7.78904924420413e-17,
+   "largest": 2.3169631569220176e-06
+  },
+  "margin_low_N": {
+   "n": 32,
+   "smallest": -9.094947017729282e-13,
+   "median": 0.0067706429599638795,
+   "largest": 5.2085904878067595
+  },
+  "margin_high_N": {
+   "n": 32,
+   "smallest": -3.637978807091713e-12,
+   "median": -3.637978807091713e-12,
+   "largest": 0.1082168387620186
+  },
+  "margin_tilt_deg": {
+   "n": 32,
+   "smallest": -0.0013525874142814587,
+   "median": -3.3682893956665794e-05,
+   "largest": 3.9228133139048964
+  },
+  "abort_engine_rel_error": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "delivered_max_fraction": {
+   "n": 32,
+   "smallest": 0.5954328266395716,
+   "median": 0.595435125974987,
+   "largest": 0.595435125974987
+  },
+  "delivered_min_fraction": {
+   "n": 32,
+   "smallest": 0.09923918766249783,
+   "median": 0.09923933152161737,
+   "largest": 0.09934985709906402
+  }
+ },
+ "3 glide slope": {
+  "PASS": 23,
+  "FAIL": 9,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": -18.139048681485654,
+   "median": 6.459340320035203,
+   "largest": 6.459340320035203
+  },
+  "margin_true_site_deg": {
+   "n": 32,
+   "smallest": 2.977351692739518,
+   "median": 6.459340320035203,
+   "largest": 6.459340320035203
+  }
+ },
+ "4 terrain clearance": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": 0.12125775376350134,
+   "median": 0.23143414295634557,
+   "largest": 997.6219767368309
+  },
+  "clearance_minus_recorded": {
+   "n": 27,
+   "smallest": 0.0054904513686437895,
+   "median": 0.12025459931334126,
+   "largest": 0.3320082491340486
+  }
+ },
+ "5 touchdown velocity": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 20,
+   "smallest": 1.1704321098290926,
+   "median": 1.1930797172980951,
+   "largest": 1.2045924714813587
+  },
+  "margin_down": {
+   "n": 20,
+   "smallest": 1.1908625085058637,
+   "median": 1.1941080360344318,
+   "largest": 1.2045924714813587
+  },
+  "margin_horizontal": {
+   "n": 20,
+   "smallest": 1.1704321098290926,
+   "median": 1.2152453422078588,
+   "largest": 1.2176825425563111
+  }
+ },
+ "6 site lit": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 20,
+   "smallest": 1.2818387758940561,
+   "median": 2.0593437534082613,
+   "largest": 2.4862001008437473
+  },
+  "margin_lower_limb": {
+   "n": 20,
+   "smallest": 1.014876564528159,
+   "median": 1.7938538249926053,
+   "largest": 2.2211190561668612
+  },
+  "horizon": {
+   "n": 20,
+   "smallest": -0.7535769764721281,
+   "median": -0.44287663875265,
+   "largest": 0.45174779656674313
+  },
+  "sun_elevation": {
+   "n": 20,
+   "smallest": 1.6155893643134107,
+   "median": 1.7329017821911132,
+   "largest": 1.802363674567292
+  }
+ },
+ "7 triggers": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  }
+ }
+}

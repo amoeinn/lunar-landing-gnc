@@ -1,0 +1,30 @@
+{
+ "jobs": 2,
+ "arrays_compared": 230,
+ "identical": 0,
+ "identical_but_wall_clock": 2,
+ "differing_beyond_wall_clock": [],
+ "missing_in_new": [],
+ "added": [
+  "e0_est_phase",
+  "e0_est_pos",
+  "e0_est_t",
+  "e0_est_vel",
+  "e1_est_phase",
+  "e1_est_pos",
+  "e1_est_t",
+  "e1_est_vel",
+  "e2_est_phase",
+  "e2_est_pos",
+  "e2_est_t",
+  "e2_est_vel",
+  "e3_est_phase",
+  "e3_est_pos",
+  "e3_est_t",
+  "e3_est_vel",
+  "est_phase",
+  "est_pos",
+  "est_t",
+  "est_vel"
+ ]
+}

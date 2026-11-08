@@ -1,0 +1,4 @@
+jobs 31 same_record 31 triggers equal 32 of 37
+largest overlap differences {'touchdown_x': np.float64(0.0), 'touchdown_y': np.float64(0.0), 't_touchdown': 0.0, 'v_down': np.float64(0.0), 'v_horizontal': 0.0, 'propellant': np.float64(0.0), 'abort_propellant': 4.547473508864641e-13}
+EQUAL 31 of 31
+bitcheck exit 0

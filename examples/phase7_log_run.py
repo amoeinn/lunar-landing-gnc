@@ -20,6 +20,9 @@ are read through wrappers and a subclass that only observe:
     trigger it returns (and those of landing.choose's divert solves, tagged);
   - landing.choose, wrapped: the candidates with detected-safe and lit
     flags, every candidate tried and its outcome, the choice;
+  - navonline.Online._sample, wrapped at the class: the flight's own
+    filter's estimate (its map position and velocity, x[0:6]) after it processes each
+    20 Hz tick, with the filter's time and the phase in force (D97);
   - a Flight subclass (as examples/phase6_abort_check.py's Grab): the phase
     in force, and each abort sample's map position and velocity as the
     flight itself maps it (_plane_map, read where _abort_clearance judges it).
@@ -64,6 +67,7 @@ class Obs:
     decision = None
     abort_samples = []
     solves = []                 # each guidance solve: phase, step, steps n, status (D92)
+    estimates = []              # the flight's filter after each 20 Hz tick: phase, time, map position and velocity (D97)
 
 
 def _rhs_name(fun):
@@ -143,6 +147,18 @@ def install():
             return sol
         return solve
 
+    from lunar_landing_gnc import navonline as NO
+    sample = NO.Online._sample
+
+    def _sample(self, i, extra):
+        out = sample(self, i, extra)
+        if Obs.on and i % NO.ALT_EVERY == 0:
+            fs = getattr(Obs.flight, "s", None)
+            if fs is not None and fs.get("filt") is self:     # the observed flight's own filter only
+                Obs.estimates.append((Obs.phase, float(self.t[i]), [float(v) for v in self.x[0:6]]))
+        return out
+
+    NO.Online._sample = _sample
     EF.solve_ivp, CL.trigger, LD.choose = solve_ivp, trigger, choose_w
     GD.solve, CL.solve = solve_wrap(GD.solve), solve_wrap(CL.solve)     # D92: status only, the result returned as is
     EF._phase7_wrapped = True
@@ -208,17 +224,20 @@ def flight_class():
 
 def snapshot_obs():
     return copy.deepcopy(dict(holds=Obs.holds, triggers=Obs.triggers, decision=Obs.decision,
-                              abort_samples=Obs.abort_samples, phase=Obs.phase, solves=Obs.solves))
+                              abort_samples=Obs.abort_samples, phase=Obs.phase, solves=Obs.solves,
+                              estimates=Obs.estimates))
 
 
 def restore_obs(o):
     o = copy.deepcopy(o)
     Obs.holds, Obs.triggers, Obs.decision = o["holds"], o["triggers"], o["decision"]
     Obs.abort_samples, Obs.phase, Obs.solves = o["abort_samples"], o["phase"], o["solves"]
+    Obs.estimates = o["estimates"]
 
 
 def reset_obs():
-    restore_obs(dict(holds=[], triggers=[], decision=None, abort_samples=[], phase="guided", solves=[]))
+    restore_obs(dict(holds=[], triggers=[], decision=None, abort_samples=[], phase="guided", solves=[],
+                     estimates=[]))
 
 
 def history(f, out):
@@ -269,6 +288,12 @@ def history(f, out):
     h["solve_step"] = np.array([-1 if x["step"] is None else x["step"] for x in sv], int)
     h["solve_n"] = np.array([x["n"] for x in sv], int)
     h["solve_status"] = np.array([x["status"] for x in sv])
+    # D97: the filter's estimate after each 20 Hz tick (map frame, the frame guidance reads it in less the origin)
+    es = Obs.estimates
+    h["est_phase"] = np.array([x[0] for x in es])
+    h["est_t"] = np.array([x[1] for x in es], float)
+    h["est_pos"] = np.array([x[2][0:3] for x in es], float).reshape(-1, 3)
+    h["est_vel"] = np.array([x[2][3:6] for x in es], float).reshape(-1, 3)
     tr = Obs.triggers
     h["trig_phase"] = np.array([x["phase"] for x in tr])
     h["trig_step"] = np.array([x["step"] for x in tr], int)

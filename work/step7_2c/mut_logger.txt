@@ -1,0 +1,9 @@
+applied
+reverted; runner exit 0
+same_record False -> mutation CAUGHT
+fields that differ: ['dem_minus_truth', 'distance', 'fixes_full', 'map_shift', 'min_above_site', 'min_clearance', 'miss_target', 'miss_true_site', 'miss_true_site_by_pose', 'nav_error_decision', 'nav_error_h', 'propellant', 'q', 'seconds', 't_touchdown', 'touchdown', 'true_site', 'v_down', 'v_horizontal']
+propellant 605.2553872537237 605.2529622774846
+t_touchdown 142.68033286350465 142.68033718335116
+v_down 0.9391491490875202 0.9391491292002724
+min_clearance 19.77788412142189 19.780720749785417
+53.55 s 1332112 KB

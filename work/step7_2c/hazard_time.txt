@@ -1,0 +1,23 @@
+	Command being timed: "systemd-run --user --scope -q -p MemoryMax=8G -p MemorySwapMax=0 timeout 1800 .venv/bin/python -B -W ignore examples/phase7_log_run.py --seed 2 --first-draw 1 --draws 1 --gaps=-24 --epochs 0 --out work/step7_2c/hazard --cast cpp --workers 4"
+	User time (seconds): 163.65
+	System time (seconds): 14.27
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:56.78
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1342652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 23
+	Minor (reclaiming a frame) page faults: 5532407
+	Voluntary context switches: 280
+	Involuntary context switches: 1541
+	Swaps: 0
+	File system inputs: 824
+	File system outputs: 402848
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

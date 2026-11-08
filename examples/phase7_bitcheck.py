@@ -13,6 +13,13 @@ their times (from the guidance steps' logged fired triggers); the abort's
 propellant (from the last abort hold's mass, less the ascent stage's dry
 mass, as abort.py counts it). Each is reported as its largest
 absolute difference; exact agreement is 0.
+
+The verdict is on the records: EQUAL n of n, exit 0, when every job of
+REFERENCE has a record in LOGGED, LOGGED has no job REFERENCE lacks, and every
+pair is equal by same_record; otherwise DIFFER with the first differing job and
+field, exit 1. With --subset, LOGGED is a deliberate subset of REFERENCE (a
+development check on a few jobs): reference jobs absent from LOGGED are then
+not counted as missing.
 """
 import argparse
 import json
@@ -67,19 +74,64 @@ def overlap(row, h, m):
     return out
 
 
+def first_difference(a, b, path=""):
+    """The first field, as a path, where the two records differ after
+    phase6_summary.strip (the comparison same_record makes); None if none."""
+    if isinstance(a, dict) and isinstance(b, dict):
+        for k in sorted(set(a) | set(b)):
+            if k not in a or k not in b:
+                return f"{path}/{k}"
+            d = first_difference(a[k], b[k], f"{path}/{k}")
+            if d is not None:
+                return d
+        return None
+    if isinstance(a, list) and isinstance(b, list):
+        if len(a) != len(b):
+            return f"{path} (length {len(a)} against {len(b)})"
+        for i, (x, y) in enumerate(zip(a, b)):
+            d = first_difference(x, y, f"{path}[{i}]")
+            if d is not None:
+                return d
+        return None
+    return None if json.dumps(a) == json.dumps(b) else (path or "/")
+
+
+def verdict(lg, rf, res, subset=False):
+    """EQUAL n of n (0) or DIFFER with the first differing job and field (1)."""
+    have = {p.stem for p in lg.glob("d*.json")}
+    want = {p.stem for p in rf.glob("d*.json")}
+    extra = sorted(have - want)
+    missing = [] if subset else sorted(want - have)
+    bad = [r for r in res if not r["same_record"]]
+    if extra:
+        return 1, f"DIFFER: {len(extra)} extra (first {extra[0]}, not in the reference)"
+    if missing:
+        return 1, f"DIFFER: {len(missing)} missing (first {missing[0]}, no logged record)"
+    if bad:
+        return 1, f"DIFFER: {len(bad)} of {len(res)} records (first {bad[0]['job']}, field {bad[0]['first_difference']})"
+    if not res:
+        return 1, "DIFFER: no logged record"
+    return 0, f"EQUAL {len(res)} of {len(res)}"
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("logged")
     ap.add_argument("reference")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--subset", action="store_true", help="LOGGED is a deliberate subset of REFERENCE")
     a = ap.parse_args(argv)
     lg, rf = Path(a.logged), Path(a.reference)
     res = []
     for p in sorted(lg.glob("d*.json")):
         rec_l = json.loads(p.read_text())
+        if not (rf / p.name).exists():
+            continue                                     # extra: counted by verdict()
         rec_r = json.loads((rf / p.name).read_text())
         npz = p.with_suffix(".npz")
-        r = dict(job=p.stem, same_record=S.same_record(rec_l, rec_r), seconds=rec_l["seconds"],
+        same = S.same_record(rec_l, rec_r)
+        r = dict(job=p.stem, same_record=same, first_difference=None if same else
+                 first_difference(S.strip(rec_l), S.strip(rec_r)), seconds=rec_l["seconds"],
                  reference_seconds=rec_r["seconds"], maxrss_mb=rec_l.get("maxrss_mb"),
                  history_bytes=npz.stat().st_size if npz.exists() else None, flights=[])
         _, flights = C.load_job(lg, p.stem)
@@ -94,7 +146,9 @@ def main(argv):
           "triggers equal", sum(bool(f["triggers_equal"]) for r in res for f in r["flights"]),
           "of", sum(len(r["flights"]) for r in res))
     print("largest overlap differences", worst)
-    return 0
+    rc, line = verdict(lg, rf, res, a.subset)
+    print(line)
+    return rc
 
 
 if __name__ == "__main__":

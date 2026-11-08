@@ -1,0 +1,231 @@
+d01_notrn_eNone_gNone 0 abort 1:PASS 2:PASS 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d01_notrn_eNone_gNone 1 abort 1:PASS 2:PASS 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d01_notrn_eNone_gNone 2 abort 1:PASS 2:PASS 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d01_notrn_eNone_gNone 3 abort 1:PASS 2:PASS 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+d01_trn_e0_g-24.0 0 abort 1:PASS 2:PASS 3:FAIL 4:PASS 5:PASS 6:PASS 7:PASS
+{
+ "1 mass flow": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 5,
+   "smallest": -2.744471316873387e-13,
+   "median": -2.744471316873387e-13,
+   "largest": -2.744471316873387e-13
+  },
+  "tolerance": {
+   "n": 5,
+   "smallest": 4.092726157978177e-12,
+   "median": 4.092726157978177e-12,
+   "largest": 4.092726157978177e-12
+  },
+  "over": {
+   "n": 5,
+   "smallest": 3.818279026290838e-12,
+   "median": 3.818279026290838e-12,
+   "largest": 3.818279026290838e-12
+  },
+  "violations": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "largest_error_kg": {
+   "n": 5,
+   "smallest": 1.652011860642233e-12,
+   "median": 2.397193554770638e-12,
+   "largest": 2.397193554770638e-12
+  }
+ },
+ "2 thrust and pointing": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 5,
+   "smallest": -3.637978807091713e-12,
+   "median": -9.094947017729282e-13,
+   "largest": -9.094947017729282e-13
+  },
+  "tolerance": {
+   "n": 5,
+   "smallest": 6.222532750430865e-12,
+   "median": 6.222532750430865e-12,
+   "largest": 3.7335196502585185e-11
+  },
+  "over": {
+   "n": 5,
+   "smallest": 5.3130380486579364e-12,
+   "median": 5.3130380486579364e-12,
+   "largest": 3.369721769549347e-11
+  },
+  "violations": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "margin_tilt_deg": {
+   "n": 5,
+   "smallest": -3.698380773187182e-06,
+   "median": 2.5031448352308416e-05,
+   "largest": 2.5031448352308416e-05
+  },
+  "tolerance_tilt_deg": {
+   "n": 5,
+   "smallest": 0.0010067373104041073,
+   "median": 0.0010067373104041073,
+   "largest": 0.001115196345364016
+  },
+  "over_tilt_deg": {
+   "n": 5,
+   "smallest": 0.0010317687587564157,
+   "median": 0.0010317687587564157,
+   "largest": 0.0011114979645908288
+  },
+  "abort_engine_rel_error": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "delivered_max_fraction": {
+   "n": 5,
+   "smallest": 0.5956909027896902,
+   "median": 0.5956909027896902,
+   "largest": 0.5956909027896902
+  },
+  "delivered_min_fraction": {
+   "n": 5,
+   "smallest": 0.09928181713161502,
+   "median": 0.09928181713161502,
+   "largest": 0.10008036537630058
+  }
+ },
+ "3 glide slope": {
+  "PASS": 0,
+  "FAIL": 5,
+  "other": 0,
+  "margin": {
+   "n": 5,
+   "smallest": -8.048840173068857,
+   "median": -8.048840173068857,
+   "largest": -5.919387243094882
+  },
+  "tolerance": {
+   "n": 5,
+   "smallest": 0.02348437744319946,
+   "median": 0.026614092264941505,
+   "largest": 0.026614092264941505
+  },
+  "over": {
+   "n": 5,
+   "smallest": -8.022226080803916,
+   "median": -8.022226080803916,
+   "largest": -5.895902865651683
+  },
+  "violations": {
+   "n": 5,
+   "smallest": 266.0,
+   "median": 301.0,
+   "largest": 301.0
+  },
+  "margin_estimated_frame_deg": {
+   "n": 5,
+   "smallest": 9.665096712665626,
+   "median": 10.349496169969772,
+   "largest": 10.349496169969772
+  }
+ },
+ "4 terrain clearance": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 5,
+   "smallest": 251.0913053932947,
+   "median": 251.0913053932947,
+   "largest": 269.0463803070387
+  },
+  "tolerance": {
+   "n": 5,
+   "smallest": 0.1583982390606153,
+   "median": 0.1583982390606153,
+   "largest": 0.5355951213665151
+  },
+  "over": {
+   "n": 5,
+   "smallest": 251.2497036323553,
+   "median": 251.2497036323553,
+   "largest": 269.5819754284052
+  },
+  "violations": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "clearance_minus_recorded": {
+   "n": 0
+  }
+ },
+ "5 touchdown velocity": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  },
+  "tolerance": {
+   "n": 0
+  },
+  "over": {
+   "n": 0
+  },
+  "margin_down": {
+   "n": 0
+  },
+  "margin_horizontal": {
+   "n": 0
+  }
+ },
+ "6 site lit": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  },
+  "tolerance": {
+   "n": 0
+  },
+  "over": {
+   "n": 0
+  },
+  "ray_spacing_deg": {
+   "n": 0
+  },
+  "march_step_deg": {
+   "n": 0
+  },
+  "margin_lower_limb": {
+   "n": 0
+  },
+  "horizon": {
+   "n": 0
+  },
+  "sun_elevation": {
+   "n": 0
+  }
+ },
+ "7 triggers": {
+  "PASS": 5,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  }
+ }
+}

@@ -21,6 +21,7 @@ for s in 20261060 20261061 20261062; do
     || { echo "seed $s did not finish; chain stopped" | tee -a work/step7_2/run_$s.log; exit 1; }
   if [ $s = 20261062 ]; then ref=work/step6_3/seed_$s; else ref=work/step6_2/seed_$s; fi
   .venv/bin/python -B -W ignore examples/phase7_bitcheck.py work/step7_2/seed_$s $ref \
-      --out work/step7_2/bitcheck_$s.json 2>&1 | tee -a work/step7_2/bitcheck_$s.log || exit 1
+      --out work/step7_2/bitcheck_$s.json 2>&1 | tee -a work/step7_2/bitcheck_$s.log \
+    || { echo "seed $s records differ from the reference; chain stopped" | tee -a work/step7_2/bitcheck_$s.log; exit 1; }
   (cd work/step7_2/seed_$s && sha256sum d*.npz) > work/step7_2/manifest_$s.sha256 || exit 1
 done'

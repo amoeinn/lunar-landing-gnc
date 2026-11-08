@@ -1,0 +1,15 @@
+== re-flown work/step7_2b/log/seed_2 --subset
+EQUAL 29 of 29
+exit 0
+== re-flown, no --subset (reference has draws 0 to 2)
+DIFFER: 58 missing (first d01_notrn_eNone_gNone, no logged record)
+exit 1
+== copy, d00_trn_e0_g0.0 propellant + 1e-9 kg
+DIFFER: 1 of 29 records (first d00_trn_e0_g0.0, field /rows[0]/propellant)
+exit 1
+== copy, d00_trn_e3_g72.0 record removed
+DIFFER: 1 missing (first d00_trn_e3_g72.0, no logged record)
+exit 1
+== copy, extra job d09_trn_e0_g0.0
+DIFFER: 1 extra (first d09_trn_e0_g0.0, not in the reference)
+exit 1

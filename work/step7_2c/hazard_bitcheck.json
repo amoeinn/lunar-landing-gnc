@@ -1,0 +1,99 @@
+[
+ {
+  "job": "d01_notrn_eNone_gNone",
+  "same_record": true,
+  "first_difference": null,
+  "seconds": 99.60391956199601,
+  "reference_seconds": 116.64679228800014,
+  "maxrss_mb": 1155.77734375,
+  "history_bytes": 4662992,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "abort",
+    "triggers_equal": false,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "hazard",
+      58.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   },
+   {
+    "epoch": 1,
+    "outcome": "abort",
+    "triggers_equal": false,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "hazard",
+      58.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   },
+   {
+    "epoch": 2,
+    "outcome": "abort",
+    "triggers_equal": false,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "hazard",
+      58.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   },
+   {
+    "epoch": 3,
+    "outcome": "abort",
+    "triggers_equal": false,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "hazard",
+      58.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d01_trn_e0_g-24.0",
+  "same_record": true,
+  "first_difference": null,
+  "seconds": 72.41068657000142,
+  "reference_seconds": 80.99193793900031,
+  "maxrss_mb": 1311.18359375,
+  "history_bytes": 1157753,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "abort",
+    "triggers_equal": false,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "hazard",
+      54.0
+     ]
+    ],
+    "abort_propellant": 0.0,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ }
+]

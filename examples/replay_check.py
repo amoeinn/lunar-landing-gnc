@@ -44,6 +44,7 @@ THRUST_DPS_ABORT = 10000.0 * LBF        # N: the descent engine's fixed abort th
 ISP_DPS_ABORT = 304.0                   # s: Apollo 10 DPS evaluation, NTRS 19690026326, full throttle
 THRUST_APS = 3508.0 * LBF               # N: Apollo 10 Mission Report, Supplement 6, APS final
 ISP_APS = 308.7                         # s: same source and conditions
+HIGHEST_POINT_M = 10786.0               # m above the mean radius: the Selenean summit, NASA PIA13642 (LOLA), D87
 LOST_LOCK_T = 40.0                      # s: PLAN.md phase 3.4, no TRN fix accepted by the last fix time
 
 # Provisional tolerances, zero or at the floating-point floor, until D80 registers them from each
@@ -193,37 +194,52 @@ def elevation_margin(up, dx, dy):
     return math.degrees(math.atan2(up, math.hypot(dx, dy))) - (90.0 - GLIDE_SLOPE_DEG)
 
 
+def site_true_position(m, row, step, terrain=None):
+    """D81: the true position of the site in force at a guidance step, at the
+    checker's ground there (without a terrain, at the logged height): the
+    pre-mission target's map position before the decision, the chosen
+    site's true position (D26, the record's true_site) from it on."""
+    d, ts = m["decision"], row.get("true_site")
+    if d is not None and ts is not None and step >= d["step"]:
+        x, y, z = float(ts[0]), float(ts[1]), None
+    else:
+        x, y, z = (float(v) for v in m["target"][:3])
+    if terrain is not None:
+        g = float(terrain.height(np.array([x]), np.array([y]))[0])
+        z = g if np.isfinite(g) else z
+    return x, y, z
+
+
 def check_glide_slope(h, m, row, terrain=None):
-    """The true path at every 20 Hz tick of guided flight, from the logged map
-    positions: about the site in force (the logged origin, guidance's frame),
-    judged; and from the decision on about the site's true position
-    (true_site, at the checker's ground there; without a terrain, at the
-    site in force's height), reported. The site in force is in the map's
-    frame and the path is true: where the two frames differ the judged
-    margin mixes them (a question for D79, not settled here)."""
+    """D81. Judged: the true path at every 20 Hz tick of guided flight (the
+    logged map positions) about the true position of the site in force.
+    Reported: the path in the estimated frame, the true state plus the
+    logged estimate error (nav less true) at the hold's guidance step, about
+    the site in force (the logged origin, guidance's own frame)."""
     hs = holds(h, m)
-    ts = row.get("true_site")
-    d = m["decision"]
-    est, tru = [], []
-    ts_h = None
-    if ts is not None and terrain is not None:
-        ts_h = float(terrain.height(np.array([ts[0]]), np.array([ts[1]]))[0])
-    for k, p in zip(h["tick_hold"], h["tick_pos"]):
+    err = {int(st): np.asarray(nv, float) - np.asarray(yy, float)
+           for st, nv, yy in zip(h["step_index"], h["step_nav"], h["step_y"])}
+    cache, tru, est = {}, [], []
+    for k, p, yt in zip(h["tick_hold"], h["tick_pos"], h["tick_y"]):
         x = hs[int(k)]
         if x["phase"] != "guided" or x["rhs"] != "_truth_rhs" or not np.all(np.isfinite(p)):
             continue
-        o = x["origin"]
-        est.append(elevation_margin(p[2] - o[2], p[0] - o[0], p[1] - o[1]))
-        if ts is not None and d is not None and x["step"] >= d["step"]:
-            tru.append(elevation_margin(p[2] - (o[2] if ts_h is None or not np.isfinite(ts_h) else ts_h),
-                                        p[0] - ts[0], p[1] - ts[1]))
-        else:
-            tru.append(est[-1])
-    if not est:
+        st = x["step"]
+        if st not in cache:
+            cache[st] = site_true_position(m, row, st, terrain)
+        sx, sy, sz = cache[st]
+        if sz is None:
+            sz = x["origin"][2]
+        tru.append(elevation_margin(p[2] - sz, p[0] - sx, p[1] - sy))
+        e = err.get(st)
+        if e is not None:
+            q = np.asarray(yt, float) + e
+            est.append(elevation_margin(q[0], q[1], q[2]))
+    if not tru:
         return dict(check="3 glide slope", verdict="PASS", margin=None, n=0)
-    return dict(check="3 glide slope", verdict=verdict(min(est) >= -GLIDE_TOL_DEG), margin=min(est) + GLIDE_TOL_DEG,
-                lowest_elevation_margin_deg=min(est), margin_true_site_deg=min(tru), true_site_height=ts_h,
-                n=len(est), unit="deg")
+    return dict(check="3 glide slope", verdict=verdict(min(tru) >= -GLIDE_TOL_DEG), margin=min(tru) + GLIDE_TOL_DEG,
+                lowest_elevation_margin_deg=min(tru), margin_estimated_frame_deg=min(est) if est else None,
+                n=len(tru), unit="deg")
 
 
 # 4 terrain clearance
@@ -284,12 +300,19 @@ def check_clearance(h, m, terrain=None):
     terrain = terrain or Terrain(P[:, 0], P[:, 1])
     c = P[:, 2] - terrain.height(P[:, 0], P[:, 1])
     ok = np.isfinite(c)
+    # D87: off the DEM, a sample above the Moon's highest point passes by that
+    # bound (its margin the height over it); below it, reported unjudged
+    above = ~ok & (P[:, 2] > HIGHEST_POINT_M)
+    unjudged = int((~ok & ~above).sum())
+    c = np.where(above, P[:, 2] - HIGHEST_POINT_M, c)
+    ok = ok | above
     low = float(np.min(c[ok])) if ok.any() else None
     g = ok & (np.array(ph) == "guided")             # the flight records its minimum over guided ticks only
     low_guided = float(np.min(c[g])) if g.any() else None
     rec = m.get("min_clearance")
     ab = (m.get("abort") or {}).get("closest_true_pass")
-    return dict(check="4 terrain clearance", verdict=verdict(low is not None and low > -CLEARANCE_TOL_M), margin=low, unit="m",
+    return dict(check="4 terrain clearance", verdict="FAIL" if low is not None and low <= -CLEARANCE_TOL_M else ("UNJUDGED" if unjudged else verdict(low is not None)),
+                margin=low, unit="m", off_dem_above_highest_point=int(above.sum()), off_dem_unjudged=unjudged,
                 margin_guided=low_guided, flight_min_clearance=rec, flight_closest_true_pass=ab, n=int(ok.sum()), off_terrain=int((~ok).sum()),
                 lowest_phase=ph[int(np.nanargmin(np.where(ok, c, np.inf)))] if ok.any() else None)
 
@@ -367,6 +390,18 @@ def read_window(path, x0, x1, y0, y1):
         z = ds.read(1, window=Window(c0, r0, c1 - c0, r1 - r0)).astype(np.float32)
         assert float(ds.crs.to_dict()["R"]) == MOON_R, f"{path.name}: CRS sphere is not {MOON_R}"
         return z, t.c + c0 * px, t.f - r0 * px, px
+
+
+def disc_fraction(profile, az, el, semi, n=401):
+    """Lit fraction of the sun's disc (centre azimuth az, elevation el, angular
+    radius semi, deg) above E's horizon profile, linearly interpolated in
+    azimuth: the disc cut into n vertical strips, each strip's chord above
+    the horizon at its own azimuth (az + x / cos el)."""
+    x = np.linspace(-semi, semi, n)
+    half = np.sqrt(np.maximum(semi * semi - x * x, 0.0))
+    hz = np.array([horizon_lookup(profile, az + xi / math.cos(math.radians(el))) for xi in x])
+    lit = np.clip(el + half - np.maximum(el - half, hz), 0.0, 2.0 * half)
+    return float(np.trapezoid(lit, x) / np.trapezoid(2.0 * half, x))
 
 
 class Lit:
@@ -454,7 +489,8 @@ class Lit:
         utc = self.epochs[epoch]["landing_utc"]
         az, el, semi = self.sun(x, y, h, utc, t)
         hz = horizon_lookup(prof, az)
-        return dict(margin=el - hz, margin_lower_limb=el - semi - hz, sun_azimuth=az, sun_elevation=el,
+        return dict(margin=el - hz, margin_lower_limb=el - semi - hz, lit_disc_fraction=disc_fraction(prof, az, el, semi),
+                    sun_azimuth=az, sun_elevation=el,
                     horizon=hz, semidiameter=semi, landing_utc=utc, t=float(t),
                     samples_outside_grid=int(side["samples_outside_grid"]))
 
@@ -478,15 +514,28 @@ def accepted_by(fixes, t):
     return any(f["status"].startswith("accepted") and f["t"] <= t + 1e-9 for f in fixes)
 
 
+def hazard_condition(d):
+    """D85: true when no logged candidate was detected safe and lit, or every
+    one that was was tried and rejected (unreachable, or failed the terrain
+    check, which counts as unreachable). A divert (or the target kept) means
+    false; a safe and lit candidate never tried means false."""
+    tried = {int(i): str(o) for i, o in d["tried"]}
+    if any(o in ("divert", "target") for o in tried.values()):
+        return False
+    good = [i for i, (sf, li) in enumerate(zip(d["safe"], d["lit"])) if bool(sf) and bool(li)]
+    return all(i in tried and (tried[i] == "reach" or tried[i].startswith("terrain")) for i in good)
+
+
 def conditions(h, m):
     """Per guidance step (the steps the flight's guidance ran, 2 s apart):
     which trigger conditions hold, by this checker's own logic from the
     logged data. Returns {step: set of trigger names}."""
     out = {}
     trn = m["lander"] == "trn"
+    lost_fix = accepted_by(m["fixes"], LOST_LOCK_T)             # D84: no accepted fix by 40 s
     for st, t in zip(h["step_index"], h["step_t"]):
         c = set()
-        if trn and t >= LOST_LOCK_T - 1e-9 and not accepted_by(m["fixes"], t):
+        if trn and t >= LOST_LOCK_T - 1e-9 and not lost_fix:      # D84: from the first step at or after 40 s
             c.add("lost lock")
         out[int(st)] = c
     for ph, st, found, pt in zip(h["trig_phase"], h["trig_step"], h["trig_found"], h["trig_predicted_touchdown"]):
@@ -498,11 +547,8 @@ def conditions(h, m):
         elif pt < RESERVE:
             c.add("reserve")
     d = m["decision"]
-    if d is not None:
-        reach = {i: o in ("divert", "target") for i, o in d["tried"]}
-        ok = [bool(s) and bool(li) and reach.get(i, False) for i, (s, li) in enumerate(zip(d["safe"], d["lit"]))]
-        if not any(ok):
-            out.setdefault(int(d["step"]), set()).add("hazard")
+    if d is not None and hazard_condition(d):
+        out.setdefault(int(d["step"]), set()).add("hazard")
     return out
 
 
@@ -537,7 +583,7 @@ def summary(res):
     extra = {"2 thrust and pointing": ("margin_low_N", "margin_high_N", "margin_tilt_deg", "abort_engine_rel_error",
                                        "delivered_max_fraction", "delivered_min_fraction"),
              "1 mass flow": ("largest_error_kg",),
-             "3 glide slope": ("margin_true_site_deg",),
+             "3 glide slope": ("margin_estimated_frame_deg",),
              "4 terrain clearance": ("clearance_minus_recorded",),
              "5 touchdown velocity": ("margin_down", "margin_horizontal"),
              "6 site lit": ("margin_lower_limb", "horizon", "sun_elevation")}

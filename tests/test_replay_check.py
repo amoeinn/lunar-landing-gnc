@@ -64,8 +64,10 @@ def flight(n_steps=10, thrust=(20000.0, 0.0, 3000.0), outcome="safe landing", la
              step_index=np.arange(n_steps), step_t=2.0 * np.arange(n_steps),
              trig_phase=np.array(["guided"] * n_steps), trig_step=np.arange(n_steps),
              trig_found=np.ones(n_steps, bool), trig_predicted_touchdown=np.full(n_steps, 300.0),
-             abort_pos=np.zeros((0, 3)), abort_phase=np.array([], str))
-    meta = dict(kappa=KAPPA, isp=ISP, lander=lander, epoch=0, hold_args=[x["args"] for x in holds],
+             abort_pos=np.zeros((0, 3)), abort_phase=np.array([], str),
+             step_y=np.array([holds[k]["y0"] for k in range(n_steps)]),
+             step_nav=np.array([holds[k]["y0"] for k in range(n_steps)]))      # nav exact unless a test sets it
+    meta = dict(kappa=KAPPA, isp=ISP, lander=lander, epoch=0, hold_args=[x["args"] for x in holds], target=list(SITE),
                 fixes=[dict(t=10.0, status="accepted"), dict(t=20.0, status="accepted")],
                 decision=dict(step=5, safe=[True, False], lit=[True, True], tried=[[0, "divert"]], site=list(SITE)),
                 touchdown=dict(td=[0.0, 0.0, 0.0, -0.9, 0.1, 0.1, m], landed=True), triggers=[], abort=None,
@@ -200,26 +202,51 @@ def test_glide_slope_passes_a_path_above_the_cone_and_catches_one_through_it():
     assert r["verdict"] == "FAIL" and r["lowest_elevation_margin_deg"] == pytest.approx(-5.0, abs=1e-9)
 
 
-def test_glide_slope_excludes_the_descent_and_reports_the_true_site():
+def test_glide_slope_excludes_the_descent_and_reports_the_estimated_frame():
     """Guidance applies the cone only in guided flight: a descent tick under
-    it is not judged; the true-site figure is reported beside."""
+    it is not judged; the estimated-frame figure is reported beside."""
     row, h, m = flight()
     p = h["tick_pos"].copy()
     last = len(p) - 1                               # a descent tick
     p[last] = [SITE[0] + 500.0, SITE[1], SITE[2] + 1.0]
     h["tick_pos"] = p
     r = C.check_glide_slope(h, m, row)
-    assert r["verdict"] == "PASS" and "margin_true_site_deg" in r
+    assert r["verdict"] == "PASS" and r["margin_estimated_frame_deg"] is not None
 
 
-def test_true_site_glide_slope_is_measured_from_the_ground_at_the_true_site():
-    """The true site sits on the checker's ground, not at the height of the
-    site in force: ground 1 km above the path puts every tick below it."""
+def test_glide_slope_judged_about_the_true_site_from_the_decision_on():
+    """D81: before the decision the site in force is the target, from it on
+    the chosen site's true position: a true site 5 km off puts the ticks of
+    steps 5 to 9 under its cone, while the same flight with the decision
+    after them passes."""
     row, h, m = flight()
-    assert C.check_glide_slope(h, m, row)["margin_true_site_deg"] > 0
-    r = C.check_glide_slope(h, m, row, Flat(SITE[2] + 1000.0))
-    assert r["true_site_height"] == SITE[2] + 1000.0 and r["margin_true_site_deg"] < -10.0
-    assert r["margin"] == C.check_glide_slope(h, m, row)["margin"]      # the judged margin is unchanged
+    row["true_site"] = [SITE[0] + 5000.0, SITE[1]]
+    r = C.check_glide_slope(h, m, row)
+    assert r["verdict"] == "FAIL", r
+    m["decision"]["step"] = 100
+    assert C.check_glide_slope(h, m, row)["verdict"] == "PASS"
+
+
+def test_true_site_of_the_site_in_force_is_on_the_checkers_ground():
+    """The site's height is the checker's ground at its true position, not
+    the logged height: ground 1 km above the path puts every tick below it."""
+    row, h, m = flight()
+    assert C.check_glide_slope(h, m, row)["verdict"] == "PASS"
+    assert C.check_glide_slope(h, m, row, Flat(SITE[2] + 1000.0))["verdict"] == "FAIL"
+
+
+def test_estimated_frame_is_the_true_path_plus_the_steps_estimate_error():
+    """Reported, not judged: an estimate 2 km downrange in error at step 3
+    moves the estimated-frame path through the cone; the judged true path is
+    unchanged."""
+    row, h, m = flight()
+    base = C.check_glide_slope(h, m, row)
+    nav = h["step_nav"].copy()
+    nav[3, 2] -= 2000.0
+    h["step_nav"] = nav
+    r = C.check_glide_slope(h, m, row)
+    assert r["margin_estimated_frame_deg"] < 0 < base["margin_estimated_frame_deg"]
+    assert r["margin"] == base["margin"] and r["verdict"] == "PASS"
 
 
 # 4 terrain clearance
@@ -241,6 +268,29 @@ def test_clearance_judges_the_abort_samples():
     h["abort_phase"] = np.array(["abort burn", "abort burn"])
     r = C.check_clearance(h, m, terrain=Flat())
     assert r["verdict"] == "FAIL" and r["lowest_phase"] == "abort burn"
+
+
+class Partial(Flat):
+    """Flat ground that ends (NaN, off the DEM) beyond x = 5 km east of the site."""
+
+    def height(self, x, y):
+        return np.where(np.asarray(x) > SITE[0] + 5000.0, np.nan, super().height(x, y))
+
+
+def test_off_dem_samples_pass_above_the_highest_point_and_are_unjudged_below():
+    """D87: off the DEM, above 10,786 m passes by that bound; below it the
+    sample is reported unjudged; a judged sample under ground still fails."""
+    row, h, m = flight()
+    h["abort_phase"] = np.array(["abort burn"])
+    h["abort_pos"] = np.array([[SITE[0] + 9000.0, SITE[1], 11000.0]])
+    r = C.check_clearance(h, m, Partial())
+    assert r["verdict"] == "PASS" and r["off_dem_above_highest_point"] == 1 and r["off_dem_unjudged"] == 0
+    h["abort_pos"] = np.array([[SITE[0] + 9000.0, SITE[1], 10000.0]])
+    r = C.check_clearance(h, m, Partial())
+    assert r["verdict"] == "UNJUDGED" and r["off_dem_unjudged"] == 1
+    h["abort_pos"] = np.array([[SITE[0] + 9000.0, SITE[1], 10000.0], [SITE[0], SITE[1], SITE[2] - 1.0]])
+    h["abort_phase"] = np.array(["abort burn", "abort burn"])
+    assert C.check_clearance(h, m, Partial())["verdict"] == "FAIL"
 
 
 # 5 touchdown velocity
@@ -370,6 +420,21 @@ def test_azimuth_runs_from_local_north_toward_east(tmp_path, monkeypatch):
     assert prof[45] > 5.0 and prof[225] < 0.1 and prof[315] < 0.1 and prof[135] < 0.1, prof[[45, 135, 225, 315]]
 
 
+def test_disc_fraction_against_the_circular_segment():
+    """D86, reported: a flat horizon h cuts the disc as a circular segment,
+    fraction 1 - (acos(u) - u sqrt(1 - u^2)) / pi with u = (el - h) / semi."""
+    prof = np.full(360, 0.3)
+    semi = 0.267
+    for u in (-0.9, -0.5, 0.0, 0.5, 0.9):
+        want = 1 - (math.acos(u) - u * math.sqrt(1 - u * u)) / math.pi
+        assert C.disc_fraction(prof, 20.0, 0.3 + u * semi, semi) == pytest.approx(want, abs=2e-4), u
+    assert C.disc_fraction(prof, 20.0, 0.3 + 1.01 * semi, semi) == pytest.approx(1.0, abs=1e-12)
+    assert C.disc_fraction(prof, 20.0, 0.3 - 1.01 * semi, semi) == 0.0
+    step = np.where(np.arange(360) < 20, 0.0, 5.0)       # a wall from 20 deg east: only the west half is lit
+    f = C.disc_fraction(step, 19.0, 1.0, 0.2)
+    assert 0.0 < f < 1.0
+
+
 def test_horizon_lookup_interpolates_linearly_between_integer_rays():
     prof = np.arange(360, dtype=float)
     assert C.horizon_lookup(prof, 10.5) == pytest.approx(10.5)
@@ -389,6 +454,7 @@ def test_a_wall_above_the_sun_makes_the_site_dark_and_a_low_one_lit(tmp_path, mo
         r = C.check_lit(h, m, row, L)
         assert r["verdict"] == want, r
         assert r["sun_elevation"] == pytest.approx(1.677893, abs=1e-5)
+        assert r["lit_disc_fraction"] == pytest.approx(0.0 if want == "FAIL" else 1.0, abs=1e-12)
 
 
 @needs_lit
@@ -425,6 +491,21 @@ def test_a_fix_accepted_after_40_s_does_not_cancel_lost_lock():
         h[k] = h[k][:21]
     abort(m, "lost lock", 40.0)
     assert C.check_triggers(h, m)["verdict"] == "PASS"
+
+
+def test_lost_lock_is_fixed_at_40_s_and_every_later_step_without_abort_is_a_miss():
+    """D84: a fix accepted at 44 s does not lift the condition; with no abort,
+    the 40 s step and every later one (to 48 s) is a miss, five in all; an
+    abort one step late leaves the 40 s step missed."""
+    row, h, m = flight(n_steps=25)
+    m["fixes"] = [dict(t=t, status="dark map") for t in (10.0, 20.0, 30.0, 40.0)] + [dict(t=44.0, status="accepted")]
+    r = C.check_triggers(h, m)
+    assert r["n_missed"] == 5 and r["missed"][0] == (20, ["lost lock"])
+    for k in ("step_index", "step_t", "trig_phase", "trig_step", "trig_found", "trig_predicted_touchdown"):
+        h[k] = h[k][:22]
+    abort(m, "lost lock", 42.0)
+    r = C.check_triggers(h, m)
+    assert r["verdict"] == "FAIL" and r["real"] == [True] and r["missed"] == [(20, ["lost lock"])]
 
 
 def test_lost_lock_abort_with_an_accepted_fix_is_not_real():
@@ -510,16 +591,34 @@ def test_a_lit_and_safe_site_that_is_dark_does_not_count():
     assert C.check_triggers(h, m)["verdict"] == "PASS"
 
 
-def test_hazard_needs_each_of_safe_lit_and_reachable():
-    """One candidate, reachable, missing one flag at a time: each is a hazard
-    (abort real); and a safe lit candidate never tried is not reachable."""
-    for safe, lit, tried in ((True, False, [[0, "divert"]]), (False, True, [[0, "divert"]]), (True, True, [])):
-        row, h, m = flight()
-        m["decision"] = dict(step=5, safe=[safe], lit=[lit], tried=tried, site=None)
-        for k in ("step_index", "step_t", "trig_phase", "trig_step", "trig_found", "trig_predicted_touchdown"):
-            h[k] = h[k][:6]
+def hazard_flight(safe, lit, tried, fire=True):
+    row, h, m = flight()
+    m["decision"] = dict(step=5, safe=list(safe), lit=list(lit), tried=list(tried), site=None)
+    for k in ("step_index", "step_t", "trig_phase", "trig_step", "trig_found", "trig_predicted_touchdown"):
+        h[k] = h[k][:6]
+    if fire:
         abort(m, "hazard", 10.0)
-        assert C.check_triggers(h, m)["verdict"] == "PASS", (safe, lit, tried)
+    return C.check_triggers(h, m)
+
+
+def test_hazard_real_when_every_safe_lit_candidate_was_tried_and_rejected():
+    """D85: rejection for reach or for the terrain check (unreachable both)."""
+    assert hazard_flight([1, 1, 0], [1, 1, 1], [[0, "reach"], [1, "terrain 3.2 m"]])["verdict"] == "PASS"
+    r = hazard_flight([1, 1, 0], [1, 1, 1], [[0, "reach"], [1, "terrain 3.2 m"]], fire=False)
+    assert r["verdict"] == "FAIL" and r["missed"][0] == (5, ["hazard"])
+
+
+def test_hazard_not_real_with_a_safe_lit_candidate_never_tried():
+    r = hazard_flight([1, 1], [1, 1], [[0, "reach"]])
+    assert r["verdict"] == "FAIL" and r["real"] == [False]
+    assert hazard_flight([1, 1], [1, 1], [[0, "reach"]], fire=False)["verdict"] == "PASS"
+
+
+def test_a_divert_means_the_hazard_condition_was_false():
+    """Even with the flags of the diverted-to candidate unset in the log."""
+    assert hazard_flight([0], [0], [[0, "divert"]])["verdict"] == "FAIL"
+    assert hazard_flight([1], [1], [[0, "target"]])["verdict"] == "FAIL"
+    assert hazard_flight([0], [0], [[0, "divert"]], fire=False)["verdict"] == "PASS"
 
 
 # D78

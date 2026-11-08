@@ -1,0 +1,335 @@
+{
+ "seed": 20261062,
+ "folder": "~/aerospace-portfolio/lunar-landing-gnc/work/step6_3/seed_20261062",
+ "expected": 2900,
+ "present": 2900,
+ "missing": [],
+ "other_entries": [
+  "progress.log",
+  "stages.jsonl"
+ ],
+ "unreadable": [],
+ "job_mismatch": [],
+ "errors": [
+  {
+   "file": "d28_trn_e1_g-24.0.json",
+   "error": "ValueError: scan plan reaches slant 144.8 m at t = 74.35 s"
+  },
+  {
+   "file": "d28_trn_e1_g72.0.json",
+   "error": "ValueError: scan plan reaches slant 129.0 m at t = 74.65 s"
+  },
+  {
+   "file": "d34_trn_e0_g168.0.json",
+   "error": "ValueError: scan plan reaches slant 129.7 m at t = 94.95 s"
+  },
+  {
+   "file": "d37_trn_e3_g72.0.json",
+   "error": "ValueError: scan plan reaches slant 147.7 m at t = 78.80 s"
+  },
+  {
+   "file": "d61_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 126.9 m at t = 72.25 s"
+  },
+  {
+   "file": "d63_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 120.2 m at t = 82.25 s"
+  },
+  {
+   "file": "d83_notrn_eNone_gNone.json",
+   "error": "ValueError: scan plan reaches slant 143.7 m at t = 76.20 s"
+  },
+  {
+   "file": "d96_trn_e3_g24.0.json",
+   "error": "ValueError: scan plan reaches slant 137.9 m at t = 76.05 s"
+  }
+ ],
+ "rows": 3200,
+ "launches": [
+  "2026-11-07 01:29:35 seed 20261062, draws 0 to 99, 2900 flights, 0 already written; 4 workers, cast cpp",
+  "2026-11-07 11:27:49 seed 20261062, draws 0 to 99, 2900 flights, 584 already written; 4 workers, cast cpp"
+ ],
+ "stages": [
+  {
+   "chain": 1,
+   "stage": 1,
+   "start": "2026-11-07 01:29:35",
+   "end": "2026-11-07 01:58:36",
+   "written": 139,
+   "left_at_start": 2900,
+   "exit": 0,
+   "window_end": "2026-11-07 01:58:36",
+   "interrupted": false,
+   "files_last_written_in_window": 139
+  },
+  {
+   "chain": 1,
+   "stage": 2,
+   "start": "2026-11-07 01:58:36",
+   "end": "2026-11-07 02:27:37",
+   "written": 146,
+   "left_at_start": 2761,
+   "exit": 0,
+   "window_end": "2026-11-07 02:27:37",
+   "interrupted": false,
+   "files_last_written_in_window": 146
+  },
+  {
+   "chain": 1,
+   "stage": 3,
+   "start": "2026-11-07 02:27:37",
+   "end": "2026-11-07 02:56:38",
+   "written": 142,
+   "left_at_start": 2615,
+   "exit": 0,
+   "window_end": "2026-11-07 02:56:38",
+   "interrupted": false,
+   "files_last_written_in_window": 142
+  },
+  {
+   "chain": 1,
+   "stage": 4,
+   "start": "2026-11-07 02:56:38",
+   "end": "2026-11-07 03:25:39",
+   "written": 139,
+   "left_at_start": 2473,
+   "exit": 0,
+   "window_end": "2026-11-07 03:25:39",
+   "interrupted": false,
+   "files_last_written_in_window": 139
+  },
+  {
+   "chain": 1,
+   "stage": 5,
+   "start": "2026-11-07 03:25:39",
+   "end": null,
+   "written": null,
+   "left_at_start": 2334,
+   "window_end": "2026-11-07 11:27:49",
+   "interrupted": true,
+   "files_last_written_in_window": 18,
+   "written_inferred": 18
+  },
+  {
+   "chain": 2,
+   "stage": 1,
+   "start": "2026-11-07 11:27:49",
+   "end": "2026-11-07 11:56:50",
+   "written": 148,
+   "left_at_start": 2316,
+   "exit": 0,
+   "window_end": "2026-11-07 11:56:50",
+   "interrupted": false,
+   "files_last_written_in_window": 148
+  },
+  {
+   "chain": 2,
+   "stage": 2,
+   "start": "2026-11-07 11:56:50",
+   "end": "2026-11-07 12:25:51",
+   "written": 138,
+   "left_at_start": 2168,
+   "exit": 0,
+   "window_end": "2026-11-07 12:25:51",
+   "interrupted": false,
+   "files_last_written_in_window": 138
+  },
+  {
+   "chain": 2,
+   "stage": 3,
+   "start": "2026-11-07 12:25:51",
+   "end": "2026-11-07 12:54:52",
+   "written": 141,
+   "left_at_start": 2030,
+   "exit": 0,
+   "window_end": "2026-11-07 12:54:52",
+   "interrupted": false,
+   "files_last_written_in_window": 141
+  },
+  {
+   "chain": 2,
+   "stage": 4,
+   "start": "2026-11-07 12:54:52",
+   "end": "2026-11-07 13:23:53",
+   "written": 137,
+   "left_at_start": 1889,
+   "exit": 0,
+   "window_end": "2026-11-07 13:23:53",
+   "interrupted": false,
+   "files_last_written_in_window": 137
+  },
+  {
+   "chain": 2,
+   "stage": 5,
+   "start": "2026-11-07 13:23:53",
+   "end": "2026-11-07 13:52:54",
+   "written": 143,
+   "left_at_start": 1752,
+   "exit": 0,
+   "window_end": "2026-11-07 13:52:54",
+   "interrupted": false,
+   "files_last_written_in_window": 143
+  },
+  {
+   "chain": 2,
+   "stage": 6,
+   "start": "2026-11-07 13:52:54",
+   "end": "2026-11-07 14:21:55",
+   "written": 143,
+   "left_at_start": 1609,
+   "exit": 0,
+   "window_end": "2026-11-07 14:21:55",
+   "interrupted": false,
+   "files_last_written_in_window": 143
+  },
+  {
+   "chain": 2,
+   "stage": 7,
+   "start": "2026-11-07 14:21:55",
+   "end": "2026-11-07 14:50:56",
+   "written": 134,
+   "left_at_start": 1466,
+   "exit": 0,
+   "window_end": "2026-11-07 14:50:56",
+   "interrupted": false,
+   "files_last_written_in_window": 134
+  },
+  {
+   "chain": 2,
+   "stage": 8,
+   "start": "2026-11-07 14:50:56",
+   "end": "2026-11-07 15:19:57",
+   "written": 141,
+   "left_at_start": 1332,
+   "exit": 0,
+   "window_end": "2026-11-07 15:19:57",
+   "interrupted": false,
+   "files_last_written_in_window": 141
+  },
+  {
+   "chain": 2,
+   "stage": 9,
+   "start": "2026-11-07 15:19:57",
+   "end": "2026-11-07 15:48:58",
+   "written": 136,
+   "left_at_start": 1191,
+   "exit": 0,
+   "window_end": "2026-11-07 15:48:58",
+   "interrupted": false,
+   "files_last_written_in_window": 136
+  },
+  {
+   "chain": 2,
+   "stage": 10,
+   "start": "2026-11-07 15:48:58",
+   "end": "2026-11-07 16:17:59",
+   "written": 143,
+   "left_at_start": 1055,
+   "exit": 0,
+   "window_end": "2026-11-07 16:17:59",
+   "interrupted": false,
+   "files_last_written_in_window": 143
+  },
+  {
+   "chain": 2,
+   "stage": 11,
+   "start": "2026-11-07 16:17:59",
+   "end": "2026-11-07 16:47:00",
+   "written": 147,
+   "left_at_start": 912,
+   "exit": 0,
+   "window_end": "2026-11-07 16:47:00",
+   "interrupted": false,
+   "files_last_written_in_window": 147
+  },
+  {
+   "chain": 2,
+   "stage": 12,
+   "start": "2026-11-07 16:47:00",
+   "end": "2026-11-07 17:16:01",
+   "written": 142,
+   "left_at_start": 765,
+   "exit": 0,
+   "window_end": "2026-11-07 17:16:01",
+   "interrupted": false,
+   "files_last_written_in_window": 142
+  },
+  {
+   "chain": 2,
+   "stage": 13,
+   "start": "2026-11-07 17:16:01",
+   "end": "2026-11-07 17:45:02",
+   "written": 136,
+   "left_at_start": 623,
+   "exit": 0,
+   "window_end": "2026-11-07 17:45:02",
+   "interrupted": false,
+   "files_last_written_in_window": 136
+  },
+  {
+   "chain": 2,
+   "stage": 14,
+   "start": "2026-11-07 17:45:02",
+   "end": "2026-11-07 18:14:03",
+   "written": 139,
+   "left_at_start": 487,
+   "exit": 0,
+   "window_end": "2026-11-07 18:14:03",
+   "interrupted": false,
+   "files_last_written_in_window": 139
+  },
+  {
+   "chain": 2,
+   "stage": 15,
+   "start": "2026-11-07 18:14:03",
+   "end": "2026-11-07 18:43:04",
+   "written": 133,
+   "left_at_start": 348,
+   "exit": 0,
+   "window_end": "2026-11-07 18:43:04",
+   "interrupted": false,
+   "files_last_written_in_window": 133
+  },
+  {
+   "chain": 2,
+   "stage": 16,
+   "start": "2026-11-07 18:43:04",
+   "end": "2026-11-07 19:12:05",
+   "written": 126,
+   "left_at_start": 215,
+   "exit": 0,
+   "window_end": "2026-11-07 19:12:05",
+   "interrupted": false,
+   "files_last_written_in_window": 126
+  },
+  {
+   "chain": 2,
+   "stage": 17,
+   "start": "2026-11-07 19:12:05",
+   "end": "2026-11-07 19:35:48",
+   "written": 89,
+   "left_at_start": 89,
+   "exit": 0,
+   "window_end": "2026-11-07 19:35:48",
+   "interrupted": false,
+   "files_last_written_in_window": 89
+  }
+ ],
+ "stage_records": 21,
+ "stages_interrupted": [
+  [
+   1,
+   5,
+   "2026-11-07 03:25:39"
+  ]
+ ],
+ "stages_nonzero_exit": [],
+ "windows_overlap": [],
+ "files_outside_every_window": 0,
+ "written_logged": 2882,
+ "written_inferred": 18,
+ "per_window_counts_match": true,
+ "first": "2026-11-07T01:30:44",
+ "last": "2026-11-07T19:35:47",
+ "none_written_twice": true
+}

@@ -303,16 +303,24 @@ def glide_tolerance(up, dx, dy, v):
 
 
 def check_glide_slope(h, m, row, terrain=None):
-    """D81. Judged: the true path at every 20 Hz tick of guided flight (the
-    logged map positions) about the true position of the site in force.
-    Reported: the path in the estimated frame, the true state plus the
-    logged estimate error (nav less true) at the hold's guidance step, about
-    the site in force (the logged origin, guidance's own frame)."""
+    """D97. Judged: the estimated path about the site in force, in the
+    estimated frame, at every 20 Hz tick of guided flight: the filter's logged
+    estimate after the tick (est_t, est_pos, est_vel, map frame) less the
+    hold's logged origin, the site guidance flies to. It equals the true path
+    about the true aim point (the site in force less the estimate error).
+    Each tick is matched to its estimate by absolute time: the step's time
+    plus the tick's time in its hold. Reported beside it, D81's form: the true
+    path (the logged map positions) about the true position of the site in
+    force. A history without the estimate log, or a tick without its
+    estimate, is unjudged (D99: the bar reads only the re-flown histories)."""
     hs = holds(h, m)
-    err = {int(st): np.asarray(nv, float) - np.asarray(yy, float)
-           for st, nv, yy in zip(h["step_index"], h["step_nav"], h["step_y"])}
-    cache, tru, est, tol = {}, [], [], []
-    for k, p, yt, v in zip(h["tick_hold"], h["tick_pos"], h["tick_y"], h["tick_vel"]):
+    t_step = {int(st): float(t) for st, t in zip(h["step_index"], h["step_t"])}
+    est = {}
+    if "est_t" in h:
+        for t, q, w in zip(h["est_t"], h["est_pos"], h["est_vel"]):
+            est[int(round(float(t) / TICK))] = (np.asarray(q, float), np.asarray(w, float))
+    cache, tru, tru_tol, jud, tol, missing = {}, [], [], [], [], 0
+    for k, tt, p, v in zip(h["tick_hold"], h["tick_t"], h["tick_pos"], h["tick_vel"]):
         x = hs[int(k)]
         if x["phase"] != "guided" or x["rhs"] != "_truth_rhs" or not np.all(np.isfinite(p)):
             continue
@@ -324,18 +332,29 @@ def check_glide_slope(h, m, row, terrain=None):
             sz = x["origin"][2]
         up, dx, dy = p[2] - sz, p[0] - sx, p[1] - sy
         tru.append(elevation_margin(up, dx, dy))
-        tol.append(glide_tolerance(up, dx, dy, v))
-        e = err.get(st)
-        if e is not None:
-            q = np.asarray(yt, float) + e
-            est.append(elevation_margin(q[0], q[1], q[2]))
+        tru_tol.append(glide_tolerance(up, dx, dy, v))
+        e = est.get(int(round((t_step[st] + float(tt)) / TICK))) if st in t_step else None
+        if e is None:
+            missing += 1
+            continue
+        (q, w), o = e, x["origin"]
+        up, dx, dy = q[2] - o[2], q[0] - o[0], q[1] - o[1]
+        jud.append(elevation_margin(up, dx, dy))
+        tol.append(glide_tolerance(up, dx, dy, w))
     if not tru:
         return dict(check="3 glide slope", verdict="PASS", margin=None, n=0)
-    over = np.array(tru) + np.array(tol)
+    rep = np.array(tru) + np.array(tru_tol)
+    jr = int(np.argmin(rep))
+    reported = dict(d81_margin_deg=tru[jr], d81_tolerance_deg=tru_tol[jr], d81_over_deg=float(rep[jr]),
+                    d81_violations=int((rep < 0).sum()), ticks_without_estimate=missing, unit="deg")
+    if not jud:
+        return dict(check="3 glide slope", verdict="UNJUDGED", margin=None, n=0, **reported)
+    over = np.array(jud) + np.array(tol)
     j = int(np.argmin(over))
-    return dict(check="3 glide slope", verdict=verdict(over[j] >= 0.0), margin=tru[j], tolerance=tol[j], over=float(over[j]),
-                lowest_elevation_margin_deg=min(tru), margin_estimated_frame_deg=min(est) if est else None,
-                violations=int((over < 0).sum()), n=len(tru), unit="deg")
+    ok = over[j] >= 0.0
+    return dict(check="3 glide slope", verdict="FAIL" if not ok else ("UNJUDGED" if missing else "PASS"),
+                margin=jud[j], tolerance=tol[j], over=float(over[j]), lowest_elevation_margin_deg=min(jud),
+                violations=int((over < 0).sum()), n=len(jud), **reported)
 
 
 # 4 terrain clearance
@@ -724,7 +743,8 @@ def summary(res):
                                        "over_tilt_deg", "abort_engine_rel_error", "delivered_max_fraction",
                                        "delivered_min_fraction"),
              "1 mass flow": ("tolerance", "over", "violations", "largest_error_kg"),
-             "3 glide slope": ("tolerance", "over", "violations", "margin_estimated_frame_deg"),
+             "3 glide slope": ("tolerance", "over", "violations", "d81_margin_deg", "d81_over_deg",
+                               "d81_violations", "ticks_without_estimate"),
              "4 terrain clearance": ("tolerance", "over", "violations", "clearance_minus_recorded"),
              "5 touchdown velocity": ("tolerance", "over", "margin_down", "margin_horizontal"),
              "6 site lit": ("tolerance", "over", "ray_spacing_deg", "march_step_deg", "margin_lower_limb",

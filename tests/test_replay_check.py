@@ -69,6 +69,10 @@ def flight(n_steps=10, thrust=(20000.0, 0.0, 3000.0), outcome="safe landing", la
              abort_pos=np.zeros((0, 3)), abort_phase=np.array([], str),
              step_y=np.array([holds[k]["y0"] for k in range(n_steps)]),
              step_nav=np.array([holds[k]["y0"] for k in range(n_steps)]))      # nav exact unless a test sets it
+    # D97: the filter's estimate after each tick, one row per tick (row i is tick i), exact unless a test sets it
+    h.update(est_phase=np.array([holds[k]["phase"] for k, _, _, _, _ in ticks]),
+             est_t=np.array([2.0 * holds[k]["step"] + t for k, t, _, _, _ in ticks]),
+             est_pos=h["tick_pos"].copy(), est_vel=h["tick_vel"].copy())
     meta = dict(kappa=KAPPA, isp=ISP, lander=lander, epoch=0, hold_args=[x["args"] for x in holds], target=list(SITE),
                 fixes=[dict(t=10.0, status="accepted"), dict(t=20.0, status="accepted")],
                 decision=dict(step=5, safe=[True, False], lit=[True, True], tried=[[0, "divert"]], site=list(SITE)),
@@ -190,66 +194,110 @@ def test_bounds_judge_the_descent_as_well_as_guided_flight():
     assert h["hold_phase"][10] == "descent" and C.check_bounds(h, m)["verdict"] == "FAIL"
 
 
-# 3 glide slope
+# 3 glide slope (D97: the estimated path about the site in force judged, D81's form reported)
 
-def test_glide_slope_passes_a_path_above_the_cone_and_catches_one_through_it():
+def under_cone(p, k, deg, site=SITE):
+    """Row k of p moved to deg of elevation seen from site."""
+    p = p.copy()
+    d = math.hypot(p[k, 0] - site[0], p[k, 1] - site[1])
+    p[k, 2] = site[2] + d * math.tan(math.radians(deg))
+    return p
+
+
+def test_glide_slope_judges_the_estimated_path_and_catches_an_estimate_through_the_cone():
+    """The estimate at a guided tick put 5 deg above the horizon seen from the
+    site in force fails by 5 deg, while the true path, untouched, still
+    passes D81's reported form."""
     row, h, m = flight()
     r = C.check_glide_slope(h, m, row)
-    assert r["verdict"] == "PASS" and r["lowest_elevation_margin_deg"] > 0
-    p = h["tick_pos"].copy()
-    k = 100                                         # a guided tick put 5 deg above the horizon seen from the site
-    d = math.hypot(p[k, 0] - SITE[0], p[k, 1] - SITE[1])
-    p[k, 2] = SITE[2] + d * math.tan(math.radians(5.0))
-    h["tick_pos"] = p
+    assert r["verdict"] == "PASS" and r["lowest_elevation_margin_deg"] > 0 and r["ticks_without_estimate"] == 0
+    h["est_pos"] = under_cone(h["est_pos"], 100, 5.0)
     r = C.check_glide_slope(h, m, row)
     assert r["verdict"] == "FAIL" and r["lowest_elevation_margin_deg"] == pytest.approx(-5.0, abs=1e-9)
+    assert r["d81_over_deg"] > 0 and r["d81_violations"] == 0
 
 
-def test_glide_slope_excludes_the_descent_and_reports_the_estimated_frame():
-    """Guidance applies the cone only in guided flight: a descent tick under
-    it is not judged; the estimated-frame figure is reported beside."""
+def test_glide_slope_large_navigation_error_estimate_inside_the_cone_true_path_not():
+    """The 7.2c hazard aborts' case: a lander 1.5 km in error flies its
+    estimate inside the cone, so its true path, 1.5 km back, is under the
+    cone seen from the true target. Judged PASS (it flew the constraint); D81's
+    form, reported, shows the true path about the true target through it."""
     row, h, m = flight()
     p = h["tick_pos"].copy()
-    last = len(p) - 1                               # a descent tick
-    p[last] = [SITE[0] + 500.0, SITE[1], SITE[2] + 1.0]
+    p[:, 0] -= 1500.0                               # truth = estimate less the 1.5 km error
     h["tick_pos"] = p
+    row["true_site"] = None
     r = C.check_glide_slope(h, m, row)
-    assert r["verdict"] == "PASS" and r["margin_estimated_frame_deg"] is not None
+    assert r["verdict"] == "PASS" and r["over"] > 0
+    assert r["d81_over_deg"] < 0 and r["d81_violations"] > 0
 
 
-def test_glide_slope_judged_about_the_true_site_from_the_decision_on():
-    """D81: before the decision the site in force is the target, from it on
-    the chosen site's true position: a true site 5 km off puts the ticks of
-    steps 5 to 9 under its cone, while the same flight with the decision
-    after them passes."""
+def test_glide_slope_is_judged_about_the_holds_origin_the_site_in_force():
+    """A divert recentres guidance at step 5 on a site 5 km east: the same
+    estimated path is then under that site's cone (judged FAIL), though the
+    true path about the true site (D81, reported) is not."""
+    row, h, m = flight()
+    o = h["hold_origin"].copy()
+    o[5:10, 0] += 5000.0
+    h["hold_origin"] = o
+    r = C.check_glide_slope(h, m, row)
+    assert r["verdict"] == "FAIL" and r["d81_violations"] == 0
+
+
+def test_glide_slope_estimate_matched_to_its_tick_by_absolute_time():
+    """Each tick reads the estimate at its own time (step time plus the tick's
+    time in its hold): an estimate moved through the cone at step 2's tick 20
+    fails, and the same estimate logged at another time is not read there."""
+    row, h, m = flight()
+    h["est_pos"] = under_cone(h["est_pos"], 100, 5.0)
+    assert C.check_glide_slope(h, m, row)["verdict"] == "FAIL"
+    h["est_t"] = h["est_t"].copy()
+    h["est_t"][100] += 1000.0                       # logged at a time with no guided tick
+    r = C.check_glide_slope(h, m, row)
+    assert r["verdict"] == "UNJUDGED" and r["ticks_without_estimate"] == 1
+
+
+def test_glide_slope_unjudged_without_the_estimate_log():
+    """D99: a history without the estimate log (7.1's) is unjudged, not
+    passed; D81's form is still reported."""
+    row, h, m = flight()
+    for k in ("est_phase", "est_t", "est_pos", "est_vel"):
+        del h[k]
+    r = C.check_glide_slope(h, m, row)
+    assert r["verdict"] == "UNJUDGED" and r["n"] == 0 and r["d81_over_deg"] > 0
+
+
+def test_glide_slope_excludes_the_descent():
+    """Guidance applies the cone only in guided flight: a descent tick's
+    estimate under it is not judged."""
+    row, h, m = flight()
+    last = len(h["est_pos"]) - 1                    # a descent tick
+    h["est_pos"] = h["est_pos"].copy()
+    h["est_pos"][last] = [SITE[0] + 500.0, SITE[1], SITE[2] + 1.0]
+    assert h["hold_phase"][h["tick_hold"][last]] == "descent"
+    assert C.check_glide_slope(h, m, row)["verdict"] == "PASS"
+
+
+def test_d81_reported_about_the_true_site_from_the_decision_on():
+    """D81's reported form: before the decision the site in force is the
+    target, from it on the chosen site's true position: a true site 5 km off
+    puts the true ticks of steps 5 to 9 under its cone, while the same flight
+    with the decision after them does not. The judged verdict is unmoved."""
     row, h, m = flight()
     row["true_site"] = [SITE[0] + 5000.0, SITE[1]]
     r = C.check_glide_slope(h, m, row)
-    assert r["verdict"] == "FAIL", r
+    assert r["d81_over_deg"] < 0 and r["verdict"] == "PASS", r
     m["decision"]["step"] = 100
-    assert C.check_glide_slope(h, m, row)["verdict"] == "PASS"
+    assert C.check_glide_slope(h, m, row)["d81_over_deg"] > 0
 
 
-def test_true_site_of_the_site_in_force_is_on_the_checkers_ground():
-    """The site's height is the checker's ground at its true position, not
-    the logged height: ground 1 km above the path puts every tick below it."""
+def test_d81_true_site_is_on_the_checkers_ground():
+    """D81's site height is the checker's ground at its true position, not
+    the logged height: ground 1 km above the path puts every true tick below
+    it."""
     row, h, m = flight()
-    assert C.check_glide_slope(h, m, row)["verdict"] == "PASS"
-    assert C.check_glide_slope(h, m, row, Flat(SITE[2] + 1000.0))["verdict"] == "FAIL"
-
-
-def test_estimated_frame_is_the_true_path_plus_the_steps_estimate_error():
-    """Reported, not judged: an estimate 2 km downrange in error at step 3
-    moves the estimated-frame path through the cone; the judged true path is
-    unchanged."""
-    row, h, m = flight()
-    base = C.check_glide_slope(h, m, row)
-    nav = h["step_nav"].copy()
-    nav[3, 2] -= 2000.0
-    h["step_nav"] = nav
-    r = C.check_glide_slope(h, m, row)
-    assert r["margin_estimated_frame_deg"] < 0 < base["margin_estimated_frame_deg"]
-    assert r["margin"] == base["margin"] and r["verdict"] == "PASS"
+    assert C.check_glide_slope(h, m, row)["d81_over_deg"] > 0
+    assert C.check_glide_slope(h, m, row, Flat(SITE[2] + 1000.0))["d81_over_deg"] < 0
 
 
 # 4 terrain clearance
@@ -397,14 +445,19 @@ def test_tolerance_3_glide_formula_known_answer():
 
 
 def test_tolerance_3_a_tick_inside_its_tolerance_passes_and_beyond_fails():
+    """Judged on the estimate, its tolerance from the estimate's own velocity
+    (three times the true one here, so the true velocity's tolerance would
+    not do)."""
     for f, want in ((0.9, "PASS"), (1.1, "FAIL")):
         row, h, m = flight()
-        p, v = h["tick_pos"].copy(), h["tick_vel"][100]
+        h["est_vel"] = h["est_vel"].copy()
+        h["est_vel"][100] *= 3.0
+        p, v = h["est_pos"].copy(), h["est_vel"][100]
         d = math.hypot(p[100, 0] - SITE[0], p[100, 1] - SITE[1])
         for _ in range(3):                           # the tolerance depends on the point: iterate to it
             tol = C.glide_tolerance(p[100, 2] - SITE[2], p[100, 0] - SITE[0], p[100, 1] - SITE[1], v)
             p[100, 2] = SITE[2] + d * math.tan(math.radians(10.0 - f * tol))
-        h["tick_pos"] = p
+        h["est_pos"] = p
         assert C.check_glide_slope(h, m, row)["verdict"] == want, f
 
 

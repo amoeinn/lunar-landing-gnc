@@ -1,0 +1,147 @@
+{
+ "1": {
+  "tolerance_kg": 1.000444171950221e-11,
+  "m_max": 8359.767983516287,
+  "ulp": 1.8189894035458565e-12,
+  "steps_max": 3,
+  "formula": "(N/2 + 4) ulp(m_max)",
+  "errors": {
+   "n": 32,
+   "smallest": 1.2185807918285718e-12,
+   "median": 1.644906433284632e-12,
+   "largest": 2.383870878475136e-12
+  },
+  "margins": {
+   "n": 32,
+   "smallest": 7.620570841027074e-12,
+   "median": 8.359535286217579e-12,
+   "largest": 8.785860927673639e-12
+  },
+  "fail": 0
+ },
+ "2": {
+  "tolerance_high_N": 3.7335196502585185e-11,
+  "tolerance_low_N": 6.222532750430865e-12,
+  "formula_magnitude": "6 eps rho",
+  "tilt_tolerance_deg": {
+   "n": 1423,
+   "smallest": 3.725802947381732e-05,
+   "median": 0.00469532472368625,
+   "largest": 0.04225065244697346
+  },
+  "formula_tilt": "tol_feas (2R + tan80 |r_up|) (1 + cos p) / (|u| sin p), per guided hold",
+  "margin_magnitude_N": {
+   "n": 32,
+   "smallest": 5.3130380486579364e-12,
+   "median": 3.369721769549347e-11,
+   "largest": 0.10821683879935379
+  },
+  "margin_tilt_deg": {
+   "n": 32,
+   "smallest": 0.00016243321474718186,
+   "median": 0.0003932112723354919,
+   "largest": 3.9492589979257957
+  },
+  "fail_magnitude": 0,
+  "fail_tilt": 0
+ },
+ "4": {
+  "formula": "(|v_up| + slope |v_h|) dt / 2 per sample",
+  "tolerance_at_minimum_m": {
+   "n": 32,
+   "smallest": 0.023105140127851864,
+   "median": 0.02351725316236867,
+   "largest": 0.8495757804162544
+  },
+  "margin_m": {
+   "n": 32,
+   "smallest": 0.14481836211933952,
+   "median": 0.25491818553807927,
+   "largest": 998.5975052465898
+  },
+  "fail": 0,
+  "unjudged_samples": 0,
+  "checker_minus_recorded_guided_min_m": {
+   "n": 27,
+   "smallest": 0.0054904513686437895,
+   "median": 0.12025459931334126,
+   "largest": 0.3320082491340486
+  }
+ },
+ "3": {
+  "formula": "|de/dt| TICK/2 + dz rho/(rho^2+up^2) per tick, dz = check 4's largest difference",
+  "dz_m": 0.3320082491340486,
+  "tolerance_at_minimum_deg": {
+   "n": 32,
+   "smallest": 0.0028251533056895847,
+   "median": 0.00282518300439769,
+   "largest": 0.5301338401590535
+  },
+  "margin_deg": {
+   "n": 32,
+   "smallest": 3.5074855328985715,
+   "median": 6.462165503039601,
+   "largest": 6.462165503039601
+  },
+  "fail": 0
+ },
+ "5": {
+  "formula": "RTOL |v| + ATOL + 4 eps t |a|",
+  "tolerance_m_s": {
+   "n": 20,
+   "smallest": 1.009359840212508e-08,
+   "median": 1.0094681388034445e-08,
+   "largest": 1.009506911442013e-08
+  },
+  "margin_m_s": {
+   "n": 20,
+   "smallest": 1.1704321199235634,
+   "median": 1.1930797273928957,
+   "largest": 1.2045924815749571
+  },
+  "fail": 0
+ },
+ "6": {
+  "formula": "ray spacing + march step + E's check 1c",
+  "ray_spacing_deg": {
+   "n": 20,
+   "smallest": 0.0003942707654093214,
+   "median": 0.004076382809157342,
+   "largest": 0.018177942633717525
+  },
+  "march_step_deg": {
+   "n": 20,
+   "smallest": 0.0,
+   "median": 0.00012451063262722273,
+   "largest": 0.7568031678399101
+  },
+  "tolerance_deg": 0.7749830164736277,
+  "margin_deg": {
+   "n": 20,
+   "smallest": 2.0568217923676837,
+   "median": 2.834326769881889,
+   "largest": 3.261183117317375
+  },
+  "fail": 0,
+  "lower_limb_deg": {
+   "n": 20,
+   "smallest": 1.014876564528159,
+   "median": 1.7938538249926053,
+   "largest": 2.2211190561668612
+  },
+  "disc_fraction": {
+   "n": 20,
+   "smallest": 0.9999999999999998,
+   "median": 0.9999999999999999,
+   "largest": 1.0
+  }
+ },
+ "7": {
+  "tolerance": 0,
+  "fail": 0,
+  "fired": 5,
+  "real": 5,
+  "missed": 0
+ },
+ "flights": 32
+}

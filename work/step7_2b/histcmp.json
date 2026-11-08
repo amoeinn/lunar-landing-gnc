@@ -1,0 +1,531 @@
+{
+ "summary": {
+  "jobs": 29,
+  "arrays_compared": 1280,
+  "jobs_identical": 24,
+  "differing": [
+   {
+    "job": "d00_trn_e0_g-168.0",
+    "arrays": 40,
+    "differ": [
+     "meta"
+    ],
+    "added": [
+     "hold_nsteps",
+     "solve_n",
+     "solve_phase",
+     "solve_status",
+     "solve_step",
+     "step_plan_status"
+    ]
+   },
+   {
+    "job": "d00_trn_e0_g-72.0",
+    "arrays": 40,
+    "differ": [
+     "meta"
+    ],
+    "added": [
+     "hold_nsteps",
+     "solve_n",
+     "solve_phase",
+     "solve_status",
+     "solve_step",
+     "step_plan_status"
+    ]
+   },
+   {
+    "job": "d00_trn_e1_g-168.0",
+    "arrays": 40,
+    "differ": [
+     "meta"
+    ],
+    "added": [
+     "hold_nsteps",
+     "solve_n",
+     "solve_phase",
+     "solve_status",
+     "solve_step",
+     "step_plan_status"
+    ]
+   },
+   {
+    "job": "d00_trn_e3_g-168.0",
+    "arrays": 40,
+    "differ": [
+     "meta"
+    ],
+    "added": [
+     "hold_nsteps",
+     "solve_n",
+     "solve_phase",
+     "solve_status",
+     "solve_step",
+     "step_plan_status"
+    ]
+   },
+   {
+    "job": "d00_trn_e3_g168.0",
+    "arrays": 40,
+    "differ": [
+     "meta"
+    ],
+    "added": [
+     "hold_nsteps",
+     "solve_n",
+     "solve_phase",
+     "solve_status",
+     "solve_step",
+     "step_plan_status"
+    ]
+   }
+  ],
+  "added": [
+   "e0_hold_nsteps",
+   "e0_solve_n",
+   "e0_solve_phase",
+   "e0_solve_status",
+   "e0_solve_step",
+   "e0_step_plan_status",
+   "e1_hold_nsteps",
+   "e1_solve_n",
+   "e1_solve_phase",
+   "e1_solve_status",
+   "e1_solve_step",
+   "e1_step_plan_status",
+   "e2_hold_nsteps",
+   "e2_solve_n",
+   "e2_solve_phase",
+   "e2_solve_status",
+   "e2_solve_step",
+   "e2_step_plan_status",
+   "e3_hold_nsteps",
+   "e3_solve_n",
+   "e3_solve_phase",
+   "e3_solve_status",
+   "e3_solve_step",
+   "e3_step_plan_status",
+   "hold_nsteps",
+   "solve_n",
+   "solve_phase",
+   "solve_status",
+   "solve_step",
+   "step_plan_status"
+  ],
+  "solve_status": {
+   "optimal": 8674,
+   "infeasible": 4028
+  },
+  "step_plan_status": {
+   "optimal": 1423,
+   "": 5
+  }
+ },
+ "jobs": [
+  {
+   "job": "d00_notrn_eNone_gNone",
+   "arrays": 160,
+   "differ": [],
+   "added": [
+    "e0_hold_nsteps",
+    "e0_solve_n",
+    "e0_solve_phase",
+    "e0_solve_status",
+    "e0_solve_step",
+    "e0_step_plan_status",
+    "e1_hold_nsteps",
+    "e1_solve_n",
+    "e1_solve_phase",
+    "e1_solve_status",
+    "e1_solve_step",
+    "e1_step_plan_status",
+    "e2_hold_nsteps",
+    "e2_solve_n",
+    "e2_solve_phase",
+    "e2_solve_status",
+    "e2_solve_step",
+    "e2_step_plan_status",
+    "e3_hold_nsteps",
+    "e3_solve_n",
+    "e3_solve_phase",
+    "e3_solve_status",
+    "e3_solve_step",
+    "e3_step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-168.0",
+   "arrays": 40,
+   "differ": [
+    "meta"
+   ],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g-72.0",
+   "arrays": 40,
+   "differ": [
+    "meta"
+   ],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g0.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g168.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e0_g72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-168.0",
+   "arrays": 40,
+   "differ": [
+    "meta"
+   ],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g-72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g0.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g168.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e1_g72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-168.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g-72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g0.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g168.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e2_g72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-168.0",
+   "arrays": 40,
+   "differ": [
+    "meta"
+   ],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g-72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g0.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g168.0",
+   "arrays": 40,
+   "differ": [
+    "meta"
+   ],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g24.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  },
+  {
+   "job": "d00_trn_e3_g72.0",
+   "arrays": 40,
+   "differ": [],
+   "added": [
+    "hold_nsteps",
+    "solve_n",
+    "solve_phase",
+    "solve_status",
+    "solve_step",
+    "step_plan_status"
+   ]
+  }
+ ]
+}

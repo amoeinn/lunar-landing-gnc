@@ -1,0 +1,770 @@
+[
+ {
+  "job": "d00_notrn_eNone_gNone",
+  "same_record": true,
+  "seconds": 59.23459327099408,
+  "reference_seconds": 56.05548621900016,
+  "maxrss_mb": 1384.90234375,
+  "history_bytes": 1673636,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   },
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   },
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   },
+   {
+    "epoch": 3,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g-168.0",
+  "same_record": true,
+  "seconds": 24.00215614699846,
+  "reference_seconds": 33.61279844099954,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 1096509,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "abort",
+    "triggers_equal": true,
+    "triggers_by_step": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g-24.0",
+  "same_record": true,
+  "seconds": 33.89706498099986,
+  "reference_seconds": 31.09283748100006,
+  "maxrss_mb": 1592.8203125,
+  "history_bytes": 464039,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g-72.0",
+  "same_record": true,
+  "seconds": 29.496116075002647,
+  "reference_seconds": 29.063510119000057,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 1096505,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "abort",
+    "triggers_equal": true,
+    "triggers_by_step": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g0.0",
+  "same_record": true,
+  "seconds": 52.584419373000856,
+  "reference_seconds": 64.5950674099995,
+  "maxrss_mb": 1478.8125,
+  "history_bytes": 447933,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g168.0",
+  "same_record": true,
+  "seconds": 49.26035586099897,
+  "reference_seconds": 57.541799798000284,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 453956,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g24.0",
+  "same_record": true,
+  "seconds": 49.2313018729983,
+  "reference_seconds": 48.411438186999476,
+  "maxrss_mb": 1647.5,
+  "history_bytes": 423112,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e0_g72.0",
+  "same_record": true,
+  "seconds": 49.38233062100335,
+  "reference_seconds": 53.73106429699965,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 447059,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g-168.0",
+  "same_record": true,
+  "seconds": 23.179337244000635,
+  "reference_seconds": 32.55947435100006,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 1096511,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "abort",
+    "triggers_equal": true,
+    "triggers_by_step": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g-24.0",
+  "same_record": true,
+  "seconds": 42.96458624099614,
+  "reference_seconds": 39.338828361000196,
+  "maxrss_mb": 1602.0,
+  "history_bytes": 460773,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g-72.0",
+  "same_record": true,
+  "seconds": 35.10240939500363,
+  "reference_seconds": 37.80927876700025,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 481040,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g0.0",
+  "same_record": true,
+  "seconds": 41.00213428799907,
+  "reference_seconds": 38.72791875799976,
+  "maxrss_mb": 1592.8203125,
+  "history_bytes": 448147,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g168.0",
+  "same_record": true,
+  "seconds": 48.47442304799915,
+  "reference_seconds": 51.88497415300026,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 522995,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g24.0",
+  "same_record": true,
+  "seconds": 39.099956178994034,
+  "reference_seconds": 41.22659024600034,
+  "maxrss_mb": 1647.79296875,
+  "history_bytes": 450610,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e1_g72.0",
+  "same_record": true,
+  "seconds": 30.650093586002185,
+  "reference_seconds": 33.731157844000336,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 463060,
+  "flights": [
+   {
+    "epoch": 1,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g-168.0",
+  "same_record": true,
+  "seconds": 43.90182871700381,
+  "reference_seconds": 52.7160474580005,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 395249,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g-24.0",
+  "same_record": true,
+  "seconds": 46.15472970599512,
+  "reference_seconds": 42.79144061500028,
+  "maxrss_mb": 1602.12890625,
+  "history_bytes": 447708,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g-72.0",
+  "same_record": true,
+  "seconds": 40.55761838100443,
+  "reference_seconds": 39.97688855500019,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 459625,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g0.0",
+  "same_record": true,
+  "seconds": 43.080965075001586,
+  "reference_seconds": 38.338999832999434,
+  "maxrss_mb": 1592.8203125,
+  "history_bytes": 447313,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g168.0",
+  "same_record": true,
+  "seconds": 55.32630375500594,
+  "reference_seconds": 65.23922021300041,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 509349,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g24.0",
+  "same_record": true,
+  "seconds": 46.56958133800072,
+  "reference_seconds": 44.532755307000116,
+  "maxrss_mb": 1647.79296875,
+  "history_bytes": 443360,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e2_g72.0",
+  "same_record": true,
+  "seconds": 37.38322541099478,
+  "reference_seconds": 43.72920165599953,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 438358,
+  "flights": [
+   {
+    "epoch": 2,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g-168.0",
+  "same_record": true,
+  "seconds": 23.323748779002926,
+  "reference_seconds": 28.477079481000146,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 1096530,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "abort",
+    "triggers_equal": true,
+    "triggers_by_step": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g-24.0",
+  "same_record": true,
+  "seconds": 48.041454213998804,
+  "reference_seconds": 45.753771229999984,
+  "maxrss_mb": 1602.12890625,
+  "history_bytes": 445190,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g-72.0",
+  "same_record": true,
+  "seconds": 40.81828721400234,
+  "reference_seconds": 38.357089053999516,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 450665,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g0.0",
+  "same_record": true,
+  "seconds": 41.28016796000156,
+  "reference_seconds": 39.807858047999616,
+  "maxrss_mb": 1592.8203125,
+  "history_bytes": 447653,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g168.0",
+  "same_record": true,
+  "seconds": 23.12176682700374,
+  "reference_seconds": 31.727623099000084,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 1096508,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "abort",
+    "triggers_equal": true,
+    "triggers_by_step": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "triggers_by_trigger_call": [],
+    "triggers": [
+     [
+      "lost lock",
+      40.0
+     ]
+    ],
+    "abort_propellant": 4.547473508864641e-13,
+    "abort_last_hold": "abort burn"
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g24.0",
+  "same_record": true,
+  "seconds": 35.17947452900262,
+  "reference_seconds": 32.2421914180004,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 434886,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "unsafe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ },
+ {
+  "job": "d00_trn_e3_g72.0",
+  "same_record": true,
+  "seconds": 47.497083662005025,
+  "reference_seconds": 52.148790629999894,
+  "maxrss_mb": 1945.27734375,
+  "history_bytes": 564165,
+  "flights": [
+   {
+    "epoch": 3,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ }
+]

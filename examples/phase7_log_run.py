@@ -63,6 +63,7 @@ class Obs:
     triggers = []
     decision = None
     abort_samples = []
+    solves = []                 # each guidance solve: phase, step, steps n, status (D92)
 
 
 def _rhs_name(fun):
@@ -101,6 +102,7 @@ def install():
             if ode.sol is not None:
                 tt = np.append(np.arange(t0, t1, TICK)[1:], t1) if t1 > t0 else np.array([t1])
                 rec["ticks_t"], rec["ticks_y"] = tt, np.asarray(ode.sol(tt)).T
+            rec["n_steps"] = int(len(ode.t) - 1)      # the integrator's accepted steps (no t_eval is passed)
             Obs.holds.append(rec)
         return ode
 
@@ -129,7 +131,20 @@ def install():
                                 step=int(Obs.flight.s["step"]), target=[float(v) for v in target])
         return ch
 
+    from lunar_landing_gnc import guidance as GD
+
+    def solve_wrap(orig):
+        def solve(case, n, dt):
+            sol = orig(case, n, dt)
+            if Obs.on:
+                fs = getattr(Obs.flight, "s", None)      # None while the flight is being built (the nominal plan)
+                Obs.solves.append(dict(phase=Obs.phase, step=None if fs is None else int(fs["step"]),
+                                       n=int(n), status=str(sol.status)))
+            return sol
+        return solve
+
     EF.solve_ivp, CL.trigger, LD.choose = solve_ivp, trigger, choose_w
+    GD.solve, CL.solve = solve_wrap(GD.solve), solve_wrap(CL.solve)     # D92: status only, the result returned as is
     EF._phase7_wrapped = True
 
 
@@ -193,17 +208,17 @@ def flight_class():
 
 def snapshot_obs():
     return copy.deepcopy(dict(holds=Obs.holds, triggers=Obs.triggers, decision=Obs.decision,
-                              abort_samples=Obs.abort_samples, phase=Obs.phase))
+                              abort_samples=Obs.abort_samples, phase=Obs.phase, solves=Obs.solves))
 
 
 def restore_obs(o):
     o = copy.deepcopy(o)
     Obs.holds, Obs.triggers, Obs.decision = o["holds"], o["triggers"], o["decision"]
-    Obs.abort_samples, Obs.phase = o["abort_samples"], o["phase"]
+    Obs.abort_samples, Obs.phase, Obs.solves = o["abort_samples"], o["phase"], o["solves"]
 
 
 def reset_obs():
-    restore_obs(dict(holds=[], triggers=[], decision=None, abort_samples=[], phase="guided"))
+    restore_obs(dict(holds=[], triggers=[], decision=None, abort_samples=[], phase="guided", solves=[]))
 
 
 def history(f, out):
@@ -223,6 +238,7 @@ def history(f, out):
     h["hold_y1"] = np.array([pad(x["y1"]) for x in holds], float).reshape(-1, ny)
     h["hold_args"] = np.array(json.dumps([x["args"] for x in holds]))
     h["hold_event"] = np.array(json.dumps([x["event"] for x in holds]))
+    h["hold_nsteps"] = np.array([x["n_steps"] for x in holds], int)
     tk = [(k, t, y) for k, x in enumerate(holds) if "ticks_t" in x for t, y in zip(x["ticks_t"], x["ticks_y"])]
     h["tick_hold"] = np.array([k for k, _, _ in tk], int)
     h["tick_t"] = np.array([t for _, t, _ in tk], float)
@@ -245,6 +261,14 @@ def history(f, out):
     h["step_fired"] = np.array([r.get("fired") or "" for r in steps])
     h["step_origin"] = np.array([s["cmds"][r["step"]][3] if r["step"] in s["cmds"] else [np.nan] * 3
                                  for r in steps], float).reshape(-1, 3)
+    # D92: the status of the plan in force at each step (the plan whose command the step holds), and every solve
+    h["step_plan_status"] = np.array([str(getattr(s["cmds"][r["step"]][0], "status", "")) if r["step"] in s["cmds"]
+                                      else "" for r in steps])
+    sv = Obs.solves
+    h["solve_phase"] = np.array([x["phase"] for x in sv])
+    h["solve_step"] = np.array([-1 if x["step"] is None else x["step"] for x in sv], int)
+    h["solve_n"] = np.array([x["n"] for x in sv], int)
+    h["solve_status"] = np.array([x["status"] for x in sv])
     tr = Obs.triggers
     h["trig_phase"] = np.array([x["phase"] for x in tr])
     h["trig_step"] = np.array([x["step"] for x in tr], int)

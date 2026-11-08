@@ -1,0 +1,23 @@
+2026-11-07 21:34:54 seed 2, draws 0 to 0, 29 flights, 0 already written; 4 workers, cast cpp, logging
+2026-11-07 21:34:54 stage 1: 29 flights left
+2026-11-07 21:35:54 stage 1: 0 of 29 done, 29 left, about nan min left, pool 1.85 GB (stage peak 1.85 GB)
+2026-11-07 21:36:54 stage 1: 2 of 29 done, 27 left, about 27 min left, pool 1.75 GB (stage peak 1.85 GB)
+2026-11-07 21:37:54 stage 1: 3 of 29 done, 26 left, about 26 min left, pool 1.80 GB (stage peak 1.85 GB)
+2026-11-07 21:38:54 stage 1: 4 of 29 done, 25 left, about 25 min left, pool 1.73 GB (stage peak 1.85 GB)
+2026-11-07 21:39:54 stage 1: 6 of 29 done, 23 left, about 19 min left, pool 1.91 GB (stage peak 1.91 GB)
+2026-11-07 21:40:54 stage 1: 7 of 29 done, 22 left, about 19 min left, pool 1.80 GB (stage peak 1.91 GB)
+2026-11-07 21:41:54 stage 1: 9 of 29 done, 20 left, about 16 min left, pool 1.79 GB (stage peak 1.91 GB)
+2026-11-07 21:42:54 stage 1: 10 of 29 done, 19 left, about 15 min left, pool 1.87 GB (stage peak 1.91 GB)
+2026-11-07 21:43:54 stage 1: 11 of 29 done, 18 left, about 15 min left, pool 1.87 GB (stage peak 1.91 GB)
+2026-11-07 21:44:54 stage 1: 13 of 29 done, 16 left, about 12 min left, pool 1.47 GB (stage peak 1.91 GB)
+2026-11-07 21:45:54 stage 1: 15 of 29 done, 14 left, about 10 min left, pool 1.61 GB (stage peak 1.91 GB)
+2026-11-07 21:46:54 stage 1: 16 of 29 done, 13 left, about 10 min left, pool 1.87 GB (stage peak 1.91 GB)
+2026-11-07 21:47:54 stage 1: 18 of 29 done, 11 left, about 8 min left, pool 1.70 GB (stage peak 1.91 GB)
+2026-11-07 21:48:54 stage 1: 19 of 29 done, 10 left, about 7 min left, pool 1.87 GB (stage peak 1.91 GB)
+2026-11-07 21:49:54 stage 1: 21 of 29 done, 8 left, about 6 min left, pool 1.74 GB (stage peak 1.91 GB)
+2026-11-07 21:50:54 stage 1: 23 of 29 done, 6 left, about 4 min left, pool 1.40 GB (stage peak 1.91 GB)
+2026-11-07 21:51:54 stage 1: 25 of 29 done, 4 left, about 3 min left, pool 1.38 GB (stage peak 1.91 GB)
+2026-11-07 21:52:54 stage 1: 26 of 29 done, 3 left, about 2 min left, pool 1.33 GB (stage peak 1.91 GB)
+2026-11-07 21:53:54 stage 1: 27 of 29 done, 2 left, about 1 min left, pool 1.61 GB (stage peak 1.91 GB)
+2026-11-07 21:54:39 stage 1 ended (exit 0): 29 flights written, 0 left, sampled pool peak 1.91 GB
+2026-11-07 21:54:39 finished in 19.8 min: 29 of 29 written

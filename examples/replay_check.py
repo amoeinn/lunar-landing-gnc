@@ -720,13 +720,15 @@ def summary(res):
     """Per check: verdict counts and the smallest, median and largest margin
     over the flights it judged, with the extra margins each check reports."""
     out = {}
-    extra = {"2 thrust and pointing": ("margin_low_N", "margin_high_N", "margin_tilt_deg", "abort_engine_rel_error",
-                                       "delivered_max_fraction", "delivered_min_fraction"),
-             "1 mass flow": ("largest_error_kg",),
-             "3 glide slope": ("margin_estimated_frame_deg",),
-             "4 terrain clearance": ("clearance_minus_recorded",),
-             "5 touchdown velocity": ("margin_down", "margin_horizontal"),
-             "6 site lit": ("margin_lower_limb", "horizon", "sun_elevation")}
+    extra = {"2 thrust and pointing": ("tolerance", "over", "violations", "margin_tilt_deg", "tolerance_tilt_deg",
+                                       "over_tilt_deg", "abort_engine_rel_error", "delivered_max_fraction",
+                                       "delivered_min_fraction"),
+             "1 mass flow": ("tolerance", "over", "violations", "largest_error_kg"),
+             "3 glide slope": ("tolerance", "over", "violations", "margin_estimated_frame_deg"),
+             "4 terrain clearance": ("tolerance", "over", "violations", "clearance_minus_recorded"),
+             "5 touchdown velocity": ("tolerance", "over", "margin_down", "margin_horizontal"),
+             "6 site lit": ("tolerance", "over", "ray_spacing_deg", "march_step_deg", "margin_lower_limb",
+                            "horizon", "sun_elevation")}
     for r in res:
         for c in r.get("checks", []):
             o = out.setdefault(c["check"], dict(PASS=0, FAIL=0, other=0, margin=[], **{k: [] for k in extra.get(c["check"], ())}))

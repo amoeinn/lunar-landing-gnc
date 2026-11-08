@@ -1,0 +1,300 @@
+d00_notrn_eNone_gNone 0 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_notrn_eNone_gNone 3 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-168.0 0 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-24.0 0 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g-72.0 0 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g0.0 0 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g168.0 0 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g24.0 0 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e0_g72.0 0 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-168.0 1 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-24.0 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g-72.0 1 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g0.0 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g168.0 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g24.0 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e1_g72.0 1 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-168.0 2 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-24.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g-72.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g0.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g168.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g24.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e2_g72.0 2 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-168.0 3 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-24.0 3 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g-72.0 3 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g0.0 3 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g168.0 3 abort 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g24.0 3 unsafe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+d00_trn_e3_g72.0 3 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+{
+ "1 mass flow": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": -8.533451723025109e-13,
+   "median": -4.5448367291811564e-13,
+   "largest": -2.849942504212777e-13
+  },
+  "tolerance": {
+   "n": 32,
+   "smallest": 4.092726157978177e-12,
+   "median": 4.092726157978177e-12,
+   "largest": 4.092726157978177e-12
+  },
+  "over": {
+   "n": 32,
+   "smallest": 3.239380985675666e-12,
+   "median": 3.6382424850600614e-12,
+   "largest": 3.807731907556899e-12
+  },
+  "violations": {
+   "n": 32,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "largest_error_kg": {
+   "n": 32,
+   "smallest": 1.2185807918285718e-12,
+   "median": 1.644906433284632e-12,
+   "largest": 2.383870878475136e-12
+  }
+ },
+ "2 thrust and pointing": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": -3.637978807091713e-12,
+   "median": -2.2737367544323206e-12,
+   "largest": 0.1082168387620186
+  },
+  "tolerance": {
+   "n": 32,
+   "smallest": 6.222532750430865e-12,
+   "median": 3.7335196502585185e-11,
+   "largest": 3.7335196502585185e-11
+  },
+  "over": {
+   "n": 32,
+   "smallest": 5.3130380486579364e-12,
+   "median": 3.369721769549347e-11,
+   "largest": 0.10821683879935379
+  },
+  "violations": {
+   "n": 32,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "margin_tilt_deg": {
+   "n": 32,
+   "smallest": -0.00017316816483514685,
+   "median": 4.4372024632366447e-07,
+   "largest": 3.9228133139048964
+  },
+  "tolerance_tilt_deg": {
+   "n": 32,
+   "smallest": 0.00013765116251797336,
+   "median": 0.0003917007692732579,
+   "largest": 0.026445684020902714
+  },
+  "over_tilt_deg": {
+   "n": 32,
+   "smallest": 0.0001624332147483751,
+   "median": 0.0003932112723345551,
+   "largest": 3.9492589979257993
+  },
+  "abort_engine_rel_error": {
+   "n": 5,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "delivered_max_fraction": {
+   "n": 32,
+   "smallest": 0.5954328266395716,
+   "median": 0.595435125974987,
+   "largest": 0.595435125974987
+  },
+  "delivered_min_fraction": {
+   "n": 32,
+   "smallest": 0.09923918766249783,
+   "median": 0.09923933152161737,
+   "largest": 0.09934985709906402
+  }
+ },
+ "3 glide slope": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": 2.977351692739518,
+   "median": 6.459340320035203,
+   "largest": 6.459340320035203
+  },
+  "tolerance": {
+   "n": 32,
+   "smallest": 0.0028250926994621817,
+   "median": 0.002825122398170267,
+   "largest": 0.5301206813860382
+  },
+  "over": {
+   "n": 32,
+   "smallest": 3.5074723741255562,
+   "median": 6.462165442433373,
+   "largest": 6.462165442433373
+  },
+  "violations": {
+   "n": 32,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "margin_estimated_frame_deg": {
+   "n": 32,
+   "smallest": 2.161894223850208,
+   "median": 5.761825346988623,
+   "largest": 5.785401150103132
+  }
+ },
+ "4 terrain clearance": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 32,
+   "smallest": 0.12125775376350134,
+   "median": 0.23143414295634557,
+   "largest": 997.7479294661736
+  },
+  "tolerance": {
+   "n": 32,
+   "smallest": 0.023105140127851864,
+   "median": 0.02351725316236867,
+   "largest": 0.8495757804162544
+  },
+  "over": {
+   "n": 32,
+   "smallest": 0.14481836211933952,
+   "median": 0.25491818553807927,
+   "largest": 998.5975052465898
+  },
+  "violations": {
+   "n": 32,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "clearance_minus_recorded": {
+   "n": 27,
+   "smallest": 0.0054904513686437895,
+   "median": 0.12025459931334126,
+   "largest": 0.3320082491340486
+  }
+ },
+ "5 touchdown velocity": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 20,
+   "smallest": 1.1704321098290926,
+   "median": 1.1930797172980951,
+   "largest": 1.2045924714813587
+  },
+  "tolerance": {
+   "n": 20,
+   "smallest": 1.009359840212508e-08,
+   "median": 1.0094681388034445e-08,
+   "largest": 1.009506911442013e-08
+  },
+  "over": {
+   "n": 20,
+   "smallest": 1.1704321199235634,
+   "median": 1.1930797273928957,
+   "largest": 1.2045924815749571
+  },
+  "margin_down": {
+   "n": 20,
+   "smallest": 1.1908625085058637,
+   "median": 1.1941080360344318,
+   "largest": 1.2045924714813587
+  },
+  "margin_horizontal": {
+   "n": 20,
+   "smallest": 1.1704321098290926,
+   "median": 1.2152453422078588,
+   "largest": 1.2176825425563111
+  }
+ },
+ "6 site lit": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 20,
+   "smallest": 1.2818387758940561,
+   "median": 2.0593437534082613,
+   "largest": 2.4862001008437473
+  },
+  "tolerance": {
+   "n": 20,
+   "smallest": 0.0005441754142406259,
+   "median": 0.004275394860435604,
+   "largest": 0.9909140769113276
+  },
+  "over": {
+   "n": 20,
+   "smallest": 1.2935925450611627,
+   "median": 2.061698777276723,
+   "largest": 2.490793100873398
+  },
+  "ray_spacing_deg": {
+   "n": 20,
+   "smallest": 0.0003942707654093214,
+   "median": 0.004076382809157342,
+   "largest": 0.018177942633717525
+  },
+  "march_step_deg": {
+   "n": 20,
+   "smallest": 3.119995086731109e-07,
+   "median": 0.00015542795369649642,
+   "largest": 0.972851047883617
+  },
+  "margin_lower_limb": {
+   "n": 20,
+   "smallest": 1.014876564528159,
+   "median": 1.7938538249926053,
+   "largest": 2.2211190561668612
+  },
+  "horizon": {
+   "n": 20,
+   "smallest": -0.7535769764721281,
+   "median": -0.44287663875265,
+   "largest": 0.45174779656674313
+  },
+  "sun_elevation": {
+   "n": 20,
+   "smallest": 1.6155893643134107,
+   "median": 1.7329017821911132,
+   "largest": 1.802363674567292
+  }
+ },
+ "7 triggers": {
+  "PASS": 32,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  }
+ }
+}

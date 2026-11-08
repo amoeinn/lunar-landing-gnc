@@ -1,0 +1,26 @@
+differs d00_trn_e0_g-168.0 0 1 mass flow verdict UNJUDGED PASS
+differs d00_trn_e0_g-168.0 0 1 mass flow margin -1.0271783423831948e-12 -2.849942504212777e-13
+differs d00_trn_e0_g-168.0 0 1 mass flow tolerance 5.002220859751105e-12 4.092726157978177e-12
+differs d00_trn_e0_g-168.0 0 1 mass flow over 3.9750425173679105e-12 3.807731907556899e-12
+differs d00_trn_e0_g-168.0 0 1 mass flow unjudged 253 0
+differs d00_trn_e0_g-72.0 0 1 mass flow verdict UNJUDGED PASS
+differs d00_trn_e0_g-72.0 0 1 mass flow margin -1.0271783423831948e-12 -2.849942504212777e-13
+differs d00_trn_e0_g-72.0 0 1 mass flow tolerance 5.002220859751105e-12 4.092726157978177e-12
+differs d00_trn_e0_g-72.0 0 1 mass flow over 3.9750425173679105e-12 3.807731907556899e-12
+differs d00_trn_e0_g-72.0 0 1 mass flow unjudged 253 0
+differs d00_trn_e1_g-168.0 1 1 mass flow verdict UNJUDGED PASS
+differs d00_trn_e1_g-168.0 1 1 mass flow margin -1.0271783423831948e-12 -2.849942504212777e-13
+differs d00_trn_e1_g-168.0 1 1 mass flow tolerance 5.002220859751105e-12 4.092726157978177e-12
+differs d00_trn_e1_g-168.0 1 1 mass flow over 3.9750425173679105e-12 3.807731907556899e-12
+differs d00_trn_e1_g-168.0 1 1 mass flow unjudged 253 0
+differs d00_trn_e3_g-168.0 3 1 mass flow verdict UNJUDGED PASS
+differs d00_trn_e3_g-168.0 3 1 mass flow margin -1.0271783423831948e-12 -2.849942504212777e-13
+differs d00_trn_e3_g-168.0 3 1 mass flow tolerance 5.002220859751105e-12 4.092726157978177e-12
+differs d00_trn_e3_g-168.0 3 1 mass flow over 3.9750425173679105e-12 3.807731907556899e-12
+differs d00_trn_e3_g-168.0 3 1 mass flow unjudged 253 0
+differs d00_trn_e3_g168.0 3 1 mass flow verdict UNJUDGED PASS
+differs d00_trn_e3_g168.0 3 1 mass flow margin -1.0271783423831948e-12 -2.849942504212777e-13
+differs d00_trn_e3_g168.0 3 1 mass flow tolerance 5.002220859751105e-12 4.092726157978177e-12
+differs d00_trn_e3_g168.0 3 1 mass flow over 3.9750425173679105e-12 3.807731907556899e-12
+differs d00_trn_e3_g168.0 3 1 mass flow unjudged 253 0
+7.1 histories (status assumed optimal) against re-flown histories (status logged): 2240 fields compared, 25 differ

@@ -47,15 +47,32 @@ ISP_APS = 308.7                         # s: same source and conditions
 HIGHEST_POINT_M = 10786.0               # m above the mean radius: the Selenean summit, NASA PIA13642 (LOLA), D87
 LOST_LOCK_T = 40.0                      # s: PLAN.md phase 3.4, no TRN fix accepted by the last fix time
 
-# Provisional tolerances, zero or at the floating-point floor, until D80 registers them from each
-# check's own error: a margin below zero is a FAIL here.
-MASS_TOL_KG = 1e-6
-THRUST_TOL_N = 0.0
-TILT_TOL_DEG = 0.0
-GLIDE_TOL_DEG = 0.0
-CLEARANCE_TOL_M = 0.0
-VELOCITY_TOL = 0.0
-ENGINE_TOL_REL = 1e-12
+# The registered replay tolerances (PLAN.md "Replay tolerances", registered 7 Nov 2026, D91, D92, D95):
+# per-item formulas, each item's value written beside its margin; an item passes when its margin
+# plus its tolerance is not negative.
+EPS = float(np.finfo(float).eps)
+G_MOON = 1.62                           # m/s^2: PLAN.md phase 2c, flat Moon (vehicle.py), for steps and |a|
+RTOL_FLIGHT, ATOL_FLIGHT = 1e-10, 1e-8  # the flight's DOP853 settings, registered tolerances 1 and 5
+TICK = 0.05                             # s: the 20 Hz log
+DZ_SITE = 0.332                         # m: check 3's site-height term, D94 (check 4's measured differences)
+E_IMPL_DEG = 1.906e-6                   # deg: E's implementation error, E PLAN.md phase 1 step 7, check 1c (D91)
+FINE = 10                               # D91: the march against a 10 times finer one (rays and steps)
+
+
+def solver_tolerance(status):
+    """D92: Clarabel's primal feasibility tolerance as the guidance solve used it:
+    tol_feas for "optimal", reduced_tol_feas for "optimal_inaccurate" (cvxpy's
+    name for Clarabel's AlmostSolved, judged on the reduced tolerances). Read
+    from clarabel.DefaultSettings(), the settings guidance.py's
+    prob.solve(solver=cp.CLARABEL) runs on (Clarabel 0.11.1: 1e-8 and 1e-4)."""
+    import clarabel
+    st = clarabel.DefaultSettings()
+    if status == "optimal":
+        return float(st.tol_feas)
+    if status == "optimal_inaccurate":
+        return float(st.reduced_tol_feas)
+    raise ValueError(f"no registered tolerance for a solve ending {status!r}")
+
 
 LOLA = Path(os.environ.get("LLG_DATA", "")) / "lola"
 MOSAIC_5M = "ldem_87s_5mpp.tif"         # LOLA 5 m mosaic, Barker et al. (2021)
@@ -121,19 +138,48 @@ def expected_flow(x, kappa, isp):
     return 0.0
 
 
+def hold_steps(h, m, k, x):
+    """The hold's integrator steps: logged (hold_nsteps) where the history has
+    them; otherwise, for a truth hold, counted by integrating it again at the
+    flight's settings with the restated right-hand side; None if neither."""
+    if "hold_nsteps" in h:
+        return int(h["hold_nsteps"][k])
+    if x["rhs"] != "_truth_rhs" or not x["t1"] > x["t0"]:
+        return 0 if not x["t1"] > x["t0"] else None
+    from scipy.integrate import solve_ivp
+    a = x["args"]
+    T = np.asarray(a[0], float)
+
+    def f(t, y):
+        return np.concatenate([y[3:6], np.array([-G_MOON, 0.0, 0.0]) + a[1] * T / y[6],
+                               [-a[1] * np.linalg.norm(T) / (a[2] * G0) - a[3]]])
+    sol = solve_ivp(f, (x["t0"], x["t1"]), np.asarray(x["y0"][:7], float), method="DOP853",
+                    rtol=RTOL_FLIGHT, atol=ATOL_FLIGHT)
+    return len(sol.t) - 1
+
+
 def check_mass_flow(h, m):
     """Per hold: the logged mass change against the rocket equation's flow
-    times the hold's duration (constant thrust over a hold); margin,
-    MASS_TOL_KG less the largest absolute difference, kg."""
-    errs = []
-    for x in holds(h, m):
+    times the hold's duration (constant thrust over a hold). Tolerance 1, per
+    hold: (N/2 + 4) ulp of the hold's largest mass, N its integrator steps."""
+    errs, tols, unj = [], [], 0
+    for k, x in enumerate(holds(h, m)):
         i = mass_index(x)
         dm_log = float(x["y0"][i] - x["y1"][i])
         dm_exp = expected_flow(x, m["kappa"], m["isp"]) * (x["t1"] - x["t0"])
-        errs.append(dm_log - dm_exp)
-    worst = float(np.max(np.abs(errs))) if errs else 0.0
-    return dict(check="1 mass flow", verdict=verdict(worst <= MASS_TOL_KG), margin=MASS_TOL_KG - worst,
-                largest_error_kg=worst, n=len(errs), unit="kg")
+        n = hold_steps(h, m, k, x)
+        if n is None:
+            unj += 1
+            continue
+        errs.append(abs(dm_log - dm_exp))
+        tols.append((n / 2 + 4) * float(np.spacing(max(abs(x["y0"][i]), abs(x["y1"][i])))))
+    if not errs:
+        return dict(check="1 mass flow", verdict="PASS", margin=None, n=0, unjudged=unj)
+    mg = np.array(tols) - np.array(errs)
+    j = int(np.argmin(mg))
+    return dict(check="1 mass flow", verdict=verdict(mg[j] >= 0.0) if not unj else ("FAIL" if mg[j] < 0 else "UNJUDGED"),
+                margin=-float(errs[j]), tolerance=float(tols[j]), over=float(mg[j]), largest_error_kg=float(max(errs)),
+                violations=int((mg < 0).sum()), n=len(errs), unjudged=unj, unit="kg")
 
 
 def mass_index(x):
@@ -144,15 +190,48 @@ def mass_index(x):
 
 # 2 thrust and pointing bounds
 
+def tilt_tolerance(T, nav, status):
+    """Tolerance 2, tilt, per guided hold (D82, D92): the solver's primal
+    tolerance (solver_tolerance) times (2R + tan 80 deg times altitude) times
+    (1 + cos 45 deg), over (|u| sin 45 deg), deg; R the largest position or
+    velocity component of the governing step's logged estimate (at least 1),
+    |u| = |T| / m with m the estimate's mass."""
+    nav = np.asarray(nav, float)
+    R = max(float(np.max(np.abs(nav[0:6]))), 1.0)
+    e = solver_tolerance(status) * (2.0 * R + math.tan(math.radians(GLIDE_SLOPE_DEG)) * abs(float(nav[0])))
+    u = float(np.linalg.norm(T)) / float(nav[6])
+    c, sp = math.cos(math.radians(POINTING_DEG)), math.sin(math.radians(POINTING_DEG))
+    return math.degrees(e * (1.0 + c) / (u * sp))
+
+
 def check_bounds(h, m):
+    """Magnitude within 10 to 60 pct of rated and tilt within 45 deg, guided and
+    descent; tolerance 2: 6 eps times the bound for the magnitude, the tilt
+    per guided hold by tilt_tolerance (descent: 0, its thrust is put on the
+    cone's edge in closed form). The abort engines against their published
+    thrust and flow, at 6 eps relative. Delivered thrust reported."""
     lo, hi = THROTTLE_MIN * THRUST_RATED, THROTTLE_MAX * THRUST_RATED
-    mags, tilts, deliv, eng = [], [], [], []
+    tol_lo, tol_hi = 6 * EPS * lo, 6 * EPS * hi
+    nav = {int(st): v for st, v in zip(h["step_index"], h["step_nav"])}
+    status = {int(st): str(v) for st, v in zip(h["step_index"], h["step_plan_status"])} if "step_plan_status" in h else {}
+    mag, tilt, deliv, eng, unj, st_seen = [], [], [], [], 0, {}
     for x in holds(h, m):
         if x["rhs"] == "_truth_rhs" and x["phase"] in ("guided", "descent"):
             t = np.asarray(x["args"][0], float)
             n = float(np.linalg.norm(t))
-            mags.append(n)
-            tilts.append(math.degrees(math.acos(max(-1.0, min(1.0, t[0] / n)))))
+            mag.append((n - lo, tol_lo, "low"))
+            mag.append((hi - n, tol_hi, "high"))
+            th = math.degrees(math.acos(max(-1.0, min(1.0, t[0] / n))))
+            if x["phase"] == "guided":
+                stt = status.get(x["step"], "optimal")      # 7.1 histories carry no status: "optimal" assumed
+                st_seen[stt] = st_seen.get(stt, 0) + 1
+                if x["step"] not in nav:
+                    unj += 1
+                    continue
+                tt = tilt_tolerance(t, nav[x["step"]], stt)
+            else:
+                tt = 0.0
+            tilt.append((POINTING_DEG - th, tt))
             deliv.append(x["args"][1] * n)
         elif x["rhs"] == "_rise_rhs":
             thrust, flow = float(x["args"][0]), float(x["args"][1])
@@ -172,18 +251,21 @@ def check_bounds(h, m):
                 isp_dps = ISP_DPS_ABORT * m["isp"] / ISP_NOMINAL
                 eng.append(max(abs(thrust - THRUST_DPS_ABORT * m["kappa"]) / THRUST_DPS_ABORT,
                                abs(flow - thrust / (isp_dps * G0)) / flow))
-    if not mags:
+    if not mag:
         return dict(check="2 thrust and pointing", verdict="PASS", margin=None, n=0)
-    m_lo, m_hi = min(mags) - lo, hi - max(mags)
-    m_tilt = POINTING_DEG - max(tilts)
-    m_eng = -max(eng) if eng else None
-    margin = min(m_lo / THRUST_RATED, m_hi / THRUST_RATED)
-    ok = m_lo >= -THRUST_TOL_N and m_hi >= -THRUST_TOL_N and m_tilt >= -TILT_TOL_DEG and \
-        (m_eng is None or m_eng >= -ENGINE_TOL_REL)
-    return dict(check="2 thrust and pointing", verdict=verdict(ok), margin=margin, margin_low_N=m_lo,
-                margin_high_N=m_hi, margin_tilt_deg=m_tilt, abort_engine_rel_error=None if m_eng is None else -m_eng,
+    jm = int(np.argmin([a + b for a, b, _ in mag]))
+    jt = int(np.argmin([a + b for a, b in tilt]))
+    over_m, over_t = mag[jm][0] + mag[jm][1], tilt[jt][0] + tilt[jt][1]
+    over_e = 6 * EPS - max(eng) if eng else None
+    viol = sum(a + b < 0 for a, b, _ in mag) + sum(a + b < 0 for a, b in tilt) + sum(6 * EPS - e < 0 for e in eng)
+    ok = over_m >= 0 and over_t >= 0 and (over_e is None or over_e >= 0)
+    return dict(check="2 thrust and pointing", verdict=verdict(ok) if not unj else ("FAIL" if not ok else "UNJUDGED"),
+                margin=mag[jm][0], tolerance=mag[jm][1], over=over_m, bound=mag[jm][2],
+                margin_tilt_deg=tilt[jt][0], tolerance_tilt_deg=tilt[jt][1], over_tilt_deg=over_t,
+                abort_engine_rel_error=max(eng) if eng else None, tolerance_engine_rel=6 * EPS if eng else None,
+                violations=int(viol), statuses=st_seen, unjudged=unj, unit="N",
                 delivered_max_fraction=max(deliv) / THRUST_RATED, delivered_min_fraction=min(deliv) / THRUST_RATED,
-                n=len(mags))
+                n=len(tilt))
 
 
 # 3 glide slope
@@ -210,6 +292,16 @@ def site_true_position(m, row, step, terrain=None):
     return x, y, z
 
 
+def glide_tolerance(up, dx, dy, v):
+    """Tolerance 3, per tick, deg: the elevation-angle rate seen from the site
+    times half a tick, plus DZ_SITE rho / (rho^2 + up^2) (D94); v the tick's
+    map velocity (east, north, up)."""
+    rho = math.hypot(dx, dy)
+    r2 = rho * rho + up * up
+    rate = abs((rho * v[2] - up * (dx * v[0] + dy * v[1]) / max(rho, 1e-9)) / r2)
+    return math.degrees(rate) * TICK / 2 + math.degrees(DZ_SITE * rho / r2)
+
+
 def check_glide_slope(h, m, row, terrain=None):
     """D81. Judged: the true path at every 20 Hz tick of guided flight (the
     logged map positions) about the true position of the site in force.
@@ -219,8 +311,8 @@ def check_glide_slope(h, m, row, terrain=None):
     hs = holds(h, m)
     err = {int(st): np.asarray(nv, float) - np.asarray(yy, float)
            for st, nv, yy in zip(h["step_index"], h["step_nav"], h["step_y"])}
-    cache, tru, est = {}, [], []
-    for k, p, yt in zip(h["tick_hold"], h["tick_pos"], h["tick_y"]):
+    cache, tru, est, tol = {}, [], [], []
+    for k, p, yt, v in zip(h["tick_hold"], h["tick_pos"], h["tick_y"], h["tick_vel"]):
         x = hs[int(k)]
         if x["phase"] != "guided" or x["rhs"] != "_truth_rhs" or not np.all(np.isfinite(p)):
             continue
@@ -230,16 +322,20 @@ def check_glide_slope(h, m, row, terrain=None):
         sx, sy, sz = cache[st]
         if sz is None:
             sz = x["origin"][2]
-        tru.append(elevation_margin(p[2] - sz, p[0] - sx, p[1] - sy))
+        up, dx, dy = p[2] - sz, p[0] - sx, p[1] - sy
+        tru.append(elevation_margin(up, dx, dy))
+        tol.append(glide_tolerance(up, dx, dy, v))
         e = err.get(st)
         if e is not None:
             q = np.asarray(yt, float) + e
             est.append(elevation_margin(q[0], q[1], q[2]))
     if not tru:
         return dict(check="3 glide slope", verdict="PASS", margin=None, n=0)
-    return dict(check="3 glide slope", verdict=verdict(min(tru) >= -GLIDE_TOL_DEG), margin=min(tru) + GLIDE_TOL_DEG,
+    over = np.array(tru) + np.array(tol)
+    j = int(np.argmin(over))
+    return dict(check="3 glide slope", verdict=verdict(over[j] >= 0.0), margin=tru[j], tolerance=tol[j], over=float(over[j]),
                 lowest_elevation_margin_deg=min(tru), margin_estimated_frame_deg=min(est) if est else None,
-                n=len(tru), unit="deg")
+                violations=int((over < 0).sum()), n=len(tru), unit="deg")
 
 
 # 4 terrain clearance
@@ -276,25 +372,43 @@ class Terrain:
         return out
 
 
-def samples(h, m):
+def samples(h, m, full=False):
     """Every logged true map position: guided and descent ticks, abort samples.
-    The contact itself (the last descent tick of a landing) is excluded."""
+    The contact itself (the last descent tick of a landing) is excluded. With
+    full, also each sample's map velocity and spacing (0.05 s on ticks, the
+    larger neighbouring interval on the abort's samples)."""
     hs = holds(h, m)
-    P, ph = [], []
-    for k, p in zip(h["tick_hold"], h["tick_pos"]):
+    P, ph, V, DT = [], [], [], []
+    vel = h["tick_vel"] if "tick_vel" in h else np.full((len(h["tick_pos"]), 3), np.nan)
+    for k, p, v in zip(h["tick_hold"], h["tick_pos"], vel):
         if np.all(np.isfinite(p)):
-            P.append(p)
-            ph.append(hs[int(k)]["phase"])
+            P.append(p), ph.append(hs[int(k)]["phase"]), V.append(v), DT.append(TICK)
     if m["touchdown"] is not None and m["touchdown"].get("landed") and P and ph[-1] == "descent":
-        P, ph = P[:-1], ph[:-1]
-    for p, a in zip(h["abort_pos"], h["abort_phase"]):
-        P.append(p)
-        ph.append(str(a))
-    return np.array(P, float).reshape(-1, 3), ph
+        P, ph, V, DT = P[:-1], ph[:-1], V[:-1], DT[:-1]
+    tau = np.asarray(h["abort_tau"], float) if "abort_tau" in h else np.zeros(0)
+    sp = np.diff(tau) if len(tau) > 1 else np.zeros(0)
+    av = h["abort_vel"] if "abort_vel" in h else np.full((len(h["abort_pos"]), 3), np.nan)
+    for j, (p, a, v) in enumerate(zip(h["abort_pos"], h["abort_phase"], av)):
+        P.append(p), ph.append(str(a)), V.append(v)
+        DT.append(float(max(sp[j - 1] if 0 < j <= len(sp) else 0.0, sp[j] if j < len(sp) else 0.0)) if len(sp) else TICK)
+    P = np.array(P, float).reshape(-1, 3)
+    if full:
+        return P, ph, np.array(V, float).reshape(-1, 3), np.array(DT, float)
+    return P, ph
+
+
+def clearance_tolerance(terrain, P, V, DT):
+    """Tolerance 4, per sample, m: (vertical speed plus slope times horizontal
+    speed) times half the sample spacing; the slope from the checker's ground
+    by central differences over 5 m (0 where there is no ground)."""
+    gx = (terrain.height(P[:, 0] + 2.5, P[:, 1]) - terrain.height(P[:, 0] - 2.5, P[:, 1])) / 5.0
+    gy = (terrain.height(P[:, 0], P[:, 1] + 2.5) - terrain.height(P[:, 0], P[:, 1] - 2.5)) / 5.0
+    slope = np.where(np.isfinite(gx) & np.isfinite(gy), np.hypot(gx, gy), 0.0)
+    return (np.abs(V[:, 2]) + slope * np.hypot(V[:, 0], V[:, 1])) * DT / 2
 
 
 def check_clearance(h, m, terrain=None):
-    P, ph = samples(h, m)
+    P, ph, V, DT = samples(h, m, full=True)
     if not len(P):
         return dict(check="4 terrain clearance", verdict="PASS", margin=None, n=0)
     terrain = terrain or Terrain(P[:, 0], P[:, 1])
@@ -306,15 +420,21 @@ def check_clearance(h, m, terrain=None):
     unjudged = int((~ok & ~above).sum())
     c = np.where(above, P[:, 2] - HIGHEST_POINT_M, c)
     ok = ok | above
-    low = float(np.min(c[ok])) if ok.any() else None
+    tol = np.where(np.isfinite(V).all(1), clearance_tolerance(terrain, P, np.nan_to_num(V), DT), 0.0)
+    over = np.where(ok, c + tol, np.inf)
+    j = int(np.argmin(over)) if ok.any() else None
     g = ok & (np.array(ph) == "guided")             # the flight records its minimum over guided ticks only
     low_guided = float(np.min(c[g])) if g.any() else None
     rec = m.get("min_clearance")
     ab = (m.get("abort") or {}).get("closest_true_pass")
-    return dict(check="4 terrain clearance", verdict="FAIL" if low is not None and low <= -CLEARANCE_TOL_M else ("UNJUDGED" if unjudged else verdict(low is not None)),
-                margin=low, unit="m", off_dem_above_highest_point=int(above.sum()), off_dem_unjudged=unjudged,
-                margin_guided=low_guided, flight_min_clearance=rec, flight_closest_true_pass=ab, n=int(ok.sum()), off_terrain=int((~ok).sum()),
-                lowest_phase=ph[int(np.nanargmin(np.where(ok, c, np.inf)))] if ok.any() else None)
+    fail = j is not None and over[j] < 0
+    return dict(check="4 terrain clearance", verdict="FAIL" if fail else ("UNJUDGED" if unjudged else verdict(j is not None)),
+                margin=float(c[j]) if j is not None else None, tolerance=float(tol[j]) if j is not None else None,
+                over=float(over[j]) if j is not None else None, violations=int((over < 0).sum()), unit="m",
+                lowest_clearance=float(np.min(c[ok])) if ok.any() else None,
+                off_dem_above_highest_point=int(above.sum()), off_dem_unjudged=unjudged,
+                margin_guided=low_guided, flight_min_clearance=rec, flight_closest_true_pass=ab, n=int(ok.sum()),
+                lowest_phase=ph[j] if j is not None else None)
 
 
 # 5 touchdown velocity
@@ -325,8 +445,20 @@ def check_touchdown(h, m, row):
     td = np.asarray(m["touchdown"]["td"], float)
     v_down, v_h = -td[3], math.hypot(td[4], td[5])
     mv, mh = GEAR_VERTICAL - v_down, GEAR_HORIZONTAL - v_h
-    return dict(check="5 touchdown velocity", verdict=verdict(mv >= -VELOCITY_TOL and mh >= -VELOCITY_TOL), margin=min(mv, mh),
+    tol = touchdown_tolerance(td, m["kappa"], m["t_touchdown"])
+    over = min(mv, mh) + tol
+    return dict(check="5 touchdown velocity", verdict=verdict(over >= 0.0), margin=min(mv, mh), tolerance=tol, over=over,
                 margin_down=mv, margin_horizontal=mh, v_down=v_down, v_horizontal=v_h, unit="m/s", n=1)
+
+
+def touchdown_tolerance(td, kappa, t):
+    """Tolerance 5, m/s: rtol |v| + atol + 4 eps t |a|, the contact the
+    integrator's event (brentq to 4 eps in t, the state from the dense
+    output); |a| at most 60 pct of rated thrust times kappa over the mass,
+    plus the Moon's gravity."""
+    v = float(np.linalg.norm(td[3:6]))
+    a = THROTTLE_MAX * THRUST_RATED * kappa / float(td[6]) + G_MOON
+    return RTOL_FLIGHT * v + ATOL_FLIGHT + 4 * EPS * float(t) * a
 
 
 # 6 site lit at touchdown: E's horizon march and SPICE (D78)
@@ -443,15 +575,17 @@ class Lit:
                 self.near = z
         self.n = 0
 
-    def horizon(self, x, y):
-        """E's 360 ray horizon (deg) at the map point, and its sidecar."""
+    def horizon(self, x, y, n_azimuth=None, near_step=None, far_step=None):
+        """E's horizon (deg, n_azimuth rays, E's 360 by default) at the map
+        point, and its sidecar; the march steps E's unless given."""
         import subprocess
         d = self.work / f"pt{self.n}"
         self.n += 1
         d.mkdir(exist_ok=True)
         g = self.grids
         params = dict(radius_m=MOON_R, observer_height_m=E_OBSERVER_M, reach_m=E_REACH_M, switch_m=E_SWITCH_M,
-                      near_step_m=E_NEAR_STEP_M, far_step_m=E_FAR_STEP_M, n_azimuth=E_N_AZIMUTH,
+                      near_step_m=near_step or E_NEAR_STEP_M, far_step_m=far_step or E_FAR_STEP_M,
+                      n_azimuth=n_azimuth or E_N_AZIMUTH,
                       region_nx=1, region_ny=1, region_ox=x - 10.0, region_oy=y + 10.0, region_px=20.0,
                       out_horizon=str(d / "horizon.f32"), out_horizon_dist=str(d / "horizon_dist.f32"),
                       out_sidecar=str(d / "sidecar.json"))
@@ -489,10 +623,15 @@ class Lit:
         utc = self.epochs[epoch]["landing_utc"]
         az, el, semi = self.sun(x, y, h, utc, t)
         hz = horizon_lookup(prof, az)
-        return dict(margin=el - hz, margin_lower_limb=el - semi - hz, lit_disc_fraction=disc_fraction(prof, az, el, semi),
+        # D91: this site's own error terms, E's march against a 10 times finer one
+        rays, s_r = self.horizon(x, y, n_azimuth=E_N_AZIMUTH * FINE)
+        steps, s_s = self.horizon(x, y, near_step=E_NEAR_STEP_M / FINE, far_step=E_FAR_STEP_M / FINE)
+        e_ray, e_step = abs(hz - horizon_lookup(rays, az)), abs(hz - horizon_lookup(steps, az))
+        outside = int(side["samples_outside_grid"]) + int(s_r["samples_outside_grid"]) + int(s_s["samples_outside_grid"])
+        return dict(margin=el - hz, tolerance=e_ray + e_step + E_IMPL_DEG, ray_spacing_deg=e_ray, march_step_deg=e_step, margin_lower_limb=el - semi - hz, lit_disc_fraction=disc_fraction(prof, az, el, semi),
                     sun_azimuth=az, sun_elevation=el,
                     horizon=hz, semidiameter=semi, landing_utc=utc, t=float(t),
-                    samples_outside_grid=int(side["samples_outside_grid"]))
+                    samples_outside_grid=outside)
 
 
 def check_lit(h, m, row, lit_fn=None):
@@ -503,9 +642,10 @@ def check_lit(h, m, row, lit_fn=None):
                     note="no lit test given")
     x, y = m["touchdown_map"]
     r = lit_fn(x, y, m["epoch"], m["t_touchdown"])
-    r = r if isinstance(r, dict) else dict(margin=float(r), samples_outside_grid=0)
-    ok = r["margin"] >= 0.0 and r["samples_outside_grid"] == 0
-    return dict(check="6 site lit", verdict=verdict(ok), unit="deg", n=1, **r)
+    r = r if isinstance(r, dict) else dict(margin=float(r), tolerance=0.0, samples_outside_grid=0)
+    over = r["margin"] + r["tolerance"]
+    ok = over >= 0.0 and r["samples_outside_grid"] == 0
+    return dict(check="6 site lit", verdict=verdict(ok), unit="deg", n=1, over=over, **r)
 
 
 # 7 triggers

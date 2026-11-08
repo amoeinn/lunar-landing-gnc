@@ -52,15 +52,17 @@ def flight(n_steps=10, thrust=(20000.0, 0.0, 3000.0), outcome="safe landing", la
                           args=[T.tolist(), KAPPA, ISP, 0.0], origin=list(SITE), step=k))
         for j in range(1, 41):
             a = j / 40
-            ticks.append((len(holds) - 1, a * dt, y0 + a * (y1 - y0), p0 + a * (p1 - p0)))
+            ticks.append((len(holds) - 1, a * dt, y0 + a * (y1 - y0), p0 + a * (p1 - p0), (p1 - p0) / dt))
         m -= flow * dt
         t += dt
     h = dict(hold_phase=np.array([x["phase"] for x in holds]), hold_rhs=np.array([x["rhs"] for x in holds]),
              hold_t=np.array([[x["t0"], x["t1"]] for x in holds]), hold_y0=np.array([x["y0"] for x in holds]),
              hold_y1=np.array([x["y1"] for x in holds]), hold_origin=np.array([x["origin"] for x in holds]),
              hold_step=np.array([x["step"] for x in holds]),
-             tick_hold=np.array([k for k, _, _, _ in ticks]), tick_t=np.array([t for _, t, _, _ in ticks]),
-             tick_y=np.array([y for _, _, y, _ in ticks]), tick_pos=np.array([p for _, _, _, p in ticks]),
+             tick_hold=np.array([k for k, _, _, _, _ in ticks]), tick_t=np.array([t for _, t, _, _, _ in ticks]),
+             tick_y=np.array([y for _, _, y, _, _ in ticks]), tick_pos=np.array([p for _, _, _, p, _ in ticks]),
+             tick_vel=np.array([v for _, _, _, _, v in ticks]), hold_nsteps=np.full(len(holds), 3),
+             step_plan_status=np.array(["optimal"] * n_steps),
              step_index=np.arange(n_steps), step_t=2.0 * np.arange(n_steps),
              trig_phase=np.array(["guided"] * n_steps), trig_step=np.arange(n_steps),
              trig_found=np.ones(n_steps, bool), trig_predicted_touchdown=np.full(n_steps, 300.0),
@@ -123,14 +125,14 @@ def test_mass_flow_counts_the_leak():
 def test_bounds_pass_inside_the_engine_range_and_the_cone():
     row, h, m = flight()
     r = C.check_bounds(h, m)
-    assert r["verdict"] == "PASS" and r["margin_tilt_deg"] > 0 and r["margin_high_N"] > 0
+    assert r["verdict"] == "PASS" and r["margin_tilt_deg"] > 0 and r["over"] > 0
 
 
 def test_bounds_catch_a_thrust_over_60_pct():
     row, h, m = flight()
     set_hold(h, m, 3, thrust=(0.601 * C.THRUST_RATED, 0.0, 0.0))
     r = C.check_bounds(h, m)
-    assert r["verdict"] == "FAIL" and r["margin_high_N"] < 0
+    assert r["verdict"] == "FAIL" and r["bound"] == "high" and r["over"] < 0
 
 
 def test_bounds_catch_a_thrust_under_10_pct():
@@ -158,6 +160,7 @@ def abort_rise(h, m, thrust, flow, dt=0.05):
     h["hold_y0"], h["hold_y1"] = np.vstack([h["hold_y0"], y0]), np.vstack([h["hold_y1"], y1])
     h["hold_origin"] = np.vstack([h["hold_origin"], SITE])
     h["hold_step"] = np.append(h["hold_step"], 10)
+    h["hold_nsteps"] = np.append(h["hold_nsteps"], 3)
     m["hold_args"].append([thrust, flow])
 
 
@@ -255,11 +258,16 @@ def test_clearance_passes_above_ground_excluding_contact_and_catches_a_path_belo
     row, h, m = flight()
     r = C.check_clearance(h, m, terrain=Flat())
     assert r["verdict"] == "PASS" and r["margin"] > 0      # the contact tick (at the ground) is excluded
+    # tolerance 4 on flat ground: |v_up| dt / 2, the path descending 600 m in 22 s
+    tol = 600.0 / 22.0 * 0.05 / 2
     p = h["tick_pos"].copy()
-    p[200, 2] = SITE[2] - 0.5
+    p[200, 2] = SITE[2] - (tol - 0.002)
     h["tick_pos"] = p
     r = C.check_clearance(h, m, terrain=Flat())
-    assert r["verdict"] == "FAIL" and r["margin"] == pytest.approx(-0.5)
+    assert r["verdict"] == "PASS" and r["tolerance"] == pytest.approx(tol, rel=1e-9) and r["over"] == pytest.approx(0.002)
+    p[200, 2] = SITE[2] - (tol + 0.002)
+    r = C.check_clearance(h, m, terrain=Flat())
+    assert r["verdict"] == "FAIL" and r["margin"] == pytest.approx(-(tol + 0.002)) and r["violations"] == 1
 
 
 def test_clearance_judges_the_abort_samples():
@@ -310,6 +318,112 @@ def test_touchdown_velocity_judged_only_on_safe_landings():
     row, h, m = flight(outcome="unsafe landing")
     m["touchdown"]["td"][3] = -5.0
     assert C.check_touchdown(h, m, row)["n"] == 0
+
+
+# Registered tolerances (PLAN.md "Replay tolerances"): each formula against a
+# known answer, and a case on each side of it.
+
+def test_tolerance_1_is_n_half_plus_4_ulp_of_the_holds_mass():
+    row, h, m = flight()
+    h["hold_nsteps"] = h["hold_nsteps"].copy()
+    h["hold_nsteps"][4] = 10
+    tol = 9.0 * float(np.spacing(h["hold_y0"][4][6]))            # (10/2 + 4) ulp
+    for d, want in ((0.8 * tol, "PASS"), (1.2 * tol, "FAIL")):
+        hh = dict(h)
+        y1 = h["hold_y1"][4].copy()
+        y1[6] -= d
+        hh["hold_y1"] = h["hold_y1"].copy()
+        hh["hold_y1"][4] = y1
+        r = C.check_mass_flow(hh, m)
+        assert r["verdict"] == want, (d, r)
+    assert r["tolerance"] == tol
+
+
+def test_tolerance_2_magnitude_is_6_eps_of_the_bound():
+    hi = C.THROTTLE_MAX * C.THRUST_RATED
+    for f, want in ((1 + 4 * C.EPS, "PASS"), (1 + 9 * C.EPS, "FAIL")):
+        row, h, m = flight()
+        set_hold(h, m, 3, thrust=(hi * f, 0.0, 0.0))
+        r = C.check_bounds(h, m)
+        assert r["verdict"] == want and (want == "PASS" or r["bound"] == "high"), (f, r)
+    assert r["tolerance"] == 6 * C.EPS * hi
+
+
+def test_tolerance_2_judges_the_worst_item_over_its_own_tolerance():
+    """The low bound 7 eps under (beyond its 6 eps) fails though the high bound
+    5 eps over has the more negative raw margin and is inside its own."""
+    lo, hi = C.THROTTLE_MIN * C.THRUST_RATED, C.THROTTLE_MAX * C.THRUST_RATED
+    row, h, m = flight()
+    set_hold(h, m, 3, thrust=(lo * (1 - 7 * C.EPS), 0.0, 0.0))
+    set_hold(h, m, 4, thrust=(hi * (1 + 5 * C.EPS), 0.0, 0.0))
+    r = C.check_bounds(h, m)
+    assert r["verdict"] == "FAIL" and r["bound"] == "low", r
+
+
+def test_solver_tolerances_are_clarabels_own_settings():
+    """D92: 1e-8 for optimal, the reduced 1e-4 for optimal_inaccurate
+    (Clarabel 0.11.1 DefaultSettings); any other status has none."""
+    assert C.solver_tolerance("optimal") == 1e-8 and C.solver_tolerance("optimal_inaccurate") == 1e-4
+    with pytest.raises(ValueError):
+        C.solver_tolerance("infeasible")
+
+
+def test_tolerance_2_tilt_formula_and_the_status_it_takes():
+    nav = np.array([500.0, 20.0, -3000.0, -30.0, 1.0, 60.0, 8000.0])
+    T = np.array([20000.0, 0.0, 20000.0])
+    e = 1e-8 * (2 * 3000.0 + math.tan(math.radians(80.0)) * 500.0)
+    want = math.degrees(e * (1 + math.cos(math.pi / 4)) / (np.linalg.norm(T) / 8000.0 * math.sin(math.pi / 4)))
+    assert C.tilt_tolerance(T, nav, "optimal") == pytest.approx(want, rel=1e-12)
+    assert C.tilt_tolerance(T, nav, "optimal_inaccurate") == pytest.approx(want * 1e4, rel=1e-12)
+    # a guided hold just over 45 deg: inside an optimal solve's tolerance, then beyond it,
+    # then inside again when its plan ended optimal_inaccurate
+    row, h, m = flight()
+    nv = h["step_nav"][3]
+    for over, status, verdict in ((0.5, "optimal", "PASS"), (2.0, "optimal", "FAIL"), (2.0, "optimal_inaccurate", "PASS")):
+        tt = C.tilt_tolerance(np.array([15000.0, 0.0, 15000.0]), nv, "optimal")
+        a = math.radians(45.0 + over * tt)
+        T3 = (15000.0 * math.sqrt(2) * math.cos(a), 0.0, 15000.0 * math.sqrt(2) * math.sin(a))
+        hh, mm = dict(h), json.loads(json.dumps(m))
+        set_hold(hh, mm, 3, thrust=T3)
+        hh["step_plan_status"] = np.array([status] * len(h["step_plan_status"]))
+        assert C.check_bounds(hh, mm)["verdict"] == verdict, (over, status)
+
+
+def test_tolerance_3_glide_formula_known_answer():
+    """Straight down at 10 m/s, 100 m up and 100 m out: rate 0.05 rad/s, half a
+    tick 0.025 s; height term 0.332 x 100 / 20000 rad."""
+    want = math.degrees(0.05) * 0.025 + math.degrees(0.332 * 100.0 / 20000.0)
+    assert C.glide_tolerance(100.0, 100.0, 0.0, (0.0, 0.0, -10.0)) == pytest.approx(want, rel=1e-12)
+
+
+def test_tolerance_3_a_tick_inside_its_tolerance_passes_and_beyond_fails():
+    for f, want in ((0.9, "PASS"), (1.1, "FAIL")):
+        row, h, m = flight()
+        p, v = h["tick_pos"].copy(), h["tick_vel"][100]
+        d = math.hypot(p[100, 0] - SITE[0], p[100, 1] - SITE[1])
+        for _ in range(3):                           # the tolerance depends on the point: iterate to it
+            tol = C.glide_tolerance(p[100, 2] - SITE[2], p[100, 0] - SITE[0], p[100, 1] - SITE[1], v)
+            p[100, 2] = SITE[2] + d * math.tan(math.radians(10.0 - f * tol))
+        h["tick_pos"] = p
+        assert C.check_glide_slope(h, m, row)["verdict"] == want, f
+
+
+def test_tolerance_5_touchdown_formula_and_its_boundary():
+    td = np.array([0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 7000.0])
+    want = 1e-10 * 1.0 + 1e-8 + 4 * C.EPS * 100.0 * (0.6 * C.THRUST_RATED * 1.01 / 7000.0 + 1.62)
+    assert C.touchdown_tolerance(td, 1.01, 100.0) == pytest.approx(want, rel=1e-12)
+    row, h, m = flight()
+    tol = C.touchdown_tolerance(np.array(m["touchdown"]["td"], float), m["kappa"], m["t_touchdown"])
+    for f, verdict in ((0.5, "PASS"), (2.0, "FAIL")):
+        m["touchdown"]["td"][3] = -(C.GEAR_VERTICAL + f * tol)
+        assert C.check_touchdown(h, m, row)["verdict"] == verdict, f
+
+
+def test_tolerance_6_the_sites_own_tolerance_is_added_to_its_margin():
+    row, h, m = flight()
+    lit = lambda tol: (lambda *a: dict(margin=-0.1, tolerance=tol, samples_outside_grid=0))  # noqa: E731
+    assert C.check_lit(h, m, row, lit(0.2))["verdict"] == "PASS"
+    assert C.check_lit(h, m, row, lit(0.05))["verdict"] == "FAIL"
 
 
 # 6 site lit
@@ -387,6 +501,41 @@ def test_flat_ground_horizon_is_the_curvature_dip_of_the_first_step(tmp_path, mo
     want = math.degrees(math.atan2(-2 * R * math.sin(psi / 2) ** 2, R * math.sin(psi)))
     assert prof.shape == (360,) and side["samples_outside_grid"] == 0
     assert np.max(np.abs(prof - want)) < 1e-6, (prof[:3], want)
+
+
+@needs_lit
+def test_lit_tolerance_on_flat_ground_is_the_first_steps_curvature_dip(tmp_path, monkeypatch):
+    """D91 on flat ground: every ray alike (ray term 0), the horizon the first
+    step's curvature dip, 20 m for E and 2 m for the 10 times finer march."""
+    row, h, m = flight()
+    m["touchdown_map"], m["epoch"], m["t_touchdown"] = list(P_SITE), 0, 0.0
+    L = lit_on(tmp_path, ground(lambda dx, dy: 0.0 * dx), monkeypatch=monkeypatch)
+    r = C.check_lit(h, m, row, L)
+    dip = lambda s: math.degrees(math.atan2(-2 * R * math.sin(s / R / 2) ** 2, R * math.sin(s / R)))  # noqa: E731
+    assert r["ray_spacing_deg"] < 1e-6
+    assert r["march_step_deg"] == pytest.approx(dip(2.0) - dip(20.0), abs=1e-6)
+    assert r["tolerance"] == pytest.approx(r["ray_spacing_deg"] + r["march_step_deg"] + 1.906e-6, rel=1e-12)
+
+
+@needs_lit
+def test_lit_ray_spacing_term_where_a_wall_edge_falls_between_rays(tmp_path, monkeypatch):
+    """A wall whose west edge is at 20.3 deg, between E's rays at 20 and 21,
+    with epoch 0's sun at 20.54 deg: the 360 ray interpolation and the 3,600
+    ray march disagree there (the edge blurred by the 20 m cells, 3.8 deg wide
+    at 300 m), against 1e-6 deg on flat ground; the term enters the tolerance."""
+    r0 = math.hypot(*P_SITE)
+    n = np.array(P_SITE) / r0
+    e = np.array([P_SITE[1], -P_SITE[0]]) / r0
+
+    def wall(dx, dy):
+        beta = np.degrees(np.arctan2(dx * e[0] + dy * e[1], dx * n[0] + dy * n[1]))
+        return np.where((np.hypot(dx, dy) > 300) & (np.hypot(dx, dy) < 600) & (beta > 20.3) & (beta < 60.0), 50.0, 0.0)
+    row, h, m = flight()
+    m["touchdown_map"], m["epoch"], m["t_touchdown"] = list(P_SITE), 0, 0.0
+    L = lit_on(tmp_path, ground(wall), monkeypatch=monkeypatch)
+    r = C.check_lit(h, m, row, L)
+    assert r["ray_spacing_deg"] > 0.1, r
+    assert r["tolerance"] == pytest.approx(r["ray_spacing_deg"] + r["march_step_deg"] + 1.906e-6, rel=1e-12)
 
 
 @needs_lit

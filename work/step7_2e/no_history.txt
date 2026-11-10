@@ -1,0 +1,6 @@
+records 2900 histories 2896 jobs without a history: 4
+  d07_trn_e3_g24.0 error record: True | ValueError: scan plan reaches slant 149.9 m at t = 75.70 s
+  d49_trn_e0_g168.0 error record: True | ValueError: scan plan reaches slant 145.4 m at t = 85.85 s
+  d61_trn_e3_g24.0 error record: True | ValueError: scan plan reaches slant 128.6 m at t = 79.80 s
+  d65_trn_e3_g24.0 error record: True | ValueError: scan plan reaches slant 128.2 m at t = 76.15 s
+histories without a record: []

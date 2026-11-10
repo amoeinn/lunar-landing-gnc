@@ -17,7 +17,11 @@ absolute difference; exact agreement is 0.
 The verdict is on the records: EQUAL n of n, exit 0, when every job of
 REFERENCE has a record in LOGGED, LOGGED has no job REFERENCE lacks, and every
 pair is equal by same_record; otherwise DIFFER with the first differing job and
-field, exit 1. With --subset, LOGGED is a deliberate subset of REFERENCE (a
+field, exit 1. An error record (a flight that raised) compares by its
+exception, type and full message, not by its traceback's frames: the logging
+runner calls the flight from its own draw_unit, so its outer frames differ
+from phase 6's while the flight's own frames and exception are the same.
+Every other field compares exactly. With --subset, LOGGED is a deliberate subset of REFERENCE (a
 development check on a few jobs): reference jobs absent from LOGGED are then
 not counted as missing.
 """
@@ -96,6 +100,29 @@ def first_difference(a, b, path=""):
     return None if json.dumps(a) == json.dumps(b) else (path or "/")
 
 
+def exception_text(tb):
+    """An error record's exception without its traceback's frames: the lines a
+    Python traceback writes unindented (the exception's type and full message,
+    and those of any exception chained before it, with the chaining line),
+    less the "Traceback (most recent call last):" headers. Frames and their
+    source lines are indented and left out."""
+    return [s for s in tb.split("\n") if s and not s.startswith(" ")
+            and s != "Traceback (most recent call last):"]
+
+
+def comparable(rec):
+    """The record as compared: an error record's traceback replaced by its
+    exception (exception_text); everything else as it is."""
+    if isinstance(rec, dict) and isinstance(rec.get("error"), str):
+        return dict(rec, error=exception_text(rec["error"]))
+    return rec
+
+
+def same_job_record(a, b):
+    """phase6_summary.same_record on the comparable records."""
+    return S.same_record(comparable(a), comparable(b))
+
+
 def verdict(lg, rf, res, subset=False):
     """EQUAL n of n (0) or DIFFER with the first differing job and field (1)."""
     have = {p.stem for p in lg.glob("d*.json")}
@@ -129,9 +156,9 @@ def main(argv):
             continue                                     # extra: counted by verdict()
         rec_r = json.loads((rf / p.name).read_text())
         npz = p.with_suffix(".npz")
-        same = S.same_record(rec_l, rec_r)
+        same = same_job_record(rec_l, rec_r)
         r = dict(job=p.stem, same_record=same, first_difference=None if same else
-                 first_difference(S.strip(rec_l), S.strip(rec_r)), seconds=rec_l["seconds"],
+                 first_difference(S.strip(comparable(rec_l)), S.strip(comparable(rec_r))), seconds=rec_l["seconds"],
                  reference_seconds=rec_r["seconds"], maxrss_mb=rec_l.get("maxrss_mb"),
                  history_bytes=npz.stat().st_size if npz.exists() else None, flights=[])
         _, flights = C.load_job(lg, p.stem)

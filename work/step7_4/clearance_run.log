@@ -1,0 +1,57 @@
+20261060 d03_trn_e3_g72.0 e3: 1 samples, 16 s
+20261060 d18_trn_e3_g24.0 e3: 2 samples, 28 s
+20261060 d20_trn_e1_g-72.0 e1: 1 samples, 45 s
+20261060 d47_trn_e1_g0.0 e1: 1 samples, 60 s
+20261060 d47_trn_e2_g-24.0 e2: 1 samples, 74 s
+20261060 d47_trn_e2_g0.0 e2: 1 samples, 87 s
+20261060 d47_trn_e2_g24.0 e2: 1 samples, 101 s
+20261060 d47_trn_e3_g-24.0 e3: 1 samples, 115 s
+20261060 d47_trn_e3_g0.0 e3: 1 samples, 129 s
+20261060 d56_trn_e3_g24.0 e3: 2 samples, 144 s
+20261060 d69_trn_e1_g0.0 e1: 1 samples, 158 s
+20261060 d69_trn_e3_g0.0 e3: 1 samples, 173 s
+20261060 d71_trn_e1_g168.0 e1: 36 samples, 189 s
+20261060 d71_trn_e3_g-168.0 e3: 2 samples, 207 s
+20261060 d73_trn_e3_g-72.0 e3: 1 samples, 221 s
+20261060 d80_trn_e1_g72.0 e1: 1 samples, 234 s
+20261060 d81_notrn_eNone_gNone e0: 3 samples, 250 s
+20261060 d99_trn_e0_g72.0 e0: 2 samples, 264 s
+20261061 d04_trn_e2_g24.0 e2: 1 samples, 278 s
+20261061 d04_trn_e3_g-24.0 e3: 1 samples, 293 s
+20261061 d05_trn_e3_g24.0 e3: 4 samples, 311 s
+20261061 d07_notrn_eNone_gNone e0: 1 samples, 323 s
+20261061 d13_trn_e3_g-168.0 e3: 3 samples, 341 s
+20261061 d22_trn_e3_g24.0 e3: 2 samples, 353 s
+20261061 d33_trn_e1_g-24.0 e1: 2 samples, 367 s
+20261061 d39_trn_e0_g72.0 e0: 1 samples, 381 s
+20261061 d41_notrn_eNone_gNone e0: 3 samples, 394 s
+20261061 d43_notrn_eNone_gNone e0: 6 samples, 407 s
+20261061 d43_trn_e0_g-24.0 e0: 23 samples, 420 s
+20261061 d56_trn_e3_g72.0 e3: 2 samples, 437 s
+20261061 d59_trn_e3_g24.0 e3: 2 samples, 448 s
+20261061 d67_notrn_eNone_gNone e0: 1 samples, 461 s
+20261061 d67_notrn_eNone_gNone e1: 1 samples, 474 s
+20261061 d67_notrn_eNone_gNone e2: 1 samples, 487 s
+20261061 d67_notrn_eNone_gNone e3: 1 samples, 499 s
+20261062 d05_trn_e2_g24.0 e2: 1 samples, 511 s
+20261062 d08_trn_e3_g24.0 e3: 2 samples, 521 s
+20261062 d19_trn_e1_g24.0 e1: 1 samples, 532 s
+20261062 d19_trn_e2_g0.0 e2: 1 samples, 543 s
+20261062 d19_trn_e3_g0.0 e3: 1 samples, 555 s
+20261062 d22_notrn_eNone_gNone e0: 4 samples, 565 s
+20261062 d33_trn_e3_g24.0 e3: 2 samples, 574 s
+20261062 d46_trn_e3_g24.0 e3: 1 samples, 583 s
+20261062 d53_trn_e2_g24.0 e2: 1 samples, 593 s
+20261062 d57_trn_e1_g-24.0 e1: 1 samples, 604 s
+20261062 d57_trn_e3_g0.0 e3: 1 samples, 614 s
+20261062 d59_trn_e3_g72.0 e3: 1 samples, 622 s
+20261062 d74_trn_e0_g24.0 e0: 1 samples, 632 s
+20261062 d76_trn_e2_g24.0 e2: 1 samples, 641 s
+20261062 d78_trn_e3_g24.0 e3: 4 samples, 650 s
+20261062 d88_trn_e0_g72.0 e0: 1 samples, 660 s
+20261062 d88_trn_e2_g0.0 e2: 1 samples, 670 s
+52 flights in 670 s
+
+real	11m10.478s
+user	8m18.720s
+sys	2m51.175s

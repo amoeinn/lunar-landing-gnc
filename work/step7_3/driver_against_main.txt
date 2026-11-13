@@ -1,0 +1,2 @@
+flights: main 32 driver 32 same flights True
+replay_check.main on draw 0 (lit windows over draw 0's points) against the driver (windows over the seed's 1,779 points): 32 flights, 0 with any check field different

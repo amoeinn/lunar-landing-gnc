@@ -1,0 +1,6 @@
+cost draw: seed 20261060 draw 0, 29 jobs, 32 flights, checker errors 0
+seconds per job: total 27.7, median 0.82, max 4.37 (d00_notrn_eNone_gNone); worker peak 801 MB
+per worker: jobs and seconds {7130: (6, 7.9), 7131: (8, 6.3), 7132: (7, 6.8), 7133: (8, 6.7)}
+projection, 4 workers: 34.6 min for 8,700 jobs (+ points about 2 s per seed), worst case memory 4*801 MB + parent
+projection, 6 workers: 23.1 min for 8,700 jobs (+ points about 2 s per seed), worst case memory 6*801 MB + parent
+projection, 8 workers: 17.3 min for 8,700 jobs (+ points about 2 s per seed), worst case memory 8*801 MB + parent

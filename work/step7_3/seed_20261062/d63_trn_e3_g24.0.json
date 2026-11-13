@@ -1,0 +1,1 @@
+{"seed": 20261062, "job": "d63_trn_e3_g24.0", "flights": [], "error_record": ["ValueError: scan plan reaches slant 120.2 m at t = 82.25 s"], "seconds": 0.004132590999915919, "maxrss_mb": 1513.9140625, "pid": 9925}

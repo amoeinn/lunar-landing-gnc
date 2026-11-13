@@ -1,0 +1,482 @@
+# Step 7.3: replay checker over the re-flown histories
+
+Bar: zero violations beyond the registered tolerances on checks 1, 2, 4, 5, 6 and 7, and on check 3 as judged (D97); an unjudged judged check counts against the bar (D105).
+
+**Verdict: FAIL**
+
+## Integrity
+
+| Seed | Jobs | Histories | Flights judged | Error flights (D107) |
+|---|---|---|---|---|
+| 20261060 | 2900 | 2896 | 3196 | 4 |
+| 20261061 | 2900 | 2894 | 3194 | 6 |
+| 20261062 | 2900 | 2892 | 3189 | 8 |
+
+Checker errors: 0. Load errors: 0.
+
+Error flights, excluded (D107):
+
+- 20261060 d07_trn_e3_g24.0: ValueError: scan plan reaches slant 149.9 m at t = 75.70 s
+- 20261060 d49_trn_e0_g168.0: ValueError: scan plan reaches slant 145.4 m at t = 85.85 s
+- 20261060 d61_trn_e3_g24.0: ValueError: scan plan reaches slant 128.6 m at t = 79.80 s
+- 20261060 d65_trn_e3_g24.0: ValueError: scan plan reaches slant 128.2 m at t = 76.15 s
+- 20261061 d15_trn_e0_g24.0: ValueError: scan plan reaches slant 145.5 m at t = 75.40 s
+- 20261061 d20_trn_e3_g24.0: ValueError: scan plan reaches slant 121.8 m at t = 75.30 s
+- 20261061 d45_trn_e3_g24.0: ValueError: scan plan reaches slant 147.0 m at t = 73.20 s
+- 20261061 d49_trn_e3_g24.0: ValueError: scan plan reaches slant 142.1 m at t = 77.95 s
+- 20261061 d89_trn_e3_g24.0: ValueError: scan plan reaches slant 141.7 m at t = 82.25 s
+- 20261061 d94_trn_e3_g24.0: ValueError: scan plan reaches slant 142.7 m at t = 81.90 s
+- 20261062 d28_trn_e1_g-24.0: ValueError: scan plan reaches slant 144.8 m at t = 74.35 s
+- 20261062 d28_trn_e1_g72.0: ValueError: scan plan reaches slant 129.0 m at t = 74.65 s
+- 20261062 d34_trn_e0_g168.0: ValueError: scan plan reaches slant 129.7 m at t = 94.95 s
+- 20261062 d37_trn_e3_g72.0: ValueError: scan plan reaches slant 147.7 m at t = 78.80 s
+- 20261062 d61_trn_e3_g24.0: ValueError: scan plan reaches slant 126.9 m at t = 72.25 s
+- 20261062 d63_trn_e3_g24.0: ValueError: scan plan reaches slant 120.2 m at t = 82.25 s
+- 20261062 d83_notrn_eNone_gNone: ValueError: scan plan reaches slant 143.7 m at t = 76.20 s
+- 20261062 d96_trn_e3_g24.0: ValueError: scan plan reaches slant 137.9 m at t = 76.05 s
+
+## Per check
+
+| Check | Seed | PASS | FAIL | Other | Smallest margin over tolerance | Its tolerance | Flight |
+|---|---|---|---|---|---|---|---|
+| 1 mass flow | 20261060 | 3196 |  |  | 3.2e-12 | 4.093e-12 | 20261060 d19_trn_e1_g24.0 e1 |
+| 1 mass flow | 20261061 | 3194 |  |  | 3.213e-12 | 4.093e-12 | 20261061 d90_trn_e3_g-72.0 e3 |
+| 1 mass flow | 20261062 | 3189 |  |  | 3.238e-12 | 4.093e-12 | 20261062 d87_trn_e0_g168.0 e0 |
+| 1 mass flow | total | 9579 |  |  | 3.2e-12 | 4.093e-12 | 20261060 d19_trn_e1_g24.0 e1 |
+| 2 thrust and pointing | 20261060 | 3196 |  |  | 4.404e-12 | 6.223e-12 | 20261060 d00_trn_e1_g72.0 e1 |
+| 2 thrust and pointing | 20261061 | 3194 |  |  | 4.404e-12 | 6.223e-12 | 20261061 d03_trn_e0_g72.0 e0 |
+| 2 thrust and pointing | 20261062 | 3189 |  |  | 4.404e-12 | 6.223e-12 | 20261062 d05_notrn_eNone_gNone e0 |
+| 2 thrust and pointing | total | 9579 |  |  | 4.404e-12 | 6.223e-12 | 20261060 d00_trn_e1_g72.0 e1 |
+| 3 glide slope | 20261060 | 3155 | 41 |  | -2.263 | 1.224 | 20261060 d05_trn_e1_g-72.0 e1 |
+| 3 glide slope | 20261061 | 3156 | 38 |  | -3.623 | 1.411 | 20261061 d12_trn_e1_g-72.0 e1 |
+| 3 glide slope | 20261062 | 3138 | 51 |  | -2.608 | 1.459 | 20261062 d27_trn_e1_g-72.0 e1 |
+| 3 glide slope | total | 9449 | 130 |  | -3.623 | 1.411 | 20261061 d12_trn_e1_g-72.0 e1 |
+| 4 terrain clearance | 20261060 | 3178 | 18 |  | -7.084 | 0.1948 | 20261060 d71_trn_e1_g168.0 e1 |
+| 4 terrain clearance | 20261061 | 3177 | 17 |  | -1.241 | 0.004598 | 20261061 d43_trn_e0_g-24.0 e0 |
+| 4 terrain clearance | 20261062 | 3172 | 17 |  | -0.1614 | 0.02215 | 20261062 d22_notrn_eNone_gNone e0 |
+| 4 terrain clearance | total | 9527 | 52 |  | -7.084 | 0.1948 | 20261060 d71_trn_e1_g168.0 e1 |
+| 5 touchdown velocity | 20261060 | 3196 |  |  | 1.108 | 1.009e-08 | 20261060 d56_trn_e0_g24.0 e0 |
+| 5 touchdown velocity | 20261061 | 3194 |  |  | 1.115 | 1.009e-08 | 20261061 d05_trn_e0_g24.0 e0 |
+| 5 touchdown velocity | 20261062 | 3189 |  |  | 1.078 | 1.009e-08 | 20261062 d86_trn_e0_g24.0 e0 |
+| 5 touchdown velocity | total | 9579 |  |  | 1.078 | 1.009e-08 | 20261062 d86_trn_e0_g24.0 e0 |
+| 6 site lit | 20261060 | 3120 | 76 |  | -3.881 | 0.1139 | 20261060 d58_notrn_eNone_gNone e0 |
+| 6 site lit | 20261061 | 3131 | 63 |  | -3.507 | 0.001995 | 20261061 d38_trn_e0_g168.0 e0 |
+| 6 site lit | 20261062 | 3130 | 59 |  | -3.235 | 0.07705 | 20261062 d81_trn_e0_g168.0 e0 |
+| 6 site lit | total | 9381 | 198 |  | -3.881 | 0.1139 | 20261060 d58_notrn_eNone_gNone e0 |
+| 7 triggers | 20261060 | 3196 |  |  |  |  |  |
+| 7 triggers | 20261061 | 3194 |  |  |  |  |  |
+| 7 triggers | 20261062 | 3189 |  |  |  |  |  |
+| 7 triggers | total | 9579 |  |  |  |  |  |
+| 2 tilt (deg) | 20261060 |  |  |  | 3.896e-05 | 3.898e-05 | 20261060 d63_trn_e0_g168.0 e0 |
+| 2 tilt (deg) | 20261061 |  |  |  | 3.359e-05 | 2.169e-05 | 20261061 d12_trn_e1_g-72.0 e1 |
+| 2 tilt (deg) | 20261062 |  |  |  | 3.214e-05 | 3.287e-05 | 20261062 d70_trn_e0_g-24.0 e0 |
+| 2 tilt (deg) | total |  |  |  | 3.214e-05 | 3.287e-05 | 20261062 d70_trn_e0_g-24.0 e0 |
+| 3 D81 form, reported (deg) | 20261060 |  |  |  | -10.73 | 0.01948 | 20261060 d51_trn_e2_g168.0 e2 |
+| 3 D81 form, reported (deg) | 20261061 |  |  |  | -17.75 | 4.285 | 20261061 d43_trn_e0_g-24.0 e0 |
+| 3 D81 form, reported (deg) | 20261062 |  |  |  | -6.85 | 0.03915 | 20261062 d53_notrn_eNone_gNone e0 |
+| 3 D81 form, reported (deg) | total |  |  |  | -17.75 | 4.285 | 20261061 d43_trn_e0_g-24.0 e0 |
+| 2 abort engines (relative) | 20261060 |  |  |  | 1.332e-15 | 1.332e-15 | 20261060 d00_trn_e0_g-168.0 e0 |
+| 2 abort engines (relative) | 20261061 |  |  |  | 1.332e-15 | 1.332e-15 | 20261061 d00_trn_e0_g-168.0 e0 |
+| 2 abort engines (relative) | 20261062 |  |  |  | 1.332e-15 | 1.332e-15 | 20261062 d00_notrn_eNone_gNone e0 |
+| 2 abort engines (relative) | total |  |  |  | 1.332e-15 | 1.332e-15 | 20261060 d00_trn_e0_g-168.0 e0 |
+
+## Check 3: D81's form, reported, below the cone
+
+- 20261060: 83 flights; by outcome {'safe landing': 35, 'unsafe landing': 7, 'abort': 40, 'terrain strike': 1}
+- 20261061: 62 flights; by outcome {'abort': 33, 'safe landing': 21, 'unsafe landing': 7, 'terrain strike': 1}
+- 20261062: 61 flights; by outcome {'safe landing': 23, 'abort': 38}
+
+## Unjudged items
+
+- 20261060: 1 holds without a step count: 0; 2 guided holds without a step estimate: 0; 3 guided ticks without an estimate (D105): 0; 4 off-DEM samples below 10,786 m (D87): 0; 4 off-DEM samples above 10,786 m, passed by the bound (D87, not unjudged): 454869
+- 20261061: 1 holds without a step count: 0; 2 guided holds without a step estimate: 0; 3 guided ticks without an estimate (D105): 0; 4 off-DEM samples below 10,786 m (D87): 0; 4 off-DEM samples above 10,786 m, passed by the bound (D87, not unjudged): 444494
+- 20261062: 1 holds without a step count: 0; 2 guided holds without a step estimate: 0; 3 guided ticks without an estimate (D105): 0; 4 off-DEM samples below 10,786 m (D87): 0; 4 off-DEM samples above 10,786 m, passed by the bound (D87, not unjudged): 448732
+
+Flights with a check neither PASS nor FAIL: 0
+
+
+## Violations (380)
+
+| Flight | Outcome | Check | Margin | Tolerance | Over | Items beyond | Where |
+|---|---|---|---|---|---|---|---|
+| 20261060 d03_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3987 | 0.02489 | -0.3738 |  | sun_elevation 1.705; horizon 2.103; sun_azimuth 15.37; margin_lower_limb -0.6657; lit_disc_fraction 0; ray_spacing_deg 0.0001337; march_step_deg 0.02476; samples_outside_grid 0 |
+| 20261060 d03_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3205 | 0.02743 | -0.2931 |  | sun_elevation 1.704; horizon 2.025; sun_azimuth 15.39; margin_lower_limb -0.5875; lit_disc_fraction 0; ray_spacing_deg 0.0003027; march_step_deg 0.02713; samples_outside_grid 0 |
+| 20261060 d03_trn_e3_g72.0 e3 | safe landing | 4 terrain clearance | -0.04952 | 0.02195 | -0.02757 | 1 | lowest_phase descent; lowest_clearance -0.04952 |
+| 20261060 d05_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.757 | 1.052 | -0.7051 | 18 | lowest_elevation_margin_deg -1.76; d81_over_deg 6.355 |
+| 20261060 d05_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.647 | 0.0001706 | -2.647 |  | sun_elevation 1.706; horizon 4.353; sun_azimuth 15.18; margin_lower_limb -2.914; lit_disc_fraction 0; ray_spacing_deg 0.0001687; march_step_deg 0; samples_outside_grid 0 |
+| 20261060 d05_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -3.487 | 1.224 | -2.263 | 33 | lowest_elevation_margin_deg -3.487; d81_over_deg 6.426 |
+| 20261060 d07_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.7754 | 0.4455 | -0.3299 | 20 | lowest_elevation_margin_deg -0.7769; d81_over_deg 1.701 |
+| 20261060 d08_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.957 | 0.2044 | -2.752 |  | sun_elevation 1.707; horizon 4.663; sun_azimuth 14.95; margin_lower_limb -3.224; lit_disc_fraction 0; ray_spacing_deg 1.986e-05; march_step_deg 0.2044; samples_outside_grid 0 |
+| 20261060 d10_notrn_eNone_gNone e0 | safe landing | 6 site lit | -0.3514 | 0.02373 | -0.3277 |  | sun_elevation 1.706; horizon 2.057; sun_azimuth 13.8; margin_lower_limb -0.6184; lit_disc_fraction 0; ray_spacing_deg 2.035e-06; march_step_deg 0.02373; samples_outside_grid 0 |
+| 20261060 d10_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.187 | 0.8118 | -0.3748 | 16 | lowest_elevation_margin_deg -1.187; d81_over_deg 4.108 |
+| 20261060 d11_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.427 | 0.007162 | -3.419 |  | sun_elevation 1.707; horizon 5.133; sun_azimuth 14.89; margin_lower_limb -3.694; lit_disc_fraction 0; ray_spacing_deg 1.828e-05; march_step_deg 0.007142; samples_outside_grid 0 |
+| 20261060 d12_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.804 | 0.3206 | -2.483 |  | sun_elevation 1.706; horizon 4.51; sun_azimuth 14.99; margin_lower_limb -3.071; lit_disc_fraction 0; ray_spacing_deg 6.071e-06; march_step_deg 0.3206; samples_outside_grid 0 |
+| 20261060 d13_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.859 | 0.2135 | -2.646 |  | sun_elevation 1.707; horizon 4.566; sun_azimuth 15.13; margin_lower_limb -3.126; lit_disc_fraction 0; ray_spacing_deg 4.808e-05; march_step_deg 0.2135; samples_outside_grid 0 |
+| 20261060 d13_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.1201 | 0.001738 | -0.1184 |  | sun_elevation 1.704; horizon 1.824; sun_azimuth 15.37; margin_lower_limb -0.3871; lit_disc_fraction 0.225; ray_spacing_deg 0.0001812; march_step_deg 0.001555; samples_outside_grid 0 |
+| 20261060 d14_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3633 | 0.08992 | -0.2733 |  | sun_elevation 1.705; horizon 2.068; sun_azimuth 15.38; margin_lower_limb -0.6302; lit_disc_fraction 0; ray_spacing_deg 0.0001393; march_step_deg 0.08978; samples_outside_grid 0 |
+| 20261060 d14_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.206 | 0.1039 | -0.1021 |  | sun_elevation 1.705; horizon 1.911; sun_azimuth 15.41; margin_lower_limb -0.473; lit_disc_fraction 0.06531; ray_spacing_deg 0.0004842; march_step_deg 0.1034; samples_outside_grid 0 |
+| 20261060 d15_trn_e0_g168.0 e0 | safe landing | 6 site lit | -0.8178 | 0.1156 | -0.7023 |  | sun_elevation 1.706; horizon 2.524; sun_azimuth 15.33; margin_lower_limb -1.085; lit_disc_fraction 0; ray_spacing_deg 0.0002584; march_step_deg 0.1153; samples_outside_grid 0 |
+| 20261060 d15_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -0.3882 | 0.2845 | -0.1037 | 16 | lowest_elevation_margin_deg -0.3882; d81_over_deg 0.8119 |
+| 20261060 d15_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.9888 | 0.4284 | -0.5604 | 27 | lowest_elevation_margin_deg -0.9888; d81_over_deg 1.496 |
+| 20261060 d15_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.3499 | 0.3411 | -0.008787 | 3 | lowest_elevation_margin_deg -0.3499; d81_over_deg 1.035 |
+| 20261060 d16_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.187 | 0.3056 | -1.882 |  | sun_elevation 1.706; horizon 3.893; sun_azimuth 15.16; margin_lower_limb -2.454; lit_disc_fraction 0; ray_spacing_deg 6.619e-05; march_step_deg 0.3056; samples_outside_grid 0 |
+| 20261060 d18_notrn_eNone_gNone e0 | safe landing | 6 site lit | -1.546 | 0.2037 | -1.342 |  | sun_elevation 1.705; horizon 3.251; sun_azimuth 15.19; margin_lower_limb -1.813; lit_disc_fraction 0; ray_spacing_deg 0.003266; march_step_deg 0.2004; samples_outside_grid 0 |
+| 20261060 d18_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.283 | 0.3159 | -1.968 |  | sun_elevation 1.706; horizon 3.99; sun_azimuth 15.14; margin_lower_limb -2.55; lit_disc_fraction 0; ray_spacing_deg 0.0003486; march_step_deg 0.3155; samples_outside_grid 0 |
+| 20261060 d18_trn_e3_g24.0 e3 | unsafe landing | 4 terrain clearance | -0.09252 | 0.0223 | -0.07022 | 2 | lowest_phase descent; lowest_clearance -0.09252 |
+| 20261060 d19_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.858 | 0.01736 | -0.8406 |  | sun_elevation 1.705; horizon 2.563; sun_azimuth 15.3; margin_lower_limb -1.125; lit_disc_fraction 0; ray_spacing_deg 0.0001272; march_step_deg 0.01723; samples_outside_grid 0 |
+| 20261060 d19_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.2519 | 0.03194 | -0.22 |  | sun_elevation 1.704; horizon 1.956; sun_azimuth 15.37; margin_lower_limb -0.5189; lit_disc_fraction 0.009055; ray_spacing_deg 0.0001581; march_step_deg 0.03178; samples_outside_grid 0 |
+| 20261060 d20_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.932 | 0.224 | -1.708 |  | sun_elevation 1.706; horizon 3.638; sun_azimuth 15.22; margin_lower_limb -2.199; lit_disc_fraction 0; ray_spacing_deg 0.0001882; march_step_deg 0.2238; samples_outside_grid 0 |
+| 20261060 d20_trn_e1_g-72.0 e1 | safe landing | 4 terrain clearance | -0.03744 | 0.02273 | -0.01472 | 1 | lowest_phase descent; lowest_clearance -0.03744 |
+| 20261060 d21_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2748 | 0.03543 | -0.2394 |  | sun_elevation 1.704; horizon 1.979; sun_azimuth 15.37; margin_lower_limb -0.5418; lit_disc_fraction 0; ray_spacing_deg 0.000159; march_step_deg 0.03527; samples_outside_grid 0 |
+| 20261060 d21_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.106 | 0.3593 | -0.7466 |  | sun_elevation 1.707; horizon 2.812; sun_azimuth 15.32; margin_lower_limb -1.373; lit_disc_fraction 0; ray_spacing_deg 0.0001649; march_step_deg 0.3592; samples_outside_grid 0 |
+| 20261060 d21_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.4889 | 0.009748 | -0.4791 |  | sun_elevation 1.704; horizon 2.193; sun_azimuth 15.36; margin_lower_limb -0.7558; lit_disc_fraction 0; ray_spacing_deg 0.0001317; march_step_deg 0.009615; samples_outside_grid 0 |
+| 20261060 d22_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.71 | 0.1259 | -1.585 |  | sun_elevation 1.705; horizon 3.415; sun_azimuth 15.16; margin_lower_limb -1.977; lit_disc_fraction 0; ray_spacing_deg 4.25e-05; march_step_deg 0.1258; samples_outside_grid 0 |
+| 20261060 d22_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -3.406 | 1.597 | -1.809 | 45 | lowest_elevation_margin_deg -3.424; d81_over_deg 5.46 |
+| 20261060 d22_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.649 | 1.008 | -0.641 | 18 | lowest_elevation_margin_deg -1.656; d81_over_deg 3.702 |
+| 20261060 d23_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2181 | 0.02829 | -0.1898 |  | sun_elevation 1.705; horizon 1.923; sun_azimuth 15.6; margin_lower_limb -0.485; lit_disc_fraction 0.04575; ray_spacing_deg 1.215e-06; march_step_deg 0.02829; samples_outside_grid 0 |
+| 20261060 d24_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.478 | 0.1407 | -0.3373 |  | sun_elevation 1.706; horizon 2.184; sun_azimuth 15.37; margin_lower_limb -0.745; lit_disc_fraction 0; ray_spacing_deg 0.0002548; march_step_deg 0.1404; samples_outside_grid 0 |
+| 20261060 d24_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.212 | 0.391 | -1.821 |  | sun_elevation 1.707; horizon 3.919; sun_azimuth 15.19; margin_lower_limb -2.479; lit_disc_fraction 0; ray_spacing_deg 6.339e-05; march_step_deg 0.391; samples_outside_grid 0 |
+| 20261060 d26_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2209 | 0.06559 | -0.1553 |  | sun_elevation 1.705; horizon 1.926; sun_azimuth 15.41; margin_lower_limb -0.4878; lit_disc_fraction 0.04245; ray_spacing_deg 0.0003261; march_step_deg 0.06526; samples_outside_grid 0 |
+| 20261060 d26_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.03254 | 0.005074 | -0.02747 |  | sun_elevation 1.705; horizon 1.737; sun_azimuth 15.46; margin_lower_limb -0.2995; lit_disc_fraction 0.4228; ray_spacing_deg 0.0003231; march_step_deg 0.004749; samples_outside_grid 0 |
+| 20261060 d27_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2235 | 0.01566 | -0.2078 |  | sun_elevation 1.704; horizon 1.928; sun_azimuth 15.36; margin_lower_limb -0.4904; lit_disc_fraction 0.04004; ray_spacing_deg 0.0001539; march_step_deg 0.01551; samples_outside_grid 0 |
+| 20261060 d28_trn_e0_g168.0 e0 | safe landing | 6 site lit | -0.7208 | 0.1974 | -0.5234 |  | sun_elevation 1.706; horizon 2.427; sun_azimuth 15.34; margin_lower_limb -0.9878; lit_disc_fraction 0; ray_spacing_deg 0.0002651; march_step_deg 0.1971; samples_outside_grid 0 |
+| 20261060 d30_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.428 | 0.2263 | -1.202 |  | sun_elevation 1.706; horizon 3.134; sun_azimuth 15.23; margin_lower_limb -1.695; lit_disc_fraction 0; ray_spacing_deg 0.003571; march_step_deg 0.2227; samples_outside_grid 0 |
+| 20261060 d30_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.6445 | 0.3675 | -0.277 | 22 | lowest_elevation_margin_deg -0.6445; d81_over_deg 1.418 |
+| 20261060 d31_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.815 | 0.2266 | -2.588 |  | sun_elevation 1.706; horizon 4.521; sun_azimuth 14.98; margin_lower_limb -3.082; lit_disc_fraction 0; ray_spacing_deg 2.019e-06; march_step_deg 0.2266; samples_outside_grid 0 |
+| 20261060 d32_notrn_eNone_gNone e0 | safe landing | 6 site lit | -3.35 | 0.2999 | -3.051 |  | sun_elevation 1.707; horizon 5.057; sun_azimuth 14.78; margin_lower_limb -3.617; lit_disc_fraction 0; ray_spacing_deg 6.439e-06; march_step_deg 0.2999; samples_outside_grid 0 |
+| 20261060 d32_notrn_eNone_gNone e1 | safe landing | 6 site lit | -0.5101 | 0.04381 | -0.4663 |  | sun_elevation 1.791; horizon 2.302; sun_azimuth 344.8; margin_lower_limb -0.7749; lit_disc_fraction 0; ray_spacing_deg 7.416e-05; march_step_deg 0.04373; samples_outside_grid 0 |
+| 20261060 d34_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3484 | 0.3311 | -0.01731 |  | sun_elevation 1.706; horizon 2.054; sun_azimuth 15.38; margin_lower_limb -0.6153; lit_disc_fraction 0; ray_spacing_deg 0.002684; march_step_deg 0.3284; samples_outside_grid 0 |
+| 20261060 d35_notrn_eNone_gNone e0 | safe landing | 6 site lit | -3.504 | 0.05505 | -3.449 |  | sun_elevation 1.707; horizon 5.211; sun_azimuth 14.88; margin_lower_limb -3.771; lit_disc_fraction 0; ray_spacing_deg 1.652e-05; march_step_deg 0.05503; samples_outside_grid 0 |
+| 20261060 d37_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.5315 | 0.06812 | -0.4634 |  | sun_elevation 1.705; horizon 2.236; sun_azimuth 15.35; margin_lower_limb -0.7984; lit_disc_fraction 0; ray_spacing_deg 0.0003195; march_step_deg 0.0678; samples_outside_grid 0 |
+| 20261060 d37_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.087 | 0.3461 | -1.741 |  | sun_elevation 1.707; horizon 3.794; sun_azimuth 15.21; margin_lower_limb -2.354; lit_disc_fraction 0; ray_spacing_deg 0.0001424; march_step_deg 0.346; samples_outside_grid 0 |
+| 20261060 d39_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -1.04 | 0.1159 | -0.9243 |  | sun_elevation 1.705; horizon 2.746; sun_azimuth 15.27; margin_lower_limb -1.307; lit_disc_fraction 0; ray_spacing_deg 0.0001075; march_step_deg 0.1158; samples_outside_grid 0 |
+| 20261060 d39_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.9473 | 0.2836 | -0.6637 | 36 | lowest_elevation_margin_deg -0.9473; d81_over_deg 0.9968 |
+| 20261060 d41_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.178 | 0.01753 | -0.1605 |  | sun_elevation 1.704; horizon 1.882; sun_azimuth 15.4; margin_lower_limb -0.445; lit_disc_fraction 0.1101; ray_spacing_deg 0.001892; march_step_deg 0.01564; samples_outside_grid 0 |
+| 20261060 d41_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.54 | 0.172 | -2.368 |  | sun_elevation 1.706; horizon 4.246; sun_azimuth 15.09; margin_lower_limb -2.807; lit_disc_fraction 0; ray_spacing_deg 5.066e-06; march_step_deg 0.172; samples_outside_grid 0 |
+| 20261060 d42_notrn_eNone_gNone e0 | safe landing | 6 site lit | -0.2026 | 0.02607 | -0.1765 |  | sun_elevation 1.724; horizon 1.926; sun_azimuth 15.12; margin_lower_limb -0.4696; lit_disc_fraction 0.07084; ray_spacing_deg 1.847e-05; march_step_deg 0.02605; samples_outside_grid 0 |
+| 20261060 d43_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2409 | 0.03288 | -0.208 |  | sun_elevation 1.704; horizon 1.945; sun_azimuth 15.38; margin_lower_limb -0.5078; lit_disc_fraction 0.01943; ray_spacing_deg 0.0001597; march_step_deg 0.03272; samples_outside_grid 0 |
+| 20261060 d43_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.654 | 1.4 | -0.2545 | 10 | lowest_elevation_margin_deg -1.661; d81_over_deg 6.198 |
+| 20261060 d45_trn_e0_g168.0 e0 | safe landing | 3 glide slope | -4.045 | 2.051 | -1.994 | 39 | lowest_elevation_margin_deg -4.045; d81_over_deg 5.925 |
+| 20261060 d46_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.448 | 0.1418 | -3.306 |  | sun_elevation 1.707; horizon 5.155; sun_azimuth 15.03; margin_lower_limb -3.715; lit_disc_fraction 0; ray_spacing_deg 1.596e-06; march_step_deg 0.1418; samples_outside_grid 0 |
+| 20261060 d46_trn_e0_g72.0 e0 | unsafe landing | 3 glide slope | -0.5965 | 0.5747 | -0.02181 | 4 | lowest_elevation_margin_deg -0.5965; d81_over_deg 4.666 |
+| 20261060 d47_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.5368 | 0.3773 | -0.1595 | 14 | lowest_elevation_margin_deg -0.5368; d81_over_deg 2.223 |
+| 20261060 d47_trn_e1_g0.0 e1 | safe landing | 4 terrain clearance | -0.02854 | 0.02369 | -0.004846 | 1 | lowest_phase descent; lowest_clearance -0.02854 |
+| 20261060 d47_trn_e2_g-24.0 e2 | safe landing | 4 terrain clearance | -0.03058 | 0.02368 | -0.006895 | 1 | lowest_phase descent; lowest_clearance -0.03058 |
+| 20261060 d47_trn_e2_g0.0 e2 | safe landing | 4 terrain clearance | -0.03493 | 0.02369 | -0.01124 | 1 | lowest_phase descent; lowest_clearance -0.03493 |
+| 20261060 d47_trn_e2_g24.0 e2 | safe landing | 4 terrain clearance | -0.03304 | 0.02365 | -0.00939 | 1 | lowest_phase descent; lowest_clearance -0.03304 |
+| 20261060 d47_trn_e3_g-24.0 e3 | safe landing | 4 terrain clearance | -0.0266 | 0.02367 | -0.002929 | 1 | lowest_phase descent; lowest_clearance -0.0266 |
+| 20261060 d47_trn_e3_g0.0 e3 | safe landing | 4 terrain clearance | -0.03725 | 0.02369 | -0.01355 | 1 | lowest_phase descent; lowest_clearance -0.03725 |
+| 20261060 d48_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.7661 | 0.07303 | -0.6931 |  | sun_elevation 1.704; horizon 2.471; sun_azimuth 15.29; margin_lower_limb -1.033; lit_disc_fraction 0; ray_spacing_deg 0.0003497; march_step_deg 0.07268; samples_outside_grid 0 |
+| 20261060 d51_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.4898 | 0.2934 | -0.1964 | 20 | lowest_elevation_margin_deg -0.4898; d81_over_deg 2.345 |
+| 20261060 d55_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.629 | 0.008059 | -1.621 |  | sun_elevation 1.706; horizon 3.335; sun_azimuth 15.29; margin_lower_limb -1.896; lit_disc_fraction 0; ray_spacing_deg 0.0001624; march_step_deg 0.007895; samples_outside_grid 0 |
+| 20261060 d55_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.1426 | 0.003862 | -0.1387 |  | sun_elevation 1.705; horizon 1.847; sun_azimuth 15.59; margin_lower_limb -0.4095; lit_disc_fraction 0.1771; ray_spacing_deg 0.00386; march_step_deg 0; samples_outside_grid 0 |
+| 20261060 d56_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.1116 | 0.01144 | -0.1001 |  | sun_elevation 1.704; horizon 1.816; sun_azimuth 15.38; margin_lower_limb -0.3785; lit_disc_fraction 0.2432; ray_spacing_deg 0.0001564; march_step_deg 0.01128; samples_outside_grid 0 |
+| 20261060 d56_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.09218 | 0.02258 | -0.0696 | 2 | lowest_phase descent; lowest_clearance -0.09218 |
+| 20261060 d57_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.05807 | 0.01451 | -0.04356 |  | sun_elevation 1.704; horizon 1.762; sun_azimuth 15.39; margin_lower_limb -0.325; lit_disc_fraction 0.3634; ray_spacing_deg 0.000158; march_step_deg 0.01435; samples_outside_grid 0 |
+| 20261060 d57_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.06697 | 0.0128 | -0.05417 |  | sun_elevation 1.704; horizon 1.771; sun_azimuth 15.39; margin_lower_limb -0.3339; lit_disc_fraction 0.3429; ray_spacing_deg 0.0001587; march_step_deg 0.01264; samples_outside_grid 0 |
+| 20261060 d58_notrn_eNone_gNone e0 | safe landing | 6 site lit | -3.995 | 0.1139 | -3.881 |  | sun_elevation 1.69; horizon 5.685; sun_azimuth 21.86; margin_lower_limb -4.262; lit_disc_fraction 0; ray_spacing_deg 3.889e-05; march_step_deg 0.1139; samples_outside_grid 0 |
+| 20261060 d58_notrn_eNone_gNone e1 | safe landing | 6 site lit | -3.078 | 0.4003 | -2.677 |  | sun_elevation 1.789; horizon 4.867; sun_azimuth 351.7; margin_lower_limb -3.342; lit_disc_fraction 0; ray_spacing_deg 0.0001032; march_step_deg 0.4002; samples_outside_grid 0 |
+| 20261060 d58_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2462 | 0.005592 | -0.2406 |  | sun_elevation 1.704; horizon 1.951; sun_azimuth 15.39; margin_lower_limb -0.5132; lit_disc_fraction 0.01398; ray_spacing_deg 0.0004501; march_step_deg 0.00514; samples_outside_grid 0 |
+| 20261060 d58_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.819 | 0.2207 | -2.598 |  | sun_elevation 1.706; horizon 4.525; sun_azimuth 14.96; margin_lower_limb -3.085; lit_disc_fraction 0; ray_spacing_deg 0.0002827; march_step_deg 0.2204; samples_outside_grid 0 |
+| 20261060 d60_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.1518 | 0.006853 | -0.1449 |  | sun_elevation 1.705; horizon 1.857; sun_azimuth 15.44; margin_lower_limb -0.4187; lit_disc_fraction 0.16; ray_spacing_deg 0.006851; march_step_deg 0; samples_outside_grid 0 |
+| 20261060 d60_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.215 | 0.06909 | -3.146 |  | sun_elevation 1.707; horizon 4.922; sun_azimuth 14.93; margin_lower_limb -3.482; lit_disc_fraction 0; ray_spacing_deg 2.712e-05; march_step_deg 0.06906; samples_outside_grid 0 |
+| 20261060 d60_trn_e2_g-24.0 e2 | safe landing | 3 glide slope | -1.07 | 0.7833 | -0.287 | 13 | lowest_elevation_margin_deg -1.07; d81_over_deg -1.801 |
+| 20261060 d60_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.8377 | 0.756 | -0.0817 | 9 | lowest_elevation_margin_deg -0.8377; d81_over_deg 3.549 |
+| 20261060 d61_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.24 | 0.2267 | -2.013 |  | sun_elevation 1.706; horizon 3.946; sun_azimuth 15.15; margin_lower_limb -2.507; lit_disc_fraction 0; ray_spacing_deg 6.338e-05; march_step_deg 0.2267; samples_outside_grid 0 |
+| 20261060 d61_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.09473 | 0.05862 | -0.03611 |  | sun_elevation 1.705; horizon 1.8; sun_azimuth 15.66; margin_lower_limb -0.3617; lit_disc_fraction 0.2794; ray_spacing_deg 7.088e-06; march_step_deg 0.05861; samples_outside_grid 0 |
+| 20261060 d63_trn_e0_g168.0 e0 | safe landing | 3 glide slope | -1.927 | 0.6559 | -1.271 | 39 | lowest_elevation_margin_deg -1.934; d81_over_deg 3.667 |
+| 20261060 d65_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -2.69 | 1.573 | -1.117 | 44 | lowest_elevation_margin_deg -2.691; d81_over_deg 6.246 |
+| 20261060 d65_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.418 | 0.805 | -0.6134 | 21 | lowest_elevation_margin_deg -1.418; d81_over_deg 3.936 |
+| 20261060 d67_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.447 | 0.004604 | -0.4424 |  | sun_elevation 1.704; horizon 2.151; sun_azimuth 15.32; margin_lower_limb -0.714; lit_disc_fraction 0; ray_spacing_deg 0.0001467; march_step_deg 0.004456; samples_outside_grid 0 |
+| 20261060 d67_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -3.103 | 1.352 | -1.75 | 32 | lowest_elevation_margin_deg -3.103; d81_over_deg 5.899 |
+| 20261060 d67_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.6289 | 0.3761 | -0.2528 | 21 | lowest_elevation_margin_deg -0.6292; d81_over_deg 2.064 |
+| 20261060 d68_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.383 | 0.2508 | -1.132 |  | sun_elevation 1.707; horizon 3.09; sun_azimuth 15.31; margin_lower_limb -1.65; lit_disc_fraction 0; ray_spacing_deg 0.0001677; march_step_deg 0.2507; samples_outside_grid 0 |
+| 20261060 d69_trn_e1_g0.0 e1 | safe landing | 4 terrain clearance | -0.04083 | 0.0227 | -0.01812 | 1 | lowest_phase descent; lowest_clearance -0.04083 |
+| 20261060 d69_trn_e3_g0.0 e3 | safe landing | 4 terrain clearance | -0.03679 | 0.0227 | -0.01408 | 1 | lowest_phase descent; lowest_clearance -0.03679 |
+| 20261060 d70_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.164 | 0.1117 | -0.05226 |  | sun_elevation 1.705; horizon 1.869; sun_azimuth 15.41; margin_lower_limb -0.431; lit_disc_fraction 0.1373; ray_spacing_deg 0.0004803; march_step_deg 0.1113; samples_outside_grid 0 |
+| 20261060 d70_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.855 | 1.015 | -0.8399 | 24 | lowest_elevation_margin_deg -1.855; d81_over_deg 4.037 |
+| 20261060 d71_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2972 | 0.1763 | -0.1209 |  | sun_elevation 1.705; horizon 2.003; sun_azimuth 15.37; margin_lower_limb -0.5642; lit_disc_fraction 0; ray_spacing_deg 0.008503; march_step_deg 0.1678; samples_outside_grid 0 |
+| 20261060 d71_trn_e0_g168.0 e0 | safe landing | 3 glide slope | -0.9851 | 0.8515 | -0.1336 | 8 | lowest_elevation_margin_deg -0.9895; d81_over_deg 5.849 |
+| 20261060 d71_trn_e1_g168.0 e1 | terrain strike | 4 terrain clearance | -7.279 | 0.1948 | -7.084 | 36 | lowest_phase guided; lowest_clearance -7.279 |
+| 20261060 d71_trn_e2_g168.0 e2 | safe landing | 3 glide slope | -0.0145 | 0.0145 | -8.315e-07 | 1 | lowest_elevation_margin_deg -0.0145; d81_over_deg 0.8878 |
+| 20261060 d71_trn_e3_g-168.0 e3 | safe landing | 4 terrain clearance | -0.0758 | 0.02384 | -0.05196 | 2 | lowest_phase descent; lowest_clearance -0.0758 |
+| 20261060 d71_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -1.182 | 0.7858 | -0.3967 | 20 | lowest_elevation_margin_deg -1.233; d81_over_deg 1.174 |
+| 20261060 d73_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -0.4037 | 0.2534 | -0.1503 | 22 | lowest_elevation_margin_deg -0.4037; d81_over_deg 1.868 |
+| 20261060 d73_trn_e0_g24.0 e0 | unsafe landing | 3 glide slope | -0.6496 | 0.4535 | -0.196 | 16 | lowest_elevation_margin_deg -0.652; d81_over_deg 2.33 |
+| 20261060 d73_trn_e2_g-72.0 e2 | safe landing | 3 glide slope | -1.468 | 0.4803 | -0.9876 | 36 | lowest_elevation_margin_deg -1.468; d81_over_deg 2.068 |
+| 20261060 d73_trn_e3_g-72.0 e3 | safe landing | 4 terrain clearance | -0.04452 | 0.0235 | -0.02102 | 1 | lowest_phase descent; lowest_clearance -0.04452 |
+| 20261060 d74_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.2431 | 0.01589 | -0.2272 |  | sun_elevation 1.704; horizon 1.947; sun_azimuth 15.36; margin_lower_limb -0.51; lit_disc_fraction 0.01712; ray_spacing_deg 0.0001544; march_step_deg 0.01574; samples_outside_grid 0 |
+| 20261060 d75_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.401 | 0.03203 | -3.369 |  | sun_elevation 1.707; horizon 5.108; sun_azimuth 14.88; margin_lower_limb -3.668; lit_disc_fraction 0; ray_spacing_deg 1.868e-05; march_step_deg 0.03201; samples_outside_grid 0 |
+| 20261060 d76_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.734 | 0.2084 | -1.526 |  | sun_elevation 1.705; horizon 3.439; sun_azimuth 15.16; margin_lower_limb -2.001; lit_disc_fraction 0; ray_spacing_deg 0.000442; march_step_deg 0.2079; samples_outside_grid 0 |
+| 20261060 d79_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.771 | 1.328 | -0.443 | 13 | lowest_elevation_margin_deg -1.771; d81_over_deg 5.572 |
+| 20261060 d80_trn_e1_g72.0 e1 | safe landing | 4 terrain clearance | -0.05574 | 0.02248 | -0.03326 | 1 | lowest_phase descent; lowest_clearance -0.05574 |
+| 20261060 d81_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.1259 | 0.02359 | -0.1023 | 3 | lowest_phase descent; lowest_clearance -0.1259 |
+| 20261060 d81_notrn_eNone_gNone e3 | safe landing | 6 site lit | -1.135 | 0.09423 | -1.041 |  | sun_elevation 1.61; horizon 2.745; sun_azimuth 283.1; margin_lower_limb -1.401; lit_disc_fraction 0; ray_spacing_deg 0.0001038; march_step_deg 0.09412; samples_outside_grid 0 |
+| 20261060 d81_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.465 | 0.515 | -0.9498 | 34 | lowest_elevation_margin_deg -1.465; d81_over_deg 1.446 |
+| 20261060 d81_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.031 | 0.7023 | -0.3285 | 17 | lowest_elevation_margin_deg -1.034; d81_over_deg 2.568 |
+| 20261060 d84_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.669 | 0.1636 | -2.506 |  | sun_elevation 1.706; horizon 4.375; sun_azimuth 15.08; margin_lower_limb -2.936; lit_disc_fraction 0; ray_spacing_deg 4.566e-06; march_step_deg 0.1636; samples_outside_grid 0 |
+| 20261060 d86_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.341 | 0.4292 | -0.9114 | 37 | lowest_elevation_margin_deg -1.341; d81_over_deg 0.7124 |
+| 20261060 d89_notrn_eNone_gNone e0 | safe landing | 6 site lit | -0.9095 | 0.0002091 | -0.9093 |  | sun_elevation 1.706; horizon 2.616; sun_azimuth 14.43; margin_lower_limb -1.176; lit_disc_fraction 0; ray_spacing_deg 0.0002072; march_step_deg 0; samples_outside_grid 0 |
+| 20261060 d89_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.5473 | 0.2624 | -0.2849 | 28 | lowest_elevation_margin_deg -0.5473; d81_over_deg 1.653 |
+| 20261060 d89_trn_e2_g168.0 e2 | safe landing | 3 glide slope | -0.08425 | 0.01846 | -0.06579 | 43 | lowest_elevation_margin_deg -0.08445; d81_over_deg 1.377 |
+| 20261060 d89_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.5416 | 0.2686 | -0.2729 | 25 | lowest_elevation_margin_deg -0.5416; d81_over_deg 1.285 |
+| 20261060 d90_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2899 | 0.09485 | -0.1951 |  | sun_elevation 1.705; horizon 1.995; sun_azimuth 15.39; margin_lower_limb -0.5569; lit_disc_fraction 0; ray_spacing_deg 0.001125; march_step_deg 0.09372; samples_outside_grid 0 |
+| 20261060 d91_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.419 | 1.413 | -0.005952 | 2 | lowest_elevation_margin_deg -1.434; d81_over_deg 6.402 |
+| 20261060 d91_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2638 | 0.0122 | -0.2516 |  | sun_elevation 1.704; horizon 1.968; sun_azimuth 15.35; margin_lower_limb -0.5308; lit_disc_fraction 0.001304; ray_spacing_deg 0.0001522; march_step_deg 0.01204; samples_outside_grid 0 |
+| 20261060 d91_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.835 | 1.194 | -0.6407 | 22 | lowest_elevation_margin_deg -1.877; d81_over_deg 4.935 |
+| 20261060 d92_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.264 | 0.1009 | -3.163 |  | sun_elevation 1.707; horizon 4.971; sun_azimuth 14.76; margin_lower_limb -3.531; lit_disc_fraction 0; ray_spacing_deg 1.23e-05; march_step_deg 0.1009; samples_outside_grid 0 |
+| 20261060 d92_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.04497 | 0.01823 | -0.02674 | 28 | lowest_elevation_margin_deg -0.04497; d81_over_deg 3.541 |
+| 20261060 d93_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.488 | 0.08044 | -2.407 |  | sun_elevation 1.707; horizon 4.194; sun_azimuth 15.19; margin_lower_limb -2.755; lit_disc_fraction 0; ray_spacing_deg 6.063e-05; march_step_deg 0.08037; samples_outside_grid 0 |
+| 20261060 d94_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -2.3 | 0.9446 | -1.355 | 29 | lowest_elevation_margin_deg -2.318; d81_over_deg 4.248 |
+| 20261060 d95_notrn_eNone_gNone e0 | safe landing | 6 site lit | -1.106 | 0.06445 | -1.042 |  | sun_elevation 1.709; horizon 2.815; sun_azimuth 14.39; margin_lower_limb -1.373; lit_disc_fraction 0; ray_spacing_deg 0.0001704; march_step_deg 0.06428; samples_outside_grid 0 |
+| 20261060 d95_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2746 | 0.04618 | -0.2284 |  | sun_elevation 1.704; horizon 1.979; sun_azimuth 15.37; margin_lower_limb -0.5416; lit_disc_fraction 0; ray_spacing_deg 0.0001607; march_step_deg 0.04602; samples_outside_grid 0 |
+| 20261060 d96_notrn_eNone_gNone e0 | safe landing | 6 site lit | -0.6339 | 0.1046 | -0.5293 |  | sun_elevation 1.706; horizon 2.34; sun_azimuth 13.64; margin_lower_limb -0.9008; lit_disc_fraction 0; ray_spacing_deg 0.0001863; march_step_deg 0.1044; samples_outside_grid 0 |
+| 20261060 d97_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.02114 | 7.218e-05 | -0.02107 |  | sun_elevation 1.705; horizon 1.726; sun_azimuth 15.69; margin_lower_limb -0.2881; lit_disc_fraction 0.4497; ray_spacing_deg 7.028e-05; march_step_deg 0; samples_outside_grid 0 |
+| 20261060 d97_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.07675 | 0.06714 | -0.009615 |  | sun_elevation 1.705; horizon 1.782; sun_azimuth 15.67; margin_lower_limb -0.3437; lit_disc_fraction 0.3199; ray_spacing_deg 5.964e-06; march_step_deg 0.06713; samples_outside_grid 0 |
+| 20261060 d99_trn_e0_g72.0 e0 | unsafe landing | 4 terrain clearance | -0.07953 | 0.02197 | -0.05756 | 2 | lowest_phase descent; lowest_clearance -0.07953 |
+| 20261061 d03_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.265 | 0.2226 | -1.043 |  | sun_elevation 1.706; horizon 2.972; sun_azimuth 15.29; margin_lower_limb -1.532; lit_disc_fraction 0; ray_spacing_deg 0.0002093; march_step_deg 0.2224; samples_outside_grid 0 |
+| 20261061 d03_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.02601 | 0.01554 | -0.01047 |  | sun_elevation 1.704; horizon 1.73; sun_azimuth 15.39; margin_lower_limb -0.293; lit_disc_fraction 0.4384; ray_spacing_deg 0.0001553; march_step_deg 0.01538; samples_outside_grid 0 |
+| 20261061 d04_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -2.174 | 0.5323 | -1.641 | 45 | lowest_elevation_margin_deg -2.174; d81_over_deg 3.435 |
+| 20261061 d04_trn_e2_g24.0 e2 | safe landing | 4 terrain clearance | -0.03086 | 0.02339 | -0.00747 | 1 | lowest_phase descent; lowest_clearance -0.03086 |
+| 20261061 d04_trn_e3_g-24.0 e3 | safe landing | 4 terrain clearance | -0.03173 | 0.02326 | -0.008475 | 1 | lowest_phase descent; lowest_clearance -0.03173 |
+| 20261061 d05_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.1989 | 0.02257 | -0.1763 | 4 | lowest_phase descent; lowest_clearance -0.1989 |
+| 20261061 d06_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.896 | 0.003831 | -2.892 |  | sun_elevation 1.707; horizon 4.603; sun_azimuth 15.15; margin_lower_limb -3.163; lit_disc_fraction 0; ray_spacing_deg 0.003829; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d07_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.03269 | 0.02396 | -0.008731 | 1 | lowest_phase descent; lowest_clearance -0.03269 |
+| 20261061 d07_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.884 | 0.1883 | -1.695 |  | sun_elevation 1.705; horizon 3.589; sun_azimuth 15.1; margin_lower_limb -2.151; lit_disc_fraction 0; ray_spacing_deg 3.604e-06; march_step_deg 0.1883; samples_outside_grid 0 |
+| 20261061 d10_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.368 | 0.7209 | -0.6474 | 23 | lowest_elevation_margin_deg -1.37; d81_over_deg 2.627 |
+| 20261061 d10_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.566 | 0.4472 | -1.119 | 38 | lowest_elevation_margin_deg -1.572; d81_over_deg 2.052 |
+| 20261061 d12_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.002 | 0.3581 | -0.6438 | 36 | lowest_elevation_margin_deg -1.002; d81_over_deg 2.069 |
+| 20261061 d12_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -5.034 | 1.411 | -3.623 | 46 | lowest_elevation_margin_deg -5.034; d81_over_deg 5.376 |
+| 20261061 d12_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -2.25 | 1.339 | -0.9106 | 23 | lowest_elevation_margin_deg -2.25; d81_over_deg 3.99 |
+| 20261061 d13_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.155 | 0.458 | -0.6965 | 29 | lowest_elevation_margin_deg -1.155; d81_over_deg 1.466 |
+| 20261061 d13_trn_e3_g-168.0 e3 | safe landing | 4 terrain clearance | -0.1324 | 0.02374 | -0.1087 | 3 | lowest_phase descent; lowest_clearance -0.1324 |
+| 20261061 d14_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -2.733 | 0.9222 | -1.811 | 47 | lowest_elevation_margin_deg -2.733; d81_over_deg 3.994 |
+| 20261061 d15_trn_e0_g168.0 e0 | safe landing | 3 glide slope | -2.713 | 1.759 | -0.9548 | 30 | lowest_elevation_margin_deg -2.868; d81_over_deg 6.291 |
+| 20261061 d17_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.725 | 0.004168 | -2.72 |  | sun_elevation 1.706; horizon 4.431; sun_azimuth 15.16; margin_lower_limb -2.992; lit_disc_fraction 0; ray_spacing_deg 0.0001596; march_step_deg 0.004007; samples_outside_grid 0 |
+| 20261061 d18_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3421 | 0.02679 | -0.3154 |  | sun_elevation 1.704; horizon 2.047; sun_azimuth 15.38; margin_lower_limb -0.6091; lit_disc_fraction 0; ray_spacing_deg 7.907e-05; march_step_deg 0.02671; samples_outside_grid 0 |
+| 20261061 d18_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.3987 | 0.2429 | -0.1557 | 21 | lowest_elevation_margin_deg -0.3987; d81_over_deg 0.8742 |
+| 20261061 d19_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.63 | 0.04543 | -1.585 |  | sun_elevation 1.706; horizon 3.336; sun_azimuth 15.23; margin_lower_limb -1.897; lit_disc_fraction 0; ray_spacing_deg 0.0002333; march_step_deg 0.04519; samples_outside_grid 0 |
+| 20261061 d19_trn_e1_g-24.0 e1 | safe landing | 3 glide slope | -0.4446 | 0.3537 | -0.09091 | 12 | lowest_elevation_margin_deg -0.4501; d81_over_deg 1.053 |
+| 20261061 d19_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -0.4401 | 0.2972 | -0.1429 | 18 | lowest_elevation_margin_deg -0.4401; d81_over_deg 1.03 |
+| 20261061 d20_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -0.9763 | 0.3805 | -0.5958 | 30 | lowest_elevation_margin_deg -0.9763; d81_over_deg 1.017 |
+| 20261061 d20_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.617 | 0.4788 | -1.139 | 41 | lowest_elevation_margin_deg -1.617; d81_over_deg 1.356 |
+| 20261061 d20_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -1.557 | 0.6654 | -0.8918 | 32 | lowest_elevation_margin_deg -1.557; d81_over_deg 1.227 |
+| 20261061 d22_notrn_eNone_gNone e0 | safe landing | 6 site lit | -3.515 | 0.02756 | -3.487 |  | sun_elevation 1.707; horizon 5.221; sun_azimuth 15; margin_lower_limb -3.782; lit_disc_fraction 0; ray_spacing_deg 9.746e-07; march_step_deg 0.02756; samples_outside_grid 0 |
+| 20261061 d22_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.541 | 0.6549 | -0.8856 | 26 | lowest_elevation_margin_deg -1.541; d81_over_deg 4.631 |
+| 20261061 d22_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.09379 | 0.02292 | -0.07087 | 2 | lowest_phase descent; lowest_clearance -0.09379 |
+| 20261061 d23_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2762 | 0.02299 | -0.2532 |  | sun_elevation 1.704; horizon 1.98; sun_azimuth 15.36; margin_lower_limb -0.5432; lit_disc_fraction 0; ray_spacing_deg 0.0001546; march_step_deg 0.02284; samples_outside_grid 0 |
+| 20261061 d23_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.7408 | 0.5388 | -0.202 | 14 | lowest_elevation_margin_deg -0.7408; d81_over_deg 3.637 |
+| 20261061 d29_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.309 | 0.008234 | -0.3007 |  | sun_elevation 1.705; horizon 2.014; sun_azimuth 15.41; margin_lower_limb -0.5759; lit_disc_fraction 0; ray_spacing_deg 0.0003296; march_step_deg 0.007903; samples_outside_grid 0 |
+| 20261061 d30_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.492 | 3.454e-05 | -3.491 |  | sun_elevation 1.707; horizon 5.198; sun_azimuth 15.07; margin_lower_limb -3.758; lit_disc_fraction 0; ray_spacing_deg 3.263e-05; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d30_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.04819 | 0.01831 | -0.02988 | 28 | lowest_elevation_margin_deg -0.04819; d81_over_deg 3.138 |
+| 20261061 d31_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.228 | 0.1127 | -3.115 |  | sun_elevation 1.707; horizon 4.934; sun_azimuth 14.96; margin_lower_limb -3.495; lit_disc_fraction 0; ray_spacing_deg 1.449e-05; march_step_deg 0.1126; samples_outside_grid 0 |
+| 20261061 d31_trn_e2_g-168.0 e2 | unsafe landing | 3 glide slope | -0.02933 | 0.01555 | -0.01377 | 22 | lowest_elevation_margin_deg -0.02933; d81_over_deg 3.783 |
+| 20261061 d32_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2555 | 0.02685 | -0.2287 |  | sun_elevation 1.704; horizon 1.96; sun_azimuth 15.37; margin_lower_limb -0.5225; lit_disc_fraction 0.006241; ray_spacing_deg 0.0001565; march_step_deg 0.02669; samples_outside_grid 0 |
+| 20261061 d32_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.09388 | 0.004247 | -0.08963 |  | sun_elevation 1.704; horizon 1.798; sun_azimuth 15.37; margin_lower_limb -0.3608; lit_disc_fraction 0.282; ray_spacing_deg 0.0001811; march_step_deg 0.004064; samples_outside_grid 0 |
+| 20261061 d33_trn_e1_g-24.0 e1 | unsafe landing | 4 terrain clearance | -0.07124 | 0.02151 | -0.04973 | 2 | lowest_phase descent; lowest_clearance -0.07124 |
+| 20261061 d35_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.8215 | 0.0001116 | -0.8214 |  | sun_elevation 1.705; horizon 2.527; sun_azimuth 15.32; margin_lower_limb -1.088; lit_disc_fraction 0; ray_spacing_deg 0.0001097; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d35_trn_e0_g24.0 e0 | unsafe landing | 3 glide slope | -2.031 | 1.942 | -0.08834 | 4 | lowest_elevation_margin_deg -2.031; d81_over_deg 6.042 |
+| 20261061 d35_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -2.852 | 1.066 | -1.787 | 35 | lowest_elevation_margin_deg -2.852; d81_over_deg 4.542 |
+| 20261061 d35_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.8423 | 0.5574 | -0.2849 | 16 | lowest_elevation_margin_deg -0.8423; d81_over_deg 2.292 |
+| 20261061 d38_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.509 | 0.001995 | -3.507 |  | sun_elevation 1.707; horizon 5.216; sun_azimuth 15.07; margin_lower_limb -3.776; lit_disc_fraction 0; ray_spacing_deg 0.001993; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d39_trn_e0_g72.0 e0 | safe landing | 4 terrain clearance | -0.02187 | 0.02159 | -0.0002782 | 1 | lowest_phase descent; lowest_clearance -0.02187 |
+| 20261061 d40_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.1693 | 0.1643 | -0.004942 |  | sun_elevation 1.705; horizon 1.874; sun_azimuth 15.39; margin_lower_limb -0.4362; lit_disc_fraction 0.1275; ray_spacing_deg 0.0003706; march_step_deg 0.1639; samples_outside_grid 0 |
+| 20261061 d41_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.1367 | 0.022 | -0.1147 | 3 | lowest_phase descent; lowest_clearance -0.1367 |
+| 20261061 d41_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.996 | 0.3337 | -2.662 |  | sun_elevation 1.707; horizon 4.703; sun_azimuth 15.11; margin_lower_limb -3.263; lit_disc_fraction 0; ray_spacing_deg 9.661e-05; march_step_deg 0.3336; samples_outside_grid 0 |
+| 20261061 d41_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.03165 | 0.017 | -0.01464 | 24 | lowest_elevation_margin_deg -0.03165; d81_over_deg 2.918 |
+| 20261061 d42_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.193 | 0.01113 | -3.182 |  | sun_elevation 1.707; horizon 4.9; sun_azimuth 14.76; margin_lower_limb -3.46; lit_disc_fraction 0; ray_spacing_deg 1.76e-05; march_step_deg 0.01111; samples_outside_grid 0 |
+| 20261061 d42_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.55 | 0.7255 | -0.8246 | 27 | lowest_elevation_margin_deg -1.55; d81_over_deg 2.215 |
+| 20261061 d42_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.6016 | 0.2406 | -0.361 | 30 | lowest_elevation_margin_deg -0.6016; d81_over_deg 0.6618 |
+| 20261061 d43_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.305 | 0.02376 | -0.2812 | 6 | lowest_phase descent; lowest_clearance -0.305 |
+| 20261061 d43_trn_e0_g-24.0 e0 | terrain strike | 4 terrain clearance | -1.246 | 0.004598 | -1.241 | 23 | lowest_phase guided; lowest_clearance -1.246 |
+| 20261061 d43_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.007769 | 0.004511 | -0.003258 |  | sun_elevation 1.705; horizon 1.713; sun_azimuth 15.59; margin_lower_limb -0.2747; lit_disc_fraction 0.4815; ray_spacing_deg 4.077e-06; march_step_deg 0.004505; samples_outside_grid 0 |
+| 20261061 d44_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.113 | 0.2433 | -1.87 |  | sun_elevation 1.707; horizon 3.82; sun_azimuth 15.22; margin_lower_limb -2.38; lit_disc_fraction 0; ray_spacing_deg 6.676e-05; march_step_deg 0.2432; samples_outside_grid 0 |
+| 20261061 d44_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.2443 | 0.004428 | -0.2399 |  | sun_elevation 1.705; horizon 1.949; sun_azimuth 15.6; margin_lower_limb -0.5113; lit_disc_fraction 0.01478; ray_spacing_deg 0.004426; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d45_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -1.027 | 0.03402 | -0.9934 |  | sun_elevation 1.705; horizon 2.732; sun_azimuth 15.28; margin_lower_limb -1.294; lit_disc_fraction 0; ray_spacing_deg 0.0001222; march_step_deg 0.0339; samples_outside_grid 0 |
+| 20261061 d45_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2787 | 0.08523 | -0.1934 |  | sun_elevation 1.705; horizon 1.983; sun_azimuth 15.4; margin_lower_limb -0.5456; lit_disc_fraction 0; ray_spacing_deg 0.001229; march_step_deg 0.084; samples_outside_grid 0 |
+| 20261061 d45_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.595 | 0.1215 | -1.473 |  | sun_elevation 1.705; horizon 3.3; sun_azimuth 15.18; margin_lower_limb -1.862; lit_disc_fraction 0; ray_spacing_deg 4.537e-05; march_step_deg 0.1214; samples_outside_grid 0 |
+| 20261061 d45_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.3108 | 0.07973 | -0.2311 |  | sun_elevation 1.705; horizon 2.015; sun_azimuth 15.39; margin_lower_limb -0.5777; lit_disc_fraction 0; ray_spacing_deg 0.001632; march_step_deg 0.07809; samples_outside_grid 0 |
+| 20261061 d46_notrn_eNone_gNone e0 | safe landing | 6 site lit | -0.3023 | 0.167 | -0.1353 |  | sun_elevation 1.71; horizon 2.012; sun_azimuth 17.65; margin_lower_limb -0.5693; lit_disc_fraction 0; ray_spacing_deg 0.0001037; march_step_deg 0.1669; samples_outside_grid 0 |
+| 20261061 d47_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.5424 | 0.2977 | -0.2447 |  | sun_elevation 1.706; horizon 2.248; sun_azimuth 15.36; margin_lower_limb -0.8093; lit_disc_fraction 0; ray_spacing_deg 0.0002715; march_step_deg 0.2974; samples_outside_grid 0 |
+| 20261061 d47_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.876 | 0.3024 | -1.574 |  | sun_elevation 1.706; horizon 3.582; sun_azimuth 15.2; margin_lower_limb -2.143; lit_disc_fraction 0; ray_spacing_deg 8.015e-05; march_step_deg 0.3024; samples_outside_grid 0 |
+| 20261061 d47_trn_e1_g-24.0 e1 | unsafe landing | 3 glide slope | -0.7259 | 0.3912 | -0.3347 | 20 | lowest_elevation_margin_deg -0.7259; d81_over_deg 1.465 |
+| 20261061 d48_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.632 | 0.3916 | -1.24 |  | sun_elevation 1.707; horizon 3.339; sun_azimuth 15.26; margin_lower_limb -1.899; lit_disc_fraction 0; ray_spacing_deg 0.0001767; march_step_deg 0.3915; samples_outside_grid 0 |
+| 20261061 d49_notrn_eNone_gNone e0 | safe landing | 6 site lit | -1.233 | 0.0001288 | -1.233 |  | sun_elevation 1.71; horizon 2.943; sun_azimuth 17.67; margin_lower_limb -1.5; lit_disc_fraction 0; ray_spacing_deg 0.0001269; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d50_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.119 | 0.07258 | -1.046 |  | sun_elevation 1.705; horizon 2.823; sun_azimuth 15.24; margin_lower_limb -1.386; lit_disc_fraction 0; ray_spacing_deg 0.000306; march_step_deg 0.07227; samples_outside_grid 0 |
+| 20261061 d51_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.05962 | 0.01768 | -0.04194 | 35 | lowest_elevation_margin_deg -0.05962; d81_over_deg 2.613 |
+| 20261061 d54_trn_e2_g-168.0 e2 | unsafe landing | 3 glide slope | -0.03168 | 0.01794 | -0.01374 | 20 | lowest_elevation_margin_deg -0.03168; d81_over_deg 3.26 |
+| 20261061 d55_trn_e0_g168.0 e0 | safe landing | 6 site lit | -0.5083 | 0.1405 | -0.3678 |  | sun_elevation 1.706; horizon 2.214; sun_azimuth 15.37; margin_lower_limb -0.7753; lit_disc_fraction 0; ray_spacing_deg 0.0002563; march_step_deg 0.1402; samples_outside_grid 0 |
+| 20261061 d55_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.3555 | 0.04668 | -0.3088 |  | sun_elevation 1.704; horizon 2.06; sun_azimuth 15.36; margin_lower_limb -0.6224; lit_disc_fraction 0; ray_spacing_deg 0.0001581; march_step_deg 0.04652; samples_outside_grid 0 |
+| 20261061 d55_trn_e2_g24.0 e2 | safe landing | 3 glide slope | -1.573 | 0.9117 | -0.6611 | 19 | lowest_elevation_margin_deg -1.578; d81_over_deg 0.1819 |
+| 20261061 d56_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.333 | 0.06488 | -3.268 |  | sun_elevation 1.707; horizon 5.04; sun_azimuth 14.73; margin_lower_limb -3.6; lit_disc_fraction 0; ray_spacing_deg 8.066e-06; march_step_deg 0.06487; samples_outside_grid 0 |
+| 20261061 d56_trn_e3_g72.0 e3 | safe landing | 4 terrain clearance | -0.09015 | 0.02347 | -0.06669 | 2 | lowest_phase descent; lowest_clearance -0.09015 |
+| 20261061 d56_trn_e3_g72.0 e3 | safe landing | 6 site lit | -3.255 | 0.1642 | -3.091 |  | sun_elevation 1.641; horizon 4.896; sun_azimuth 297.6; margin_lower_limb -3.521; lit_disc_fraction 0; ray_spacing_deg 0.0005007; march_step_deg 0.1637; samples_outside_grid 0 |
+| 20261061 d58_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.4916 | 0.4731 | -0.01853 | 2 | lowest_elevation_margin_deg -0.4916; d81_over_deg 2.1 |
+| 20261061 d58_trn_e2_g168.0 e2 | safe landing | 3 glide slope | -0.1508 | 0.02774 | -0.1231 | 48 | lowest_elevation_margin_deg -0.151; d81_over_deg 3.415 |
+| 20261061 d59_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.08003 | 0.0219 | -0.05813 | 2 | lowest_phase descent; lowest_clearance -0.08003 |
+| 20261061 d60_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -2.156 | 1.607 | -0.5489 | 18 | lowest_elevation_margin_deg -2.187; d81_over_deg 6.329 |
+| 20261061 d63_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2189 | 0.04388 | -0.175 |  | sun_elevation 1.704; horizon 1.923; sun_azimuth 15.38; margin_lower_limb -0.4859; lit_disc_fraction 0.04624; ray_spacing_deg 0.0001616; march_step_deg 0.04372; samples_outside_grid 0 |
+| 20261061 d63_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.005 | 0.03336 | -0.9715 |  | sun_elevation 1.706; horizon 2.711; sun_azimuth 15.3; margin_lower_limb -1.272; lit_disc_fraction 0; ray_spacing_deg 0.0002652; march_step_deg 0.03309; samples_outside_grid 0 |
+| 20261061 d63_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.1789 | 0.03807 | -0.1408 |  | sun_elevation 1.704; horizon 1.883; sun_azimuth 15.39; margin_lower_limb -0.4459; lit_disc_fraction 0.1097; ray_spacing_deg 0.0001622; march_step_deg 0.03791; samples_outside_grid 0 |
+| 20261061 d63_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.1423 | 0.09825 | -0.0441 |  | sun_elevation 1.705; horizon 1.847; sun_azimuth 15.59; margin_lower_limb -0.4093; lit_disc_fraction 0.1775; ray_spacing_deg 2.352e-06; march_step_deg 0.09824; samples_outside_grid 0 |
+| 20261061 d64_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.1087 | 0.1004 | -0.00828 |  | sun_elevation 1.705; horizon 1.813; sun_azimuth 15.43; margin_lower_limb -0.3756; lit_disc_fraction 0.2487; ray_spacing_deg 0.0003227; march_step_deg 0.1001; samples_outside_grid 0 |
+| 20261061 d64_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.1617 | 0.06439 | -0.09729 |  | sun_elevation 1.705; horizon 1.866; sun_azimuth 15.42; margin_lower_limb -0.4286; lit_disc_fraction 0.1401; ray_spacing_deg 0.0003248; march_step_deg 0.06407; samples_outside_grid 0 |
+| 20261061 d67_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.05812 | 0.02202 | -0.0361 | 1 | lowest_phase descent; lowest_clearance -0.05812 |
+| 20261061 d67_notrn_eNone_gNone e1 | safe landing | 4 terrain clearance | -0.05812 | 0.02202 | -0.0361 | 1 | lowest_phase descent; lowest_clearance -0.05812 |
+| 20261061 d67_notrn_eNone_gNone e2 | safe landing | 4 terrain clearance | -0.05812 | 0.02202 | -0.0361 | 1 | lowest_phase descent; lowest_clearance -0.05812 |
+| 20261061 d67_notrn_eNone_gNone e3 | safe landing | 4 terrain clearance | -0.05812 | 0.02202 | -0.0361 | 1 | lowest_phase descent; lowest_clearance -0.05812 |
+| 20261061 d68_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.404 | 0.0001887 | -2.404 |  | sun_elevation 1.706; horizon 4.111; sun_azimuth 15.2; margin_lower_limb -2.671; lit_disc_fraction 0; ray_spacing_deg 0.0001868; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d70_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2436 | 0.04206 | -0.2016 |  | sun_elevation 1.704; horizon 1.948; sun_azimuth 15.38; margin_lower_limb -0.5106; lit_disc_fraction 0.01666; ray_spacing_deg 0.0001611; march_step_deg 0.0419; samples_outside_grid 0 |
+| 20261061 d70_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2832 | 0.04573 | -0.2375 |  | sun_elevation 1.704; horizon 1.988; sun_azimuth 15.37; margin_lower_limb -0.5502; lit_disc_fraction 0; ray_spacing_deg 0.003022; march_step_deg 0.0427; samples_outside_grid 0 |
+| 20261061 d70_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.105 | 0.1755 | -1.93 |  | sun_elevation 1.706; horizon 3.812; sun_azimuth 15.22; margin_lower_limb -2.372; lit_disc_fraction 0; ray_spacing_deg 6.707e-05; march_step_deg 0.1754; samples_outside_grid 0 |
+| 20261061 d71_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.552 | 0.03676 | -1.515 |  | sun_elevation 1.705; horizon 3.257; sun_azimuth 15.22; margin_lower_limb -1.819; lit_disc_fraction 0; ray_spacing_deg 9.388e-05; march_step_deg 0.03666; samples_outside_grid 0 |
+| 20261061 d73_notrn_eNone_gNone e0 | safe landing | 6 site lit | -2.726 | 0.1909 | -2.535 |  | sun_elevation 1.707; horizon 4.432; sun_azimuth 14.75; margin_lower_limb -2.993; lit_disc_fraction 0; ray_spacing_deg 0.0001436; march_step_deg 0.1908; samples_outside_grid 0 |
+| 20261061 d75_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3269 | 0.04578 | -0.2811 |  | sun_elevation 1.705; horizon 2.031; sun_azimuth 15.39; margin_lower_limb -0.5938; lit_disc_fraction 0; ray_spacing_deg 0.0004297; march_step_deg 0.04535; samples_outside_grid 0 |
+| 20261061 d75_trn_e0_g168.0 e0 | safe landing | 6 site lit | -0.787 | 0.2903 | -0.4967 |  | sun_elevation 1.707; horizon 2.494; sun_azimuth 15.36; margin_lower_limb -1.054; lit_disc_fraction 0; ray_spacing_deg 0.0001896; march_step_deg 0.2901; samples_outside_grid 0 |
+| 20261061 d76_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.732 | 0.06062 | -1.671 |  | sun_elevation 1.706; horizon 3.437; sun_azimuth 15.22; margin_lower_limb -1.999; lit_disc_fraction 0; ray_spacing_deg 0.000226; march_step_deg 0.06039; samples_outside_grid 0 |
+| 20261061 d78_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -1.16 | 0.009363 | -1.151 |  | sun_elevation 1.705; horizon 2.865; sun_azimuth 15.25; margin_lower_limb -1.427; lit_disc_fraction 0; ray_spacing_deg 0.007196; march_step_deg 0.002165; samples_outside_grid 0 |
+| 20261061 d78_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3227 | 0.03431 | -0.2884 |  | sun_elevation 1.705; horizon 2.027; sun_azimuth 15.39; margin_lower_limb -0.5897; lit_disc_fraction 0; ray_spacing_deg 0.0003565; march_step_deg 0.03395; samples_outside_grid 0 |
+| 20261061 d79_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.27 | 0.03791 | -0.2321 |  | sun_elevation 1.704; horizon 1.974; sun_azimuth 15.37; margin_lower_limb -0.537; lit_disc_fraction 0; ray_spacing_deg 0.0001593; march_step_deg 0.03775; samples_outside_grid 0 |
+| 20261061 d82_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.1554 | 0.01022 | -0.1452 |  | sun_elevation 1.705; horizon 1.86; sun_azimuth 15.44; margin_lower_limb -0.4224; lit_disc_fraction 0.1527; ray_spacing_deg 0.01022; march_step_deg 0; samples_outside_grid 0 |
+| 20261061 d84_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.1765 | 0.05522 | -0.1213 |  | sun_elevation 1.704; horizon 1.881; sun_azimuth 15.41; margin_lower_limb -0.4435; lit_disc_fraction 0.114; ray_spacing_deg 0.0004605; march_step_deg 0.05476; samples_outside_grid 0 |
+| 20261061 d84_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.557 | 0.363 | -2.194 |  | sun_elevation 1.707; horizon 4.264; sun_azimuth 15.15; margin_lower_limb -2.824; lit_disc_fraction 0; ray_spacing_deg 5.431e-05; march_step_deg 0.3629; samples_outside_grid 0 |
+| 20261061 d87_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.4539 | 0.2376 | -0.2163 |  | sun_elevation 1.706; horizon 2.16; sun_azimuth 15.38; margin_lower_limb -0.7209; lit_disc_fraction 0; ray_spacing_deg 0.000217; march_step_deg 0.2374; samples_outside_grid 0 |
+| 20261061 d87_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.4539 | 0.2376 | -0.2163 |  | sun_elevation 1.706; horizon 2.16; sun_azimuth 15.38; margin_lower_limb -0.7209; lit_disc_fraction 0; ray_spacing_deg 0.000217; march_step_deg 0.2374; samples_outside_grid 0 |
+| 20261061 d87_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.1788 | 0.1502 | -0.02865 |  | sun_elevation 1.706; horizon 1.885; sun_azimuth 15.42; margin_lower_limb -0.4458; lit_disc_fraction 0.1087; ray_spacing_deg 0.0002717; march_step_deg 0.1499; samples_outside_grid 0 |
+| 20261061 d89_trn_e3_g-168.0 e3 | safe landing | 3 glide slope | -0.1654 | 0.02827 | -0.1371 | 54 | lowest_elevation_margin_deg -0.1654; d81_over_deg 2.037 |
+| 20261061 d91_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.385 | 0.4808 | -0.9037 | 32 | lowest_elevation_margin_deg -1.385; d81_over_deg 1.899 |
+| 20261061 d91_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.463 | 0.6098 | -0.8528 | 28 | lowest_elevation_margin_deg -1.465; d81_over_deg 2.334 |
+| 20261061 d91_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.7398 | 0.43 | -0.3097 | 19 | lowest_elevation_margin_deg -0.7398; d81_over_deg 2.075 |
+| 20261061 d94_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.7893 | 0.06349 | -0.7258 |  | sun_elevation 1.704; horizon 2.494; sun_azimuth 15.28; margin_lower_limb -1.056; lit_disc_fraction 0; ray_spacing_deg 0.0005758; march_step_deg 0.06291; samples_outside_grid 0 |
+| 20261061 d94_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.3 | 0.3779 | -0.9218 | 37 | lowest_elevation_margin_deg -1.3; d81_over_deg 1.887 |
+| 20261061 d94_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.7337 | 0.3995 | -0.3342 | 20 | lowest_elevation_margin_deg -0.7337; d81_over_deg 2.111 |
+| 20261061 d95_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3188 | 0.01238 | -0.3064 |  | sun_elevation 1.704; horizon 2.023; sun_azimuth 15.38; margin_lower_limb -0.5857; lit_disc_fraction 0; ray_spacing_deg 0.008142; march_step_deg 0.004239; samples_outside_grid 0 |
+| 20261061 d98_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.959 | 0.4361 | -2.523 |  | sun_elevation 1.707; horizon 4.666; sun_azimuth 15.1; margin_lower_limb -3.226; lit_disc_fraction 0; ray_spacing_deg 0.003349; march_step_deg 0.4328; samples_outside_grid 0 |
+| 20261062 d00_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3417 | 0.3149 | -0.02682 |  | sun_elevation 1.706; horizon 2.047; sun_azimuth 15.38; margin_lower_limb -0.6086; lit_disc_fraction 0; ray_spacing_deg 0.0002687; march_step_deg 0.3146; samples_outside_grid 0 |
+| 20261062 d01_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.5062 | 0.05942 | -0.4468 |  | sun_elevation 1.704; horizon 2.211; sun_azimuth 15.33; margin_lower_limb -0.7732; lit_disc_fraction 0; ray_spacing_deg 0.0001553; march_step_deg 0.05926; samples_outside_grid 0 |
+| 20261062 d03_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.891 | 0.06319 | -2.828 |  | sun_elevation 1.707; horizon 4.598; sun_azimuth 15.14; margin_lower_limb -3.158; lit_disc_fraction 0; ray_spacing_deg 0.0001406; march_step_deg 0.06304; samples_outside_grid 0 |
+| 20261062 d03_trn_e1_g-24.0 e1 | unsafe landing | 3 glide slope | -1.643 | 0.5608 | -1.082 | 33 | lowest_elevation_margin_deg -1.643; d81_over_deg 1.834 |
+| 20261062 d03_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.6673 | 0.3414 | -0.3259 | 25 | lowest_elevation_margin_deg -0.668; d81_over_deg 0.8034 |
+| 20261062 d05_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2811 | 0.04182 | -0.2393 |  | sun_elevation 1.704; horizon 1.985; sun_azimuth 15.37; margin_lower_limb -0.548; lit_disc_fraction 0; ray_spacing_deg 0.0001599; march_step_deg 0.04165; samples_outside_grid 0 |
+| 20261062 d05_trn_e2_g24.0 e2 | safe landing | 4 terrain clearance | -0.03458 | 0.02313 | -0.01145 | 1 | lowest_phase descent; lowest_clearance -0.03458 |
+| 20261062 d06_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2594 | 0.08601 | -0.1734 |  | sun_elevation 1.705; horizon 1.964; sun_azimuth 15.4; margin_lower_limb -0.5263; lit_disc_fraction 0.003839; ray_spacing_deg 0.0005154; march_step_deg 0.08549; samples_outside_grid 0 |
+| 20261062 d06_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2659 | 0.08635 | -0.1796 |  | sun_elevation 1.705; horizon 1.971; sun_azimuth 15.4; margin_lower_limb -0.5329; lit_disc_fraction 0.0006065; ray_spacing_deg 0.0008062; march_step_deg 0.08554; samples_outside_grid 0 |
+| 20261062 d06_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.344 | 0.08825 | -1.255 |  | sun_elevation 1.705; horizon 3.049; sun_azimuth 15.23; margin_lower_limb -1.611; lit_disc_fraction 0; ray_spacing_deg 0.0002656; march_step_deg 0.08799; samples_outside_grid 0 |
+| 20261062 d06_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.2595 | 0.08386 | -0.1757 |  | sun_elevation 1.705; horizon 1.964; sun_azimuth 15.4; margin_lower_limb -0.5265; lit_disc_fraction 0.00374; ray_spacing_deg 0.0007885; march_step_deg 0.08307; samples_outside_grid 0 |
+| 20261062 d07_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.339 | 0.2581 | -2.081 |  | sun_elevation 1.707; horizon 4.046; sun_azimuth 15.19; margin_lower_limb -2.606; lit_disc_fraction 0; ray_spacing_deg 6.226e-05; march_step_deg 0.2581; samples_outside_grid 0 |
+| 20261062 d08_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.07827 | 0.02209 | -0.05618 | 2 | lowest_phase descent; lowest_clearance -0.07827 |
+| 20261062 d10_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.146 | 0.1845 | -0.9616 |  | sun_elevation 1.706; horizon 2.852; sun_azimuth 15.26; margin_lower_limb -1.413; lit_disc_fraction 0; ray_spacing_deg 0.0001061; march_step_deg 0.1844; samples_outside_grid 0 |
+| 20261062 d12_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.9821 | 0.01183 | -0.9703 |  | sun_elevation 1.705; horizon 2.687; sun_azimuth 15.28; margin_lower_limb -1.249; lit_disc_fraction 0; ray_spacing_deg 0.008453; march_step_deg 0.00338; samples_outside_grid 0 |
+| 20261062 d13_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -0.5344 | 0.3126 | -0.2218 | 23 | lowest_elevation_margin_deg -0.5344; d81_over_deg 1.235 |
+| 20261062 d13_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2808 | 0.02262 | -0.2581 |  | sun_elevation 1.704; horizon 1.985; sun_azimuth 15.36; margin_lower_limb -0.5477; lit_disc_fraction 0; ray_spacing_deg 0.000155; march_step_deg 0.02246; samples_outside_grid 0 |
+| 20261062 d13_trn_e0_g72.0 e0 | unsafe landing | 3 glide slope | -0.3224 | 0.2669 | -0.05545 | 12 | lowest_elevation_margin_deg -0.3224; d81_over_deg 0.3608 |
+| 20261062 d13_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.497 | 0.2376 | -0.2594 | 27 | lowest_elevation_margin_deg -0.497; d81_over_deg 1.094 |
+| 20261062 d13_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -0.4494 | 0.2607 | -0.1887 | 21 | lowest_elevation_margin_deg -0.4494; d81_over_deg 0.4192 |
+| 20261062 d13_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.3903 | 0.2992 | -0.09107 | 14 | lowest_elevation_margin_deg -0.3903; d81_over_deg 0.419 |
+| 20261062 d14_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.174 | 0.3694 | -0.8049 | 39 | lowest_elevation_margin_deg -1.174; d81_over_deg 1.029 |
+| 20261062 d14_trn_e3_g-72.0 e3 | safe landing | 3 glide slope | -0.4725 | 0.2907 | -0.1819 | 19 | lowest_elevation_margin_deg -0.4725; d81_over_deg 0.7851 |
+| 20261062 d15_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -0.6324 | 0.5803 | -0.05212 | 5 | lowest_elevation_margin_deg -0.6324; d81_over_deg 3.274 |
+| 20261062 d18_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.2171 | 0.01219 | -0.2049 |  | sun_elevation 1.705; horizon 1.922; sun_azimuth 15.59; margin_lower_limb -0.4841; lit_disc_fraction 0.04707; ray_spacing_deg 2.204e-06; march_step_deg 0.01218; samples_outside_grid 0 |
+| 20261062 d18_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2143 | 0.01833 | -0.1959 |  | sun_elevation 1.705; horizon 1.919; sun_azimuth 15.59; margin_lower_limb -0.4812; lit_disc_fraction 0.05108; ray_spacing_deg 1.44e-06; march_step_deg 0.01833; samples_outside_grid 0 |
+| 20261062 d19_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3051 | 0.06687 | -0.2383 |  | sun_elevation 1.705; horizon 2.011; sun_azimuth 15.4; margin_lower_limb -0.5721; lit_disc_fraction 0; ray_spacing_deg 0.0002761; march_step_deg 0.06659; samples_outside_grid 0 |
+| 20261062 d19_trn_e0_g168.0 e0 | safe landing | 6 site lit | -0.8453 | 0.08229 | -0.763 |  | sun_elevation 1.706; horizon 2.551; sun_azimuth 15.36; margin_lower_limb -1.112; lit_disc_fraction 0; ray_spacing_deg 0.0002214; march_step_deg 0.08206; samples_outside_grid 0 |
+| 20261062 d19_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.08601 | 0.009071 | -0.07694 |  | sun_elevation 1.705; horizon 1.791; sun_azimuth 15.44; margin_lower_limb -0.353; lit_disc_fraction 0.299; ray_spacing_deg 0.0002728; march_step_deg 0.008796; samples_outside_grid 0 |
+| 20261062 d19_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.2133 | 0.02318 | -0.1902 |  | sun_elevation 1.705; horizon 1.919; sun_azimuth 15.41; margin_lower_limb -0.4803; lit_disc_fraction 0.05299; ray_spacing_deg 0.0002753; march_step_deg 0.02291; samples_outside_grid 0 |
+| 20261062 d19_trn_e1_g24.0 e1 | safe landing | 4 terrain clearance | -0.02404 | 0.02276 | -0.001278 | 1 | lowest_phase descent; lowest_clearance -0.02404 |
+| 20261062 d19_trn_e2_g0.0 e2 | safe landing | 4 terrain clearance | -0.02826 | 0.02267 | -0.005589 | 1 | lowest_phase descent; lowest_clearance -0.02826 |
+| 20261062 d19_trn_e3_g0.0 e3 | safe landing | 4 terrain clearance | -0.03785 | 0.02267 | -0.01518 | 1 | lowest_phase descent; lowest_clearance -0.03785 |
+| 20261062 d20_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.1614 | 0.004474 | -0.157 |  | sun_elevation 1.705; horizon 1.867; sun_azimuth 15.43; margin_lower_limb -0.4284; lit_disc_fraction 0.1417; ray_spacing_deg 0.004473; march_step_deg 0; samples_outside_grid 0 |
+| 20261062 d22_notrn_eNone_gNone e0 | safe landing | 4 terrain clearance | -0.1835 | 0.02215 | -0.1614 | 4 | lowest_phase descent; lowest_clearance -0.1835 |
+| 20261062 d25_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.102 | 0.3836 | -1.718 |  | sun_elevation 1.707; horizon 3.808; sun_azimuth 15.2; margin_lower_limb -2.369; lit_disc_fraction 0; ray_spacing_deg 6.524e-05; march_step_deg 0.3836; samples_outside_grid 0 |
+| 20261062 d26_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.284 | 0.05759 | -3.226 |  | sun_elevation 1.707; horizon 4.99; sun_azimuth 14.74; margin_lower_limb -3.551; lit_disc_fraction 0; ray_spacing_deg 1.141e-05; march_step_deg 0.05757; samples_outside_grid 0 |
+| 20261062 d27_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -4.69 | 2.522 | -2.168 | 27 | lowest_elevation_margin_deg -4.69; d81_over_deg 6.323 |
+| 20261062 d27_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -4.067 | 1.459 | -2.608 | 53 | lowest_elevation_margin_deg -4.072; d81_over_deg 6.323 |
+| 20261062 d28_notrn_eNone_gNone e0 | safe landing | 3 glide slope | -0.364 | 0.2306 | -0.1334 | 18 | lowest_elevation_margin_deg -0.364; d81_over_deg 1.866 |
+| 20261062 d28_notrn_eNone_gNone e1 | safe landing | 3 glide slope | -0.364 | 0.2306 | -0.1334 | 18 | lowest_elevation_margin_deg -0.364; d81_over_deg 1.866 |
+| 20261062 d28_notrn_eNone_gNone e2 | safe landing | 3 glide slope | -0.364 | 0.2306 | -0.1334 | 18 | lowest_elevation_margin_deg -0.364; d81_over_deg 1.866 |
+| 20261062 d28_notrn_eNone_gNone e3 | safe landing | 3 glide slope | -0.364 | 0.2306 | -0.1334 | 18 | lowest_elevation_margin_deg -0.364; d81_over_deg 1.866 |
+| 20261062 d28_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.147 | 0.4287 | -0.7182 | 33 | lowest_elevation_margin_deg -1.147; d81_over_deg 0.8694 |
+| 20261062 d28_trn_e0_g168.0 e0 | safe landing | 3 glide slope | -1.755 | 0.6061 | -1.149 | 34 | lowest_elevation_margin_deg -1.76; d81_over_deg 3.062 |
+| 20261062 d28_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.984 | 0.6218 | -1.362 | 38 | lowest_elevation_margin_deg -1.984; d81_over_deg 1.105 |
+| 20261062 d28_trn_e1_g24.0 e1 | safe landing | 3 glide slope | -1.476 | 1.148 | -0.3274 | 19 | lowest_elevation_margin_deg -1.522; d81_over_deg -0.08358 |
+| 20261062 d28_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.395 | 0.5331 | -0.862 | 38 | lowest_elevation_margin_deg -1.395; d81_over_deg 0.4837 |
+| 20261062 d28_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.3222 | 0.2344 | -0.08777 | 17 | lowest_elevation_margin_deg -0.3222; d81_over_deg 0.8872 |
+| 20261062 d29_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.1444 | 0.003937 | -0.1405 |  | sun_elevation 1.705; horizon 1.849; sun_azimuth 15.67; margin_lower_limb -0.4114; lit_disc_fraction 0.1737; ray_spacing_deg 0.003901; march_step_deg 3.349e-05; samples_outside_grid 0 |
+| 20261062 d29_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2295 | 0.03549 | -0.194 |  | sun_elevation 1.704; horizon 1.934; sun_azimuth 15.38; margin_lower_limb -0.4964; lit_disc_fraction 0.03248; ray_spacing_deg 0.0001603; march_step_deg 0.03533; samples_outside_grid 0 |
+| 20261062 d33_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.778 | 0.03299 | -0.745 |  | sun_elevation 1.705; horizon 2.483; sun_azimuth 15.32; margin_lower_limb -1.045; lit_disc_fraction 0; ray_spacing_deg 0.0001297; march_step_deg 0.03286; samples_outside_grid 0 |
+| 20261062 d33_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.09077 | 0.02343 | -0.06734 | 2 | lowest_phase descent; lowest_clearance -0.09077 |
+| 20261062 d41_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.246 | 0.1218 | -3.124 |  | sun_elevation 1.707; horizon 4.953; sun_azimuth 14.78; margin_lower_limb -3.513; lit_disc_fraction 0; ray_spacing_deg 1.412e-05; march_step_deg 0.1218; samples_outside_grid 0 |
+| 20261062 d45_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.337 | 0.266 | -2.071 |  | sun_elevation 1.707; horizon 4.044; sun_azimuth 15.2; margin_lower_limb -2.604; lit_disc_fraction 0; ray_spacing_deg 0.0001409; march_step_deg 0.2658; samples_outside_grid 0 |
+| 20261062 d45_trn_e0_g24.0 e0 | unsafe landing | 3 glide slope | -0.6659 | 0.2853 | -0.3806 | 31 | lowest_elevation_margin_deg -0.6659; d81_over_deg 2.037 |
+| 20261062 d45_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.3278 | 0.2899 | -0.03785 | 8 | lowest_elevation_margin_deg -0.3278; d81_over_deg 0.9409 |
+| 20261062 d46_trn_e2_g-24.0 e2 | safe landing | 3 glide slope | -0.4816 | 0.346 | -0.1355 | 15 | lowest_elevation_margin_deg -0.4816; d81_over_deg -0.001015 |
+| 20261062 d46_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -0.3415 | 0.326 | -0.01542 | 5 | lowest_elevation_margin_deg -0.3415; d81_over_deg 0.3676 |
+| 20261062 d46_trn_e3_g24.0 e3 | unsafe landing | 4 terrain clearance | -0.05315 | 0.02411 | -0.02904 | 1 | lowest_phase descent; lowest_clearance -0.05315 |
+| 20261062 d47_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.391 | 0.4175 | -0.9737 | 38 | lowest_elevation_margin_deg -1.391; d81_over_deg 1.937 |
+| 20261062 d47_trn_e0_g168.0 e0 | unsafe landing | 3 glide slope | -0.05901 | 0.02747 | -0.03154 | 34 | lowest_elevation_margin_deg -0.05901; d81_over_deg 5.851 |
+| 20261062 d47_trn_e0_g24.0 e0 | unsafe landing | 3 glide slope | -0.4244 | 0.3113 | -0.1131 | 14 | lowest_elevation_margin_deg -0.4244; d81_over_deg 1.525 |
+| 20261062 d47_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -1.108 | 0.5344 | -0.5738 | 24 | lowest_elevation_margin_deg -1.108; d81_over_deg 2.73 |
+| 20261062 d47_trn_e2_g-72.0 e2 | safe landing | 3 glide slope | -1.216 | 0.3839 | -0.8319 | 40 | lowest_elevation_margin_deg -1.218; d81_over_deg 1.964 |
+| 20261062 d47_trn_e3_g-168.0 e3 | safe landing | 3 glide slope | -1.818 | 0.9896 | -0.8285 | 29 | lowest_elevation_margin_deg -1.863; d81_over_deg 5.098 |
+| 20261062 d48_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.03 | 0.2422 | -1.788 |  | sun_elevation 1.707; horizon 3.737; sun_azimuth 15.25; margin_lower_limb -2.297; lit_disc_fraction 0; ray_spacing_deg 0.0001542; march_step_deg 0.2421; samples_outside_grid 0 |
+| 20261062 d49_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.327 | 0.1437 | -2.183 |  | sun_elevation 1.707; horizon 4.034; sun_azimuth 15.2; margin_lower_limb -2.594; lit_disc_fraction 0; ray_spacing_deg 6.371e-05; march_step_deg 0.1437; samples_outside_grid 0 |
+| 20261062 d50_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.3253 | 0.002127 | -0.3232 |  | sun_elevation 1.704; horizon 2.03; sun_azimuth 15.38; margin_lower_limb -0.5922; lit_disc_fraction 0; ray_spacing_deg 0.000173; march_step_deg 0.001952; samples_outside_grid 0 |
+| 20261062 d50_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.5772 | 0.02834 | -0.5488 |  | sun_elevation 1.705; horizon 2.282; sun_azimuth 15.35; margin_lower_limb -0.8441; lit_disc_fraction 0; ray_spacing_deg 0.0001321; march_step_deg 0.0282; samples_outside_grid 0 |
+| 20261062 d51_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2666 | 0.03444 | -0.2322 |  | sun_elevation 1.704; horizon 1.971; sun_azimuth 15.37; margin_lower_limb -0.5336; lit_disc_fraction 0.0003243; ray_spacing_deg 0.0001586; march_step_deg 0.03428; samples_outside_grid 0 |
+| 20261062 d52_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.08812 | 0.03525 | -0.05287 |  | sun_elevation 1.705; horizon 1.794; sun_azimuth 15.43; margin_lower_limb -0.3551; lit_disc_fraction 0.2951; ray_spacing_deg 0.0002268; march_step_deg 0.03502; samples_outside_grid 0 |
+| 20261062 d52_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.02195 | 0.0002416 | -0.02171 |  | sun_elevation 1.705; horizon 1.727; sun_azimuth 15.45; margin_lower_limb -0.2889; lit_disc_fraction 0.4481; ray_spacing_deg 0.0002396; march_step_deg 0; samples_outside_grid 0 |
+| 20261062 d53_trn_e2_g-168.0 e2 | abort | 3 glide slope | -0.7864 | 0.4335 | -0.3529 | 3 | lowest_elevation_margin_deg -0.7864; d81_over_deg 4.318 |
+| 20261062 d53_trn_e2_g24.0 e2 | safe landing | 4 terrain clearance | -0.02836 | 0.02382 | -0.004547 | 1 | lowest_phase descent; lowest_clearance -0.02836 |
+| 20261062 d54_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -2.179 | 1.171 | -1.008 | 22 | lowest_elevation_margin_deg -2.179; d81_over_deg 5.374 |
+| 20261062 d54_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -2.505 | 1.148 | -1.357 | 27 | lowest_elevation_margin_deg -2.507; d81_over_deg 5.636 |
+| 20261062 d56_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.192 | 0.1174 | -0.07463 |  | sun_elevation 1.705; horizon 1.897; sun_azimuth 15.4; margin_lower_limb -0.459; lit_disc_fraction 0.08746; ray_spacing_deg 0.0003616; march_step_deg 0.117; samples_outside_grid 0 |
+| 20261062 d57_trn_e1_g-24.0 e1 | safe landing | 4 terrain clearance | -0.03854 | 0.02175 | -0.01679 | 1 | lowest_phase descent; lowest_clearance -0.03854 |
+| 20261062 d57_trn_e3_g0.0 e3 | safe landing | 4 terrain clearance | -0.04914 | 0.02177 | -0.02738 | 1 | lowest_phase descent; lowest_clearance -0.04914 |
+| 20261062 d59_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.696 | 0.134 | -1.562 |  | sun_elevation 1.705; horizon 3.401; sun_azimuth 15.17; margin_lower_limb -1.963; lit_disc_fraction 0; ray_spacing_deg 4.293e-05; march_step_deg 0.134; samples_outside_grid 0 |
+| 20261062 d59_trn_e0_g24.0 e0 | unsafe landing | 3 glide slope | -1.047 | 0.5627 | -0.4846 | 20 | lowest_elevation_margin_deg -1.047; d81_over_deg 4.781 |
+| 20261062 d59_trn_e3_g72.0 e3 | safe landing | 4 terrain clearance | -0.0319 | 0.02371 | -0.008191 | 1 | lowest_phase descent; lowest_clearance -0.0319 |
+| 20261062 d59_trn_e3_g72.0 e3 | safe landing | 6 site lit | -3.092 | 0.2516 | -2.84 |  | sun_elevation 1.641; horizon 4.733; sun_azimuth 297.5; margin_lower_limb -3.357; lit_disc_fraction 0; ray_spacing_deg 0.0007267; march_step_deg 0.2509; samples_outside_grid 0 |
+| 20261062 d60_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.7248 | 0.4774 | -0.2474 | 17 | lowest_elevation_margin_deg -0.7248; d81_over_deg 1.805 |
+| 20261062 d61_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.817 | 0.1646 | -2.652 |  | sun_elevation 1.707; horizon 4.523; sun_azimuth 15.14; margin_lower_limb -3.084; lit_disc_fraction 0; ray_spacing_deg 5.009e-05; march_step_deg 0.1646; samples_outside_grid 0 |
+| 20261062 d62_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2104 | 0.04257 | -0.1678 |  | sun_elevation 1.705; horizon 1.915; sun_azimuth 15.42; margin_lower_limb -0.4773; lit_disc_fraction 0.05852; ray_spacing_deg 0.0003421; march_step_deg 0.04223; samples_outside_grid 0 |
+| 20261062 d63_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -3.091 | 1.323 | -1.768 | 46 | lowest_elevation_margin_deg -3.112; d81_over_deg 5.969 |
+| 20261062 d63_trn_e0_g72.0 e0 | unsafe landing | 3 glide slope | -1.167 | 0.6425 | -0.5249 | 22 | lowest_elevation_margin_deg -1.167; d81_over_deg 1.92 |
+| 20261062 d63_trn_e3_g72.0 e3 | abort | 3 glide slope | -0.08788 | 0.02164 | -0.06623 | 5 | lowest_elevation_margin_deg -0.08788; d81_over_deg 5.969 |
+| 20261062 d65_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.01651 | 0.007781 | -0.00873 |  | sun_elevation 1.705; horizon 1.722; sun_azimuth 15.45; margin_lower_limb -0.2835; lit_disc_fraction 0.4608; ray_spacing_deg 0.000217; march_step_deg 0.007563; samples_outside_grid 0 |
+| 20261062 d66_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.204 | 0.1 | -1.104 |  | sun_elevation 1.707; horizon 2.911; sun_azimuth 15.34; margin_lower_limb -1.471; lit_disc_fraction 0; ray_spacing_deg 0.0001732; march_step_deg 0.09982; samples_outside_grid 0 |
+| 20261062 d66_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.1159 | 0.0001841 | -0.1157 |  | sun_elevation 1.704; horizon 1.82; sun_azimuth 15.37; margin_lower_limb -0.3828; lit_disc_fraction 0.234; ray_spacing_deg 0.0001822; march_step_deg 0; samples_outside_grid 0 |
+| 20261062 d68_notrn_eNone_gNone e0 | safe landing | 6 site lit | -3.289 | 0.05773 | -3.231 |  | sun_elevation 1.707; horizon 4.996; sun_azimuth 14.74; margin_lower_limb -3.556; lit_disc_fraction 0; ray_spacing_deg 1.123e-05; march_step_deg 0.05772; samples_outside_grid 0 |
+| 20261062 d70_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -1.273 | 0.7857 | -0.4875 | 19 | lowest_elevation_margin_deg -1.273; d81_over_deg 2.343 |
+| 20261062 d70_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.4413 | 0.2737 | -0.1676 | 20 | lowest_elevation_margin_deg -0.4413; d81_over_deg 1.157 |
+| 20261062 d71_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.92 | 0.2976 | -2.622 |  | sun_elevation 1.707; horizon 4.627; sun_azimuth 15.12; margin_lower_limb -3.187; lit_disc_fraction 0; ray_spacing_deg 4.378e-05; march_step_deg 0.2976; samples_outside_grid 0 |
+| 20261062 d72_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.3206 | 0.01367 | -0.307 |  | sun_elevation 1.704; horizon 2.025; sun_azimuth 15.33; margin_lower_limb -0.5876; lit_disc_fraction 0; ray_spacing_deg 0.0007866; march_step_deg 0.01288; samples_outside_grid 0 |
+| 20261062 d74_trn_e0_g24.0 e0 | safe landing | 4 terrain clearance | -0.0259 | 0.02329 | -0.002608 | 1 | lowest_phase descent; lowest_clearance -0.0259 |
+| 20261062 d75_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.272 | 0.05515 | -2.217 |  | sun_elevation 1.706; horizon 3.978; sun_azimuth 15.13; margin_lower_limb -2.539; lit_disc_fraction 0; ray_spacing_deg 0.0001572; march_step_deg 0.05499; samples_outside_grid 0 |
+| 20261062 d75_trn_e2_g168.0 e2 | safe landing | 3 glide slope | -0.03573 | 0.0324 | -0.003328 | 7 | lowest_elevation_margin_deg -0.03573; d81_over_deg 1.577 |
+| 20261062 d76_trn_e2_g24.0 e2 | safe landing | 4 terrain clearance | -0.04562 | 0.02178 | -0.02384 | 1 | lowest_phase descent; lowest_clearance -0.04562 |
+| 20261062 d77_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.5084 | 0.02673 | -0.4816 |  | sun_elevation 1.704; horizon 2.213; sun_azimuth 15.32; margin_lower_limb -0.7753; lit_disc_fraction 0; ray_spacing_deg 0.0001498; march_step_deg 0.02658; samples_outside_grid 0 |
+| 20261062 d78_trn_e3_g24.0 e3 | safe landing | 4 terrain clearance | -0.1762 | 0.02261 | -0.1536 | 4 | lowest_phase descent; lowest_clearance -0.1762 |
+| 20261062 d80_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.2698 | 0.01855 | -0.2513 |  | sun_elevation 1.704; horizon 1.974; sun_azimuth 15.36; margin_lower_limb -0.5368; lit_disc_fraction 0; ray_spacing_deg 0.0001545; march_step_deg 0.0184; samples_outside_grid 0 |
+| 20261062 d80_trn_e0_g24.0 e0 | safe landing | 6 site lit | -0.2498 | 0.0266 | -0.2232 |  | sun_elevation 1.704; horizon 1.954; sun_azimuth 15.37; margin_lower_limb -0.5168; lit_disc_fraction 0.01082; ray_spacing_deg 0.0001567; march_step_deg 0.02644; samples_outside_grid 0 |
+| 20261062 d81_trn_e0_g168.0 e0 | safe landing | 6 site lit | -3.312 | 0.07705 | -3.235 |  | sun_elevation 1.707; horizon 5.019; sun_azimuth 14.96; margin_lower_limb -3.579; lit_disc_fraction 0; ray_spacing_deg 1.713e-05; march_step_deg 0.07703; samples_outside_grid 0 |
+| 20261062 d85_trn_e0_g-24.0 e0 | unsafe landing | 3 glide slope | -0.3953 | 0.1871 | -0.2082 | 30 | lowest_elevation_margin_deg -0.3953; d81_over_deg 0.5054 |
+| 20261062 d85_trn_e1_g-72.0 e1 | unsafe landing | 3 glide slope | -0.718 | 0.2329 | -0.4851 | 37 | lowest_elevation_margin_deg -0.718; d81_over_deg 0.3204 |
+| 20261062 d85_trn_e1_g72.0 e1 | unsafe landing | 3 glide slope | -0.3913 | 0.2033 | -0.188 | 24 | lowest_elevation_margin_deg -0.3913; d81_over_deg 0.2181 |
+| 20261062 d85_trn_e2_g-72.0 e2 | safe landing | 3 glide slope | -0.51 | 0.3595 | -0.1506 | 15 | lowest_elevation_margin_deg -0.51; d81_over_deg 0.8749 |
+| 20261062 d85_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -0.6483 | 0.3111 | -0.3372 | 25 | lowest_elevation_margin_deg -0.6483; d81_over_deg 0.6441 |
+| 20261062 d86_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.92 | 0.2432 | -2.677 |  | sun_elevation 1.707; horizon 4.627; sun_azimuth 14.97; margin_lower_limb -3.187; lit_disc_fraction 0; ray_spacing_deg 1.367e-05; march_step_deg 0.2432; samples_outside_grid 0 |
+| 20261062 d86_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.348 | 0.04744 | -0.3006 |  | sun_elevation 1.705; horizon 2.053; sun_azimuth 15.39; margin_lower_limb -0.615; lit_disc_fraction 0; ray_spacing_deg 0.0003521; march_step_deg 0.04708; samples_outside_grid 0 |
+| 20261062 d87_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.823 | 0.3578 | -2.465 |  | sun_elevation 1.706; horizon 4.529; sun_azimuth 15.02; margin_lower_limb -3.09; lit_disc_fraction 0; ray_spacing_deg 7.669e-06; march_step_deg 0.3578; samples_outside_grid 0 |
+| 20261062 d88_trn_e0_g-24.0 e0 | safe landing | 6 site lit | -0.5452 | 0.0082 | -0.537 |  | sun_elevation 1.704; horizon 2.25; sun_azimuth 15.35; margin_lower_limb -0.8121; lit_disc_fraction 0; ray_spacing_deg 0.006333; march_step_deg 0.001865; samples_outside_grid 0 |
+| 20261062 d88_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.233 | 0.04377 | -2.19 |  | sun_elevation 1.687; horizon 3.92; sun_azimuth 23.54; margin_lower_limb -2.5; lit_disc_fraction 0; ray_spacing_deg 0.002854; march_step_deg 0.04092; samples_outside_grid 0 |
+| 20261062 d88_trn_e0_g72.0 e0 | safe landing | 4 terrain clearance | -0.02525 | 0.02183 | -0.003419 | 1 | lowest_phase descent; lowest_clearance -0.02525 |
+| 20261062 d88_trn_e2_g-168.0 e2 | safe landing | 3 glide slope | -0.05103 | 0.01686 | -0.03417 | 37 | lowest_elevation_margin_deg -0.05103; d81_over_deg 2.422 |
+| 20261062 d88_trn_e2_g0.0 e2 | safe landing | 4 terrain clearance | -0.02474 | 0.02184 | -0.002902 | 1 | lowest_phase descent; lowest_clearance -0.02474 |
+| 20261062 d92_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.541 | 0.3854 | -2.156 |  | sun_elevation 1.707; horizon 4.248; sun_azimuth 15.16; margin_lower_limb -2.808; lit_disc_fraction 0; ray_spacing_deg 0.0001222; march_step_deg 0.3853; samples_outside_grid 0 |
+| 20261062 d93_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.258 | 0.09734 | -0.1607 |  | sun_elevation 1.705; horizon 1.963; sun_azimuth 15.4; margin_lower_limb -0.525; lit_disc_fraction 0.004697; ray_spacing_deg 0.001272; march_step_deg 0.09607; samples_outside_grid 0 |
+| 20261062 d93_trn_e0_g168.0 e0 | safe landing | 6 site lit | -1.698 | 0.231 | -1.466 |  | sun_elevation 1.706; horizon 3.404; sun_azimuth 15.24; margin_lower_limb -1.964; lit_disc_fraction 0; ray_spacing_deg 0.0001933; march_step_deg 0.2308; samples_outside_grid 0 |
+| 20261062 d93_trn_e0_g72.0 e0 | safe landing | 6 site lit | -0.2914 | 0.1038 | -0.1877 |  | sun_elevation 1.705; horizon 1.996; sun_azimuth 15.39; margin_lower_limb -0.5584; lit_disc_fraction 0; ray_spacing_deg 0.0001408; march_step_deg 0.1036; samples_outside_grid 0 |
+| 20261062 d93_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -1.017 | 0.3961 | -0.6204 | 31 | lowest_elevation_margin_deg -1.017; d81_over_deg 1.141 |
+| 20261062 d98_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.854 | 0.1037 | -2.751 |  | sun_elevation 1.706; horizon 4.561; sun_azimuth 15.02; margin_lower_limb -3.121; lit_disc_fraction 0; ray_spacing_deg 1.685e-06; march_step_deg 0.1037; samples_outside_grid 0 |
+| 20261062 d98_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.638 | 0.6597 | -0.978 | 30 | lowest_elevation_margin_deg -1.638; d81_over_deg 2.543 |
+

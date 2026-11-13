@@ -1,0 +1,6 @@
+2026-11-12 23:30:21 seeds 20261060, draws 0 to 0: 29 jobs, 0 already judged; 4 workers
+2026-11-12 23:30:23 seed 20261060: 1779 safe touchdown points for the lit windows (2 s)
+2026-11-12 23:30:31 stage ended: 29 judged in 0.2 min, worker peak 801 MB
+2026-11-12 23:30:31 stage 1 exit 0: 29 jobs judged, 0 left
+2026-11-12 23:30:31 finished in 0.2 min: 29 of 29 judged
+10.69 s wall, chain parent 820156 KB

@@ -1,0 +1,17 @@
+check 3 (judged), 130 flights; by outcome {'unsafe landing': 91, 'safe landing': 37, 'abort': 2}
+  margin over tolerance (deg): min -3.623, median -0.336, max -8.315e-07
+  ticks beyond tolerance per flight: min 1, median 23, max 54
+  first tick beyond, s before guided flight ends: min 0.1, median 17.55, max 72.75
+  worst tick: estimate height above site in force (m): min 0.7043, median 6.767, max 224.3 | range (m): min 7.578, median 42.91, max 1274
+  number of guidance steps spanned: {1: 98, 2: 28, 3: 4}
+  by gap: {'-24.0': 23, '-72.0': 65, '72.0': 10, '168.0': 10, '-168.0': 11, '24.0': 7, 'None': 4}
+check 4, 52 flights, 139 samples beyond; by outcome {'safe landing': 46, 'unsafe landing': 4, 'terrain strike': 2}
+  phase of the samples: {'descent': 80, 'guided': 59}
+  descent ticks before contact: {1: 50, 2: 17, 3: 7, 4: 4, 5: 1, 6: 1}
+  clearance (m): min -7.279, median -0.1324, max -0.02187 | tolerance (m): min 0.004588, median 0.02359, max 0.282
+  samples beyond per flight: {1: 33, 2: 10, 36: 1, 3: 3, 4: 3, 6: 1, 23: 1}
+check 6, 198 safe landings; by epoch {0: 193, 1: 2, 3: 3}; by job kind {'trn': 181, 'notrn': 17}
+  margin (sun centre over horizon, deg): min -3.995, median -0.6055, max -0.007769 | tolerance: min 3.454e-05, median 0.06394, max 0.4361
+  sun elevation (deg): min 1.61, median 1.705, max 1.791 | horizon (deg): min 1.713, median 2.321, max 5.685
+  lit disc fraction: min 0, median 0, max 0.4815 ; fully dark (fraction 0): 142
+  by gap: {'-24.0': 32, '0.0': 38, '168.0': 76, 'None': 17, '24.0': 19, '72.0': 16}

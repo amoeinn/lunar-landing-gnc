@@ -1,0 +1,19 @@
+2026-11-12 23:31:30 seeds 20261060,20261061,20261062, draws 0 to 99: 8700 jobs, 29 already judged; 6 workers
+2026-11-12 23:31:33 seed 20261061: 1773 safe touchdown points for the lit windows (2 s)
+2026-11-12 23:31:34 seed 20261062: 1806 safe touchdown points for the lit windows (4 s)
+2026-11-12 23:31:46 stage: 50 of 8671 judged, worker peak 1240 MB
+2026-11-12 23:31:55 stage: 100 of 8671 judged, worker peak 1240 MB
+2026-11-12 23:32:05 stage: 150 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:32:13 stage: 200 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:32:22 stage: 250 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:32:32 stage: 300 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:32:43 stage: 350 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:32:50 stage: 400 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:33:00 stage: 450 of 8671 judged, worker peak 1245 MB
+2026-11-12 23:33:09 stage: 500 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:15 stage: 550 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:23 stage: 600 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:32 stage: 650 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:43 stage: 700 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:50 stage: 750 of 8671 judged, worker peak 1946 MB
+2026-11-12 23:33:58 stage: 800 of 8671 judged, worker peak 1946 MB

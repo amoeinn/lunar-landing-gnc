@@ -326,15 +326,17 @@ def history(f, out):
     return h
 
 
-def draw_unit(jobs, folder, cast="python"):
+def draw_unit(jobs, folder, cast="python", ground_fix=False):
     """phase6_runner.draw_unit's flights, observed: the same calls in the same
-    order, the same record; plus each job's history, written first."""
+    order, the same record; plus each job's history, written first.
+    ground_fix: the D5 ground made with D109's option (default off); when on,
+    each record says so."""
     import phase6_flights as P
     import phase6_runner as R
     from lunar_landing_gnc import estflight as EF
     install()
     LF = flight_class()
-    ctx = P.landing_context()
+    ctx = P.landing_context(ground_fix=True) if ground_fix else P.landing_context()
     ctx["free_tiles"] = True
     ctx["cast"] = cast
     seed, d = jobs[0][0], jobs[0][1]
@@ -343,7 +345,7 @@ def draw_unit(jobs, folder, cast="python"):
         if (Path(folder) / R.name(job)).exists():
             continue
         a = time.perf_counter()
-        rec = dict(job=list(job))
+        rec = dict(job=list(job), ground_fix=True) if ground_fix else dict(job=list(job))
         hist = {}
         Obs.on = True
         try:
@@ -403,7 +405,7 @@ def stage(a):
     t0 = time.time()
     pool = multiprocessing.get_context("spawn").Pool(a.workers, initializer=P._set_lits,
                                                      initargs=(BL.epochs_lit(),))
-    tasks = [pool.apply_async(draw_unit, (u, str(f), a.cast)) for u in todo]
+    tasks = [pool.apply_async(draw_unit, (u, str(f), a.cast) + ((True,) if a.ground_fix else ())) for u in todo]
     pool.close()
     stop = None
     for tk in tasks:
@@ -416,6 +418,8 @@ def stage(a):
     pool.join()
     left = [R6.name(j) for j in R6.unfinished(a)]
     rec = dict(start=t0, wall=time.time() - t0, workers=a.workers, cast=a.cast, stop=stop, unfinished=left)
+    if a.ground_fix:
+        rec["ground_fix"] = True
     with open(f / "stages.jsonl", "a") as fh:
         fh.write(json.dumps(rec) + "\n")
 
@@ -427,7 +431,8 @@ def chain(a):
     total = sum(len(u) for u in R6.units(a))
     t0, done0 = time.time(), total - len(R6.unfinished(a))
     R6.log(a, f"seed {a.seed}, draws {a.first_draw} to {a.first_draw + a.draws - 1}, {total} flights, "
-              f"{done0} already written; {a.workers} workers, cast {a.cast}, logging")
+              f"{done0} already written; {a.workers} workers, cast {a.cast}, logging"
+              + (", ground fix (D109)" if a.ground_fix else ""))
     n = 0
     while True:
         left = R6.unfinished(a)
@@ -475,8 +480,17 @@ def chain(a):
     return 0 if not left else 1
 
 
+def parse(argv):
+    """phase6_run.parse, plus --ground-fix (D109: the D5 ground read on the
+    mosaic's own grid; default off), kept in a.argv for each stage."""
+    a = R6.parse([v for v in argv if v != "--ground-fix"])
+    a.ground_fix = "--ground-fix" in argv
+    a.argv = [v for v in argv if v != "--stage"]
+    return a
+
+
 def main(argv):
-    a = R6.parse(argv)
+    a = parse(argv)
     if a.seed in R6.REGISTERED and not a.registered:
         print(f"seed {a.seed} is a registered seed; refused without --registered", file=sys.stderr)
         return 2

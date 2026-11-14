@@ -55,6 +55,7 @@ WORKERS = 8
 GROUND_HALF = 16                    # tiles each side of the target (D17)
 _CTX = {}
 _LITS = []                          # the lit tests, made once by the parent (they share a work directory)
+_GROUND_FIX = []                    # the ground_fix the landing context was made with (D109)
 
 
 def target():
@@ -73,13 +74,20 @@ def context():
     return _CTX
 
 
-def landing_context():
+def landing_context(ground_fix=False):
     """context() and what the flight past the scan start needs: the 20 m DEM
     as phase 5's terrain (nav_baselines.terrain), the 5 m mosaic's heights
     around the target (the scan's aim), the candidates' lit test at each
-    landing epoch (baselines_5_2.epochs_lit) and the D5 ground per draw."""
+    landing epoch (baselines_5_2.epochs_lit) and the D5 ground per draw.
+    ground_fix: the D5 ground made with truthsurface.mosaic_base's option
+    (D109), default off. The context is made once per process; asking for it
+    again with the other setting raises."""
     ctx = context()
+    if "ter" in ctx and _GROUND_FIX != [ground_fix]:
+        raise ValueError(f"landing context made with ground_fix={_GROUND_FIX[0]}, asked for {ground_fix}")
     if "ter" not in ctx:
+        _GROUND_FIX[:] = [ground_fix]
+        fix = dict(ground_fix=True) if ground_fix else {}
         import baselines_5_2 as BL
         import nav_baselines as NB
         from lunar_landing_gnc import truthsurface as TS
@@ -90,7 +98,7 @@ def landing_context():
 
         def ground(seed, draw):
             if (seed, draw) not in grounds:
-                grounds[(seed, draw)] = Ground(BL.dem_path(), cx, cy, seed, draw, GROUND_HALF)
+                grounds[(seed, draw)] = Ground(BL.dem_path(), cx, cy, seed, draw, GROUND_HALF, **fix)
             return grounds[(seed, draw)]
         ctx.update(ter=NB.terrain()[0], aim=TS.mosaic_base(BL.dem_path(), cx, cy), lit=lambda e: lits[e][1],
                    ground=ground, grounds_clear=grounds.clear)

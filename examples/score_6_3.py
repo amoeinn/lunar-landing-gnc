@@ -210,10 +210,12 @@ def abort_table(aborts, gaps=S.GAPS):
                     not_converged=sum(a["converged"] is False for a in v)) for k, v in sets.items()}
 
 
-def d63_seed(seed, rows):
+def d63_seed(seed, rows, ground_fix=False):
     """D63 for one seed, by phase6_summary's procedure (its gear_at and
     d38_class): accepted only if every unsafe landing's saved touchdown gear
-    check, DEM minus truth height and tile-edge flag are reproduced exactly."""
+    check, DEM minus truth height and tile-edge flag are reproduced exactly.
+    ground_fix: the ground rebuilt with D109's option (default off), for a
+    seed flown with it."""
     import baselines_5_2 as BL
     import phase6_flights as P
     from lunar_landing_gnc.ground import Ground
@@ -222,7 +224,7 @@ def d63_seed(seed, rows):
     unsafe = [r for r in rows if r["outcome"] == "unsafe landing"]
     res = []
     for d in sorted({r["draw"] for r in unsafe}):
-        g = Ground(BL.dem_path(), cx, cy, seed, d, P.GROUND_HALF)
+        g = Ground(BL.dem_path(), cx, cy, seed, d, P.GROUND_HALF, **(dict(ground_fix=True) if ground_fix else {}))
         for r in [u for u in unsafe if u["draw"] == d]:
             x, y = r["touchdown"][0] + cx, r["touchdown"][1] + cy
             td, crosses = S.gear_at(g, x, y)
@@ -243,7 +245,7 @@ def d63_seed(seed, rows):
     return dict(reproduced=ok, n=len(res), not_exact=[i for i, e in enumerate(exact) if not e], rows=res)
 
 
-def score(seed, folder, d63=True):
+def score(seed, folder, d63=True, ground_fix=False):
     t0 = time.time()
     folder = Path(folder)
     n = guard(folder)
@@ -254,7 +256,7 @@ def score(seed, folder, d63=True):
     t1 = time.time()
     dd = None
     if d63:
-        dd = d63_seed(seed, rows)
+        dd = d63_seed(seed, rows, ground_fix=True) if ground_fix else d63_seed(seed, rows)
         OUT.mkdir(parents=True, exist_ok=True)
         (OUT / f"d63_{seed}.json").write_text(json.dumps(dd, indent=1))
     res["d63"] = None if dd is None else dict(reproduced=dd["reproduced"], n=dd["n"], not_exact=len(dd["not_exact"]))
@@ -319,9 +321,12 @@ def main(argv):
     ap.add_argument("seed", type=int)
     ap.add_argument("--runs", default=str(RUNS))
     ap.add_argument("--no-d63", action="store_true")
+    ap.add_argument("--ground-fix", action="store_true",
+                    help="D63's rebuild on the ground made with D109's option, for a seed flown with it")
     a = ap.parse_args(argv)
     try:
-        res = score(a.seed, Path(a.runs) / f"seed_{a.seed}", d63=not a.no_d63)
+        res = score(a.seed, Path(a.runs) / f"seed_{a.seed}", d63=not a.no_d63,
+                    **(dict(ground_fix=True) if a.ground_fix else {}))
     except Incomplete as e:
         print(f"seed {a.seed}: {e}", file=sys.stderr)
         return 2

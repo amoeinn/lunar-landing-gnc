@@ -35,7 +35,10 @@ class OffGround(ValueError):
 
 
 class Ground:
-    def __init__(self, path, cx, cy, seed, draw, half_tiles, size=TS.SIZE, cell=TS.CELL, sfd=TS.SFD):
+    def __init__(self, path, cx, cy, seed, draw, half_tiles, size=TS.SIZE, cell=TS.CELL, sfd=TS.SFD,
+                 ground_fix=False):
+        """ground_fix: truthsurface.mosaic_base's option (D109), default off."""
+        self.ground_fix = bool(ground_fix)
         self.path, self.cx, self.cy = path, float(cx), float(cy)
         self.seed, self.draw, self.half = int(seed), int(draw), int(half_tiles)
         self.size, self.cell, self.sfd = size, cell, sfd
@@ -51,8 +54,9 @@ class Ground:
         if max(abs(i), abs(j)) > self.half:
             raise OffGround(f"tile ({i}, {j}) is outside the ground's region of {self.half} tiles each side")
         if (i, j) not in self.tiles:
+            fix = dict(ground_fix=True) if self.ground_fix else {}
             s, rocks = TS.truth(self.path, self.cx + i * self.size, self.cy + j * self.size, self.key(i, j),
-                                self.size, self.cell, self.sfd)
+                                self.size, self.cell, self.sfd, **fix)
             self.tiles[(i, j)], self.rocks[(i, j)] = s, rocks
         return self.tiles[(i, j)]
 

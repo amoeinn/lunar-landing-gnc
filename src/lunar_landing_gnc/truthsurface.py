@@ -133,13 +133,26 @@ def add_rocks(s, x, y, d):
     return s
 
 
-def mosaic_base(path, cx, cy, size=SIZE, margin=10.0):
-    """The 5 m mosaic around the square, as a bilinear height function."""
+def mosaic_base(path, cx, cy, size=SIZE, margin=10.0, ground_fix=False):
+    """The 5 m mosaic around the square, as a bilinear height function.
+
+    ground_fix (D109, default off): the window is widened to whole pixels
+    before it is read, so its data and its transform lie on the same grid and
+    the height at (x, y) is the mosaic's at (x, y). Off, the registered
+    behaviour: a window centred half a pixel off the mosaic's grid keeps the
+    fractional origin in its transform while the data are read on whole
+    pixels, so the height at (x, y) is the mosaic's half a cell away (PLAN.md
+    step 7.4: at (x + 2.5, y - 2.5) m around the phase 5 target)."""
     import rasterio
     from rasterio.windows import from_bounds
     half = size / 2 + margin
     with rasterio.open(path) as ds:
         w = from_bounds(cx - half, cy - half, cx + half, cy + half, transform=ds.transform)
+        if ground_fix:
+            from rasterio.windows import Window
+            c0, r0 = int(np.floor(w.col_off)), int(np.floor(w.row_off))
+            c1, r1 = int(np.ceil(w.col_off + w.width)), int(np.ceil(w.row_off + w.height))
+            w = Window(c0, r0, c1 - c0, r1 - r0)
         a = ds.read(1, window=w).astype(np.float64)
         tr = ds.window_transform(w)
     base = Surface(a, tr.c, tr.f, tr.a)
@@ -147,10 +160,12 @@ def mosaic_base(path, cx, cy, size=SIZE, margin=10.0):
     return base.height
 
 
-def truth(path, cx, cy, seed, size=SIZE, cell=CELL, sfd=SFD):
+def truth(path, cx, cy, seed, size=SIZE, cell=CELL, sfd=SFD, ground_fix=False):
     """The registered truth surface: the 5 m mosaic, bilinear on the raster,
-    plus the seeded rock field over the same square."""
-    s = raster(mosaic_base(path, cx, cy, size), cx, cy, size, cell)
+    plus the seeded rock field over the same square. ground_fix: mosaic_base's
+    option (D109), default off."""
+    base = mosaic_base(path, cx, cy, size, ground_fix=True) if ground_fix else mosaic_base(path, cx, cy, size)
+    s = raster(base, cx, cy, size, cell)
     rng = np.random.default_rng(seed)
     x, y, d, lam = sample_rocks(rng, cx - size / 2, cx + size / 2, cy - size / 2, cy + size / 2, sfd=sfd)
     add_rocks(s, x, y, d)

@@ -178,3 +178,73 @@ def test_landing_context_threads_the_option_and_refuses_a_change(monkeypatch):
         assert ctx["ground"](1, 0).ground_fix is fix
         with pytest.raises(ValueError):
             P.landing_context(ground_fix=not fix)
+
+
+@pytest.mark.parametrize("fix", [False, True])
+def test_scan_aim_heights_follow_the_option(monkeypatch, fix):
+    """Protects D109's reach to the scan's aim heights (ctx["aim"], the other
+    read through mosaic_base's window): with the option on they are the
+    mosaic at the same point, the fixed ground's mosaic; off they are as
+    registered, the mosaic half a cell away and exactly the default read.
+    The case built to fail: each is far from the other placement."""
+    import nav_baselines as NB
+    import phase6_flights as P
+    made = dict(target=(*target(), 0.0))
+    monkeypatch.setattr(P, "context", lambda: made)
+    monkeypatch.setattr(P, "_GROUND_FIX", [])
+    monkeypatch.setattr(P, "_LITS", [(None, None)] * 4)
+    monkeypatch.setattr(NB, "terrain", lambda: (None,))
+    ctx = P.landing_context(ground_fix=True) if fix else P.landing_context()
+    cx, cy = target()
+    rng = np.random.default_rng(7)
+    x, y = cx + rng.uniform(-70, 70, 200), cy + rng.uniform(-70, 70, 200)
+    aim = ctx["aim"](x, y)
+    here, away = mosaic(x, y), mosaic(x + SHIFT[0], y + SHIFT[1])
+    if fix:
+        assert np.max(np.abs(aim - here)) < TOL
+        assert np.max(np.abs(aim - away)) > 1000 * TOL
+    else:
+        assert np.array_equal(aim, TS.mosaic_base(path(), cx, cy)(x, y))
+        assert np.max(np.abs(aim - away)) < TOL
+        assert np.max(np.abs(aim - here)) > 1000 * TOL
+
+
+def test_scorer_out_option_and_unchanged_default(monkeypatch, tmp_path):
+    """Protects the scorer's --out: given, the score, its markdown and D63's
+    file go there (score receives it); absent, everything goes to OUT as
+    before and score is called exactly as before (no out argument)."""
+    import score_6_3 as SC
+    calls = []
+
+    def fake(seed, folder, **k):
+        calls.append(k)
+        return dict(seconds={})
+    monkeypatch.setattr(SC, "score", fake)
+    monkeypatch.setattr(SC, "markdown", lambda res: "md")
+    there, default = tmp_path / "there", tmp_path / "default"
+    monkeypatch.setattr(SC, "OUT", default)
+    assert SC.main(["20261062", "--out", str(there)]) == 0
+    assert (there / "score_20261062.json").exists() and (there / "score_20261062.md").exists()
+    assert calls[-1]["out"] == there and not default.exists()
+    assert SC.main(["20261062"]) == 0
+    assert (default / "score_20261062.json").exists() and "out" not in calls[-1]
+
+
+def test_scorer_d63_file_follows_out(monkeypatch, tmp_path):
+    """Protects --out reaching D63's file: score(out=...) writes d63_<seed>
+    there, and without out it writes to OUT as before (the steps around it
+    are stubbed; only where the file lands is tested)."""
+    import score_6_3 as SC
+    for name, f in (("guard", lambda folder: 0), ("criteria", lambda rows, seed: {}),
+                    ("d63_seed", lambda seed, rows, **k: dict(reproduced=True, n=0, not_exact=[])),
+                    ("three_way", lambda rows: None), ("unsafe_split", lambda dd: None),
+                    ("abort_table", lambda a: None), ("raw_aborts", lambda folder: [])):
+        monkeypatch.setattr(SC, name, f)
+    monkeypatch.setattr(SC.S, "load_seed", lambda folder, seed: ([], dict(missing=[], errors=[])))
+    monkeypatch.setattr(SC.S, "per_seed", lambda rows, seed, dd: None)
+    there, default = tmp_path / "there", tmp_path / "default"
+    monkeypatch.setattr(SC, "OUT", default)
+    SC.score(7, tmp_path, out=there)
+    assert (there / "d63_7.json").exists() and not default.exists()
+    SC.score(7, tmp_path)
+    assert (default / "d63_7.json").exists()

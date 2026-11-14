@@ -1,0 +1,27 @@
+[
+ {
+  "job": "d00_trn_e0_g0.0",
+  "same_record": true,
+  "first_difference": null,
+  "seconds": 114.77563785500024,
+  "reference_seconds": 64.5950674099995,
+  "maxrss_mb": 1297.9453125,
+  "history_bytes": 578344,
+  "flights": [
+   {
+    "epoch": 0,
+    "outcome": "safe landing",
+    "touchdown_x": 0.0,
+    "touchdown_y": 0.0,
+    "t_touchdown": 0.0,
+    "v_down": 0.0,
+    "v_horizontal": 0.0,
+    "propellant": 0.0,
+    "triggers_equal": true,
+    "triggers_by_step": [],
+    "triggers_by_trigger_call": [],
+    "triggers": []
+   }
+  ]
+ }
+]

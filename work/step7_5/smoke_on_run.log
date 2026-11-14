@@ -1,0 +1,9 @@
+2026-11-14 14:36:08 seed 2, draws 0 to 0, 1 flights, 0 already written; 1 workers, cast python, logging, ground fix (D109)
+2026-11-14 14:36:08 stage 1: 1 flights left
+2026-11-14 14:37:08 stage 1: 0 of 1 done, 1 left, about nan min left, pool 1.06 GB (stage peak 1.06 GB)
+2026-11-14 14:38:05 stage 1 ended (exit 0): 1 flights written, 0 left, sampled pool peak 1.06 GB
+2026-11-14 14:38:05 finished in 1.9 min: 1 of 1 written
+
+real	1m56.730s
+user	1m51.722s
+sys	0m3.988s

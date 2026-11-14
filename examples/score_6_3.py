@@ -245,7 +245,8 @@ def d63_seed(seed, rows, ground_fix=False):
     return dict(reproduced=ok, n=len(res), not_exact=[i for i, e in enumerate(exact) if not e], rows=res)
 
 
-def score(seed, folder, d63=True, ground_fix=False):
+def score(seed, folder, d63=True, ground_fix=False, out=None):
+    """out: where D63's file is written (default OUT, work/step6_3)."""
     t0 = time.time()
     folder = Path(folder)
     n = guard(folder)
@@ -257,8 +258,9 @@ def score(seed, folder, d63=True, ground_fix=False):
     dd = None
     if d63:
         dd = d63_seed(seed, rows, ground_fix=True) if ground_fix else d63_seed(seed, rows)
-        OUT.mkdir(parents=True, exist_ok=True)
-        (OUT / f"d63_{seed}.json").write_text(json.dumps(dd, indent=1))
+        dest = OUT if out is None else Path(out)
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / f"d63_{seed}.json").write_text(json.dumps(dd, indent=1))
     res["d63"] = None if dd is None else dict(reproduced=dd["reproduced"], n=dd["n"], not_exact=len(dd["not_exact"]))
     res["summary_6_2"] = S.per_seed(rows, seed, dd if dd is not None and dd["reproduced"] else None)
     res["three_way"] = three_way(rows)
@@ -323,16 +325,19 @@ def main(argv):
     ap.add_argument("--no-d63", action="store_true")
     ap.add_argument("--ground-fix", action="store_true",
                     help="D63's rebuild on the ground made with D109's option, for a seed flown with it")
+    ap.add_argument("--out", default=None,
+                    help="the folder written to (default work/step6_3); a sensitivity score is written elsewhere")
     a = ap.parse_args(argv)
+    out = OUT if a.out is None else Path(a.out)
     try:
         res = score(a.seed, Path(a.runs) / f"seed_{a.seed}", d63=not a.no_d63,
-                    **(dict(ground_fix=True) if a.ground_fix else {}))
+                    **(dict(ground_fix=True) if a.ground_fix else {}), **({} if a.out is None else dict(out=out)))
     except Incomplete as e:
         print(f"seed {a.seed}: {e}", file=sys.stderr)
         return 2
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"score_{a.seed}.json").write_text(json.dumps(res, indent=1, default=num))
-    (OUT / f"score_{a.seed}.md").write_text(markdown(res))
+    out.mkdir(parents=True, exist_ok=True)
+    (out / f"score_{a.seed}.json").write_text(json.dumps(res, indent=1, default=num))
+    (out / f"score_{a.seed}.md").write_text(markdown(res))
     print(markdown(res))
     print(f"seconds: {res['seconds']}")
     return 0

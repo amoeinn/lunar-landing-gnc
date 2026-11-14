@@ -1,0 +1,288 @@
+d00_trn_e0_g0.0 0 safe landing 1:PASS 2:PASS 3:PASS 4:PASS 5:PASS 6:PASS 7:PASS
+{
+ "1 mass flow": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": -4.545253062815391e-13,
+   "median": -4.545253062815391e-13,
+   "largest": -4.545253062815391e-13
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 4.092726157978177e-12,
+   "median": 4.092726157978177e-12,
+   "largest": 4.092726157978177e-12
+  },
+  "over": {
+   "n": 1,
+   "smallest": 3.638200851696638e-12,
+   "median": 3.638200851696638e-12,
+   "largest": 3.638200851696638e-12
+  },
+  "violations": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "largest_error_kg": {
+   "n": 1,
+   "smallest": 1.2185807918285718e-12,
+   "median": 1.2185807918285718e-12,
+   "largest": 1.2185807918285718e-12
+  }
+ },
+ "2 thrust and pointing": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": -3.637978807091713e-12,
+   "median": -3.637978807091713e-12,
+   "largest": -3.637978807091713e-12
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 3.7335196502585185e-11,
+   "median": 3.7335196502585185e-11,
+   "largest": 3.7335196502585185e-11
+  },
+  "over": {
+   "n": 1,
+   "smallest": 3.369721769549347e-11,
+   "median": 3.369721769549347e-11,
+   "largest": 3.369721769549347e-11
+  },
+  "violations": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "margin_tilt_deg": {
+   "n": 1,
+   "smallest": 2.2273197430422442e-05,
+   "median": 2.2273197430422442e-05,
+   "largest": 2.2273197430422442e-05
+  },
+  "tolerance_tilt_deg": {
+   "n": 1,
+   "smallest": 0.00013822105768717058,
+   "median": 0.00013822105768717058,
+   "largest": 0.00013822105768717058
+  },
+  "over_tilt_deg": {
+   "n": 1,
+   "smallest": 0.00016049425511759302,
+   "median": 0.00016049425511759302,
+   "largest": 0.00016049425511759302
+  },
+  "abort_engine_rel_error": {
+   "n": 0
+  },
+  "delivered_max_fraction": {
+   "n": 1,
+   "smallest": 0.595435125974987,
+   "median": 0.595435125974987,
+   "largest": 0.595435125974987
+  },
+  "delivered_min_fraction": {
+   "n": 1,
+   "smallest": 0.09923932860292183,
+   "median": 0.09923932860292183,
+   "largest": 0.09923932860292183
+  }
+ },
+ "3 glide slope": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": 5.76183454406311,
+   "median": 5.76183454406311,
+   "largest": 5.76183454406311
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 0.002434961140564027,
+   "median": 0.002434961140564027,
+   "largest": 0.002434961140564027
+  },
+  "over": {
+   "n": 1,
+   "smallest": 5.764269505203673,
+   "median": 5.764269505203673,
+   "largest": 5.764269505203673
+  },
+  "violations": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "d81_margin_deg": {
+   "n": 1,
+   "smallest": 6.459340320035203,
+   "median": 6.459340320035203,
+   "largest": 6.459340320035203
+  },
+  "d81_over_deg": {
+   "n": 1,
+   "smallest": 6.462165442433373,
+   "median": 6.462165442433373,
+   "largest": 6.462165442433373
+  },
+  "d81_violations": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "ticks_without_estimate": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  }
+ },
+ "4 terrain clearance": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": 0.02928821886331434,
+   "median": 0.02928821886331434,
+   "largest": 0.02928821886331434
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 0.023485653679137394,
+   "median": 0.023485653679137394,
+   "largest": 0.023485653679137394
+  },
+  "over": {
+   "n": 1,
+   "smallest": 0.052773872542451736,
+   "median": 0.052773872542451736,
+   "largest": 0.052773872542451736
+  },
+  "violations": {
+   "n": 1,
+   "smallest": 0.0,
+   "median": 0.0,
+   "largest": 0.0
+  },
+  "clearance_minus_recorded": {
+   "n": 1,
+   "smallest": -5.684341886080802e-14,
+   "median": -5.684341886080802e-14,
+   "largest": -5.684341886080802e-14
+  }
+ },
+ "5 touchdown velocity": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": 1.1944523536660747,
+   "median": 1.1944523536660747,
+   "largest": 1.1944523536660747
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 1.0094593326363058e-08,
+   "median": 1.0094593326363058e-08,
+   "largest": 1.0094593326363058e-08
+  },
+  "over": {
+   "n": 1,
+   "smallest": 1.194452363760668,
+   "median": 1.194452363760668,
+   "largest": 1.194452363760668
+  },
+  "margin_down": {
+   "n": 1,
+   "smallest": 1.1944523536660747,
+   "median": 1.1944523536660747,
+   "largest": 1.1944523536660747
+  },
+  "margin_horizontal": {
+   "n": 1,
+   "smallest": 1.2152025628053382,
+   "median": 1.2152025628053382,
+   "largest": 1.2152025628053382
+  }
+ },
+ "6 site lit": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 1,
+   "smallest": 1.297148431219435,
+   "median": 1.297148431219435,
+   "largest": 1.297148431219435
+  },
+  "tolerance": {
+   "n": 1,
+   "smallest": 0.9909077642227977,
+   "median": 0.9909077642227977,
+   "largest": 0.9909077642227977
+  },
+  "over": {
+   "n": 1,
+   "smallest": 2.2880561954422327,
+   "median": 2.2880561954422327,
+   "largest": 2.2880561954422327
+  },
+  "ray_spacing_deg": {
+   "n": 1,
+   "smallest": 0.018061170071346055,
+   "median": 0.018061170071346055,
+   "largest": 0.018061170071346055
+  },
+  "march_step_deg": {
+   "n": 1,
+   "smallest": 0.9728446881514516,
+   "median": 0.9728446881514516,
+   "largest": 0.9728446881514516
+  },
+  "margin_lower_limb": {
+   "n": 1,
+   "smallest": 1.030186219696732,
+   "median": 1.030186219696732,
+   "largest": 1.030186219696732
+  },
+  "horizon": {
+   "n": 1,
+   "smallest": 0.4078407299615118,
+   "median": 0.4078407299615118,
+   "largest": 0.4078407299615118
+  },
+  "sun_elevation": {
+   "n": 1,
+   "smallest": 1.704989161180947,
+   "median": 1.704989161180947,
+   "largest": 1.704989161180947
+  }
+ },
+ "7 triggers": {
+  "PASS": 1,
+  "FAIL": 0,
+  "other": 0,
+  "margin": {
+   "n": 0
+  }
+ }
+}
+
+real	0m1.535s
+user	0m1.086s
+sys	0m0.386s

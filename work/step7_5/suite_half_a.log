@@ -1,0 +1,49 @@
+........................................................................ [ 23%]
+........................................................................ [ 47%]
+........................................................................ [ 70%]
+........................................................................ [ 94%]
+..................                                                       [100%]
+=============================== warnings summary ===============================
+tests/test_abort_d47.py: 43 warnings
+tests/test_cast_d56.py: 3 warnings
+tests/test_estflight.py: 49 warnings
+tests/test_estlanding_b.py: 37 warnings
+tests/test_estlanding_c.py: 2 warnings
+tests/test_estlanding.py: 7 warnings
+tests/test_ground_fix.py: 19 warnings
+tests/test_horizon.py: 4 warnings
+  ~/aerospace-portfolio/lunar-landing-gnc/.venv/lib/python3.12/site-packages/rasterio/windows.py:360: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = transform * (window.col_off or 0.0, window.row_off or 0.0)
+
+tests/test_abort_d47.py: 43 warnings
+tests/test_cast_d56.py: 3 warnings
+tests/test_estflight.py: 49 warnings
+tests/test_estlanding_b.py: 37 warnings
+tests/test_estlanding_c.py: 2 warnings
+tests/test_estlanding.py: 7 warnings
+tests/test_ground_fix.py: 19 warnings
+tests/test_horizon.py: 4 warnings
+  ~/aerospace-portfolio/lunar-landing-gnc/.venv/lib/python3.12/site-packages/rasterio/windows.py:361: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(
+
+tests/test_flight_g1.py::test_solves_and_resolves_match_the_python
+  ~/aerospace-portfolio/lunar-landing-gnc/src/lunar_landing_gnc/guidance.py:152: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+    prob.solve(solver=cp.CLARABEL)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 10 durations =============================
+82.68s setup    tests/test_estlanding.py::test_frames_placed_and_aimed_from_the_estimated_pose
+63.02s setup    tests/test_estlanding_b.py::test_shared_no_trn_branches_at_the_decision_before_the_choice
+62.78s call     tests/test_golden_traces.py::test_flight_path_alone_is_closed_loop_flys_flight[state-20261014-29]
+62.38s setup    tests/test_estlanding_b.py::test_shared_no_trn_flight_equals_flying_each_epoch
+51.82s setup    tests/test_estflight.py::test_guidance_and_triggers_read_the_estimate_with_true_mass
+43.20s setup    tests/test_horizon.py::test_copied_march_is_bit_identical_to_lunar_polar_traverse
+39.50s call     tests/test_flight_g1.py::test_solves_and_resolves_match_the_python
+33.59s call     tests/test_estflight.py::test_truth_nav_reproduces_phase5_to_the_decision
+28.16s setup    tests/test_abort_d47.py::test_abort_judged_by_vis_viva_on_the_true_burnout_not_the_solver_tolerance
+20.73s call     tests/test_estlanding_b.py::test_abort_shoots_from_the_estimate_and_flies_the_truth
+306 passed, 329 warnings in 838.74s (0:13:58)
+
+real	13m59.184s
+user	13m32.588s
+sys	0m25.399s

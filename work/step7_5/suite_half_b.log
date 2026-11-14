@@ -1,0 +1,21 @@
+........................................................................ [ 20%]
+........................................................................ [ 40%]
+........................................................................ [ 60%]
+........................................................................ [ 80%]
+....................................................................     [100%]
+============================= slowest 10 durations =============================
+45.33s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[leak-3]
+39.01s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[state-2]
+37.03s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[thrust-2]
+33.51s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[leak-2]
+29.31s call     tests/test_triggers.py::test_a_fired_trigger_switches_the_flight_to_the_ascent
+27.38s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[leak-after-trigger]
+25.83s call     tests/test_triggers.py::test_counterfactual_from_the_trigger_equals_the_restart[late-fault]
+21.91s call     tests/test_triggers.py::test_window_failure_with_a_longer_feasible_time_does_not_trigger
+19.75s call     tests/test_vertical_rise.py::test_descent_engine_short_of_propellant_is_physics
+15.70s call     tests/test_offline.py::test_evaluator_reproduces_a_flown_trigger
+356 passed in 421.86s (0:07:01)
+
+real	7m2.227s
+user	7m1.989s
+sys	0m0.511s

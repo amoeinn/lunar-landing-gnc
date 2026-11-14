@@ -29,3 +29,13 @@ M = [
      "P.GROUND_HALF, **(dict(ground_fix=True) if ground_fix else {}))", "P.GROUND_HALF)"),
 ]
 TESTS = ["tests/test_ground_fix.py"]
+M += [
+    ("aim drops the option", PF, "aim=TS.mosaic_base(BL.dem_path(), cx, cy, **fix), lit=",
+     "aim=TS.mosaic_base(BL.dem_path(), cx, cy), lit="),
+    ("aim always fixed", PF, "aim=TS.mosaic_base(BL.dem_path(), cx, cy, **fix), lit=",
+     "aim=TS.mosaic_base(BL.dem_path(), cx, cy, ground_fix=True), lit="),
+    ("scorer --out ignored for the score files", SC, "    out = OUT if a.out is None else Path(a.out)",
+     "    out = OUT"),
+    ("scorer --out not passed to score", SC, "**({} if a.out is None else dict(out=out))", "**{}"),
+    ("scorer D63 file ignores out", SC, "        dest = OUT if out is None else Path(out)", "        dest = OUT"),
+]

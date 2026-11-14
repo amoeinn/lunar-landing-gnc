@@ -1,0 +1,17 @@
+[
+ {
+  "job": "d00_trn_e0_g0.0",
+  "epoch": 0,
+  "outcome": "safe landing",
+  "samples": 2853,
+  "outside_valid": 750,
+  "checker_minus_flight_bare_max_abs": 0.001162450917490787,
+  "checker_minus_flight_with_rocks": [
+   -0.9226901104804313,
+   0.00041546594670904824
+  ],
+  "samples_on_rocks": 12,
+  "recorded_min_clearance": 19.887083809321098,
+  "own_lowest_guided": NaN
+ }
+]

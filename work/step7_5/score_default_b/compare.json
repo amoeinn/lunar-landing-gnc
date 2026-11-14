@@ -1,0 +1,14 @@
+{
+ "score_20261062.json": {
+  "differences": [],
+  "seconds_only": [
+   "/seconds/criteria: 0.4563324451446533 against 0.1683518886566162",
+   "/seconds/d63: 113.7514762878418 against 130.12351036071777"
+  ]
+ },
+ "d63_20261062.json": {
+  "differences": [],
+  "seconds_only": []
+ },
+ "score_20261062.md identical": true
+}

@@ -1,0 +1,1052 @@
+{
+ "integrity": {
+  "flight_files": 2900,
+  "histories": 2892,
+  "flown_without_history": [],
+  "records_with_ground_fix": 2900,
+  "error_flights": [
+   {
+    "file": "d28_trn_e1_g-24.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 144.4 m at t = 74.35 s"
+    ]
+   },
+   {
+    "file": "d28_trn_e1_g72.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 128.5 m at t = 74.65 s"
+    ]
+   },
+   {
+    "file": "d34_trn_e0_g168.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 129.8 m at t = 94.95 s"
+    ]
+   },
+   {
+    "file": "d37_trn_e3_g72.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 146.5 m at t = 78.85 s"
+    ]
+   },
+   {
+    "file": "d61_trn_e3_g24.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 126.7 m at t = 72.25 s"
+    ]
+   },
+   {
+    "file": "d63_trn_e3_g24.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 120.3 m at t = 82.25 s"
+    ]
+   },
+   {
+    "file": "d83_notrn_eNone_gNone.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 142.3 m at t = 76.25 s"
+    ]
+   },
+   {
+    "file": "d96_trn_e3_g24.0.json",
+    "exception": [
+     "ValueError: scan plan reaches slant 137.7 m at t = 76.05 s"
+    ]
+   }
+  ],
+  "error_files_registered": [
+   "d28_trn_e1_g-24.0.json",
+   "d28_trn_e1_g72.0.json",
+   "d34_trn_e0_g168.0.json",
+   "d37_trn_e3_g72.0.json",
+   "d61_trn_e3_g24.0.json",
+   "d63_trn_e3_g24.0.json",
+   "d83_notrn_eNone_gNone.json",
+   "d96_trn_e3_g24.0.json"
+  ],
+  "same_error_files": true
+ },
+ "payoff": {
+  "registered_verdict": "PASS",
+  "sensitivity_verdict": "PASS",
+  "rows": [
+   {
+    "registered": {
+     "criterion": "1: flights at 0 h not ending in a safe landing",
+     "value": 0,
+     "op": "<=",
+     "threshold": 2,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "1: flights at 0 h not ending in a safe landing",
+     "value": 0,
+     "op": "<=",
+     "threshold": 2,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "1: Hp(0 h)",
+     "value": 0.0,
+     "op": "<=",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "1: Hp(0 h)",
+     "value": 0.0,
+     "op": "<=",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "1: median Q at 0 h, m",
+     "value": 0.12094477959703193,
+     "op": "<=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "1: median Q at 0 h, m",
+     "value": 0.1196419656254876,
+     "op": "<=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "2(a) -24 h: sign test over draws, 51 fewer against 0 more, p",
+     "value": 4.440892098500626e-16,
+     "op": "<",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "2(a) -24 h: sign test over draws, 51 fewer against 0 more, p",
+     "value": 4.440892098500626e-16,
+     "op": "<",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "2(b) -24 h: median Q, m",
+     "value": 2.1102748109294693,
+     "op": ">=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "2(b) -24 h: median Q, m",
+     "value": 2.1110641484490573,
+     "op": ">=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "2(a) +24 h: sign test over draws, 70 fewer against 0 more, p",
+     "value": 8.470329472543003e-22,
+     "op": "<",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "2(a) +24 h: sign test over draws, 69 fewer against 0 more, p",
+     "value": 1.6940658945086007e-21,
+     "op": "<",
+     "threshold": 0.01,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "2(b) +24 h: median Q, m",
+     "value": 4.311469675556899,
+     "op": ">=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "2(b) +24 h: median Q, m",
+     "value": 4.08258487318307,
+     "op": ">=",
+     "threshold": 1.0,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: safe-landing fraction at -24 h above that at -72 h",
+     "value": 0.8675,
+     "op": ">",
+     "threshold": 0.435,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: safe-landing fraction at -24 h above that at -72 h",
+     "value": 0.8675,
+     "op": ">",
+     "threshold": 0.4225,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: median Q at -72 h above that at -24 h, m",
+     "value": 10.243096344996816,
+     "op": ">",
+     "threshold": 2.1102748109294693,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: median Q at -72 h above that at -24 h, m",
+     "value": 10.32011809371068,
+     "op": ">",
+     "threshold": 2.1110641484490573,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: safe-landing fraction at -72 h above that at -168 h",
+     "value": 0.435,
+     "op": ">",
+     "threshold": 0.0825,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: safe-landing fraction at -72 h above that at -168 h",
+     "value": 0.4225,
+     "op": ">",
+     "threshold": 0.0925,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: median Q at -168 h above that at -72 h, m",
+     "value": 601.8161270076474,
+     "op": ">",
+     "threshold": 10.243096344996816,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: median Q at -168 h above that at -72 h, m",
+     "value": 611.0545587823655,
+     "op": ">",
+     "threshold": 10.32011809371068,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: safe-landing fraction at +24 h above that at +72 h",
+     "value": 0.7575,
+     "op": ">",
+     "threshold": 0.4775,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: safe-landing fraction at +24 h above that at +72 h",
+     "value": 0.76,
+     "op": ">",
+     "threshold": 0.4675,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: median Q at +72 h above that at +24 h, m",
+     "value": 14.892937824887824,
+     "op": ">",
+     "threshold": 4.311469675556899,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: median Q at +72 h above that at +24 h, m",
+     "value": 14.597150734235111,
+     "op": ">",
+     "threshold": 4.08258487318307,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: safe-landing fraction at +72 h above that at +168 h",
+     "value": 0.4775,
+     "op": ">",
+     "threshold": 0.275,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: safe-landing fraction at +72 h above that at +168 h",
+     "value": 0.4675,
+     "op": ">",
+     "threshold": 0.295,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "3: median Q at +168 h above that at +72 h, m",
+     "value": 608.1035436432722,
+     "op": ">",
+     "threshold": 14.892937824887824,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "3: median Q at +168 h above that at +72 h, m",
+     "value": 606.9023409283789,
+     "op": ">",
+     "threshold": 14.597150734235111,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "4 -168 h: Hp",
+     "value": 0.696969696969697,
+     "op": ">=",
+     "threshold": 0.5,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "4 -168 h: Hp",
+     "value": 0.71875,
+     "op": ">=",
+     "threshold": 0.5,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "4 -168 h: no-TRN safe-landing fraction minus TRN's",
+     "value": 0.5375,
+     "op": ">=",
+     "threshold": 0.1,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "4 -168 h: no-TRN safe-landing fraction minus TRN's",
+     "value": 0.4975,
+     "op": ">=",
+     "threshold": 0.1,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "4 +168 h: Hp",
+     "value": 0.7111111111111111,
+     "op": ">=",
+     "threshold": 0.5,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "4 +168 h: Hp",
+     "value": 0.6989247311827957,
+     "op": ">=",
+     "threshold": 0.5,
+     "verdict": "PASS"
+    }
+   },
+   {
+    "registered": {
+     "criterion": "4 +168 h: no-TRN safe-landing fraction minus TRN's",
+     "value": 0.345,
+     "op": ">=",
+     "threshold": 0.1,
+     "verdict": "PASS"
+    },
+    "sensitivity": {
+     "criterion": "4 +168 h: no-TRN safe-landing fraction minus TRN's",
+     "value": 0.295,
+     "op": ">=",
+     "threshold": 0.1,
+     "verdict": "PASS"
+    }
+   }
+  ],
+  "same_criteria": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "three_way": {
+   "registered": {
+    "+0 h": {
+     "epoch 0": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 400,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 400
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "safe landing": 53,
+      "abort to a safe orbit": 4,
+      "unsafe outcome": 43,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 94,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 6,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 347,
+      "abort to a safe orbit": 4,
+      "unsafe outcome": 49,
+      "flights": 400
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "safe landing": 58,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 41,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 84,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 16,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 61,
+      "abort to a safe orbit": 34,
+      "unsafe outcome": 5,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 303,
+      "abort to a safe orbit": 35,
+      "unsafe outcome": 62,
+      "flights": 400
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 35,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 64,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 70,
+      "abort to a safe orbit": 2,
+      "unsafe outcome": 28,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 69,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 31,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 174,
+      "abort to a safe orbit": 103,
+      "unsafe outcome": 123,
+      "flights": 400
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "safe landing": 20,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 79,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 48,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 52,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 93,
+      "abort to a safe orbit": 2,
+      "unsafe outcome": 5,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 30,
+      "abort to a safe orbit": 61,
+      "unsafe outcome": 9,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 191,
+      "abort to a safe orbit": 64,
+      "unsafe outcome": 145,
+      "flights": 400
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 11,
+      "abort to a safe orbit": 80,
+      "unsafe outcome": 9,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 22,
+      "abort to a safe orbit": 69,
+      "unsafe outcome": 9,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 33,
+      "abort to a safe orbit": 349,
+      "unsafe outcome": 18,
+      "flights": 400
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "safe landing": 41,
+      "abort to a safe orbit": 52,
+      "unsafe outcome": 7,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 51,
+      "abort to a safe orbit": 32,
+      "unsafe outcome": 17,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 18,
+      "abort to a safe orbit": 77,
+      "unsafe outcome": 5,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 110,
+      "abort to a safe orbit": 261,
+      "unsafe outcome": 29,
+      "flights": 400
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "safe landing": 56,
+      "abort to a safe orbit": 35,
+      "unsafe outcome": 9,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 64,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 7,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 64,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 7,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 64,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 7,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 248,
+      "abort to a safe orbit": 122,
+      "unsafe outcome": 30,
+      "flights": 400
+     }
+    }
+   },
+   "sensitivity": {
+    "+0 h": {
+     "epoch 0": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 400,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 400
+     }
+    },
+    "-24 h": {
+     "epoch 0": {
+      "safe landing": 53,
+      "abort to a safe orbit": 4,
+      "unsafe outcome": 43,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 94,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 6,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 347,
+      "abort to a safe orbit": 4,
+      "unsafe outcome": 49,
+      "flights": 400
+     }
+    },
+    "+24 h": {
+     "epoch 0": {
+      "safe landing": 60,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 39,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 84,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 16,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 100,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 60,
+      "abort to a safe orbit": 36,
+      "unsafe outcome": 4,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 304,
+      "abort to a safe orbit": 37,
+      "unsafe outcome": 59,
+      "flights": 400
+     }
+    },
+    "-72 h": {
+     "epoch 0": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 33,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 66,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 67,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 32,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 69,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 31,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 169,
+      "abort to a safe orbit": 102,
+      "unsafe outcome": 129,
+      "flights": 400
+     }
+    },
+    "+72 h": {
+     "epoch 0": {
+      "safe landing": 19,
+      "abort to a safe orbit": 1,
+      "unsafe outcome": 80,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 47,
+      "abort to a safe orbit": 0,
+      "unsafe outcome": 53,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 91,
+      "abort to a safe orbit": 2,
+      "unsafe outcome": 7,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 30,
+      "abort to a safe orbit": 61,
+      "unsafe outcome": 9,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 187,
+      "abort to a safe orbit": 64,
+      "unsafe outcome": 149,
+      "flights": 400
+     }
+    },
+    "-168 h": {
+     "epoch 0": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 11,
+      "abort to a safe orbit": 79,
+      "unsafe outcome": 10,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 26,
+      "abort to a safe orbit": 69,
+      "unsafe outcome": 5,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 37,
+      "abort to a safe orbit": 348,
+      "unsafe outcome": 15,
+      "flights": 400
+     }
+    },
+    "+168 h": {
+     "epoch 0": {
+      "safe landing": 44,
+      "abort to a safe orbit": 51,
+      "unsafe outcome": 5,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 57,
+      "abort to a safe orbit": 27,
+      "unsafe outcome": 16,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 17,
+      "abort to a safe orbit": 80,
+      "unsafe outcome": 3,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 0,
+      "abort to a safe orbit": 100,
+      "unsafe outcome": 0,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 118,
+      "abort to a safe orbit": 258,
+      "unsafe outcome": 24,
+      "flights": 400
+     }
+    },
+    "no-TRN": {
+     "epoch 0": {
+      "safe landing": 56,
+      "abort to a safe orbit": 34,
+      "unsafe outcome": 10,
+      "flights": 100
+     },
+     "epoch 1": {
+      "safe landing": 60,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 11,
+      "flights": 100
+     },
+     "epoch 2": {
+      "safe landing": 60,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 11,
+      "flights": 100
+     },
+     "epoch 3": {
+      "safe landing": 60,
+      "abort to a safe orbit": 29,
+      "unsafe outcome": 11,
+      "flights": 100
+     },
+     "pooled": {
+      "safe landing": 236,
+      "abort to a safe orbit": 121,
+      "unsafe outcome": 43,
+      "flights": 400
+     }
+    }
+   }
+  },
+  "d63": {
+   "registered": {
+    "reproduced": true,
+    "n": 445,
+    "not_exact": 0
+   },
+   "sensitivity": {
+    "reproduced": true,
+    "n": 457,
+    "not_exact": 0
+   }
+  }
+ },
+ "paired": {
+  "pairs": 3200,
+  "only_registered": 0,
+  "only_sensitivity": 0,
+  "changed_class": 132,
+  "moves": {
+   "safe landing -> unsafe landing": 47,
+   "unsafe landing -> safe landing": 39,
+   "abort: safe orbit -> unsafe landing": 15,
+   "unsafe landing -> abort: safe orbit": 11,
+   "abort: safe orbit -> safe landing": 10,
+   "safe landing -> abort: safe orbit": 10
+  },
+  "classes": {
+   "registered": {
+    "abort: safe orbit": 938,
+    "safe landing": 1806,
+    "unsafe landing": 445,
+    "error": 11
+   },
+   "sensitivity": {
+    "abort: safe orbit": 934,
+    "unsafe landing": 457,
+    "safe landing": 1798,
+    "error": 11
+   }
+  },
+  "changed_by_set": {
+   "+0 h": {
+    "same": 400
+   },
+   "+168 h": {
+    "same": 366,
+    "changed": 34
+   },
+   "+24 h": {
+    "same": 391,
+    "changed": 9
+   },
+   "+72 h": {
+    "same": 381,
+    "changed": 19
+   },
+   "-168 h": {
+    "same": 393,
+    "changed": 7
+   },
+   "-24 h": {
+    "same": 398,
+    "changed": 2
+   },
+   "-72 h": {
+    "same": 392,
+    "changed": 8
+   },
+   "no-TRN": {
+    "same": 347,
+    "changed": 53
+   }
+  },
+  "delta_q_m": {
+   "n": 2230,
+   "median": -4.853050038569617e-06,
+   "largest_abs": 2.51877692905547,
+   "min": -2.3654004711642216,
+   "max": 2.51877692905547,
+   "zero": 0,
+   "abs_p50": 0.0026566883838490263,
+   "abs_p90": 0.07174062598989384,
+   "abs_p99": 1.0464306844446098
+  },
+  "delta_propellant_kg": {
+   "n": 3189,
+   "median": 0.0,
+   "largest_abs": 330.674783529274,
+   "min": -319.1198759977365,
+   "max": 330.674783529274,
+   "zero": 899,
+   "abs_p50": 0.14321014451979863,
+   "abs_p90": 9.273352135561073,
+   "abs_p99": 40.4974337102857
+  },
+  "delta_q_m_same_class": {
+   "n": 2144,
+   "median": -4.4146061100036604e-06,
+   "largest_abs": 2.51877692905547,
+   "min": -2.3654004711642216,
+   "max": 2.51877692905547,
+   "zero": 0,
+   "abs_p50": 0.002490715364796066,
+   "abs_p90": 0.06516443613299276,
+   "abs_p99": 1.0194912865685508
+  },
+  "delta_propellant_kg_same_class": {
+   "n": 3057,
+   "median": 0.0,
+   "largest_abs": 43.13619891842518,
+   "min": -41.648556228270536,
+   "max": 43.13619891842518,
+   "zero": 899,
+   "abs_p50": 0.11653899377961352,
+   "abs_p90": 8.357442902693585,
+   "abs_p99": 30.427096488370044
+  }
+ },
+ "replay": null,
+ "causes": null,
+ "predictions": {
+  "a payoff criteria 1 to 4 still all hold": {
+   "verdict": "PASS",
+   "sub_conditions_pass": 19,
+   "of": 19
+  },
+  "b check 4 ground-model violations disappear, only real terrain strikes left": {
+   "verdict": "NOT JUDGED",
+   "why": "replay not run"
+  },
+  "c checks 3 and 6 keep their causes": {
+   "verdict": "NOT JUDGED",
+   "why": "replay not run"
+  }
+ }
+}

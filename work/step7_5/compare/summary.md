@@ -1,0 +1,81 @@
+# Step 7.5c: ground-fix sensitivity run of seed 20261062
+
+A sensitivity (D109): the registered results stand. Scorer and checker unchanged (D114).
+
+## Integrity
+
+Flight files 2900; histories 2892; flown records without a history 0; records flagged ground_fix 2900; error flights 8 (D107), the same files as the registered run's: True.
+
+- d28_trn_e1_g-24.0.json: ValueError: scan plan reaches slant 144.4 m at t = 74.35 s
+- d28_trn_e1_g72.0.json: ValueError: scan plan reaches slant 128.5 m at t = 74.65 s
+- d34_trn_e0_g168.0.json: ValueError: scan plan reaches slant 129.8 m at t = 94.95 s
+- d37_trn_e3_g72.0.json: ValueError: scan plan reaches slant 146.5 m at t = 78.85 s
+- d61_trn_e3_g24.0.json: ValueError: scan plan reaches slant 126.7 m at t = 72.25 s
+- d63_trn_e3_g24.0.json: ValueError: scan plan reaches slant 120.3 m at t = 82.25 s
+- d83_notrn_eNone_gNone.json: ValueError: scan plan reaches slant 142.3 m at t = 76.25 s
+- d96_trn_e3_g24.0.json: ValueError: scan plan reaches slant 137.7 m at t = 76.05 s
+
+## Payoff (registered PASS, sensitivity PASS)
+
+| criterion | registered | sensitivity | test | registered threshold | sensitivity threshold | verdicts |
+|---|---|---|---|---|---|---|
+| 1: flights at 0 h not ending in a safe landing | 0 | 0 | <= | 2 | 2 | PASS / PASS |
+| 1: Hp(0 h) | 0 | 0 | <= | 0.01 | 0.01 | PASS / PASS |
+| 1: median Q at 0 h, m | 0.1209 | 0.1196 | <= | 1 | 1 | PASS / PASS |
+| 2(a) -24 h: sign test over draws, 51 fewer against 0 more, p | 4.441e-16 | 4.441e-16 | < | 0.01 | 0.01 | PASS / PASS |
+| 2(b) -24 h: median Q, m | 2.11 | 2.111 | >= | 1 | 1 | PASS / PASS |
+| 2(a) +24 h: sign test over draws, 70 fewer against 0 more, p | 8.47e-22 | 1.694e-21 | < | 0.01 | 0.01 | PASS / PASS |
+| 2(b) +24 h: median Q, m | 4.311 | 4.083 | >= | 1 | 1 | PASS / PASS |
+| 3: safe-landing fraction at -24 h above that at -72 h | 0.8675 | 0.8675 | > | 0.435 | 0.4225 | PASS / PASS |
+| 3: median Q at -72 h above that at -24 h, m | 10.24 | 10.32 | > | 2.11 | 2.111 | PASS / PASS |
+| 3: safe-landing fraction at -72 h above that at -168 h | 0.435 | 0.4225 | > | 0.0825 | 0.0925 | PASS / PASS |
+| 3: median Q at -168 h above that at -72 h, m | 601.8 | 611.1 | > | 10.24 | 10.32 | PASS / PASS |
+| 3: safe-landing fraction at +24 h above that at +72 h | 0.7575 | 0.76 | > | 0.4775 | 0.4675 | PASS / PASS |
+| 3: median Q at +72 h above that at +24 h, m | 14.89 | 14.6 | > | 4.311 | 4.083 | PASS / PASS |
+| 3: safe-landing fraction at +72 h above that at +168 h | 0.4775 | 0.4675 | > | 0.275 | 0.295 | PASS / PASS |
+| 3: median Q at +168 h above that at +72 h, m | 608.1 | 606.9 | > | 14.89 | 14.6 | PASS / PASS |
+| 4 -168 h: Hp | 0.697 | 0.7188 | >= | 0.5 | 0.5 | PASS / PASS |
+| 4 -168 h: no-TRN safe-landing fraction minus TRN's | 0.5375 | 0.4975 | >= | 0.1 | 0.1 | PASS / PASS |
+| 4 +168 h: Hp | 0.7111 | 0.6989 | >= | 0.5 | 0.5 | PASS / PASS |
+| 4 +168 h: no-TRN safe-landing fraction minus TRN's | 0.345 | 0.295 | >= | 0.1 | 0.1 | PASS / PASS |
+
+## Paired by flight (same draw, lander, gap, epoch)
+
+Pairs 3200; outcomes changing class 132.
+
+| from registered -> to sensitivity | flights |
+|---|---|
+| safe landing -> unsafe landing | 47 |
+| unsafe landing -> safe landing | 39 |
+| abort: safe orbit -> unsafe landing | 15 |
+| unsafe landing -> abort: safe orbit | 11 |
+| abort: safe orbit -> safe landing | 10 |
+| safe landing -> abort: safe orbit | 10 |
+
+| quantity | n | median | largest change | min | max | unchanged | abs p50 | abs p90 | abs p99 |
+|---|---|---|---|---|---|---|---|---|---|
+| delta_q_m | 2230 | -4.853e-06 | 2.519 | -2.365 | 2.519 | 0 | 0.002657 | 0.07174 | 1.046 |
+| delta_q_m_same_class | 2144 | -4.415e-06 | 2.519 | -2.365 | 2.519 | 0 | 0.002491 | 0.06516 | 1.019 |
+| delta_propellant_kg | 3189 | 0 | 330.7 | -319.1 | 330.7 | 899 | 0.1432 | 9.273 | 40.5 |
+| delta_propellant_kg_same_class | 3057 | 0 | 43.14 | -41.65 | 43.14 | 899 | 0.1165 | 8.357 | 30.43 |
+
+| set | changed | same |
+|---|---|---|
+| +0 h | 0 | 400 |
+| +168 h | 34 | 366 |
+| +24 h | 9 | 391 |
+| +72 h | 19 | 381 |
+| -168 h | 7 | 393 |
+| -24 h | 2 | 398 |
+| -72 h | 8 | 392 |
+| no-TRN | 53 | 347 |
+
+## Replay checker
+
+Not run in this step.
+
+## Registered predictions (PLAN.md Step 7.5)
+
+- a payoff criteria 1 to 4 still all hold: **PASS**
+- b check 4 ground-model violations disappear, only real terrain strikes left: **NOT JUDGED**
+- c checks 3 and 6 keep their causes: **NOT JUDGED**

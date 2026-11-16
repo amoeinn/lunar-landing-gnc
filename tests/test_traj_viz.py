@@ -1,4 +1,4 @@
-"""The descent visualization (examples/make_descent_viz.py), from the six
+"""The descent visualization (examples/make_traj_viz.py), from the six
 histories committed under docs/viz_data (D121, D126) and the two reference
 maps under docs/viz_data/maps (D127).
 
@@ -20,7 +20,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "examples")]
 
-import make_descent_viz as V  # noqa: E402
+import make_traj_viz as V  # noqa: E402
 
 TOL = 1e-9       # m: the record stores these values as computed from the same floats
 KEYS = [(d, g) for d in V.DRAWS for g in V.GAPS]
@@ -73,6 +73,8 @@ def test_plotted_values_equal_the_record(flights, key):
         assert max(abs(v["touchdown"][0] - tx - row["touchdown"][0]),
                    abs(v["touchdown"][1] - ty - row["touchdown"][1])) < TOL
         assert abs(v["q"] - row["q"]) < TOL
+        assert abs(np.hypot(v["est_touchdown"][0] - v["touchdown"][0], v["est_touchdown"][1] - v["touchdown"][1])
+                   - row["q"]) < TOL                         # the believed touchdown sits Q from the true one
         assert abs(v["miss_target"] - row["miss_target"]) < TOL
         assert abs(v["miss_true_site"] - row["miss_true_site"]) < TOL
         assert v["criterion2"] == row["criterion2"]
@@ -92,8 +94,25 @@ def test_unsafe_landing_names_the_check_it_failed(flights):
     row, h, m = flights[(18, 168.0)]
     assert row["criterion2"] is False and row["gear_safe"] is True
     fail = V.what_failed(V.record_values(row, h, m))
-    assert len(fail) == 1 and fail[0].startswith("criterion 2"), fail
+    assert len(fail) == 1 and fail[0].startswith("criterion 2 by "), fail
+    by = float(fail[0].split()[3])
+    assert abs(by - round(row["miss_true_site"] - V.LANDING_RADIUS, 3)) < 1e-12 and by > 0
     assert V.what_failed(V.record_values(*flights[(2, 168.0)])) == []
+
+
+def test_unsafe_caption_reads_the_registered_split():
+    """Protects draw 18's caption: the count of unsafe landings, of those on
+    gear-unsafe ground, and of the score's off-the-verified-site class are
+    the registered score's, and the draw is the one gear-safe case the
+    counts leave."""
+    d = json.loads(V.SCORE.read_text())
+    us, oc = d["unsafe_split"]["+168 h"], d["summary_6_2"]["outcomes"]["+168 h"]["pooled"]
+    F, sh = V.flights(), V.shares()
+    cap = V.draw_caption(F, sh, *V.CASES[2])
+    assert f"Of the {oc['unsafe landing']} unsafe landings at +168 h" in cap
+    assert f", {us['touchdown_on_gear_unsafe_ground']} touched down on gear-unsafe ground" in cap
+    assert us["unsafe_landings"] == oc["unsafe landing"] and us["classes"]["off the verified site"] == 1
+    assert F[(V.CASES[2][1], 168.0)]["v"]["gear_safe"] is True
 
 
 @pytest.mark.parametrize("key", KEYS, ids=[f"d{d}_g{g}" for d, g in KEYS])
@@ -161,15 +180,48 @@ def test_tracked_maps_are_the_maps_flown():
 
 
 def test_shares_are_the_registered_score():
-    """Protects the labels: each row's share is read from the registered
-    score's three-way split of the +168 h flights, whose three outcomes
-    account for every flight, pooled and at epoch 0."""
+    """Protects the labels: aborts to a safe orbit and safe landings are the
+    registered score's three-way split, unsafe landings are its outcome
+    count alone (not the split's unsafe outcome, which also holds errors
+    and failed aborts), and the error flights are stated separately; pooled
+    and at epoch 0, read from the file here independently."""
+    d = json.loads(V.SCORE.read_text())
+    tw, oc = d["three_way"]["+168 h"], d["summary_6_2"]["outcomes"]["+168 h"]
     sh = V.shares()
-    for grp in sh.values():
-        assert sum(grp[V.SHARE_KEY[oc]] for oc, _, _ in V.CASES) == grp["flights"]
-    for oc, _, _ in V.CASES:
-        k = V.SHARE_KEY[oc]
-        assert V.share_text(sh, oc).startswith(f"{k}: {sh['pooled'][k]} of {sh['pooled']['flights']} ")
+    for g in ("pooled", f"epoch {V.EPOCH}"):
+        want = {"abort to a safe orbit": tw[g]["abort to a safe orbit"], "safe landing": tw[g]["safe landing"],
+                "unsafe landing": oc[g]["unsafe landing"]}
+        for k, n in want.items():
+            assert sh[g][k] == n, (g, k)
+            assert f"{k}: {n} of {tw[g]['flights']} " in V.share_text(sh, k) or g != "pooled"
+        assert sh[g]["unsafe landing"] != tw[g]["unsafe outcome"]       # the case built to fail: they differ
+        assert sh[g]["error"] == oc[g].get("error", 0)
+    assert f"besides these, {oc['pooled']['error']} ended in an error" in V.share_text(sh, "unsafe landing")
+
+
+def test_descent_image_default_is_unchanged_and_takes_the_tracked_map():
+    """Protects the map argument added to nav_baselines.descent_image: with
+    no map it renders bit for bit what it rendered before the argument
+    existed (sha256 recorded from the unchanged function at each draw's
+    first fix), the tracked gap-0 map gives the same bits, and the week-old
+    map does not."""
+    import hashlib
+    import nav_baselines as NB
+    if not V.have_data():
+        pytest.skip("needs LLG_DATA")
+    before = {0: "2940e8a1cfdad09e472452af05ee251542e99356a2874bf2f5f7e7013a42a530",
+              2: "3fd6d67837d41b59b36cbb31aeaf664e2e0349177444a99d0afef6f79734f8aa",
+              18: "f809b153d2fa5ba6c77c4f0c4e21ae837a5d25b6dd103a4e4d6a6923540b694d"}
+    sha = lambda a: hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()  # noqa: E731
+    F = V.flights()
+    maps = {g: np.load(V.map_path(g)).astype(np.float64) for g in V.GAPS}
+    for d, want in before.items():
+        f = F[(d, 0.0)]
+        p = V.at(f["v"]["fixes"][0][0], f["T_true"], f["P_true"])
+        if (ROOT / "work" / "step3_2a" / "maps").exists():
+            assert sha(NB.descent_image(V.EPOCH, p)[1]) == want, d
+        assert sha(NB.descent_image(V.EPOCH, p, lit=maps[0.0])[1]) == want, d
+        assert sha(NB.descent_image(V.EPOCH, p, lit=maps[168.0])[1]) != want, d
 
 
 def test_script_runs_end_to_end(tmp_path):

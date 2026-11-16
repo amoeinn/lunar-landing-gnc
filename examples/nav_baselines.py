@@ -206,9 +206,11 @@ def _maps(e):
     return _C["maps"]
 
 
-def descent_image(e, p_true):
+def descent_image(e, p_true, lit=None):
     """The camera at the truth pose (nadir over its map point, at its height
-    above the sphere), imaging the landing epoch's render on the DEM."""
+    above the sphere), imaging the landing epoch's render on the DEM. lit is
+    the render (lit disc fraction on the 20 m map grid); by default the
+    landing epoch's gap-0 map, read through _maps(e)."""
     from lunar_landing_gnc.camera import Camera, Terrain, image, nadir
     cam = Camera(*nadir(p_true[0], p_true[1], p_true[2]))
     half = 0.26 * (p_true[2] - 239.0 + 800.0) + 600.0
@@ -216,7 +218,8 @@ def descent_image(e, p_true):
     by1 = P.MAP_Y1 - np.floor((P.MAP_Y1 - p_true[1] - half) / P.CELL_M) * P.CELL_M
     nb = int(np.ceil(2 * half / P.CELL_M)) + 1
     ter = Terrain(P.dem_cells(bx0, by1, nb, nb), bx0, by1, P.CELL_M)
-    return cam, image(cam, ter, _maps(e)[0.0], P.MAP_X0, P.MAP_Y1, P.CELL_M)
+    lit = _maps(e)[0.0] if lit is None else lit
+    return cam, image(cam, ter, lit, P.MAP_X0, P.MAP_Y1, P.CELL_M)
 
 
 def make_trn(e, gap, images, pos, idx):

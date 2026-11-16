@@ -1,7 +1,7 @@
 """Step 8.1: the descent trajectory visualization (PLAN.md "Phase 8: closeout",
 D121, D126 to D131).
 
-    python examples/make_descent_viz.py [--out DIR] [--only plan,maps,side,hazard,anim]
+    python examples/make_traj_viz.py [--out DIR] [--only plan,maps,side,hazard,anim]
 
 Three draws of the scored seed 20261062 (TRN lander, landing epoch 0, gap-0
 flight a safe landing), each flown with a fresh map (gap 0 h) and with a
@@ -16,7 +16,7 @@ chosen site, its true position, Q, the miss from the target, the miss from
 the site's true position and criterion 2, the outcome, each TRN fix's time
 and outcome, an abort's trigger, time and orbit) is read through
 record_values(), which takes it from the history where the history holds it;
-tests/test_descent_viz.py checks that function against the record. The
+tests/test_traj_viz.py checks that function against the record. The
 terrain (hillshade) and the descent image need LLG_DATA; the two reference
 maps are tracked in docs/viz_data/maps (D127). Without the data the views
 that need it are skipped and say so.
@@ -59,6 +59,7 @@ ANIM_SLOW_FROM_S = 60.0
 ANIM_STEP_SLOW_S = 0.25                            # s of flight per frame over the final approach
 FPS = 12
 GIF_LIMIT_MB = 8.0
+ANIM_DPI = 80                                      # 1280 by 416 pixels
 LAST_M = 300.0                                     # D129: the side view's close panel
 
 
@@ -80,7 +81,8 @@ def record_values(row, h, m):
     the history holds it (map coordinates, metres): outcome, pre-mission
     target, chosen site (the decision's site, in the lander's estimated
     frame), touchdown (the last logged true position), Q (the horizontal
-    distance between estimate and truth at contact, D6), the miss from the
+    distance between estimate and truth at contact, D6, so the believed
+    touchdown, the last logged estimate, sits Q from it), the miss from the
     target, the miss from the site's true position and criterion 2 on it
     (D25), each TRN fix's time and outcome, and for an abort its trigger,
     time, outcome and orbit. The site's true position and the gear check are
@@ -97,6 +99,7 @@ def record_values(row, h, m):
                site=(float(d["site"][0]), float(d["site"][1])) if d and d.get("site") is not None else None,
                true_site=ts,
                touchdown=(float(td[0]), float(td[1])) if landed else None,
+               est_touchdown=(float(est[0]), float(est[1])) if landed else None,
                q=float(np.hypot(*(est - td))) if landed else None,
                miss_target=float(np.hypot(td[0] - tx, td[1] - ty)) if landed else None,
                miss_true_site=float(np.hypot(td[0] - ts[0], td[1] - ts[1])) if landed and ts else None,
@@ -114,8 +117,9 @@ def what_failed(v):
         return []
     out = []
     if v["criterion2"] is False:
-        out.append(f"criterion 2: touchdown {v['miss_true_site']:.3f} m from the chosen site's true position, "
-                   f"outside the {LANDING_RADIUS} m radius")
+        out.append(f"criterion 2 by {v['miss_true_site'] - LANDING_RADIUS:.3f} m: touchdown "
+                   f"{v['miss_true_site']:.3f} m from the chosen site's true position, against the {LANDING_RADIUS} m "
+                   "radius")
     if v["gear_safe"] is False:
         out.append("the ground at the touchdown was unsafe for the gear")
     return out
@@ -217,15 +221,16 @@ def draw_fixes(ax, v, T, P):
         ax.plot(p[0], p[1], mk, ms=7, mfc=col, mec="k", mew=0.6, zorder=6)
 
 
-SHARE_KEY = {"abort to a safe orbit": "abort to a safe orbit", "safe landing": "safe landing",
-             "unsafe landing": "unsafe outcome"}
-
-
 def share_text(sh, outcome):
+    """A row's label: its outcome's count among the seed's +168 h TRN flights,
+    pooled and at the landing epoch; for unsafe landings, the flights that
+    ended in an error are stated separately."""
     po, e0 = sh["pooled"], sh[f"epoch {EPOCH}"]
-    k = SHARE_KEY[outcome]
-    return (f"{k}: {po[k]} of {po['flights']} of this seed's +168 h TRN flights ({e0[k]} of {e0['flights']} at "
-            f"epoch {EPOCH})")
+    s = (f"{outcome}: {po[outcome]} of {po['flights']} of this seed's +168 h TRN flights ({e0[outcome]} of "
+         f"{e0['flights']} at epoch {EPOCH})")
+    if outcome == "unsafe landing":
+        s += f"; besides these, {po['error']} ended in an error ({e0['error']} at epoch {EPOCH})"
+    return s
 
 
 def outcome_text(v):
@@ -357,14 +362,13 @@ def map_path(gap):
 
 def maps_view(F, out, sh):
     """Per draw: the descent image the camera saw at the first fix
-    (nav_baselines.descent_image unchanged, given the tracked gap-0 map it
-    renders from) beside the reference map each lander carried (landing
+    (nav_baselines.descent_image, given the tracked gap-0 map it renders
+    from) beside the reference map each lander carried (landing
     epoch plus its gap), over the image's ground footprint."""
     import matplotlib.pyplot as plt
     import nav_baselines as NB
     from lunar_landing_gnc import premise as P
     maps = {g: np.load(map_path(g)) for g in GAPS}
-    NB._C["maps"], NB._C["maps_e"] = {g: mp.astype(np.float64) for g, mp in maps.items()}, EPOCH
     fig, axes = plt.subplots(3, 3, figsize=(13, 13.5))
     for r, (oc, draw, rule) in enumerate(CASES):
         f = F[(draw, 0.0)]
@@ -372,7 +376,7 @@ def maps_view(F, out, sh):
         p = at(t_fix, f["T_true"], f["P_true"])
         q = at(t_fix, F[(draw, 168.0)]["T_true"], F[(draw, 168.0)]["P_true"])
         assert np.allclose(q, p, atol=1e-6), (draw, q, p)          # both flights share their start (D12)
-        cam, img = NB.descent_image(EPOCH, p)
+        cam, img = NB.descent_image(EPOCH, p, lit=maps[0.0].astype(np.float64))
         ground = float(NB.terrain()[0].height(np.array([p[0]]), np.array([p[1]]))[0])
         half = (p[2] - ground) * (img.shape[1] / 2) / cam.focal_px
         axes[r, 0].imshow(img, cmap="gray", vmin=0, vmax=np.nanmax(img), origin="upper")
@@ -484,7 +488,7 @@ def hazard_view(F, out, sh):
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
     from matplotlib.patches import Patch
-    fig, axes = plt.subplots(1, 3, figsize=(17, 6.6))
+    fig, axes = plt.subplots(1, 3, figsize=(17, 7.4))
     for ax, (oc, draw, rule) in zip(axes, CASES):
         f = F[(draw, 168.0)]
         d, v = f["m"]["decision"], f["v"]
@@ -498,27 +502,58 @@ def hazard_view(F, out, sh):
         ext = (xs[0] - dx / 2, xs[-1] + dx / 2, yu[0] - dx / 2, yu[-1] + dx / 2)
         ax.imshow(grid, extent=ext, origin="upper", cmap=ListedColormap(["#c44e52", "#8c8c8c", "#55a868"]),
                   vmin=-0.5, vmax=2.5, interpolation="nearest")
-        draw_points(ax, v, 168.0, big=True)
-        pts = np.array([p for p in (v["site"], v["touchdown"], v["target"], shown_true_site(v)) if p is not None])
-        lo = np.minimum(pts.min(axis=0) - 10, [ext[0], ext[2]])
-        hi = np.maximum(pts.max(axis=0) + 10, [ext[1], ext[3]])
+        ax.plot(*v["target"], "*", ms=15, mfc="gold", mec="k", zorder=8)
+        if v["site"] is not None:
+            ax.plot(*v["site"], "s", ms=10, mfc="none", mec="k", mew=2.0, zorder=8)
+        if v["est_touchdown"] is not None:
+            ax.plot(*v["est_touchdown"], "v", ms=11, mfc="white", mec=COLOUR[168.0], mew=2.0, zorder=9)
+        pts = np.array([p for p in (v["site"], v["est_touchdown"], v["target"]) if p is not None])
+        lo = np.minimum(pts.min(axis=0) - 6, [ext[0], ext[2]])
+        hi = np.maximum(pts.max(axis=0) + 6, [ext[1], ext[3]])
         ax.set_xlim(lo[0], hi[0]), ax.set_ylim(lo[1], hi[1]), ax.set_aspect("equal")
+        if v["touchdown"] is not None:
+            edge_arrow(ax, v, (lo[0], hi[0]), (lo[1], hi[1]))
+        import textwrap
         fail = what_failed(v)
-        ax.set_title(f"draw {draw}, week-old map: {outcome_text(v)}" + (f"\nfailed {fail[0]}" if fail else "")
-                     + f"\n{int((safe & lit).sum())} of {safe.size} cells detected safe and lit. {rule}; score\n"
-                     f"{share_text(sh, oc)}", fontsize=7.5)
+        head = [f"draw {draw}, week-old map: {outcome_text(v)}"] + ([f"failed {fail[0]}"] if fail else []) + [
+            f"{int((safe & lit).sum())} of {safe.size} cells detected safe and lit", f"{rule}; score {share_text(sh, oc)}"]
+        ax.set_title("\n".join(w for x in head for w in textwrap.wrap(x, 78)), fontsize=8)
         ax.tick_params(labelsize=7)
         ax.set_xlabel("map east, m", fontsize=7), ax.set_ylabel("map north, m", fontsize=7)
+    from matplotlib.lines import Line2D
     H, L = legend_handles()
-    H, L = [H[i] for i in (3, 4, 5, 6)], [L[i] for i in (3, 4, 5, 6)]
+    H, L = [H[3], H[4]], [L[3], "chosen site"]
+    H += [Line2D([], [], marker="v", ls="", ms=9, mfc="white", mec=COLOUR[168.0], mew=2.0)]
+    L += ["believed touchdown (the estimate at contact)"]
     H += [Patch(color="#55a868"), Patch(color="#8c8c8c"), Patch(color="#c44e52")]
     L += ["detected safe and lit", "detected safe, dark", "not detected safe (unsafe or unverified)"]
     fig.legend(H, L, loc="lower center", ncol=7, fontsize=8, frameon=False)
     fig.suptitle(f"Seed {SEED}, week-old map flights: the landing decision's hazard map as each lander placed it "
                  "(1 m cells in its estimated frame)", fontsize=10)
-    fig.tight_layout(rect=(0, 0.06, 1, 0.95))
+    fig.tight_layout(rect=(0, 0.05, 1, 0.94))
     fig.savefig(out / "traj_hazard.png", dpi=100)
     plt.close(fig)
+
+
+def edge_arrow(ax, v, xlim, ylim):
+    """Point from the believed touchdown to the true touchdown, which lies Q
+    away in the map frame; where it is outside the panel the arrow stops at
+    the panel's edge and says how far it is."""
+    b, t = np.array(v["est_touchdown"]), np.array(v["touchdown"])
+    dvec = t - b
+    inside = xlim[0] <= t[0] <= xlim[1] and ylim[0] <= t[1] <= ylim[1]
+    if inside:
+        end = t
+        ax.plot(*t, "v", ms=11, mfc=COLOUR[168.0], mec="k", zorder=9)
+    else:
+        lims = [((xlim[0] if dvec[0] < 0 else xlim[1]) - b[0]) / dvec[0] if dvec[0] else np.inf,
+                ((ylim[0] if dvec[1] < 0 else ylim[1]) - b[1]) / dvec[1] if dvec[1] else np.inf]
+        end = b + 0.97 * min(lims) * dvec
+    ax.annotate("", xy=end, xytext=b, arrowprops=dict(arrowstyle="-|>", color="k", lw=1.6), zorder=10)
+    ax.text(0.98, 0.02, f"arrow: to the true touchdown, {v['q']:.1f} m from the believed one"
+            + ("" if inside else " and off the panel") + f",\n{v['miss_true_site']:.2f} m from the chosen site's "
+            "true position", transform=ax.transAxes, fontsize=8, ha="right", va="bottom", zorder=11,
+            bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="0.4", alpha=0.92))
 
 
 def animation(F, out, sh):
@@ -536,8 +571,8 @@ def animation(F, out, sh):
     times = np.concatenate([np.arange(0.0, ANIM_SLOW_FROM_S, ANIM_STEP_S),
                             np.arange(ANIM_SLOW_FROM_S, t_end, ANIM_STEP_SLOW_S), [t_end]])
     tmp = Path(tempfile.mkdtemp(prefix="traj_anim_"))
-    fig = plt.figure(figsize=(14.0, 4.4), dpi=72)
-    axes = [fig.add_axes([0.005 + 0.333 * i, 0.02, 0.323, 0.80]) for i in range(3)]
+    fig = plt.figure(figsize=(16.0, 5.2), dpi=ANIM_DPI)
+    axes = [fig.add_axes([0.006 + 0.333 * i, 0.015, 0.322, 0.74]) for i in range(3)]
     frames = []
     try:
         for n, t in enumerate(times):
@@ -563,16 +598,17 @@ def animation(F, out, sh):
                     if v["abort"] and t >= v["abort"]["t"]:
                         ax.text(0.02, 0.04, f"week-old map: no eligible site, abort at {v['abort']['t']:.0f} s,\n"
                                 f"rising out of view to a {v['abort']['outcome']}", transform=ax.transAxes,
-                                fontsize=7, color=COLOUR[g],
+                                fontsize=10, color=COLOUR[g],
                                 bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
                 ax.set_xlim(x0, x1), ax.set_ylim(y0, y1), ax.set_aspect("equal")
                 ax.set_xticks([]), ax.set_yticks([])
-                ax.set_title(f"draw {draw}: week-old map {oc}\n({share_text(sh, oc)})", fontsize=7)
-            fig.text(0.005, 0.95, f"Seed {SEED}, epoch {EPOCH}, t = {t:5.1f} s from high gate.   Blue: {LABEL[0.0]}."
-                     f"   Red: {LABEL[168.0]}.   Purple: the abort's rise.   Solid true, dotted estimated; squares "
-                     "chosen sites, triangles touchdowns.", fontsize=8)
+                ax.set_title(f"draw {draw}, week-old map: {oc}\n{share_short(sh, oc)}", fontsize=11)
+            fig.text(0.006, 0.955, f"Seed {SEED}, epoch {EPOCH}, t = {t:5.1f} s from high gate", fontsize=14,
+                     weight="bold")
+            fig.text(0.006, 0.915, f"Blue: {LABEL[0.0]}.  Red: {LABEL[168.0]}.  Purple: the abort's rise.  Solid "
+                     "true, dotted estimated; squares chosen sites, triangles touchdowns.", fontsize=11)
             pth = tmp / f"f{n:04d}.png"
-            fig.savefig(pth, dpi=72)
+            fig.savefig(pth, dpi=ANIM_DPI)
             fig.texts.clear()
             frames.append(pth)
         plt.close(fig)
@@ -594,10 +630,26 @@ SCORE = ROOT / "work" / "step6_3" / f"score_{SEED}.json"
 
 
 def shares():
-    """The registered score's three-way split of the +168 h TRN flights on
-    this seed (work/step6_3, the scorer's output): pooled and at epoch 0."""
-    tw = json.loads(SCORE.read_text())["three_way"]["+168 h"]
-    return {k: tw[k] for k in ("pooled", f"epoch {EPOCH}")}
+    """The registered score's counts of the +168 h TRN flights on this seed
+    (work/step6_3, the scorer's output), pooled and at epoch 0: aborts to a
+    safe orbit and safe landings from its three-way split, unsafe landings
+    and errors from its outcome counts, and its split of the unsafe landings
+    (D67)."""
+    d = json.loads(SCORE.read_text())
+    tw, oc = d["three_way"]["+168 h"], d["summary_6_2"]["outcomes"]["+168 h"]
+    out = {}
+    for g in ("pooled", f"epoch {EPOCH}"):
+        assert sum(oc[g].values()) == tw[g]["flights"], g
+        out[g] = {"abort to a safe orbit": tw[g]["abort to a safe orbit"], "safe landing": tw[g]["safe landing"],
+                  "unsafe landing": oc[g].get("unsafe landing", 0), "error": oc[g].get("error", 0),
+                  "flights": tw[g]["flights"]}
+    out["unsafe_split"] = d["unsafe_split"]["+168 h"]
+    return out
+
+
+def share_short(sh, outcome):
+    po, e0 = sh["pooled"], sh[f"epoch {EPOCH}"]
+    return f"{po[outcome]} of {po['flights']} +168 h flights ({e0[outcome]} of {e0['flights']} at epoch {EPOCH})"
 
 
 def draw_caption(F, sh, oc, draw, rule):
@@ -611,16 +663,24 @@ def draw_caption(F, sh, oc, draw, rule):
     if vb["abort"]:
         ab, d = vb["abort"], b["m"]["decision"]
         t, x, z = abort_where(b)
-        s += (f"Its landing decision found {d['eligible']} eligible sites, so it aborted at {ab['t']:.0f} s; the "
-              f"logged rise and burn end at t = {t:.1f} s, {x / 1000:.1f} km east and {z / 1000:.1f} km up, and the "
-              f"record gives a {ab['outcome']} with perilune {ab['perilune'] / 1000:.1f} km and apolune "
-              f"{ab['apolune'] / 1000:.1f} km. ")
+        s += (f"Its landing decision found {d['eligible']} eligible sites, so it aborted at {ab['t']:.0f} s. The "
+              f"record gives the outcome, a {ab['outcome']}, and the orbit, perilune {ab['perilune'] / 1000:.1f} km "
+              f"and apolune {ab['apolune'] / 1000:.1f} km. The drawn rise and burn end where the log ends, at t = "
+              f"{t:.1f} s, {x / 1000:.1f} km east and {z / 1000:.1f} km up. ")
     else:
         believed = math.hypot(vb["touchdown"][0] - vb["site"][0], vb["touchdown"][1] - vb["site"][1])
         s += (f"It touched down {vb['miss_true_site']:.3f} m from its chosen site's true position and "
               f"{believed:.1f} m from where it believed that site was. ")
         fail = what_failed(vb)
         s += ("It failed " + "; ".join(fail) + ". ") if fail else "It passed every landing check. "
+        if fail:
+            us, n = sh["unsafe_split"], sh["pooled"]["unsafe landing"]
+            assert us["unsafe_landings"] == n
+            off, rough = us["classes"]["off the verified site"], us["touchdown_on_gear_unsafe_ground"]
+            assert vb["gear_safe"] is True and off == 1 and n - rough == 1     # so this flight is that one case
+            s += (f"Its ground was gear safe. Of the {n} unsafe landings at +168 h on this seed, {rough} touched "
+                  f"down on gear-unsafe ground; this is the single one that did not, the registered score's one "
+                  "case off the verified site. ")
     s += f"The same draw with a fresh map: {outcome_text(va)}."
     return s
 
@@ -629,8 +689,8 @@ def captions(F, sh):
     """The captions, every number read from the histories, the records or
     the registered score."""
     L = ["# Descent trajectory visualization", "",
-         "Made by `examples/make_descent_viz.py` from the six flight histories in `docs/viz_data/` and the two "
-         "reference maps in `docs/viz_data/maps/`; `tests/test_descent_viz.py` checks every plotted value the "
+         "Made by `examples/make_traj_viz.py` from the six flight histories in `docs/viz_data/` and the two "
+         "reference maps in `docs/viz_data/maps/`; `tests/test_traj_viz.py` checks every plotted value the "
          "flight record also holds against the record.", "",
          f"Three draws of the scored seed {SEED}, the TRN lander, landing epoch {EPOCH}, each chosen by a rule "
          "registered before it was drawn, among the draws whose fresh map flight is a safe landing (flights that "
@@ -638,10 +698,9 @@ def captions(F, sh):
          f"aborts to a safe orbit (D126, draw {CASES[0][1]}), touches down (D121, draw {CASES[1][1]}) and ends in "
          f"an unsafe landing (D126, draw {CASES[2][1]}). Each is shown beside the same draw flown with a fresh "
          "map; both flights of a draw share their start up to the first fix. Each is labelled with its "
-         "outcome's share of the seed's week-old map TRN flights in the registered score's three way split (D69). "
-         "The score's third class, unsafe outcome, holds the unsafe landings together with the aborts that did "
-         "not reach a safe orbit and the flights that ended in an error, so it is not a count of unsafe landings "
-         "alone. None of the three is typical of anything but its own outcome.", ""]
+         "outcome's count among the seed's week-old map TRN flights in the registered score: aborts to a safe "
+         "orbit and safe landings from its three way split (D69), unsafe landings alone from its outcome counts, "
+         f"with the {sh['pooled']['error']} flight that ended in an error stated separately. None of the three is typical of anything but its own outcome.", ""]
     for oc, draw, rule in CASES:
         L += [draw_caption(F, sh, oc, draw, rule), ""]
     L += ["## Plan view (`traj_plan.png`)", "",
@@ -662,9 +721,11 @@ def captions(F, sh):
           "estimated paths about the site guidance flew to (the replay checker's check 3), an abort's rise and "
           "burn about the pre-mission target. Heights are relative to the site's logged height.", "",
           "## Landing close-up (`traj_hazard.png`)", "",
-          "The landing decision's hazard map for each week-old map flight, in the lander's estimated frame: cells "
-          "detected safe and lit, detected safe but dark, and not detected safe, with the chosen site, its true "
-          "position and the touchdown.", "",
+          "The landing decision's hazard map for each week-old map flight, in the lander's estimated frame where "
+          "the map lives: cells detected safe and lit, detected safe but dark, and not detected safe, with the "
+          "chosen site and the believed touchdown (the estimate at contact). An arrow points from the believed "
+          "touchdown to the true touchdown, Q away in the map frame, and stops at the panel's edge when the true "
+          "touchdown is off the panel.", "",
           "## Animation (`traj_anim.mp4`, `traj_anim.gif`)", "",
           "The three draws side by side, each with its fresh map and week-old map flights, time-synchronised from "
           f"high gate: one second of flight per frame to {ANIM_SLOW_FROM_S:.0f} s, a quarter second per frame "

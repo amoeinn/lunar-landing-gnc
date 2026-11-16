@@ -1,7 +1,8 @@
 This repository's history was rewritten on 16 Nov 2026, before its first
 publication, to remove a personal email address and local folder paths. Commit
-contents are unchanged. Commit hashes cited in the records under work/ are the
-old ones; this file maps each old hash to its new one.
+contents are unchanged apart from those folder paths, which were replaced by ~
+in 15 result files under work/. Commit hashes cited in the records under work/
+are the old ones; this file maps each old hash to its new one.
 
 e127a324363b54f579234e00fdd90fd8d36a22e4 d814c2f3adc5c0609db255d96b0f0b2d7cfb0866
 b639dfa52da9d8b364751a1f831a7d1c373fb357 40ad70e8d75edb47a932f11a18f185eee68caecc

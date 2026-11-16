@@ -27,7 +27,7 @@ import golden_traces as GT  # noqa: E402
 
 SEED = 20261041
 OUT = ROOT / "work" / "step4_7" / f"seed{SEED}"
-RECORDING_COMMIT = "3d1fffe"      # the 4.2 recording; the manifest lists any recorder change since
+RECORDING_COMMIT = "07388ad"      # the 4.2 recording; the manifest lists any recorder change since
 _run_job = GT.run_job
 
 

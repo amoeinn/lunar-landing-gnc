@@ -299,7 +299,7 @@ def cmd_noise():
                table=res["stats"], k=res["k"], reproduction=res["reproduction"],
                limit="the image is made from the same map by bilinear sampling, so at gap 0 R5 matches how the "
                      "data was generated and the fresh-map fix floor is optimistic",
-               source="R5 as-flown second passes of the step 3.4d gap-0 accepted fixes (commit d7149cd), seeds "
+               source="R5 as-flown second passes of the step 3.4d gap-0 accepted fixes (commit aac713e), seeds "
                       "20261030 and 20261031; sigma_z from the step 3.4d logs; PLAN.md filter design revision 3d",
                recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
     NB.save(REMEDY, rec)

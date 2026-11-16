@@ -60,7 +60,7 @@ def mask(text):
 def test_phase_2a_reproduction_unchanged_with_the_new_constraints_off():
     """Protects phase 2a from the lunar additions: with the pointing limit
     and the target end state off, the reproduction prints what commit
-    c3d88ec printed, byte for byte once the wall-clock times are masked."""
+    79be164 printed, byte for byte once the wall-clock times are masked."""
     spec = importlib.util.spec_from_file_location(
         "repro", ROOT / "examples" / "reproduce_acikmese_ploen.py")
     repro = importlib.util.module_from_spec(spec)
@@ -193,9 +193,9 @@ def test_cap_060_at_revision_0_is_the_unrevised_design():
     """Protects the revisions from changing what they did not mean to: at
     u_cap 0.60 flown as revision 0 (no window, state constraints from node
     0), draw 0 of the evaluation seed flies to the same end and touchdown
-    states, with the same infeasible re-solves, as commit 392ac9e recorded."""
+    states, with the same infeasible re-solves, as commit 4ec0f34 recorded."""
     import json
-    ref = json.loads((ROOT / "tests" / "data" / "closed_loop_392ac9e.json").read_text())
+    ref = json.loads((ROOT / "tests" / "data" / "closed_loop_4ec0f34.json").read_text())
     nom = CL.high_gate_mass(u_cap=0.60)
     for mode in ("closed", "open"):
         f = CL.fly(nom, mode, ref["kappa"], ref["isp"], np.array(ref["dr0"]), np.array(ref["dv0"]),

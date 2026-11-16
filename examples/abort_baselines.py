@@ -4,7 +4,7 @@ Response: the ascent-stage abort (abort.py, branch "ascent"), with the
 trigger revision (closed_loop revision 3: the re-solve widens past the window
 before the infeasible trigger may fire). Each abort is judged by the
 counterfactual, the same flight flown on from the trigger with aborts
-disabled, and by step 9's condition. Step 9 (commit e5c5d0e) ran the
+disabled, and by step 9's condition. Step 9 (commit c1018e4) ran the
 descent-engine branch at revision 2; that record stands in its commit.
 
 Stages, each run on its own and saved to work/abort_baselines/ when it ends:
@@ -532,7 +532,7 @@ def report():
                   f"and {r['aborts2']}, fuel {r['fuel3']:.6f} and {r['fuel2']:.6f} kg, widenings {r['widened']}")
         if n_same == N_IDENTITY:
             print(f"  all identical: step 9's result carries over, 0 aborts in {N_FALSE_ALARM} nominal draws "
-                  f"(commit e5c5d0e), with this check as the evidence that revision 3 flies them the same")
+                  f"(commit c1018e4), with this check as the evidence that revision 3 flies them the same")
     fa = load("falsealarm")
     if fa:
         ab = [r for r in fa["rows"] if r["aborts"]]

@@ -4,7 +4,7 @@ ascent steering revision, 12 Oct 2026), computed before any ascent is flown.
 States:
   trigger states   the revision 4 triggers evaluated offline on the saved
                    aborts-disabled histories (work/abort_baselines/history/,
-                   commit 8f929f5): leak 50, thrust 51, state 49, the state
+                   commit c4ed567): leak 50, thrust 51, state 49, the state
                    and mass where each fired;
   nominal descent  the undispersed nominal closed-loop flight, aborts
                    disabled, revision 4: high gate and every 2 s of guided

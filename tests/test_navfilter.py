@@ -669,7 +669,7 @@ def test_pointing_bias_leaves_each_seeds_existing_truth_unchanged(job, want):
     """Protects the draw order: theta is drawn after every earlier draw, so
     the truth, the IMU and altimeter measurements, the Doppler noise and the
     initial estimate of a seed are byte for byte those of revision 3d
-    (sha256 prefixes pinned from commit 5af1bec's prepare), and theta enters
+    (sha256 prefixes pinned from commit 5b00291's prepare), and theta enters
     the Doppler measurement as theta x v."""
     import hashlib
     import importlib.util

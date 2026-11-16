@@ -1,6 +1,6 @@
 """Score phase 2c-1, closed-loop guidance, as PLAN.md registers it.
 
-Design: commit 7fbbd74's (closed_loop.REVISION 2), u_cap 0.60 as the sizing
+Design: commit 5081cc2's (closed_loop.REVISION 2), u_cap 0.60 as the sizing
 sweep chose. 200 paired draws on the fresh seed 20261013, same dispersions,
 same code as the reference sample on 20261011. Every distribution is printed
 as in the baselines (monte_carlo_lunar.main), then the six criteria, each

@@ -380,7 +380,7 @@ def seed_difference(a, b):
             and isinstance(b.get(k), (int, float))}
 
 
-# The premise bar (PLAN.md, registered 14 Oct 2026 after commit 6fa464e).
+# The premise bar (PLAN.md, registered 14 Oct 2026 after commit 34ae612).
 # A fix is a correlation that returned a position; dark templates and maps
 # dark over the whole search square give no fix and are not scored. H(g),
 # the hazard rate, is the fraction of the fixes at gap g, all fix times

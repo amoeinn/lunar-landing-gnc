@@ -502,7 +502,7 @@ def cmd_trncorr():
                corr_by_times=corr_by_times, zero_overlap_pairs=int(sum(p["overlap"] == 0.0 for p in pairs)),
                overlap_by_times={k: dict(n=len(v), mean=float(np.mean(v)), min=float(np.min(v)),
                                          max=float(np.max(v))) for k, v in sorted(by_times.items())},
-               source="step 3.4d gap-0 records (commit 6076b8c), seeds 20261030 and 20261031, accepted fixes, "
+               source="step 3.4d gap-0 records (commit 09fb144), seeds 20261030 and 20261031, accepted fixes, "
                       "second-pass errors; PLAN.md filter design revision 3",
                recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
     save(TRN_CORR, rec)

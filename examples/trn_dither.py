@@ -228,7 +228,7 @@ def cmd_record():
                model="per axis R = s0^2 + (j sigma_z)^2 (as 3d)",
                source_logs=dict(n=len(files), combined_sha256=hashlib.sha256("".join(per.values()).encode()).hexdigest(),
                                 files=per),
-               source="R5D on the logged starts of the revision 3f baselines' gap-0 fixes (commit b94fb58), seeds "
+               source="R5D on the logged starts of the revision 3f baselines' gap-0 fixes (commit bb2aaf5), seeds "
                       "20261030 and 20261031; PLAN.md filter design revision 3g",
                recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
     NB.save(DITHER, rec)

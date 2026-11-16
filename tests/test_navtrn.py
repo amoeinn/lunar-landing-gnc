@@ -159,7 +159,7 @@ def test_second_pass_without_a_position_falls_back_to_the_first():
 def test_first_pass_is_bit_identical_to_before_r5():
     """Protects the first pass and so the gates and the premise: with R5 as
     the second pass the first pass's fix and offset are exactly what the
-    code before revision 3d returned (values pinned from commit d7149cd's
+    code before revision 3d returned (values pinned from commit aac713e's
     navtrn.candidate on this scene)."""
     cam, img, heights, field, z = SCENE
     for d, fix, off in (((400.0, -300.0), (974.4671610785988, 5995.421596508979),
@@ -310,7 +310,7 @@ def test_dither_with_a_run_that_left_its_cell_is_flagged(monkeypatch):
 
 def test_r5_itself_is_unchanged_by_the_dither():
     """Protects R5: from fixed starts on this scene it returns exactly what
-    commit b94fb58's code returned (pinned)."""
+    commit bb2aaf5's code returned (pinned)."""
     cam, img, heights, field, z = SCENE
     for start, fix in (((XC + 7.0, YC - 4.0), (999.5610718049455, 6000.0392093582295)),
                        ((XC + 2.0, YC + 1.0), (999.8361193265084, 5999.976944826552))):
@@ -320,7 +320,7 @@ def test_r5_itself_is_unchanged_by_the_dither():
 
 def test_first_pass_is_bit_identical_with_the_dither():
     """Protects the first pass with R5D as the second pass (values pinned
-    from commit d7149cd, as for R5)."""
+    from commit aac713e, as for R5)."""
     cam, img, heights, field, z = SCENE
     c = navtrn.candidate(img, cam, np.array([XC + 400.0, YC - 300.0, z]), GRID, heights, field, 35, second="R5D")
     assert c["fix"] == (974.4671610785988, 5995.421596508979)

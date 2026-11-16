@@ -526,6 +526,10 @@ value is on the line beside it or in the table below.
 | ground fix: off by default | keeps every registered result reproducible; on only for the stated sensitivity |
 | seeds: premise 20261020, 20261021 (reference) and 20261022 (scored); phase 4 20261040 and 20261041; phase 5 20261050, 20261051 and 20261052; phase 6 20261060, 20261061 and 20261062 | each scored seed was unused before its scored run |
 
+The history was rewritten before publication, so the commit hashes cited in the
+records under `work/` are the old ones; [docs/commit-map.txt](docs/commit-map.txt)
+maps each to its new one.
+
 ## Citations
 
 * **LOLA DEMs**, the 20 m and 80 m south polar adjusted DEMs: Barker, M. K., et

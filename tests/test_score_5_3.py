@@ -1,5 +1,5 @@
 """The step 5.3 score (examples/score_5_3.py) against the two reference seeds'
-committed results (work/step5_2, commit 8f7d841) and against those results
+committed results (work/step5_2, commit 3af8155) and against those results
 altered by hand so that each criterion must fail.
 
 Each test names what it protects.

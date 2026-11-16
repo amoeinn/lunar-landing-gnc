@@ -1,5 +1,5 @@
 """Phase 3, step 3.3: the premise's registered scored run (PLAN.md, Premise,
-bar registered 14 Oct 2026 after commit 6fa464e).
+bar registered 14 Oct 2026 after commit 34ae612).
 
 Seed 20261022, the same design and code as step 3.2a (premise_sweep.sweep_job:
 4 landing epochs x 4 fix times x 10 truth poses x 2 prior draws, all 17 gaps),

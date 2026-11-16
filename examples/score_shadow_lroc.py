@@ -1,9 +1,9 @@
 """Score phase 1b: F's shadow masks against the LROC NAC frames, as registered.
 
 Windows are examples/window_masks.py's (work/windows/summary.json), F's masks
-its lit.npy, all from the rule of commit 998fd36. Thresholds, resampling, the
+its lit.npy, all from the rule of commit d94fd06. Thresholds, resampling, the
 _MODEL's scores and the metrics are the ones examples/registration_inputs.py
-committed in a7fb365, imported rather than restated. Per frame, LE and RE:
+committed in 9a14453, imported rather than restated. Per frame, LE and RE:
   agreement and kappa_F between F's point-source shadow mask and the observed
   dark cells; kappa_MODEL, the published simulation's, on the same cells;
   kappa_F minus kappa_MODEL; and kappa_F with F's mask shifted 10 cells north,

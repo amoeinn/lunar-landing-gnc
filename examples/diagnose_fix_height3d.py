@@ -280,7 +280,7 @@ def cmd_closedloop():
                            sigma_z_10s_min=float(sz.min()), sigma_z_10s_max=float(sz.max())),
                model="per axis R = s0^2 + (j sigma_z)^2, sigma_z the filter's vertical sigma at the fix (as 3d)",
                source_logs=dict(n=len(files), combined_sha256=combined, files=per),
-               source="step 3.4i logs (commit 5af1bec): revision 3d gap-0 accepted fixes, R5 as flown, seeds "
+               source="step 3.4i logs (commit 5b00291): revision 3d gap-0 accepted fixes, R5 as flown, seeds "
                       "20261030 and 20261031; PLAN.md filter design revision 3f",
                recorded=time.strftime("%Y-%m-%d %H:%M:%S"))
     NB.save(CLOSEDLOOP, rec)

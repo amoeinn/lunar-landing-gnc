@@ -471,7 +471,9 @@ under `LLG_DATA`, phase 3's reference maps (run outputs, not tracked), the C++
 build or lunar-polar-traverse's horizon binary skips, and its skip reason names
 what it needs. The rest run: the unit tests, and the tests of the committed
 results under `work/`, including the registered predictions the abort tests
-read.
+read. A fresh clone with only the virtual environment gives 481 passed and 120
+skipped, none failed (a module that skips whole counts once, so the totals
+differ); with the data, the C++ build and the run outputs, all 688 pass.
 
 ## Structure
 

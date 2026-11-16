@@ -1,0 +1,17 @@
+safe fraction read at epoch 0: applied, reverted; CAUGHT by test_payoff_data_equals_the_scores
+median Q read as the p90: applied, reverted; CAUGHT by test_payoff_data_equals_the_scores
+no-TRN level read at epoch 0: applied, reverted; CAUGHT by test_payoff_data_equals_the_scores
+gaps in file order: applied, reverted; CAUGHT by test_payoff_data_equals_the_scores, test_split_data_equals_the_three_way
+reference seeds read as the scored seed: applied, reverted; CAUGHT by test_payoff_data_equals_the_scores
+split read at epoch 0: applied, reverted; CAUGHT by test_split_data_equals_the_three_way
+no-TRN bar dropped: applied, reverted; CAUGHT by test_split_data_equals_the_three_way
+premise H read as the fix median: applied, reverted; CAUGHT by test_premise_data_equals_the_score
+premise gaps with no fix kept: applied, reverted; CAUGHT by test_premise_data_equals_the_score
+premise read at one fix time: applied, reverted; CAUGHT by test_premise_data_equals_the_score
+phase 5 system and blind swapped: applied, reverted; CAUGHT by test_phase5_data_equals_the_scores
+rock fields out of order: applied, reverted; CAUGHT by test_phase5_data_equals_the_scores
+seed-alone counts read from the sensitivity run: applied, reverted; CAUGHT by test_replay_data_equals_the_checker
+glide causes read at the worst violation: applied, reverted; CAUGHT by test_replay_data_equals_the_checker
+clearance causes read by sample: applied, reverted; CAUGHT by test_replay_data_equals_the_checker
+seed-alone lit causes read from the sensitivity run: applied, reverted; CAUGHT by test_replay_data_equals_the_checker
+10.07 s

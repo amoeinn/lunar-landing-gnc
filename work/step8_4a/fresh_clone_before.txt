@@ -1,0 +1,945 @@
+............ssss..........F.......sss.................F.EEE.EEEEEFssssss [ 12%]
+sssssssssssssssss...................EEEEEEEEEEEEEEF.FFFF................ [ 24%]
+.ssss.s................................................................. [ 36%]
+.s........................ss............................................ [ 48%]
+............................................sssss....................... [ 60%]
+..........ssssss..ss.............................................sssssss [ 72%]
+sssssssss.........s...................................ssssssssss........ [ 84%]
+ssss...............s..s................................................. [ 97%]
+.................                                                        [100%]
+==================================== ERRORS ====================================
+______ ERROR at setup of test_truth_nav_reproduces_phase5_to_the_decision ______
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_ ERROR at setup of test_guidance_and_triggers_read_the_estimate_with_true_mass _
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_______________ ERROR at setup of test_online_filter_equals_run ________________
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+__ ERROR at setup of test_pairing_same_noise_and_same_flight_to_the_first_fix __
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_______ ERROR at setup of test_shared_start_equals_flying_from_the_start _______
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_ ERROR at setup of test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock _
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_______ ERROR at setup of test_lost_lock_fires_online_for_the_trn_lander _______
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+_____ ERROR at setup of test_descent_image_fails_loudly_when_a_ray_misses ______
+
+    @pytest.fixture(scope="module")
+    def ctx():
+        """The landing context: an abort is judged on the true ground (D47, D53),
+        which context() alone does not carry."""
+>       return PF.landing_context()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:86: in landing_context
+    ctx = context()
+          ^^^^^^^^^
+examples/phase6_flights.py:72: in context
+    st = NB._static()
+         ^^^^^^^^^^^^
+examples/nav_baselines.py:185: in _static
+    ter, h_site = terrain()
+                  ^^^^^^^^^
+examples/nav_baselines.py:81: in terrain
+    h = P.dem_cells(P.MAP_X0, P.MAP_Y1, P.MAP_CELLS, P.MAP_CELLS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lunar_landing_gnc/premise.py:258: in dem_cells
+    with rasterio.open(require_data() / "lola" / "LDEM_80S_20MPP_ADJ.TIF") as ds:
+                       ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def require_data():
+        """The external data directory; raises if LLG_DATA is unset or wrong."""
+        root = data_dir()
+        if root is None:
+>           raise RuntimeError(f"{ENV_VAR} is not set; see examples/fetch_data.sh")
+E           RuntimeError: LLG_DATA is not set; see examples/fetch_data.sh
+
+src/lunar_landing_gnc/paths.py:43: RuntimeError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile0] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile0] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile1] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile1] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile2] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile2] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile3] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile3] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile4] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile4] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile5] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile5] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+__ ERROR at setup of test_fixed_ground_is_the_mosaic_at_the_same_point[tile6] __
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A..., 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile6] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile0] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile0] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile1] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile1] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile2] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile2] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile3] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile3] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile4] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile4] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile5] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile5] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___ ERROR at setup of test_default_ground_keeps_the_registered_offset[tile6] ___
+
+    @pytest.fixture(scope="module")
+    def grounds():
+        cx, cy = target()
+>       return {fix: Ground(path(), cx, cy, 20261113, 0, HALF, **(dict(ground_fix=True) if fix else {}))
+                            ^^^^^^
+                for fix in (False, True)}
+
+tests/test_ground_fix.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile6] (setup)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+=================================== FAILURES ===================================
+________________ test_states_come_from_the_prediction_on_record ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-amoein/pytest-18/test_states_come_from_the_pred0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a8857effe0>
+
+    def test_states_come_from_the_prediction_on_record(tmp_path, monkeypatch):
+        """Protects the link to the registration: the states are read only from
+        the prediction file whose hash was recorded; one changed byte refuses.
+        Every state is flown on both branches with its own prediction."""
+        F = _module()
+>       pred = F.prediction()
+               ^^^^^^^^^^^^^^
+
+tests/test_ascent_flights.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/ascent_flights.py:58: in prediction
+    raw = PREDICTION.read_bytes()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/pathlib.py:1021: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/llg_fresh_a/work/step11/ascent_prediction.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/llg_fresh_a/work/step11/ascent_prediction.json'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError
+_________________ test_flights_carry_the_registered_conditions _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-amoein/pytest-18/test_flights_carry_the_registe0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a876e00290>
+
+    def test_flights_carry_the_registered_conditions(tmp_path, monkeypatch):
+        """Protects the link to the registration: every flight is one of the
+        prediction's states with the conditions recorded there, both branches;
+        a changed byte in the prediction file refuses."""
+        F = _module()
+>       pred = F.prediction()
+               ^^^^^^^^^^^^^^
+
+tests/test_combined_flights.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/combined_flights.py:62: in prediction
+    raw = PREDICTION.read_bytes()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/pathlib.py:1021: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/llg_fresh_a/work/step12/combined_prediction.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/llg_fresh_a/work/step12/combined_prediction.json'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError
+_______ test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept ________
+
+    def test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept():
+        """Invariant (D5): the target's tile is phase 5's truth surface exactly
+        (truthsurface.truth, seed [seed, draw, 0]); a tile is the same for every
+        flight of a draw (two grounds, as two gaps would build them); tiles and
+        draws differ in their rocks; a height in the seam between two tiles,
+        east or north, is the bilinear between their facing cells; a point
+        outside the region raises. Fixture check: the tiles hold rocks."""
+        from lunar_landing_gnc import truthsurface as TS
+        from lunar_landing_gnc.ground import Ground
+>       path = Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                    ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_estflight.py:234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...TEST_CURRENT_TEST': 'tests/test_estflight.py::test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+________________________ test_default_is_off_everywhere ________________________
+
+    def test_default_is_off_everywhere():
+        """Protects the default: the option is off unless asked for, in
+        mosaic_base, truth and Ground."""
+        import inspect
+        assert inspect.signature(TS.mosaic_base).parameters["ground_fix"].default is False
+        assert inspect.signature(TS.truth).parameters["ground_fix"].default is False
+        assert inspect.signature(Ground).parameters["ground_fix"].default is False
+        cx, cy = target()
+>       assert Ground(path(), cx, cy, 1, 0, 0).ground_fix is False
+                      ^^^^^^
+
+tests/test_ground_fix.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ground_fix.py:36: in path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...', 'RAYON_NUM_THREADS': '1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_default_is_off_everywhere (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+___________ test_scorer_d63_rebuild_uses_the_option_only_when_asked ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a87490f9b0>
+
+    def test_scorer_d63_rebuild_uses_the_option_only_when_asked(monkeypatch):
+        """Protects the scorer's threading: D63 rebuilds the ground with
+        ground_fix only under --ground-fix (here through d63_seed), and as
+        before without it."""
+        import phase6_flights as P
+        import score_6_3 as SC
+        from lunar_landing_gnc import ground as G
+        made = []
+    
+        class Rec:
+            def __init__(self, *a, **k):
+                made.append(k.get("ground_fix", False))
+                self.tiles, self.rocks = {}, {}
+    
+            def height(self, x, y):
+                return np.zeros(len(x))
+    
+        class Dem:
+            def at(self, x, y):
+                return np.zeros(1)
+    
+        monkeypatch.setattr(G, "Ground", Rec)
+        monkeypatch.setattr(P, "context", lambda: dict(target=(0.0, 0.0, 0.0), dem=Dem()))
+        monkeypatch.setattr(SC.S, "gear_at", lambda g, x, y: (dict(safe=True), False))
+        row = dict(outcome="unsafe landing", draw=0, touchdown=[0.0, 0.0], true_site=[0.0, 0.0], lander="trn", epoch=0,
+                   gap=0.0, gear_safe=True, dem_minus_truth=0.0, crosses=False, criterion2=True)
+>       SC.d63_seed(1, [row])
+
+tests/test_ground_fix.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/score_6_3.py:227: in d63_seed
+    g = Ground(BL.dem_path(), cx, cy, seed, d, P.GROUND_HALF, **(dict(ground_fix=True) if ground_fix else {}))
+               ^^^^^^^^^^^^^
+examples/baselines_5_2.py:55: in dem_path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_scorer_d63_rebuild_uses_the_option_only_when_asked (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+_________ test_landing_context_threads_the_option_and_refuses_a_change _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a8749a9370>
+
+    def test_landing_context_threads_the_option_and_refuses_a_change(monkeypatch):
+        """Protects the landing context's threading: the D5 ground it makes per
+        draw carries ground_fix only when asked (off by default), and a context
+        made one way is not handed out the other way."""
+        import nav_baselines as NB
+        import phase6_flights as P
+        for fix in (False, True):
+            made = dict(target=(*target(), 0.0))          # one process's context, made once
+            monkeypatch.setattr(P, "context", lambda: made)
+            monkeypatch.setattr(P, "_GROUND_FIX", [])
+            monkeypatch.setattr(P, "_LITS", [(None, None)] * 4)
+            monkeypatch.setattr(NB, "terrain", lambda: (None,))
+>           ctx = P.landing_context(ground_fix=True) if fix else P.landing_context()
+                                                                 ^^^^^^^^^^^^^^^^^^^
+
+tests/test_ground_fix.py:177: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:104: in landing_context
+    ctx.update(ter=NB.terrain()[0], aim=TS.mosaic_base(BL.dem_path(), cx, cy, **fix), lit=lambda e: lits[e][1],
+                                                       ^^^^^^^^^^^^^
+examples/baselines_5_2.py:55: in dem_path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_landing_context_threads_the_option_and_refuses_a_change (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+________________ test_scan_aim_heights_follow_the_option[False] ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a876ca2840>
+fix = False
+
+    @pytest.mark.parametrize("fix", [False, True])
+    def test_scan_aim_heights_follow_the_option(monkeypatch, fix):
+        """Protects D109's reach to the scan's aim heights (ctx["aim"], the other
+        read through mosaic_base's window): with the option on they are the
+        mosaic at the same point, the fixed ground's mosaic; off they are as
+        registered, the mosaic half a cell away and exactly the default read.
+        The case built to fail: each is far from the other placement."""
+        import nav_baselines as NB
+        import phase6_flights as P
+        made = dict(target=(*target(), 0.0))
+        monkeypatch.setattr(P, "context", lambda: made)
+        monkeypatch.setattr(P, "_GROUND_FIX", [])
+        monkeypatch.setattr(P, "_LITS", [(None, None)] * 4)
+        monkeypatch.setattr(NB, "terrain", lambda: (None,))
+>       ctx = P.landing_context(ground_fix=True) if fix else P.landing_context()
+                                                             ^^^^^^^^^^^^^^^^^^^
+
+tests/test_ground_fix.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:104: in landing_context
+    ctx.update(ter=NB.terrain()[0], aim=TS.mosaic_base(BL.dem_path(), cx, cy, **fix), lit=lambda e: lits[e][1],
+                                                       ^^^^^^^^^^^^^
+examples/baselines_5_2.py:55: in dem_path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...READS': '1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_scan_aim_heights_follow_the_option[False] (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+________________ test_scan_aim_heights_follow_the_option[True] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77a876ca7170>
+fix = True
+
+    @pytest.mark.parametrize("fix", [False, True])
+    def test_scan_aim_heights_follow_the_option(monkeypatch, fix):
+        """Protects D109's reach to the scan's aim heights (ctx["aim"], the other
+        read through mosaic_base's window): with the option on they are the
+        mosaic at the same point, the fixed ground's mosaic; off they are as
+        registered, the mosaic half a cell away and exactly the default read.
+        The case built to fail: each is far from the other placement."""
+        import nav_baselines as NB
+        import phase6_flights as P
+        made = dict(target=(*target(), 0.0))
+        monkeypatch.setattr(P, "context", lambda: made)
+        monkeypatch.setattr(P, "_GROUND_FIX", [])
+        monkeypatch.setattr(P, "_LITS", [(None, None)] * 4)
+        monkeypatch.setattr(NB, "terrain", lambda: (None,))
+>       ctx = P.landing_context(ground_fix=True) if fix else P.landing_context()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_ground_fix.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+examples/phase6_flights.py:104: in landing_context
+    ctx.update(ter=NB.terrain()[0], aim=TS.mosaic_base(BL.dem_path(), cx, cy, **fix), lit=lambda e: lits[e][1],
+                                                       ^^^^^^^^^^^^^
+examples/baselines_5_2.py:55: in dem_path
+    return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
+                ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'SENTRY-TRACE': '5b2d79c281004beaa9d407268e3708b8-adc5b574483575dc', 'SHELL': '/bin/bash', 'COREPACK_ENABLE_A...HREADS': '1', 'PYTEST_CURRENT_TEST': 'tests/test_ground_fix.py::test_scan_aim_heights_follow_the_option[True] (call)'})
+key = 'LLG_DATA'
+
+>   ???
+E   KeyError: 'LLG_DATA'
+
+<frozen os>:685: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_ascent_flights.py::test_states_come_from_the_prediction_on_record
+FAILED tests/test_combined_flights.py::test_flights_carry_the_registered_conditions
+FAILED tests/test_estflight.py::test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept
+FAILED tests/test_ground_fix.py::test_default_is_off_everywhere - KeyError: '...
+FAILED tests/test_ground_fix.py::test_scorer_d63_rebuild_uses_the_option_only_when_asked
+FAILED tests/test_ground_fix.py::test_landing_context_threads_the_option_and_refuses_a_change
+FAILED tests/test_ground_fix.py::test_scan_aim_heights_follow_the_option[False]
+FAILED tests/test_ground_fix.py::test_scan_aim_heights_follow_the_option[True]
+ERROR tests/test_estflight.py::test_truth_nav_reproduces_phase5_to_the_decision
+ERROR tests/test_estflight.py::test_guidance_and_triggers_read_the_estimate_with_true_mass
+ERROR tests/test_estflight.py::test_online_filter_equals_run - RuntimeError: ...
+ERROR tests/test_estflight.py::test_pairing_same_noise_and_same_flight_to_the_first_fix
+ERROR tests/test_estflight.py::test_shared_start_equals_flying_from_the_start
+ERROR tests/test_estflight.py::test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock
+ERROR tests/test_estflight.py::test_lost_lock_fires_online_for_the_trn_lander
+ERROR tests/test_estflight.py::test_descent_image_fails_loudly_when_a_ray_misses
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile0]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile1]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile2]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile3]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile4]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile5]
+ERROR tests/test_ground_fix.py::test_fixed_ground_is_the_mosaic_at_the_same_point[tile6]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile0]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile1]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile2]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile3]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile4]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile5]
+ERROR tests/test_ground_fix.py::test_default_ground_keeps_the_registered_offset[tile6]
+8 failed, 479 passed, 92 skipped, 22 errors in 671.43s (0:11:11)

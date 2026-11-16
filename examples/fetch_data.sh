@@ -32,8 +32,8 @@ done
 # (https://pgda.gsfc.nasa.gov/products/81): Barker et al. (2021), "Improved
 # LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their
 # Impact on Illumination Conditions," Planetary and Space Science 203, 105119,
-# doi:10.1016/j.pss.2020.105119. ldem_87s_5mpp.tif 3.3 GB and ldec_87s_5mpp.tif
-# 140 MB, as the product page lists them. Coordinates are pixel registered,
+# doi:10.1016/j.pss.2020.105119. ldem_87s_5mpp.tif 3.47 GB and ldec_87s_5mpp.tif
+# 146 MB. Coordinates are pixel registered,
 # X and Y at pixel centres. The truth surface of the landing (phases 5 to 7)
 # and the replay checker's ground. Downloaded whole: window reads over HTTP
 # failed.

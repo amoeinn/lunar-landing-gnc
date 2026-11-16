@@ -466,12 +466,12 @@ must fail. The harness runs `python -B` with the caches cleared, so stale
 bytecode cannot report a broken file as passing, and confirms that each mutation
 applied exactly once.
 
-Without the data, the tests that read the DEMs, the mosaic or the kernels are
-meant to skip, and the tests of the committed results run, since those results
-are tracked under `work/`. Two test files, `test_ground_fix.py` and
-`test_estflight.py`, still read the data without a skip guard and fail without
-it, and the ascent and combined abort tests read registered prediction files
-under `work/step11` and `work/step12` that are not yet tracked.
+Without the data, every test that needs the LOLA products or the SPICE kernels
+under `LLG_DATA`, phase 3's reference maps (run outputs, not tracked), the C++
+build or lunar-polar-traverse's horizon binary skips, and its skip reason names
+what it needs. The rest run: the unit tests, and the tests of the committed
+results under `work/`, including the registered predictions the abort tests
+read.
 
 ## Structure
 

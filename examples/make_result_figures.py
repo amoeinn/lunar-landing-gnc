@@ -179,7 +179,7 @@ def fig_payoff(out):
     a.set_ylabel("safe-landing fraction (400 flights per gap)", fontsize=9)
     a.set_title("Safe landings against map gap", fontsize=10)
     b.set_yscale("log")
-    b.set_ylabel("median touchdown error Q, m (flights that touched down)", fontsize=9)
+    b.set_ylabel("navigation error at touchdown Q, m (median, touchdowns)", fontsize=9)
     b.set_title(f"Median Q against map gap (n: touchdowns of 400 behind each median, seed {P6_SEED})", fontsize=9)
     b.set_ylim(top=max(max(d["q_median"]) for d in D.values()) * 6)
     fig.suptitle("Phase 6 payoff: the TRN lander against map gap, scored seed and both reference seeds, with the "
@@ -318,7 +318,7 @@ def captions():
         s = D[P6_SEED]
         i168, i0 = s["gaps"].index(168.0), s["gaps"].index(0.0)
         L += ["## Payoff (`fig_payoff.png`)", "",
-              f"The TRN lander's safe-landing fraction and median touchdown error Q against map gap, for the scored "
+              f"The TRN lander's safe-landing fraction and median navigation error at touchdown Q against map gap, for the scored "
               f"seed {P6_SEED} and the reference seeds {P6_REFS[0]} and {P6_REFS[1]}, with each seed's no-TRN "
               f"lander as a dashed level. On the scored seed the safe fraction is {s['safe'][i0]:.3f} at gap 0 and "
               f"{s['safe'][i168]:.3f} at +168 h against {s['notrn_safe']:.3f} for the no-TRN lander; median Q is "

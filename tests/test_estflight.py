@@ -23,6 +23,30 @@ from lunar_landing_gnc import navfilter as NF  # noqa: E402
 from lunar_landing_gnc import navtruth as NT  # noqa: E402
 from lunar_landing_gnc.keyednoise import BLOCK, Noise  # noqa: E402
 
+
+def _missing(maps):
+    """Why these tests cannot fly here, or None: the LOLA DEM and 5 m mosaic
+    under LLG_DATA and, when maps is true, phase 3's reference maps, which
+    are run outputs and not tracked."""
+    d = os.environ.get("LLG_DATA")
+    if not d:
+        return "needs LLG_DATA with the LOLA data (examples/fetch_data.sh)"
+    for f in ("LDEM_80S_20MPP_ADJ.TIF", "ldem_87s_5mpp.tif"):
+        if not (Path(d) / "lola" / f).exists():
+            return f"needs {Path(d) / 'lola' / f} (examples/fetch_data.sh)"
+    if maps:
+        import nav_baselines as NB
+        import premise_sweep as S
+        gone = [S.map_path(e, g) for e in range(4) for g in NB.GAPS if not S.map_path(e, g).exists()]
+        if gone:
+            return f"needs phase 3's reference maps, {len(gone)} absent, first {gone[0]}"
+    return None
+
+
+# D119: a test that needs the data or the maps skips without them, saying why.
+needs_data = pytest.mark.skipif(_missing(False) is not None, reason=str(_missing(False)))
+needs_flight = pytest.mark.skipif(_missing(True) is not None, reason=str(_missing(True)))
+
 SEED = 1
 DRAW = 0
 TRUTH_DRAWS = (0, 1, 2)
@@ -56,6 +80,7 @@ def gaps(ctx):
     return {0.0: flown(ctx, DRAW, 0, 0.0), 168.0: flown(ctx, DRAW, 0, 168.0), "shared": shared}
 
 
+@needs_flight
 def test_truth_nav_reproduces_phase5_to_the_decision(truth_mode):
     """Check 1 (to the decision): with the estimate replaced by the truth,
     every guided step's state equals phase 5's flight (landing.to_decision,
@@ -80,6 +105,7 @@ def test_truth_nav_reproduces_phase5_to_the_decision(truth_mode):
         assert t0 == out["t"]
 
 
+@needs_flight
 def test_guidance_and_triggers_read_the_estimate_with_true_mass(gaps, truth_mode, ctx):
     """Invariant: what guidance reads at every step is the filter's estimate,
     converted to phase 2's frame here independently of estflight, with the
@@ -102,6 +128,7 @@ def test_guidance_and_triggers_read_the_estimate_with_true_mass(gaps, truth_mode
     assert met[-1] and not any(met[:-1])
 
 
+@needs_flight
 def test_online_filter_equals_run(gaps):
     """Invariant: the filter stepped online (navonline.Online) gives
     navfilter.run's log and final state bit for bit when run is fed the same
@@ -135,6 +162,7 @@ def test_noise_is_keyed_by_index_not_by_order_of_use():
     assert not np.array_equal(a.normal("doppler", 5), fwd[5])
 
 
+@needs_flight
 def test_pairing_same_noise_and_same_flight_to_the_first_fix(gaps, ctx):
     """Invariant (D12): two gaps of one draw see the same noise at every
     sample index (each flight's measurements less its own truth's model
@@ -172,6 +200,7 @@ def test_pairing_same_noise_and_same_flight_to_the_first_fix(gaps, ctx):
     assert fx0["image_sha"] == EF.image_sha(img) and fx0["prior_error"] > 1.0
 
 
+@needs_flight
 def test_shared_start_equals_flying_from_the_start(gaps):
     """Invariant (D12): a flight resumed from the shared start at t = 10 s
     is the flight from the start: the same steps, filter log, fixes and
@@ -188,6 +217,7 @@ def test_shared_start_equals_flying_from_the_start(gaps):
     assert repr(oa) == repr(ob)
 
 
+@needs_flight
 def test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock(truth_mode, ctx):
     """Invariant (D1, D2): the no-TRN lander takes altimeter updates from the
     first sample and flies past 40 s with no lost lock trigger, on its own
@@ -201,6 +231,7 @@ def test_no_trn_lander_uses_its_altimeter_from_the_start_and_never_loses_lock(tr
     assert not np.array_equal(f.s["log"][6], truth_mode[DRAW].s["log"][6])
 
 
+@needs_flight
 def test_lost_lock_fires_online_for_the_trn_lander(ctx, monkeypatch):
     """Invariant (D2): a TRN lander with no fix accepted by 40 s aborts at
     the first re-solve at 40 s with the lost lock trigger, and the abort is
@@ -213,6 +244,7 @@ def test_lost_lock_fires_online_for_the_trn_lander(ctx, monkeypatch):
     assert out["abort"]["outcome"] is not None
 
 
+@needs_flight
 def test_descent_image_fails_loudly_when_a_ray_misses(ctx):
     """Invariant (D9): a descent image with a ray that misses the ground
     raises. Fixture: a camera below the ground, from which no ray finds the
@@ -222,6 +254,7 @@ def test_descent_image_fails_loudly_when_a_ray_misses(ctx):
         EF.render(ctx, 0, np.array([cx, cy, hz - 200.0]))
 
 
+@needs_data
 def test_ground_tiles_keyed_by_draw_and_tile_and_phase5_square_kept():
     """Invariant (D5): the target's tile is phase 5's truth surface exactly
     (truthsurface.truth, seed [seed, draw, 0]); a tile is the same for every

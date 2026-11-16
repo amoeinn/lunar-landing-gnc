@@ -1,0 +1,6 @@
+payoff: 0.6 s
+split: 0.1 s
+premise: 0.1 s
+phase5: 0.2 s
+replay: 0.2 s
+1.40 s 101052 KB

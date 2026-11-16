@@ -32,6 +32,21 @@ TOL = 1e-9          # m: "about 1e-12" measured; the bound leaves room for float
 SHIFT = (2.5, -2.5)
 
 
+
+def _missing_data():
+    """Why these tests cannot read the LOLA 5 m mosaic here, or None."""
+    d = os.environ.get("LLG_DATA")
+    if not d:
+        return "needs LLG_DATA with the LOLA 5 m mosaic (examples/fetch_data.sh)"
+    m = Path(d) / "lola" / "ldem_87s_5mpp.tif"
+    return None if m.exists() else f"needs {m} (examples/fetch_data.sh)"
+
+
+# D119: a test that reads the mosaic skips without it, saying why; the tests of
+# the option's plumbing that read no data run everywhere.
+needs_data = pytest.mark.skipif(_missing_data() is not None, reason=str(_missing_data()))
+
+
 def path():
     return Path(os.environ["LLG_DATA"]) / "lola" / "ldem_87s_5mpp.tif"
 
@@ -80,6 +95,7 @@ def grounds():
             for fix in (False, True)}
 
 
+@needs_data
 @pytest.mark.parametrize("tile", TILES)
 def test_fixed_ground_is_the_mosaic_at_the_same_point(grounds, tile):
     """Protects D109's fix: with ground_fix the D5 ground (rocks excluded)
@@ -94,6 +110,7 @@ def test_fixed_ground_is_the_mosaic_at_the_same_point(grounds, tile):
     assert np.max(np.abs(h - mosaic(x + SHIFT[0], y + SHIFT[1]))) > 1000 * TOL
 
 
+@needs_data
 @pytest.mark.parametrize("tile", TILES)
 def test_default_ground_keeps_the_registered_offset(grounds, tile):
     """Protects the default: without the option the D5 ground (rocks
@@ -108,6 +125,7 @@ def test_default_ground_keeps_the_registered_offset(grounds, tile):
     assert np.max(np.abs(h - mosaic(x, y))) > 1000 * TOL
 
 
+@needs_data
 def test_default_is_off_everywhere():
     """Protects the default: the option is off unless asked for, in
     mosaic_base, truth and Ground."""
@@ -131,6 +149,7 @@ def test_logging_runner_flag_is_parsed_and_kept_for_stages():
     assert b.ground_fix is False and "--ground-fix" not in b.argv
 
 
+@needs_data
 def test_scorer_d63_rebuild_uses_the_option_only_when_asked(monkeypatch):
     """Protects the scorer's threading: D63 rebuilds the ground with
     ground_fix only under --ground-fix (here through d63_seed), and as
@@ -162,6 +181,7 @@ def test_scorer_d63_rebuild_uses_the_option_only_when_asked(monkeypatch):
     assert made == [False, True]
 
 
+@needs_data
 def test_landing_context_threads_the_option_and_refuses_a_change(monkeypatch):
     """Protects the landing context's threading: the D5 ground it makes per
     draw carries ground_fix only when asked (off by default), and a context
@@ -180,6 +200,7 @@ def test_landing_context_threads_the_option_and_refuses_a_change(monkeypatch):
             P.landing_context(ground_fix=not fix)
 
 
+@needs_data
 @pytest.mark.parametrize("fix", [False, True])
 def test_scan_aim_heights_follow_the_option(monkeypatch, fix):
     """Protects D109's reach to the scan's aim heights (ctx["aim"], the other

@@ -4,7 +4,7 @@ Made by `examples/make_result_figures.py`; every number is read from the committ
 
 ## Payoff (`fig_payoff.png`)
 
-The TRN lander's safe-landing fraction and median touchdown error Q against map gap, for the scored seed 20261062 and the reference seeds 20261060 and 20261061, with each seed's no-TRN lander as a dashed level. On the scored seed the safe fraction is 1.000 at gap 0 and 0.275 at +168 h against 0.620 for the no-TRN lander; median Q is 0.12 m at gap 0 and 608 m at +168 h against 343 m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. The number beside each scored seed point is the touchdowns behind its median. Limit: median Q is over the flights that touched down only, 138 of 400 at +168 h on the scored seed, so at large gaps it describes a shrinking and selected subset; aborts and errors are not in it.
+The TRN lander's safe-landing fraction and median navigation error at touchdown Q against map gap, for the scored seed 20261062 and the reference seeds 20261060 and 20261061, with each seed's no-TRN lander as a dashed level. On the scored seed the safe fraction is 1.000 at gap 0 and 0.275 at +168 h against 0.620 for the no-TRN lander; median Q is 0.12 m at gap 0 and 608 m at +168 h against 343 m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. The number beside each scored seed point is the touchdowns behind its median. Limit: median Q is over the flights that touched down only, 138 of 400 at +168 h on the scored seed, so at large gaps it describes a shrinking and selected subset; aborts and errors are not in it.
 
 ## Three way split (`fig_split.png`)
 

@@ -356,15 +356,15 @@ rasterio 1.5.1     spiceypy 8.2.0     cvxpy 1.9.3
 clarabel 0.11.1    pytest 9.1.1
 ```
 
-`clarabel` is not imported directly; cvxpy calls it as the guidance solver. The
-C++ build also needs pybind11 (2.13.6 here) in the same environment.
+`clarabel` is not imported directly; cvxpy calls it as the guidance solver.
+`requirements.txt` also pins pybind11 2.13.6, which only the C++ build uses.
 
 C++: GCC 13.3, CMake 3.28, Eigen 3.4, GoogleTest 1.14, and a Rust toolchain for
 Clarabel.rs (cargo 1.99.1 here). The replay checker's site lit check calls the
 built horizon binary of lunar-polar-traverse, found beside this repository or
 through `LLG_E_ROOT`. The animation is encoded with ffmpeg (6.1 here).
 
-Memory: the 20 m DEM is 2.7 GB and the 5 m mosaic 3.5 GB, and nothing here opens
+Memory: the 20 m DEM is 2.7 GB and the 5 m mosaic 3.3 GB, and nothing here opens
 either whole. A Monte Carlo worker peaks at about 2 GB; the runs here were
 sized for an 8 GB cap.
 
@@ -382,18 +382,24 @@ examples/fetch_data.sh
 The script is resumable and downloads about 7.1 GB:
 
 * the LOLA 20 m and 80 m south polar DEMs, PGDA product 90, 2.9 GB;
-* the LOLA 87S to 90S mosaic at 5 m and its return count map, PGDA product 81,
-  3.6 GB;
+* the LOLA 87S to 90S mosaic at 5 m, `ldem_87s_5mpp.tif` (3.3 GB), and its return
+  count map, `ldec_87s_5mpp.tif` (140 MB), PGDA product 81, from
+  <https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S/>, sizes as the product page
+  lists them;
 * nine LRO NAC observations map projected onto the 20 m DEM, with their published
   simulated counterparts, 27 files, 626 MB;
 * the SPICE kernels (DE421, the lunar PA binary PCK, leapseconds, planetary
   constants, the Moon frames kernel), 19 MB.
 
+The 5 m mosaic's product page states its convention: coordinates are pixel
+registered, with X and Y at pixel centres. The half-cell ground fault found in
+phase 7 is a window read that placed the data half a pixel off that grid.
+
 ## Setup
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt pybind11
+.venv/bin/pip install -r requirements.txt
 git submodule update --init --recursive
 ```
 
@@ -524,8 +530,11 @@ value is on the line beside it or in the table below.
   al. (2023), Planetary Science Journal 4, 183, PGDA product 90,
   <https://pgda.gsfc.nasa.gov/products/90>.
 * **LOLA 5 m mosaic**, 87S to 90S, with its return count map: Barker, M. K., et
-  al. (2021), Planetary and Space Science 203, 105119, PGDA product 81,
-  <https://pgda.gsfc.nasa.gov/products/81>.
+  al. (2021), "Improved LOLA Elevation Maps for South Pole Landing Sites: Error
+  Estimates and Their Impact on Illumination Conditions," Planetary and Space
+  Science 203, 105119, doi:10.1016/j.pss.2020.105119. PGDA product 81,
+  <https://pgda.gsfc.nasa.gov/products/81>; data
+  <https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S/>.
 * **LRO NAC observations**, nine image identifiers map projected onto the 20 m
   DEM, from the PGDA product 90 page, and their epochs and incidence angles from
   the LROC product pages. Imagery credit: NASA/GSFC/Arizona State University.

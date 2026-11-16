@@ -12,7 +12,7 @@ if [ -z "${LLG_DATA:-}" ]; then
 fi
 
 PGDA=https://pgda.gsfc.nasa.gov/data/LOLA_20mpp
-PGDA_5M=https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S
+PGDA_5M=https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S/
 NAIF=https://naif.jpl.nasa.gov/pub/naif/generic_kernels
 
 mkdir -p "$LLG_DATA/lola" "$LLG_DATA/nac" "$LLG_DATA/kernels"
@@ -28,13 +28,17 @@ for f in LDEM_80S_20MPP_ADJ.TIF LDEM_80S_80MPP_ADJ.TIF; do
     fetch "$PGDA/$f" "$LLG_DATA/lola"
 done
 
-# The 87S to 90S LOLA mosaic at 5 m and its return-count map (Barker et al.
-# 2021, Planetary and Space Science 203, 105119, PGDA product 81), 3.6 GB. The
-# truth surface of the landing (phases 5 to 7) and the replay checker's ground.
-# Downloaded whole: window reads over HTTP failed.
-for f in ldem_87s_5mpp.tif ldec_87s_5mpp.tif; do
-    fetch "$PGDA_5M/$f" "$LLG_DATA/lola"
-done
+# The 87S to 90S LOLA mosaic at 5 m and its return-count map, PGDA product 81
+# (https://pgda.gsfc.nasa.gov/products/81): Barker et al. (2021), "Improved
+# LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their
+# Impact on Illumination Conditions," Planetary and Space Science 203, 105119,
+# doi:10.1016/j.pss.2020.105119. ldem_87s_5mpp.tif 3.3 GB and ldec_87s_5mpp.tif
+# 140 MB, as the product page lists them. Coordinates are pixel registered,
+# X and Y at pixel centres. The truth surface of the landing (phases 5 to 7)
+# and the replay checker's ground. Downloaded whole: window reads over HTTP
+# failed.
+fetch "${PGDA_5M}ldem_87s_5mpp.tif" "$LLG_DATA/lola"
+fetch "${PGDA_5M}ldec_87s_5mpp.tif" "$LLG_DATA/lola"
 
 # NAC observations map projected onto the 20 m LDEM, with the published
 # simulated counterparts, which serve only to calibrate the dark threshold.

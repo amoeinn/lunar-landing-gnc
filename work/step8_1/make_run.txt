@@ -1,0 +1,9 @@
+plan: 0.8 s
+maps: 2.0 s
+side: 0.3 s
+hazard: 0.2 s
+anim: 45.4 s
+
+real	0m49.084s
+user	0m50.296s
+sys	0m0.920s

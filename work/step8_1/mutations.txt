@@ -1,0 +1,10 @@
+touchdown read from the estimate: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0]
+Q from an earlier estimate: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0]
+site read as the target: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0]
+true site read as the chosen site: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0]
+fix outcomes not read: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[168.0]
+outcome a constant: applied, reverted; CAUGHT by test_outcome_follows_the_history
+miss measured from the site: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0]
+descent holds timed from zero: applied, reverted; CAUGHT by test_time_axis_ends_at_the_recorded_touchdown[0.0], test_time_axis_ends_at_the_recorded_touchdown[168.0]
+guided holds timed without their step: applied, reverted; CAUGHT by test_time_axis_ends_at_the_recorded_touchdown[0.0], test_time_axis_ends_at_the_recorded_touchdown[168.0]
+committed draw not the rule's: applied, reverted; CAUGHT by test_fixture_flights_differ_where_compared, test_plotted_values_equal_the_record[0.0], test_plotted_values_equal_the_record[168.0], test_outcome_follows_the_history, test_time_axis_ends_at_the_recorded_touchdown[0.0], test_time_axis_ends_at_the_recorded_touchdown[168.0], test_draw_is_the_registered_rule

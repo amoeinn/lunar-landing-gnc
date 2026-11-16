@@ -1,0 +1,5 @@
+{"lit": {"navigation": 45, "cell_vs_point": 17}, "clearance": {}, "glide_first": {"2 between-node path": 43, "1 estimate jump after the solve": 11}, "glide_worst": {"2 between-node path": 52, "1 estimate jump after the solve": 2}}
+
+real	0m0.619s
+user	0m0.560s
+sys	0m0.047s

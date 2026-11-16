@@ -1,0 +1,7027 @@
+{
+ "n": 54,
+ "seconds": 2.7079126834869385,
+ "worker_peak_mb": 107.67578125,
+ "flights": [
+  {
+   "flight": "20261062 d03_trn_e1_g-24.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 33,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 4.27700076658482,
+   "range_at_lowest_m": 24.04678227187956,
+   "lowest_before_end_s": 17.900000000000006,
+   "up_at_end_m": 45.59834444324173,
+   "range_at_end_m": 0.22919649306558923,
+   "first": {
+    "step": 41,
+    "t": 82.35,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.3499999999999943,
+    "steps_since_divert": 6,
+    "range": 26.59068731620101,
+    "up": 4.314176784742244,
+    "judged_margin": -0.784410343558962,
+    "judged_tolerance": 0.7604472170651587,
+    "judged_over": -0.023963126493803277,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 7.72715225139109e-14,
+    "node0_margin": 0.5699530958994785,
+    "plan_min_node_margin": -2.4223467676165455e-10,
+    "plan_node_bracket": [
+     0.5699530958993808,
+     -2.4223467676165455e-10
+    ],
+    "plan_path_margin": -0.7189393154266597,
+    "plan_end": [
+     45.72,
+     1.216428904280976e-16,
+     -1.263845818096247e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.008550898999335033,
+     0.021887901686444167,
+     -0.014854391264698563
+    ],
+    "error_change": [
+     -0.030187033913534833,
+     -0.018059865437862754,
+     -0.02213704815676465
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.7496905409256645,
+    "tolerance_error_unchanged": 0.759639102252267,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.1,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0999999999999943,
+    "steps_since_divert": 6,
+    "range": 33.73023833483507,
+    "up": 4.957459104144448,
+    "judged_margin": -1.6388859576455914,
+    "judged_tolerance": 0.5639151213379381,
+    "judged_over": -1.0749708363076533,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 7.72715225139109e-14,
+    "node0_margin": 0.5699530958994785,
+    "plan_min_node_margin": -2.4223467676165455e-10,
+    "plan_node_bracket": [
+     0.5699530958993808,
+     -2.4223467676165455e-10
+    ],
+    "plan_path_margin": -1.3557752097472822,
+    "plan_end": [
+     45.72,
+     1.216428904280976e-16,
+     -1.263845818096247e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.019745374879434507,
+     0.06968886364185778,
+     -0.06127074760518347
+    ],
+    "error_change": [
+     -0.10585323409122793,
+     -0.03771384282572399,
+     -0.12629366245027995
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.4569615008085268,
+    "tolerance_error_unchanged": 0.5602981958040575,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 93.82421875
+  },
+  {
+   "flight": "20261062 d03_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 25,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 6.835262649002686,
+   "range_at_lowest_m": 37.111122340446656,
+   "lowest_before_end_s": 17.900000000000006,
+   "up_at_end_m": 45.421589848119766,
+   "range_at_end_m": 0.11895594642606322,
+   "first": {
+    "step": 41,
+    "t": 82.6,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5999999999999943,
+    "steps_since_divert": 6,
+    "range": 41.74226325242398,
+    "up": 6.995224783405206,
+    "judged_margin": -0.4866943512464257,
+    "judged_tolerance": 0.47081033031157987,
+    "judged_over": -0.01588402093484581,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.7148757662796665,
+    "plan_min_node_margin": 3.432232276168179e-09,
+    "plan_node_bracket": [
+     0.714875766279663,
+     3.432232276168179e-09
+    ],
+    "plan_path_margin": -0.455602335779254,
+    "plan_end": [
+     45.71999999999999,
+     5.022400221064089e-18,
+     1.4831141446468548e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0058171632762480385,
+     -0.012780137993646079,
+     -0.027865561429203822
+    ],
+    "error_change": [
+     -0.037883201280010326,
+     -0.006002315302794159,
+     -0.0017519377926760171
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4922230673472363,
+    "tolerance_error_unchanged": 0.47040848669649016,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.2,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2000000000000028,
+    "steps_since_divert": 6,
+    "range": 46.78644873876719,
+    "up": 7.576555283977541,
+    "judged_margin": -0.8014270855551828,
+    "judged_tolerance": 0.40055812320194734,
+    "judged_over": -0.4008689623532355,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.7148757662796665,
+    "plan_min_node_margin": 3.432232276168179e-09,
+    "plan_node_bracket": [
+     0.714875766279663,
+     3.432232276168179e-09
+    ],
+    "plan_path_margin": -0.6937837417714263,
+    "plan_end": [
+     45.71999999999999,
+     5.022400221064089e-18,
+     1.4831141446468548e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0034027336656876628,
+     -0.02500946215496569,
+     -0.06705213174597979
+    ],
+    "error_change": [
+     -0.07486060142741735,
+     0.008489047064358601,
+     -0.03522378635165069
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.7739465935265653,
+    "tolerance_error_unchanged": 0.399734956413145,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 93.9609375
+  },
+  {
+   "flight": "20261062 d13_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 19,
+   "guided_end_t": 112.0,
+   "lowest_up_m": 10.075932176221158,
+   "range_at_lowest_m": 48.71051104356374,
+   "lowest_before_end_s": 29.349999999999994,
+   "up_at_end_m": 44.73067970363985,
+   "range_at_end_m": 1.0952756786191316,
+   "first": {
+    "step": 41,
+    "t": 83.75,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.75,
+    "steps_since_divert": 5,
+    "range": 64.28476242294744,
+    "up": 10.958805497585445,
+    "judged_margin": -0.32562641732693187,
+    "judged_tolerance": 0.2977242716349844,
+    "judged_over": -0.02790214569194749,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 15,
+    "next_remaining": 14,
+    "plan_path_form_node_error_m": 4.618527782440651e-14,
+    "node0_margin": 4.573020820534056,
+    "plan_min_node_margin": -8.871877454907917e-09,
+    "plan_node_bracket": [
+     4.573020820534026,
+     -8.871877454907917e-09
+    ],
+    "plan_path_margin": 0.047721468842775394,
+    "plan_end": [
+     45.71999999999999,
+     -1.4080782997125364e-17,
+     8.102921018540914e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.020904119566303336,
+     0.1468502239861209,
+     -0.2437848746151463
+    ],
+    "error_change": [
+     -0.21705860955876233,
+     -0.1694908634708554,
+     -0.22883014978771143
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.16675560531344225,
+    "tolerance_error_unchanged": 0.2970801987028921,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.15,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.15000000000000568,
+    "steps_since_divert": 6,
+    "range": 69.95781054375672,
+    "up": 11.80133120928258,
+    "judged_margin": -0.4248016983196994,
+    "judged_tolerance": 0.26770146023113356,
+    "judged_over": -0.15710023808856582,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.417259210549874,
+    "plan_min_node_margin": 1.0801038938799614,
+    "plan_node_bracket": [
+     -0.417259210549874,
+     1.0801038938799614
+    ],
+    "plan_path_margin": -0.40747388256790806,
+    "plan_end": [
+     45.719999999999985,
+     -3.07569038727869e-20,
+     7.134399120097632e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0018107569290037873,
+     0.010311602140014031,
+     -0.01166374666494363
+    ],
+    "error_change": [
+     -0.02100856792981176,
+     -0.009436805933546566,
+     -0.013742038140378554
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4169304545991217,
+    "tolerance_error_unchanged": 0.26756303043371493,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 94.70703125
+  },
+  {
+   "flight": "20261062 d13_trn_e0_g72.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 10,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 11.092679600642725,
+   "range_at_lowest_m": 57.83467689461158,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.22310894550611,
+   "range_at_end_m": 0.39393959059822764,
+   "first": {
+    "step": 42,
+    "t": 85.25,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.25,
+    "steps_since_divert": 6,
+    "range": 68.79628896716771,
+    "up": 11.77877667382586,
+    "judged_margin": -0.28445486212457105,
+    "judged_tolerance": 0.2733893462720085,
+    "judged_over": -0.011065515852562546,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 5.3290705182007514e-14,
+    "node0_margin": 1.1920936666822683,
+    "plan_min_node_margin": 9.473243522961639e-09,
+    "plan_node_bracket": [
+     1.1920936666822968,
+     9.473243522961639e-09
+    ],
+    "plan_path_margin": -0.2199389584436684,
+    "plan_end": [
+     45.72,
+     2.892441875849555e-16,
+     2.6843079784541087e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.006628867016118534,
+     -0.10755848388918388,
+     -0.06951218415923321
+    ],
+    "error_change": [
+     -0.022103579300619458,
+     0.03177304309883766,
+     -0.012887602105365659
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2778020655759512,
+    "tolerance_error_unchanged": 0.27328998005810434,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.6,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5999999999999943,
+    "steps_since_divert": 6,
+    "range": 71.6816633778935,
+    "up": 12.235781291198236,
+    "judged_margin": -0.31319510814839546,
+    "judged_tolerance": 0.26348247427093857,
+    "judged_over": -0.04971263387745689,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 5.3290705182007514e-14,
+    "node0_margin": 1.1920936666822683,
+    "plan_min_node_margin": 9.473243522961639e-09,
+    "plan_node_bracket": [
+     1.1920936666822968,
+     9.473243522961639e-09
+    ],
+    "plan_path_margin": -0.19663270090230967,
+    "plan_end": [
+     45.72,
+     2.892441875849555e-16,
+     2.6843079784541087e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0009344982012748915,
+     -0.1386666563756318,
+     -0.10004530417117152
+    ],
+    "error_change": [
+     -0.046520427455789104,
+     0.02669913378849742,
+     -0.054635227094365746
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.27746255595164904,
+    "tolerance_error_unchanged": 0.26314364342159813,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 94.203125
+  },
+  {
+   "flight": "20261062 d13_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 27,
+   "guided_end_t": 112.0,
+   "lowest_up_m": 11.53298679811411,
+   "range_at_lowest_m": 57.89181070503691,
+   "lowest_before_end_s": 29.200000000000003,
+   "up_at_end_m": 44.80442636194249,
+   "range_at_end_m": 1.62024540989123,
+   "first": {
+    "step": 41,
+    "t": 83.7,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.7000000000000028,
+    "steps_since_divert": 5,
+    "range": 71.40102350696952,
+    "up": 12.19254506169466,
+    "judged_margin": -0.30955543585469947,
+    "judged_tolerance": 0.27305560967276554,
+    "judged_over": -0.036499826181933925,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 15,
+    "next_remaining": 14,
+    "plan_path_form_node_error_m": 1.1435936642101296e-08,
+    "node0_margin": 4.679059320844811,
+    "plan_min_node_margin": -1.5817054332956104e-09,
+    "plan_node_bracket": [
+     4.679059313912774,
+     -1.5817054332956104e-09
+    ],
+    "plan_path_margin": 0.09765317080031721,
+    "plan_end": [
+     45.71999999999576,
+     -1.6612000056231108e-12,
+     -2.079657256057686e-11
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.013774573176078775,
+     0.24765359111484386,
+     -0.22275111373275536
+    ],
+    "error_change": [
+     -0.2420528242078035,
+     -0.27567646778152266,
+     -0.34517424984943545
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.08315484075572499,
+    "tolerance_error_unchanged": 0.2726224881019003,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.15,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.15000000000000568,
+    "steps_since_divert": 6,
+    "range": 78.0961986098938,
+    "up": 13.072102757030223,
+    "judged_margin": -0.49765837377636046,
+    "judged_tolerance": 0.23799768358781093,
+    "judged_over": -0.25966069018854954,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.46494031637293887,
+    "plan_min_node_margin": 0.8043614167100266,
+    "plan_node_bracket": [
+     -0.46494031637293887,
+     0.8043614167100266
+    ],
+    "plan_path_margin": -0.46873504438451086,
+    "plan_end": [
+     45.719999999999985,
+     1.1722334797129628e-19,
+     3.228498271493553e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0006866914149554759,
+     0.018000291609475028,
+     -0.0104646539309865
+    ],
+    "error_change": [
+     -0.025932291386197903,
+     -0.019393005913116212,
+     -0.03444993507025629
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4766655576057719,
+    "tolerance_error_unchanged": 0.23778101313009128,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 95.45703125
+  },
+  {
+   "flight": "20261062 d13_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 20,
+   "guided_end_t": 106.0,
+   "lowest_up_m": 11.249844295266655,
+   "range_at_lowest_m": 60.38589487452044,
+   "lowest_before_end_s": 21.849999999999994,
+   "up_at_end_m": 45.38851794797512,
+   "range_at_end_m": 0.1564505998192544,
+   "first": {
+    "step": 42,
+    "t": 84.9,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.9000000000000057,
+    "steps_since_divert": 6,
+    "range": 68.28443094530033,
+    "up": 11.652226454677987,
+    "judged_margin": -0.31617958318853034,
+    "judged_tolerance": 0.2832846640478227,
+    "judged_over": -0.032894919140707635,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 5.236699962551938e-12,
+    "node0_margin": 0.8665126260281308,
+    "plan_min_node_margin": -1.02139914304189e-08,
+    "plan_node_bracket": [
+     0.8665126260306941,
+     -1.02139914304189e-08
+    ],
+    "plan_path_margin": -0.250631988363466,
+    "plan_end": [
+     45.71999999999999,
+     6.336938992696582e-15,
+     7.563566267715017e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.007269624145791909,
+     0.010124422960285706,
+     -0.0555542555373858
+    ],
+    "error_change": [
+     -0.02510314017354176,
+     -0.012323707650466531,
+     -0.03042933534572967
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.29500477623162524,
+    "tolerance_error_unchanged": 0.28321560087404474,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 6,
+    "range": 72.02333117797966,
+    "up": 12.139998480553857,
+    "judged_margin": -0.43235884168035454,
+    "judged_tolerance": 0.257449877943161,
+    "judged_over": -0.17490896373719356,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 5.236699962551938e-12,
+    "node0_margin": 0.8665126260281308,
+    "plan_min_node_margin": -1.02139914304189e-08,
+    "plan_node_bracket": [
+     0.8665126260306941,
+     -1.02139914304189e-08
+    ],
+    "plan_path_margin": -0.32913214899044974,
+    "plan_end": [
+     45.71999999999999,
+     6.336938992696582e-15,
+     7.563566267715017e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.002204364656122948,
+     0.014260204125977616,
+     -0.09123653848541302
+    ],
+    "error_change": [
+     -0.03668068890351606,
+     -0.022921019871319004,
+     -0.04896667856928616
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.39948715158881143,
+    "tolerance_error_unchanged": 0.25716300061687,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 95.22265625
+  },
+  {
+   "flight": "20261062 d13_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 14,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 9.18508645412885,
+   "range_at_lowest_m": 46.85728477900103,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.34306244173666,
+   "range_at_end_m": 0.17085308273859728,
+   "first": {
+    "step": 42,
+    "t": 85.15,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 6,
+    "range": 56.69315657534986,
+    "up": 9.624982731351452,
+    "judged_margin": -0.36458079331679905,
+    "judged_tolerance": 0.3356345309346761,
+    "judged_over": -0.028946262382122945,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.5406401145907047,
+    "plan_min_node_margin": 1.9136425777332988e-08,
+    "plan_node_bracket": [
+     1.5406401145907047,
+     1.9136425777332988e-08
+    ],
+    "plan_path_margin": -0.2643567973391878,
+    "plan_end": [
+     45.71999999999999,
+     5.557691615955218e-19,
+     1.4922585660172754e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.003504215969620361,
+     -0.029392267339860556,
+     -0.06543316141187283
+    ],
+    "error_change": [
+     -0.013445778541381515,
+     0.017994719716625696,
+     -0.039611626565204006
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.32779973188834255,
+    "tolerance_error_unchanged": 0.3356317535387685,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.5,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5,
+    "steps_since_divert": 6,
+    "range": 59.64578759294711,
+    "up": 10.07409402645169,
+    "judged_margin": -0.41329512878640173,
+    "judged_tolerance": 0.3141711005245731,
+    "judged_over": -0.09912402826182865,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.5406401145907047,
+    "plan_min_node_margin": 1.9136425777332988e-08,
+    "plan_node_bracket": [
+     1.5406401145907047,
+     1.9136425777332988e-08
+    ],
+    "plan_path_margin": -0.2825650412761611,
+    "plan_end": [
+     45.71999999999999,
+     5.557691615955218e-19,
+     1.4922585660172754e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0036685035948380573,
+     -0.039003027763584885,
+     -0.09631627279540389
+    ],
+    "error_change": [
+     -0.016818434713513852,
+     0.0009660140076448442,
+     -0.046163166350083884
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3728440453519575,
+    "tolerance_error_unchanged": 0.3138702044661472,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 95.55078125
+  },
+  {
+   "flight": "20261062 d14_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 39,
+   "guided_end_t": 106.0,
+   "lowest_up_m": 7.663579894630345,
+   "range_at_lowest_m": 42.98600289094665,
+   "lowest_before_end_s": 22.200000000000003,
+   "up_at_end_m": 45.425239996628534,
+   "range_at_end_m": 0.5648029151673316,
+   "first": {
+    "step": 42,
+    "t": 84.1,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.09999999999999432,
+    "steps_since_divert": 6,
+    "range": 46.09029160009532,
+    "up": 7.69124946678204,
+    "judged_margin": -0.5261463493660195,
+    "judged_tolerance": 0.4397656199074748,
+    "judged_over": -0.08638072945854464,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.3864465131518955e-11,
+    "node0_margin": -0.34161485761137733,
+    "plan_min_node_margin": 2.392244624616069e-09,
+    "plan_node_bracket": [
+     -0.3416148576025577,
+     2.392244624616069e-09
+    ],
+    "plan_path_margin": -0.5074875746098009,
+    "plan_end": [
+     45.71999999999999,
+     -3.596436290079784e-17,
+     3.6506621805513786e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0011829360515278609,
+     0.008015708469251592,
+     -0.003997921056845044
+    ],
+    "error_change": [
+     -0.015943381021315872,
+     -0.008431692921476497,
+     -0.014037872377741678
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5128118764899732,
+    "tolerance_error_unchanged": 0.43963415961782004,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.85,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.8499999999999943,
+    "steps_since_divert": 6,
+    "range": 53.521018343630296,
+    "up": 8.299911073220983,
+    "judged_margin": -1.184925226345463,
+    "judged_tolerance": 0.34792088071130084,
+    "judged_over": -0.8370043456341623,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.3864465131518955e-11,
+    "node0_margin": -0.34161485761137733,
+    "plan_min_node_margin": 2.392244624616069e-09,
+    "plan_node_bracket": [
+     -0.3416148576025577,
+     2.392244624616069e-09
+    ],
+    "plan_path_margin": -1.0200621984014973,
+    "plan_end": [
+     45.71999999999999,
+     -3.596436290079784e-17,
+     3.6506621805513786e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0013526924184859013,
+     0.0684619043653818,
+     -0.0477640162777746
+    ],
+    "error_change": [
+     -0.09701747969711505,
+     -0.03893269694344781,
+     -0.1228809049241022
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.073662720494113,
+    "tolerance_error_unchanged": 0.346537260157889,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 96.1640625
+  },
+  {
+   "flight": "20261062 d14_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 17,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 9.334874933845072,
+   "range_at_lowest_m": 50.77517976671698,
+   "lowest_before_end_s": 19.549999999999997,
+   "up_at_end_m": 45.426623694037744,
+   "range_at_end_m": 0.1489938391154731,
+   "first": {
+    "step": 42,
+    "t": 85.1,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0999999999999943,
+    "steps_since_divert": 6,
+    "range": 56.93707839980381,
+    "up": 9.660746866614033,
+    "judged_margin": -0.37010452472006605,
+    "judged_tolerance": 0.33680582573493145,
+    "judged_over": -0.0332986989851346,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.591895454175079,
+    "plan_min_node_margin": 5.102863909201005e-09,
+    "plan_node_bracket": [
+     1.5918954541750772,
+     5.102863909201005e-09
+    ],
+    "plan_path_margin": -0.2185962210693475,
+    "plan_end": [
+     45.71999999999999,
+     -3.7232228966474716e-18,
+     7.649576816220635e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0007345821373689887,
+     0.02972658137510642,
+     -0.06222168337965961
+    ],
+    "error_change": [
+     -0.0802591574181406,
+     -0.000957797115916037,
+     -0.10581208260441599
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.28001021235769663,
+    "tolerance_error_unchanged": 0.33650525580777296,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.45,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4500000000000028,
+    "steps_since_divert": 6,
+    "range": 59.88554731484676,
+    "up": 10.043317006507891,
+    "judged_margin": -0.479606707442473,
+    "judged_tolerance": 0.3108458259693221,
+    "judged_over": -0.16876088147315094,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.591895454175079,
+    "plan_min_node_margin": 5.102863909201005e-09,
+    "plan_node_bracket": [
+     1.5918954541750772,
+     5.102863909201005e-09
+    ],
+    "plan_path_margin": -0.27519669415343806,
+    "plan_end": [
+     45.71999999999999,
+     -3.7232228966474716e-18,
+     7.649576816220635e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.008376630999244128,
+     0.03924056013536248,
+     -0.09195006558398688
+    ],
+    "error_change": [
+     -0.10514116670060503,
+     -0.02137957304421434,
+     -0.14402068903251575
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.36249893792943055,
+    "tolerance_error_unchanged": 0.3096822346103277,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 95.9375
+  },
+  {
+   "flight": "20261062 d15_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 5,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 4.720171510069974,
+   "range_at_lowest_m": 26.553283548925116,
+   "lowest_before_end_s": 15.150000000000006,
+   "up_at_end_m": 45.51834622510643,
+   "range_at_end_m": 0.21417638188449944,
+   "first": {
+    "step": 42,
+    "t": 85.45,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4500000000000028,
+    "steps_since_divert": 6,
+    "range": 30.25050787010111,
+    "up": 4.994425041190311,
+    "judged_margin": -0.6249152252033543,
+    "judged_tolerance": 0.6122692464362829,
+    "judged_over": -0.012645978767071409,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 4.532818575190236,
+    "plan_min_node_margin": 1.2675798188865883e-09,
+    "plan_node_bracket": [
+     4.532818575190239,
+     1.2675798188865883e-09
+    ],
+    "plan_path_margin": -0.48737509434729986,
+    "plan_end": [
+     45.71999999999999,
+     2.1587408563412662e-19,
+     2.4568083164122664e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.009421041787863516,
+     -0.09409949590116007,
+     -0.08959175096838301
+    ],
+    "error_change": [
+     -0.030850958821019958,
+     0.05498090750643314,
+     0.009504135806025715
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6546695170674859,
+    "tolerance_error_unchanged": 0.6114554769015748,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.6,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5999999999999943,
+    "steps_since_divert": 6,
+    "range": 31.077516689924636,
+    "up": 5.11210359060243,
+    "judged_margin": -0.658771262574092,
+    "judged_tolerance": 0.6080662503866145,
+    "judged_over": -0.05070501218747747,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 4.532818575190236,
+    "plan_min_node_margin": 1.2675798188865883e-09,
+    "plan_node_bracket": [
+     4.532818575190239,
+     1.2675798188865883e-09
+    ],
+    "plan_path_margin": -0.44393855075801447,
+    "plan_end": [
+     45.71999999999999,
+     2.1587408563412662e-19,
+     2.4568083164122664e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.009061474782669166,
+     -0.10385038382494205,
+     -0.10129748243767978
+    ],
+    "error_change": [
+     -0.04372785002465207,
+     0.04597744960756245,
+     -0.025538462075928692
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6280510465767772,
+    "tolerance_error_unchanged": 0.6068420745969623,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 95.22265625
+  },
+  {
+   "flight": "20261062 d27_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 21,
+   "guided_end_t": 98.0,
+   "lowest_up_m": 0.7730185132718361,
+   "range_at_lowest_m": 6.753312025197456,
+   "lowest_before_end_s": 15.0,
+   "up_at_end_m": 45.613688156843864,
+   "range_at_end_m": 0.24308304903154407,
+   "first": {
+    "step": 41,
+    "t": 82.95,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.9500000000000028,
+    "steps_since_divert": 6,
+    "range": 6.567572291540059,
+    "up": 0.776372376976326,
+    "judged_margin": -3.2581823298693484,
+    "judged_tolerance": 2.9448468925598843,
+    "judged_over": -0.3133354373094641,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 1.3319123581823078e-11,
+    "node0_margin": 5.632265810894337,
+    "plan_min_node_margin": -4.127111097318448e-09,
+    "plan_node_bracket": [
+     5.6322658108384775,
+     -4.127111097318448e-09
+    ],
+    "plan_path_margin": -1.7554208993216456,
+    "plan_end": [
+     45.72000000000002,
+     -9.98866787581538e-15,
+     -1.5605584669367967e-13
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.019947199103667046,
+     0.05004049332321436,
+     -0.05372815534126363
+    ],
+    "error_change": [
+     -0.08832607076078602,
+     -0.039365742883092025,
+     -0.1311497609560206
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.236553013320785,
+    "tolerance_error_unchanged": 2.9071169310088196,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.35,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.3499999999999943,
+    "steps_since_divert": 6,
+    "range": 8.251896345650856,
+    "up": 0.8812632702659471,
+    "judged_margin": -3.9041879747193784,
+    "judged_tolerance": 2.323655699194356,
+    "judged_over": -1.5805322755250222,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 1.3319123581823078e-11,
+    "node0_margin": 5.632265810894337,
+    "plan_min_node_margin": -4.127111097318448e-09,
+    "plan_node_bracket": [
+     5.6322658108384775,
+     -4.127111097318448e-09
+    ],
+    "plan_path_margin": -2.3100342944560346,
+    "plan_end": [
+     45.72000000000002,
+     -9.98866787581538e-15,
+     -1.5605584669367967e-13
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.027264960312919584,
+     0.0712287293572631,
+     -0.08019104109853115
+    ],
+    "error_change": [
+     -0.10833254886915711,
+     -0.040770029052509926,
+     -0.16627816671410756
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.8625140065020656,
+    "tolerance_error_unchanged": 2.267718638775662,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 96.30078125
+  },
+  {
+   "flight": "20261062 d27_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 54,
+   "guided_end_t": 96.0,
+   "lowest_up_m": 1.2457293181046794,
+   "range_at_lowest_m": 12.34312634780693,
+   "lowest_before_end_s": 13.25,
+   "up_at_end_m": 45.720631853225086,
+   "range_at_end_m": 0.2142531665198247,
+   "first": {
+    "step": 40,
+    "t": 81.4,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4000000000000057,
+    "steps_since_divert": 4,
+    "range": 15.813933462675058,
+    "up": 2.439590120592811,
+    "judged_margin": -1.2302060168465818,
+    "judged_tolerance": 1.2293481263501638,
+    "judged_over": -0.0008578904964180456,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.317374758771571,
+    "plan_min_node_margin": 2.320745373651789e-08,
+    "plan_node_bracket": [
+     3.317374758771569,
+     2.320745373651789e-08
+    ],
+    "plan_path_margin": 0.5540580795339967,
+    "plan_end": [
+     45.72,
+     7.95416149600729e-20,
+     2.3346360350913407e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.04373598988772898,
+     0.1480106068772642,
+     -0.129720172183851
+    ],
+    "error_change": [
+     -0.20591028604985695,
+     -0.009670129834375985,
+     -0.3347886007130114
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.0037223141748938815,
+    "tolerance_error_unchanged": 1.2155871139309977,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.95,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.9500000000000028,
+    "steps_since_divert": 5,
+    "range": 12.645389815759202,
+    "up": 1.2732280586585034,
+    "judged_margin": -4.250429443791828,
+    "judged_tolerance": 1.5221992372976259,
+    "judged_over": -2.728230206494202,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -2.937775086716038,
+    "plan_min_node_margin": 3.709781495331299e-07,
+    "plan_node_bracket": [
+     -2.93777508671604,
+     3.709781495331299e-07
+    ],
+    "plan_path_margin": -3.095375256921958,
+    "plan_end": [
+     45.71999999999999,
+     -9.803052307549109e-19,
+     9.137803899772082e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.01653087930653374,
+     0.07392701179862549,
+     -0.06157881853870384
+    ],
+    "error_change": [
+     -0.13272120446731606,
+     -0.04847852118382434,
+     -0.20372210396959645
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -3.3964681972886996,
+    "tolerance_error_unchanged": 1.5003057976250365,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 96.328125
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 18,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 12.869947362486528,
+   "range_at_lowest_m": 70.7289655593181,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.42805153866351,
+   "range_at_end_m": 0.2815713788238233,
+   "first": {
+    "step": 42,
+    "t": 84.8,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 7,
+    "range": 76.19379465237094,
+    "up": 13.059919511786688,
+    "judged_margin": -0.27379031889507743,
+    "judged_tolerance": 0.25572638177507384,
+    "judged_over": -0.018063937120003593,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.28086914612110014,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.01054169087825585,
+     -0.0016247583938628907,
+     -0.010963598421232845
+    ],
+    "error_change": [
+     0.03702062680349627,
+     -0.0151334967395087,
+     0.0290446424579045
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2902161855200145,
+    "tolerance_error_unchanged": 0.25583825520118,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 7,
+    "range": 79.80314698395343,
+    "up": 13.528960492904503,
+    "judged_margin": -0.3781761124949359,
+    "judged_tolerance": 0.2339708846646791,
+    "judged_over": -0.14420522783025677,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.3685891197861775,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.026540925655410774,
+     -0.004379760689637635,
+     -0.03187840588534385
+    ],
+    "error_change": [
+     0.058202831794233134,
+     0.015542007623480458,
+     0.03223865460876141
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3940364362972151,
+    "tolerance_error_unchanged": 0.23419012496404604,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e1",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 18,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 12.869947362486528,
+   "range_at_lowest_m": 70.7289655593181,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.42805153866351,
+   "range_at_end_m": 0.2815713788238233,
+   "first": {
+    "step": 42,
+    "t": 84.8,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 7,
+    "range": 76.19379465237094,
+    "up": 13.059919511786688,
+    "judged_margin": -0.27379031889507743,
+    "judged_tolerance": 0.25572638177507384,
+    "judged_over": -0.018063937120003593,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.28086914612110014,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.01054169087825585,
+     -0.0016247583938628907,
+     -0.010963598421232845
+    ],
+    "error_change": [
+     0.03702062680349627,
+     -0.0151334967395087,
+     0.0290446424579045
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2902161855200145,
+    "tolerance_error_unchanged": 0.25583825520118,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 7,
+    "range": 79.80314698395343,
+    "up": 13.528960492904503,
+    "judged_margin": -0.3781761124949359,
+    "judged_tolerance": 0.2339708846646791,
+    "judged_over": -0.14420522783025677,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.3685891197861775,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.026540925655410774,
+     -0.004379760689637635,
+     -0.03187840588534385
+    ],
+    "error_change": [
+     0.058202831794233134,
+     0.015542007623480458,
+     0.03223865460876141
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3940364362972151,
+    "tolerance_error_unchanged": 0.23419012496404604,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 106.10546875
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e2",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 18,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 12.869947362486528,
+   "range_at_lowest_m": 70.7289655593181,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.42805153866351,
+   "range_at_end_m": 0.2815713788238233,
+   "first": {
+    "step": 42,
+    "t": 84.8,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 7,
+    "range": 76.19379465237094,
+    "up": 13.059919511786688,
+    "judged_margin": -0.27379031889507743,
+    "judged_tolerance": 0.25572638177507384,
+    "judged_over": -0.018063937120003593,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.28086914612110014,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.01054169087825585,
+     -0.0016247583938628907,
+     -0.010963598421232845
+    ],
+    "error_change": [
+     0.03702062680349627,
+     -0.0151334967395087,
+     0.0290446424579045
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2902161855200145,
+    "tolerance_error_unchanged": 0.25583825520118,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 7,
+    "range": 79.80314698395343,
+    "up": 13.528960492904503,
+    "judged_margin": -0.3781761124949359,
+    "judged_tolerance": 0.2339708846646791,
+    "judged_over": -0.14420522783025677,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.3685891197861775,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.026540925655410774,
+     -0.004379760689637635,
+     -0.03187840588534385
+    ],
+    "error_change": [
+     0.058202831794233134,
+     0.015542007623480458,
+     0.03223865460876141
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3940364362972151,
+    "tolerance_error_unchanged": 0.23419012496404604,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 18,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 12.869947362486528,
+   "range_at_lowest_m": 70.7289655593181,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.42805153866351,
+   "range_at_end_m": 0.2815713788238233,
+   "first": {
+    "step": 42,
+    "t": 84.8,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 7,
+    "range": 76.19379465237094,
+    "up": 13.059919511786688,
+    "judged_margin": -0.27379031889507743,
+    "judged_tolerance": 0.25572638177507384,
+    "judged_over": -0.018063937120003593,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.28086914612110014,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.01054169087825585,
+     -0.0016247583938628907,
+     -0.010963598421232845
+    ],
+    "error_change": [
+     0.03702062680349627,
+     -0.0151334967395087,
+     0.0290446424579045
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2902161855200145,
+    "tolerance_error_unchanged": 0.25583825520118,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 7,
+    "range": 79.80314698395343,
+    "up": 13.528960492904503,
+    "judged_margin": -0.3781761124949359,
+    "judged_tolerance": 0.2339708846646791,
+    "judged_over": -0.14420522783025677,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.5975771787906154,
+    "plan_min_node_margin": 1.705525853878953e-08,
+    "plan_node_bracket": [
+     0.5975771787906137,
+     1.705525853878953e-08
+    ],
+    "plan_path_margin": -0.3685891197861775,
+    "plan_end": [
+     45.719999999999985,
+     2.2905610475424737e-18,
+     1.556093416216004e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.026540925655410774,
+     -0.004379760689637635,
+     -0.03187840588534385
+    ],
+    "error_change": [
+     0.058202831794233134,
+     0.015542007623480458,
+     0.03223865460876141
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3940364362972151,
+    "tolerance_error_unchanged": 0.23419012496404604,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d28_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 28,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 5.5730960564456495,
+   "range_at_lowest_m": 28.808052464466193,
+   "lowest_before_end_s": 20.049999999999997,
+   "up_at_end_m": 45.43298041918723,
+   "range_at_end_m": 0.2911562560238989,
+   "first": {
+    "step": 41,
+    "t": 82.5,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5,
+    "steps_since_divert": 6,
+    "range": 35.29111084206403,
+    "up": 5.803585872617987,
+    "judged_margin": -0.6613540663962638,
+    "judged_tolerance": 0.5636511497732417,
+    "judged_over": -0.0977029166230221,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.0658141036401503e-14,
+    "node0_margin": 0.7445380875888343,
+    "plan_min_node_margin": 4.4308503532874965e-09,
+    "plan_node_bracket": [
+     0.7445380875888254,
+     4.4308503532874965e-09
+    ],
+    "plan_path_margin": -0.5875463184575782,
+    "plan_end": [
+     45.72,
+     -2.260176617914864e-18,
+     5.3996913167099143e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.006273600597104689,
+     0.030853090726798316,
+     -0.019917058907849672
+    ],
+    "error_change": [
+     -0.01036177296191454,
+     -0.031178231952253554,
+     -0.029541934336918985
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6176181307194248,
+    "tolerance_error_unchanged": 0.5636802009324038,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.1,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0999999999999943,
+    "steps_since_divert": 6,
+    "range": 41.68913283996236,
+    "up": 6.522819180149156,
+    "judged_margin": -1.107411464566317,
+    "judged_tolerance": 0.4495325387637353,
+    "judged_over": -0.6578789258025817,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.0658141036401503e-14,
+    "node0_margin": 0.7445380875888343,
+    "plan_min_node_margin": 4.4308503532874965e-09,
+    "plan_node_bracket": [
+     0.7445380875888254,
+     4.4308503532874965e-09
+    ],
+    "plan_path_margin": -0.941865398174583,
+    "plan_end": [
+     45.72,
+     -2.260176617914864e-18,
+     5.3996913167099143e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.004479552710549228,
+     0.06834000180254418,
+     -0.058602371070233694
+    ],
+    "error_change": [
+     -0.03808281840770178,
+     -0.044885236993650324,
+     -0.07150639524422786
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.0199146879097896,
+    "tolerance_error_unchanged": 0.44835607309286846,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d28_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 36,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 2.8502006855688364,
+   "range_at_lowest_m": 17.14340827772876,
+   "lowest_before_end_s": 18.049999999999997,
+   "up_at_end_m": 45.44251558392324,
+   "range_at_end_m": 0.1814400530760779,
+   "first": {
+    "step": 41,
+    "t": 82.1,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.09999999999999432,
+    "steps_since_divert": 6,
+    "range": 18.334617780392016,
+    "up": 2.854305566023868,
+    "judged_margin": -1.1513084915513225,
+    "judged_tolerance": 1.0946847313610506,
+    "judged_over": -0.05662376019027193,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.7350932245418136,
+    "plan_min_node_margin": -4.648068596679877e-09,
+    "plan_node_bracket": [
+     -0.7350932245418083,
+     -4.648068596679877e-09
+    ],
+    "plan_path_margin": -1.0948199900356013,
+    "plan_end": [
+     45.71999999999999,
+     -1.3179246454441692e-19,
+     7.661587806696882e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0004985510585200359,
+     -6.343722738222368e-07,
+     0.000804095246354386
+    ],
+    "error_change": [
+     -0.0013935371173374733,
+     -0.020996834203288017,
+     -0.02158117661997494
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.0925491003514551,
+    "tolerance_error_unchanged": 1.0940338728238717,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.9,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.9000000000000057,
+    "steps_since_divert": 6,
+    "range": 25.455023906107577,
+    "up": 3.507322733539354,
+    "judged_margin": -2.1548928043662983,
+    "judged_tolerance": 0.7445135315264738,
+    "judged_over": -1.4103792728398243,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.7350932245418136,
+    "plan_min_node_margin": -4.648068596679877e-09,
+    "plan_node_bracket": [
+     -0.7350932245418083,
+     -4.648068596679877e-09
+    ],
+    "plan_path_margin": -2.0276990141712705,
+    "plan_end": [
+     45.71999999999999,
+     -1.3179246454441692e-19,
+     7.661587806696882e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.013578072483344528,
+     0.0005603820630923906,
+     -0.009878513354467877
+    ],
+    "error_change": [
+     0.0032499749104317743,
+     -0.03321324772332446,
+     -0.047587855082440456
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.053350767359576,
+    "tolerance_error_unchanged": 0.742961094637929,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.8046875
+  },
+  {
+   "flight": "20261062 d28_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 37,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 8.597431025340597,
+   "range_at_lowest_m": 47.298480408484735,
+   "lowest_before_end_s": 22.299999999999997,
+   "up_at_end_m": 45.287723992736176,
+   "range_at_end_m": 0.5062473151178319,
+   "first": {
+    "step": 41,
+    "t": 82.05,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.04999999999999716,
+    "steps_since_divert": 6,
+    "range": 51.58149973022769,
+    "up": 8.7275614186089,
+    "judged_margin": -0.3965403161168215,
+    "judged_tolerance": 0.3939924251274715,
+    "judged_over": -0.002547890989349988,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.3107715989716464,
+    "plan_min_node_margin": 1.1796288390542031e-09,
+    "plan_node_bracket": [
+     -0.3107715989716464,
+     1.1796288390542031e-09
+    ],
+    "plan_path_margin": -0.3846912734003798,
+    "plan_end": [
+     45.72,
+     -5.050274626197545e-18,
+     1.3093324428740942e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0012143729502369638,
+     0.0037106389530823236,
+     -0.001717685723136242
+    ],
+    "error_change": [
+     -0.00023200294458547432,
+     -0.011577217280319019,
+     -0.009172858898523373
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3861673512651471,
+    "tolerance_error_unchanged": 0.39405324580568163,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.85,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.8499999999999943,
+    "steps_since_divert": 6,
+    "range": 60.64273161920798,
+    "up": 9.6741515226243,
+    "judged_margin": -0.936150869943063,
+    "judged_tolerance": 0.306504320420955,
+    "judged_over": -0.629646549522108,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.3107715989716464,
+    "plan_min_node_margin": 1.1796288390542031e-09,
+    "plan_node_bracket": [
+     -0.3107715989716464,
+     1.1796288390542031e-09
+    ],
+    "plan_path_margin": -0.882889105911115,
+    "plan_end": [
+     45.72,
+     -5.050274626197545e-18,
+     1.3093324428740942e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.00981440664148181,
+     0.06342824163240479,
+     -0.044022505400626244
+    ],
+    "error_change": [
+     -0.011714468215586749,
+     -0.049722068370101624,
+     -0.017587926419707856
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.9203308800695034,
+    "tolerance_error_unchanged": 0.3063827419154135,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d28_trn_e1_g24.0 e1",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 19,
+   "guided_end_t": 96.0,
+   "lowest_up_m": 2.0630374392372346,
+   "range_at_lowest_m": 12.634279316678782,
+   "lowest_before_end_s": 12.400000000000006,
+   "up_at_end_m": 45.54839856849907,
+   "range_at_end_m": 0.1500269265824712,
+   "first": {
+    "step": 41,
+    "t": 82.35,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.3499999999999943,
+    "steps_since_divert": 6,
+    "range": 19.696198856382903,
+    "up": 3.1207058463542694,
+    "judged_margin": -0.9967808014362909,
+    "judged_tolerance": 0.9815192859061523,
+    "judged_over": -0.015261515530138547,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.33845177354129596,
+    "plan_min_node_margin": 1.4819163945234912,
+    "plan_node_bracket": [
+     -0.33845177354129596,
+     1.4819163945234912
+    ],
+    "plan_path_margin": -0.9642739409573231,
+    "plan_end": [
+     45.71999999999999,
+     5.064257733657775e-19,
+     1.4364289459682176e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0013233283888407499,
+     0.0004308376196071606,
+     -0.0019628644873290746
+    ],
+    "error_change": [
+     -0.0015999640099835233,
+     -0.015140127108679735,
+     -0.007692050482773993
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.9693093512384134,
+    "tolerance_error_unchanged": 0.981713608900702,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.85,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.8499999999999943,
+    "steps_since_divert": 6,
+    "range": 16.334573901794997,
+    "up": 2.4506037446704454,
+    "judged_margin": -1.467801634374613,
+    "judged_tolerance": 1.148647309461089,
+    "judged_over": -0.319154324913524,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.33845177354129596,
+    "plan_min_node_margin": 1.4819163945234912,
+    "plan_node_bracket": [
+     -0.33845177354129596,
+     1.4819163945234912
+    ],
+    "plan_path_margin": -1.4399673593745614,
+    "plan_end": [
+     45.71999999999999,
+     5.064257733657775e-19,
+     1.4364289459682176e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.009250188443234109,
+     0.0015050907270754976,
+     -0.014406762089261171
+    ],
+    "error_change": [
+     0.00821547918963006,
+     -9.213712837663479e-05,
+     0.004691616088905448
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.4861377273999317,
+    "tolerance_error_unchanged": 1.1485916068260644,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d28_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 38,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 4.899157746618755,
+   "range_at_lowest_m": 29.740091495408944,
+   "lowest_before_end_s": 18.049999999999997,
+   "up_at_end_m": 45.468552385626595,
+   "range_at_end_m": 0.1340427876211728,
+   "first": {
+    "step": 40,
+    "t": 82.0,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 2.0,
+    "steps_since_divert": 5,
+    "range": 30.059788117829058,
+    "up": 4.909002588172314,
+    "judged_margin": -0.7250179658511602,
+    "judged_tolerance": 0.6555355121939036,
+    "judged_over": -0.06948245365725658,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 5.15654676839439,
+    "plan_min_node_margin": -3.887894450826934e-10,
+    "plan_node_bracket": [
+     -3.887894450826934e-10,
+     0.12944927029584186
+    ],
+    "plan_path_margin": -3.887894450826934e-10,
+    "plan_end": [
+     45.72,
+     6.437459940224462e-19,
+     3.4979987372974725e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.022049082172113543,
+     0.057542014571698274,
+     -0.21054413102042258
+    ],
+    "error_change": [
+     -0.09761971700072536,
+     -0.05719618225884915,
+     -0.1953476230091269
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3707597293419731,
+    "tolerance_error_unchanged": 0.6558182069740766,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.85,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.8499999999999943,
+    "steps_since_divert": 6,
+    "range": 36.00334002298293,
+    "up": 5.435098091837801,
+    "judged_margin": -1.4153956696832868,
+    "judged_tolerance": 0.5203216612627377,
+    "judged_over": -0.8950740084205491,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.7250179658511602,
+    "plan_min_node_margin": 2.6108461170792907e-08,
+    "plan_node_bracket": [
+     -0.7250179658511602,
+     2.6108461170792907e-08
+    ],
+    "plan_path_margin": -1.2887960819225501,
+    "plan_end": [
+     45.71999999999999,
+     1.9176272885516193e-19,
+     2.5990107006235057e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.012425280835433483,
+     0.022311793709452132,
+     -0.05357961701001468
+    ],
+    "error_change": [
+     -0.018334075026132268,
+     -0.020317885788244894,
+     -0.03195187845398095
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.3667615705884675,
+    "tolerance_error_unchanged": 0.5198382159863156,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d28_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 16,
+   "guided_end_t": 110.0,
+   "lowest_up_m": 10.747792083696424,
+   "range_at_lowest_m": 45.47383969674729,
+   "lowest_before_end_s": 29.599999999999994,
+   "up_at_end_m": 44.60347641794647,
+   "range_at_end_m": 0.31876536667727157,
+   "first": {
+    "step": 41,
+    "t": 82.05,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.04999999999999716,
+    "steps_since_divert": 6,
+    "range": 74.25290977663529,
+    "up": 12.733238758183973,
+    "judged_margin": -0.269296757979113,
+    "judged_tolerance": 0.2549125697965683,
+    "judged_over": -0.014384188182544722,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.2482430144089296,
+    "plan_min_node_margin": 0.8415466245566243,
+    "plan_node_bracket": [
+     -0.24824301440893137,
+     0.8415466245566243
+    ],
+    "plan_path_margin": -0.26175742031512605,
+    "plan_end": [
+     45.72,
+     -5.078284642410059e-20,
+     2.2177138818517713e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0017429186184045875,
+     -0.0021752576099340892,
+     -0.004572080968504366
+    ],
+    "error_change": [
+     -0.0017358275481456076,
+     -0.004446701058441249,
+     -0.006106280199446701
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.26495449843352326,
+    "tolerance_error_unchanged": 0.25492294674005045,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.35,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.3499999999999943,
+    "steps_since_divert": 6,
+    "range": 78.87587995148152,
+    "up": 13.453581065958872,
+    "judged_margin": -0.32041247881754664,
+    "judged_tolerance": 0.23591496777314272,
+    "judged_over": -0.08449751104440392,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.2482430144089296,
+    "plan_min_node_margin": 0.8415466245566243,
+    "plan_node_bracket": [
+     -0.24824301440893137,
+     0.8415466245566243
+    ],
+    "plan_path_margin": -0.28610567067643267,
+    "plan_end": [
+     45.72,
+     -5.078284642410059e-20,
+     2.2177138818517713e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.010169581988535015,
+     -0.015179465434586481,
+     -0.034035966743889645
+    ],
+    "error_change": [
+     -0.028241045073400528,
+     0.0009689727912700619,
+     -0.021195256395685647
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.30885298870034106,
+    "tolerance_error_unchanged": 0.23575887058302347,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.8046875
+  },
+  {
+   "flight": "20261062 d45_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 31,
+   "guided_end_t": 108.0,
+   "lowest_up_m": 8.965151178078827,
+   "range_at_lowest_m": 43.28585344100552,
+   "lowest_before_end_s": 25.0,
+   "up_at_end_m": 45.0372496317197,
+   "range_at_end_m": 0.4676456657758904,
+   "first": {
+    "step": 41,
+    "t": 83.9,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.9000000000000057,
+    "steps_since_divert": 5,
+    "range": 56.3422180326725,
+    "up": 9.561024240653865,
+    "judged_margin": -0.36890871646258105,
+    "judged_tolerance": 0.34835343718544054,
+    "judged_over": -0.020555279277140515,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 13,
+    "next_remaining": 12,
+    "plan_path_form_node_error_m": 3.0730973321624333e-13,
+    "node0_margin": 9.206937057694756,
+    "plan_min_node_margin": -2.1356861168442265e-08,
+    "plan_node_bracket": [
+     9.20693705769505,
+     -2.1356861168442265e-08
+    ],
+    "plan_path_margin": 0.0696623015556117,
+    "plan_end": [
+     45.719999999999985,
+     -1.1287656237857357e-16,
+     1.3633812435093856e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.06113606985946518,
+     0.062192234583395845,
+     -0.2579212572240781
+    ],
+    "error_change": [
+     -0.15118106610157156,
+     0.007274275145391584,
+     -0.22549117475494995
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.1719148577174998,
+    "tolerance_error_unchanged": 0.3482601056248693,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.55,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5499999999999972,
+    "steps_since_divert": 6,
+    "range": 65.09996316853386,
+    "up": 10.695960273388664,
+    "judged_margin": -0.669632229017278,
+    "judged_tolerance": 0.2874922614119571,
+    "judged_over": -0.38213996760532093,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 12,
+    "next_remaining": 11,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.4546159483059462,
+    "plan_min_node_margin": 0.5318503946267352,
+    "plan_node_bracket": [
+     -0.4546159483059462,
+     0.5318503946267352
+    ],
+    "plan_path_margin": -0.5713660648670587,
+    "plan_end": [
+     45.719999999999985,
+     6.888532815320307e-19,
+     2.4004068599520033e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.015053327389310311,
+     0.01466823917567428,
+     -0.04555102420800772
+    ],
+    "error_change": [
+     -0.06403330719649603,
+     0.004951442283527285,
+     -0.08255575365308232
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6079933312456482,
+    "tolerance_error_unchanged": 0.28680176330332774,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d45_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 5,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 10.698577852432209,
+   "range_at_lowest_m": 57.81910628891863,
+   "lowest_before_end_s": 19.5,
+   "up_at_end_m": 45.51816252836136,
+   "range_at_end_m": 0.1975432838106016,
+   "first": {
+    "step": 42,
+    "t": 85.45,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4500000000000028,
+    "steps_since_divert": 6,
+    "range": 65.66798279846886,
+    "up": 11.239568945933001,
+    "judged_margin": -0.2875089797842829,
+    "judged_tolerance": 0.2827040885183703,
+    "judged_over": -0.004804891265912603,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.5717174021510605,
+    "plan_min_node_margin": 4.955500898518039e-09,
+    "plan_node_bracket": [
+     1.5717174021510605,
+     4.955500898518039e-09
+    ],
+    "plan_path_margin": -0.19272775557156585,
+    "plan_end": [
+     45.72,
+     4.049739400039504e-19,
+     3.2350320670918067e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0008557258009886937,
+     0.053246439531100975,
+     -0.06862361722077814
+    ],
+    "error_change": [
+     -0.03300486788270973,
+     -0.044354860599923995,
+     -0.04922036163191024
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.24975894968453538,
+    "tolerance_error_unchanged": 0.28263673610509804,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.5,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5,
+    "steps_since_divert": 6,
+    "range": 66.0230418691735,
+    "up": 11.284733279627687,
+    "judged_margin": -0.3006677500976416,
+    "judged_tolerance": 0.28034893300235186,
+    "judged_over": -0.02031881709528971,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.5717174021510605,
+    "plan_min_node_margin": 4.955500898518039e-09,
+    "plan_node_bracket": [
+     1.5717174021510605,
+     4.955500898518039e-09
+    ],
+    "plan_path_margin": -0.1913084675756327,
+    "plan_end": [
+     45.72,
+     4.049739400039504e-19,
+     3.2350320670918067e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0001898402210400718,
+     0.055172821313659526,
+     -0.07240800067365427
+    ],
+    "error_change": [
+     -0.04211953340859509,
+     -0.03833011716415058,
+     -0.06488342444890804
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2513461795889018,
+    "tolerance_error_unchanged": 0.27996609649116067,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d46_trn_e2_g-24.0 e2",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 16,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 8.875244592813601,
+   "range_at_lowest_m": 52.45374171823032,
+   "lowest_before_end_s": 15.700000000000003,
+   "up_at_end_m": 45.529456624334216,
+   "range_at_end_m": 0.1509835349921893,
+   "first": {
+    "step": 42,
+    "t": 84.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.29999999999999716,
+    "steps_since_divert": 6,
+    "range": 52.45374171823032,
+    "up": 8.875244592813601,
+    "judged_margin": -0.3964337970501166,
+    "judged_tolerance": 0.3679697678017597,
+    "judged_over": -0.028464029248356892,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.15166683958250893,
+    "plan_min_node_margin": 1.061394082327567,
+    "plan_node_bracket": [
+     -0.15166683958250893,
+     1.061394082327567
+    ],
+    "plan_path_margin": -0.41677016497942354,
+    "plan_end": [
+     45.719999999999985,
+     -4.307067272315936e-20,
+     4.598358683087962e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0013534103115091511,
+     -0.0007463080160814428,
+     -0.0023092550110845877
+    ],
+    "error_change": [
+     0.015206314246597685,
+     -0.020247224987542722,
+     0.023497313171560563
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4194345804008659,
+    "tolerance_error_unchanged": 0.36805708766166695,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.7,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7000000000000028,
+    "steps_since_divert": 6,
+    "range": 53.592055926489294,
+    "up": 8.97127054037395,
+    "judged_margin": -0.49684255222267915,
+    "judged_tolerance": 0.3472091230580052,
+    "judged_over": -0.14963342916467393,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.15166683958250893,
+    "plan_min_node_margin": 1.061394082327567,
+    "plan_node_bracket": [
+     -0.15166683958250893,
+     1.061394082327567
+    ],
+    "plan_path_margin": -0.512351544229869,
+    "plan_end": [
+     45.719999999999985,
+     -4.307067272315936e-20,
+     4.598358683087962e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.007588724219743881,
+     -0.001912623016428583,
+     -0.011631426746467
+    ],
+    "error_change": [
+     0.023898714554434264,
+     -0.03404694627806748,
+     0.030605750826339317
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5256885112156056,
+    "tolerance_error_unchanged": 0.3474170838377364,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.8046875
+  },
+  {
+   "flight": "20261062 d46_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 9,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 9.566197203092145,
+   "range_at_lowest_m": 55.788660232680385,
+   "lowest_before_end_s": 15.900000000000006,
+   "up_at_end_m": 45.64988460808206,
+   "range_at_end_m": 0.24463231998598864,
+   "first": {
+    "step": 42,
+    "t": 84.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.29999999999999716,
+    "steps_since_divert": 6,
+    "range": 56.45702324257082,
+    "up": 9.607011425826556,
+    "judged_margin": -0.3427646341934416,
+    "judged_tolerance": 0.33423819132474036,
+    "judged_over": -0.008526442868701245,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.20811045434757247,
+    "plan_min_node_margin": 1.377742054579679,
+    "plan_node_bracket": [
+     -0.20811045434757247,
+     1.377742054579679
+    ],
+    "plan_path_margin": -0.35718056345919713,
+    "plan_end": [
+     45.71999999999999,
+     -2.1905960479089736e-19,
+     3.255522382618073e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.00245971431376546,
+     0.009046854869897203,
+     -0.0020517455375141935
+    ],
+    "error_change": [
+     0.012881531392849865,
+     -0.025306819692559657,
+     0.018168792451888294
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.36011193914620954,
+    "tolerance_error_unchanged": 0.33426232146996293,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.45,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.45000000000000284,
+    "steps_since_divert": 6,
+    "range": 56.89686915907939,
+    "up": 9.655054341223263,
+    "judged_margin": -0.36899850690941527,
+    "judged_tolerance": 0.3260892516134419,
+    "judged_over": -0.04290925529597339,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.20811045434757247,
+    "plan_min_node_margin": 1.377742054579679,
+    "plan_node_bracket": [
+     -0.20811045434757247,
+     1.377742054579679
+    ],
+    "plan_path_margin": -0.37803923944083095,
+    "plan_end": [
+     45.71999999999999,
+     -2.1905960479089736e-19,
+     3.255522382618073e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.004829761461031978,
+     0.013542393417182552,
+     -0.004544713117708099
+    ],
+    "error_change": [
+     0.009346950430199286,
+     -0.038750143872675835,
+     0.014613366663581928
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.38399644532431054,
+    "tolerance_error_unchanged": 0.32606683402185044,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 38,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 6.584286967813341,
+   "range_at_lowest_m": 36.221062885112794,
+   "lowest_before_end_s": 20.200000000000003,
+   "up_at_end_m": 45.453098646581,
+   "range_at_end_m": 0.3725444117911169,
+   "first": {
+    "step": 42,
+    "t": 84.15,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.15000000000000568,
+    "steps_since_divert": 6,
+    "range": 40.24534122545796,
+    "up": 6.682759287981469,
+    "judged_margin": -0.5720304614123339,
+    "judged_tolerance": 0.5030216221943343,
+    "judged_over": -0.0690088392179996,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 6.4996896753655165e-12,
+    "node0_margin": -0.24929548236284305,
+    "plan_min_node_margin": 8.972325105105483e-10,
+    "plan_node_bracket": [
+     -0.24929548235799892,
+     8.972325105105483e-10
+    ],
+    "plan_path_margin": -0.5451188353958774,
+    "plan_end": [
+     45.72,
+     2.3791468307099375e-15,
+     3.8741867501766117e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0025603013057207136,
+     0.011626819163266688,
+     -0.008083073903102367
+    ],
+    "error_change": [
+     -0.019474758168826156,
+     -0.018332279711103183,
+     -0.015161047112712822
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5562646254068397,
+    "tolerance_error_unchanged": 0.5027956557322462,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.0,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0,
+    "steps_since_divert": 6,
+    "range": 49.048325998893816,
+    "up": 7.541203497861829,
+    "judged_margin": -1.259192968672302,
+    "judged_tolerance": 0.3862401740046716,
+    "judged_over": -0.8729527946676304,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 6.4996896753655165e-12,
+    "node0_margin": -0.24929548236284305,
+    "plan_min_node_margin": 8.972325105105483e-10,
+    "plan_node_bracket": [
+     -0.24929548235799892,
+     8.972325105105483e-10
+    ],
+    "plan_path_margin": -1.0599971897282554,
+    "plan_end": [
+     45.72,
+     2.3791468307099375e-15,
+     3.8741867501766117e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.007234016387464237,
+     0.07753042142681821,
+     -0.06801913371933921
+    ],
+    "error_change": [
+     -0.12414813525151658,
+     -0.08680593120334379,
+     -0.1272845804547842
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.1381205765665694,
+    "tolerance_error_unchanged": 0.3843404289159159,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 51,
+   "ticks_beyond": 34,
+   "guided_end_t": 126.0,
+   "lowest_up_m": 45.86682529771224,
+   "range_at_lowest_m": 0.32499382395212945,
+   "lowest_before_end_s": 0.0,
+   "up_at_end_m": 45.86682529771224,
+   "range_at_end_m": 0.32499382395212945,
+   "first": {
+    "step": 40,
+    "t": 80.25,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 0.25,
+    "steps_since_divert": null,
+    "range": 691.014809476443,
+    "up": 121.46544213435556,
+    "judged_margin": -0.030489296398839016,
+    "judged_tolerance": 0.028541557248792346,
+    "judged_over": -0.00194773915004667,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 21,
+    "next_remaining": 20,
+    "plan_path_form_node_error_m": 5.151434834260726e-13,
+    "node0_margin": -0.012781786505755122,
+    "plan_min_node_margin": 8.278869145783574e-09,
+    "plan_node_bracket": [
+     -0.012781786505744464,
+     8.278869145783574e-09
+    ],
+    "plan_path_margin": -0.034243886500652465,
+    "plan_end": [
+     45.71999999999999,
+     -1.2303779368671652e-15,
+     8.597363687721395e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.000848890465022123,
+     -0.0011256835451263214,
+     0.0006076335210565276
+    ],
+    "error_change": [
+     0.008097096838582729,
+     -0.04681181518571975,
+     0.04118412874839805
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.03419212434284091,
+    "tolerance_error_unchanged": 0.028541182318495405,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 40,
+    "t": 81.2,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2000000000000028,
+    "steps_since_divert": null,
+    "range": 686.750793499961,
+    "up": 120.36352418864209,
+    "judged_margin": -0.05901110142609589,
+    "judged_tolerance": 0.02746867037064878,
+    "judged_over": -0.031542431055447115,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 21,
+    "next_remaining": 20,
+    "plan_path_form_node_error_m": 5.151434834260726e-13,
+    "node0_margin": -0.012781786505755122,
+    "plan_min_node_margin": 8.278869145783574e-09,
+    "plan_node_bracket": [
+     -0.012781786505744464,
+     8.278869145783574e-09
+    ],
+    "plan_path_margin": -0.05631833673434983,
+    "plan_end": [
+     45.71999999999999,
+     -1.2303779368671652e-15,
+     8.597363687721395e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.01900247179150938,
+     -0.00534545404156006,
+     -0.014301963802751061
+    ],
+    "error_change": [
+     -0.004290720471090026,
+     -0.06850357745497604,
+     -0.026059154539439078
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.057618119986736716,
+    "tolerance_error_unchanged": 0.027467136464847927,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.8046875
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 13,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 9.592727520035169,
+   "range_at_lowest_m": 52.52430763437216,
+   "lowest_before_end_s": 19.599999999999994,
+   "up_at_end_m": 45.453506165632234,
+   "range_at_end_m": 0.34382055211355467,
+   "first": {
+    "step": 42,
+    "t": 85.1,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0999999999999943,
+    "steps_since_divert": 6,
+    "range": 58.617161113085494,
+    "up": 9.974349870154981,
+    "judged_margin": -0.3429940430768408,
+    "judged_tolerance": 0.3243443855576437,
+    "judged_over": -0.01864965751919706,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 1.235054160841683,
+    "plan_min_node_margin": 1.9455608679663783e-08,
+    "plan_node_bracket": [
+     1.2350541608416847,
+     1.9455608679663783e-08
+    ],
+    "plan_path_margin": -0.28500715865077275,
+    "plan_end": [
+     45.720000000000006,
+     -7.523768342407425e-19,
+     1.08519347731433e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.005516439519219318,
+     -0.06001984782766545,
+     -0.05653769782004048
+    ],
+    "error_change": [
+     -0.07366080678889375,
+     -0.021068617333185102,
+     -0.01879663975995527
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.33721690253410763,
+    "tolerance_error_unchanged": 0.32393875717281445,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.35,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.3499999999999943,
+    "steps_since_divert": 6,
+    "range": 60.51746602420008,
+    "up": 10.226808381437138,
+    "judged_margin": -0.40824252297924346,
+    "judged_tolerance": 0.3059984012978667,
+    "judged_over": -0.10224412168137675,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 1.235054160841683,
+    "plan_min_node_margin": 1.9455608679663783e-08,
+    "plan_node_bracket": [
+     1.2350541608416847,
+     1.9455608679663783e-08
+    ],
+    "plan_path_margin": -0.3182682234677898,
+    "plan_end": [
+     45.720000000000006,
+     -7.523768342407425e-19,
+     1.08519347731433e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0026695925898252426,
+     -0.0737877015220918,
+     -0.07444553741555104
+    ],
+    "error_change": [
+     -0.09708154854320128,
+     0.004618158230186964,
+     -0.040901931833786875
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3856796800728741,
+    "tolerance_error_unchanged": 0.3053994972205097,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d47_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 24,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 3.5454637112473506,
+   "range_at_lowest_m": 20.988528839977953,
+   "lowest_before_end_s": 17.400000000000006,
+   "up_at_end_m": 45.56967130522645,
+   "range_at_end_m": 0.37286634244188854,
+   "first": {
+    "step": 42,
+    "t": 84.8,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 6,
+    "range": 22.62381130506373,
+    "up": 3.599517112492549,
+    "judged_margin": -0.9598394104797272,
+    "judged_tolerance": 0.8687841289982907,
+    "judged_over": -0.09105528148143649,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.464628260444277,
+    "plan_min_node_margin": 1.5689476384750378e-09,
+    "plan_node_bracket": [
+     3.4646282604442806,
+     1.5689476384750378e-09
+    ],
+    "plan_path_margin": -0.6385775315583615,
+    "plan_end": [
+     45.71999999999999,
+     -1.6157900099829892e-19,
+     2.4332389950570253e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.004509914106272106,
+     0.060953350003844164,
+     -0.036971822725419656
+    ],
+    "error_change": [
+     -0.0875955058377258,
+     -0.05404310249923583,
+     -0.10723646040213453
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.735513931234177,
+    "tolerance_error_unchanged": 0.8658206398245829,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.3,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 6,
+    "range": 26.50843501571498,
+    "up": 3.9757945703654514,
+    "judged_margin": -1.4702293462013287,
+    "judged_tolerance": 0.7108408314431445,
+    "judged_over": -0.7593885147581843,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.464628260444277,
+    "plan_min_node_margin": 1.5689476384750378e-09,
+    "plan_node_bracket": [
+     3.4646282604442806,
+     1.5689476384750378e-09
+    ],
+    "plan_path_margin": -1.001069271291282,
+    "plan_end": [
+     45.71999999999999,
+     -1.6157900099829892e-19,
+     2.4332389950570253e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0018883592902945168,
+     0.09921671770433704,
+     -0.07156600142625358
+    ],
+    "error_change": [
+     -0.13867886396383255,
+     -0.07183020348293212,
+     -0.17108782252472565
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.1589472260184657,
+    "tolerance_error_unchanged": 0.7034205380321017,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d47_trn_e2_g-72.0 e2",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 40,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 6.232645390545656,
+   "range_at_lowest_m": 34.843518544230186,
+   "lowest_before_end_s": 20.25,
+   "up_at_end_m": 45.37895386232964,
+   "range_at_end_m": 0.16550356062941263,
+   "first": {
+    "step": 42,
+    "t": 84.05,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.04999999999999716,
+    "steps_since_divert": 6,
+    "range": 38.12189315416914,
+    "up": 6.333321743715487,
+    "judged_margin": -0.5674055539487632,
+    "judged_tolerance": 0.5282687242654402,
+    "judged_over": -0.03913682968332299,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.47159289910200997,
+    "plan_min_node_margin": 5.390846880004574e-09,
+    "plan_node_bracket": [
+     -0.4715928991020082,
+     5.390846880004574e-09
+    ],
+    "plan_path_margin": -0.5607456438402565,
+    "plan_end": [
+     45.72,
+     2.793212835981893e-18,
+     1.3877335427703976e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0011642261312516666,
+     0.000296188091057914,
+     -0.002926876537277856
+    ],
+    "error_change": [
+     -0.0031452210087081767,
+     0.0019082380276813637,
+     -0.002427602660361572
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5647361874560968,
+    "tolerance_error_unchanged": 0.5282287227338147,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.0,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0,
+    "steps_since_divert": 6,
+    "range": 47.57305805446041,
+    "up": 7.270491479126065,
+    "judged_margin": -1.3108380668902733,
+    "judged_tolerance": 0.40029182651378176,
+    "judged_over": -0.9105462403764915,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.47159289910200997,
+    "plan_min_node_margin": 5.390846880004574e-09,
+    "plan_node_bracket": [
+     -0.4715928991020082,
+     5.390846880004574e-09
+    ],
+    "plan_path_margin": -1.0825092884003702,
+    "plan_end": [
+     45.72,
+     2.793212835981893e-18,
+     1.3877335427703976e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.011157303353357406,
+     0.005743703866841088,
+     -0.07356726788406753
+    ],
+    "error_change": [
+     -0.12328865545350709,
+     -0.05090388589178474,
+     -0.1389385654053399
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.1665491240238985,
+    "tolerance_error_unchanged": 0.39837370923718474,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d47_trn_e3_g-168.0 e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 35,
+   "guided_end_t": 98.0,
+   "lowest_up_m": 1.590585754778317,
+   "range_at_lowest_m": 11.689128925817021,
+   "lowest_before_end_s": 12.650000000000006,
+   "up_at_end_m": 45.589001810581465,
+   "range_at_end_m": 0.12656452767542198,
+   "first": {
+    "step": 41,
+    "t": 83.8,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.7999999999999972,
+    "steps_since_divert": 5,
+    "range": 20.718973295697882,
+    "up": 3.2942783088652163,
+    "judged_margin": -0.9657010917551805,
+    "judged_tolerance": 0.9392966896233746,
+    "judged_over": -0.026404402131805838,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.517722973346041,
+    "plan_min_node_margin": 3.7020943466359313e-07,
+    "plan_node_bracket": [
+     3.5177229733460393,
+     3.7020943466359313e-07
+    ],
+    "plan_path_margin": 0.19379474642677152,
+    "plan_end": [
+     45.71999999999999,
+     -1.0088271221994778e-18,
+     6.223071450032674e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.038292893730439204,
+     -0.005667618294701526,
+     -0.03784895217451556
+    ],
+    "error_change": [
+     -0.06274103692362587,
+     -0.0032589900811217376,
+     -0.3919671898055981
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.10594419595343574,
+    "tolerance_error_unchanged": 0.9247197245213787,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 42,
+    "t": 84.65,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.6500000000000057,
+    "steps_since_divert": 6,
+    "range": 14.807437433204823,
+    "up": 1.9292575791249078,
+    "judged_margin": -2.57676194540925,
+    "judged_tolerance": 1.2734649184036437,
+    "judged_over": -1.3032970270056061,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -1.4149508164885507,
+    "plan_min_node_margin": 1.9863932518420704,
+    "plan_node_bracket": [
+     -1.4149508164885507,
+     1.9863932518420704
+    ],
+    "plan_path_margin": -2.015334492725531,
+    "plan_end": [
+     45.72,
+     -1.1006338074663752e-19,
+     2.5637590321679843e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.006382770519541836,
+     -0.002061725325692265,
+     -0.0013640991482191112
+    ],
+    "error_change": [
+     -0.07394773079749939,
+     -0.07577224216038303,
+     -0.1524633730576852
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.018119424885075,
+    "tolerance_error_unchanged": 1.2619783416974513,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.8046875
+  },
+  {
+   "flight": "20261062 d53_trn_e2_g-168.0 e2",
+   "outcome": "abort",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 2,
+   "guided_end_t": 86.0,
+   "lowest_up_m": 7.6735445962692665,
+   "range_at_lowest_m": 46.9473396063376,
+   "lowest_before_end_s": 0.0,
+   "up_at_end_m": 7.6735445962692665,
+   "range_at_end_m": 46.9473396063376,
+   "first": {
+    "step": 42,
+    "t": 85.95,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.9500000000000028,
+    "steps_since_divert": 6,
+    "range": 46.566004520145675,
+    "up": 7.746892078927431,
+    "judged_margin": -0.5545690490154556,
+    "judged_tolerance": 0.46536399541101303,
+    "judged_over": -0.08920505360444253,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 13.625870453557347,
+    "plan_min_node_margin": 1.7354425452253963e-08,
+    "plan_node_bracket": [
+     13.625870453557347,
+     1.051484028090794
+    ],
+    "plan_path_margin": 1.192017501236636,
+    "plan_end": [
+     45.719999999999985,
+     3.688880709272057e-18,
+     4.429696541304377e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0780721659310828,
+     -0.005968528023604591,
+     0.026247247775701865
+    ],
+    "error_change": [
+     -0.33874816722163814,
+     0.4679002201901312,
+     -1.508852075568086
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 1.2063880833190908,
+    "tolerance_error_unchanged": 0.46587235785787623,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 42,
+    "t": 86.0,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 2.0,
+    "steps_since_divert": 6,
+    "range": 46.9473396063376,
+    "up": 7.6735445962692665,
+    "judged_margin": -0.7170887930789789,
+    "judged_tolerance": 0.45872118831748193,
+    "judged_over": -0.25836760476149695,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 13.625870453557347,
+    "plan_min_node_margin": 1.7354425452253963e-08,
+    "plan_node_bracket": [
+     1.051484028090794,
+     1.7354425452253963e-08
+    ],
+    "plan_path_margin": 1.051484028090794,
+    "plan_end": [
+     45.719999999999985,
+     3.688880709272057e-18,
+     4.429696541304377e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.08063918236520351,
+     -0.00615135507914033,
+     0.025342234351755977
+    ],
+    "error_change": [
+     -0.3315374200772112,
+     0.5102743475827083,
+     -1.5329665295093946
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 1.0643188667781551,
+    "tolerance_error_unchanged": 0.45955047830800033,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d54_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 34,
+   "ticks_beyond": 24,
+   "guided_end_t": 96.0,
+   "lowest_up_m": 3.4970034475553575,
+   "range_at_lowest_m": 21.58565445960518,
+   "lowest_before_end_s": 15.299999999999997,
+   "up_at_end_m": 45.68093731778231,
+   "range_at_end_m": 0.2513961551859638,
+   "first": {
+    "step": 40,
+    "t": 80.75,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 0.75,
+    "steps_since_divert": 6,
+    "range": 21.879592307576658,
+    "up": 3.5037694289968613,
+    "judged_margin": -0.9019747867216399,
+    "judged_tolerance": 0.9016246637243427,
+    "judged_over": -0.00035012299729719754,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 2.9677323851484427,
+    "plan_min_node_margin": 2.7231319421616718e-09,
+    "plan_node_bracket": [
+     2.967732385148439,
+     2.7231319421616718e-09
+    ],
+    "plan_path_margin": -0.6294233551425226,
+    "plan_end": [
+     45.72,
+     -6.117158733907484e-20,
+     9.129002943655851e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.008080646590446605,
+     0.031173623155613228,
+     -0.030714822432262423
+    ],
+    "error_change": [
+     -0.05313597856047636,
+     -0.005933078361522348,
+     -0.08416952377177722
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.7088668811825318,
+    "tolerance_error_unchanged": 0.8998296699643529,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 40,
+    "t": 81.3,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 6,
+    "range": 24.91331682869169,
+    "up": 3.71083478247391,
+    "judged_margin": -1.5280886331202534,
+    "judged_tolerance": 0.7573449773381683,
+    "judged_over": -0.7707436557820851,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 2.9677323851484427,
+    "plan_min_node_margin": 2.7231319421616718e-09,
+    "plan_node_bracket": [
+     2.967732385148439,
+     2.7231319421616718e-09
+    ],
+    "plan_path_margin": -1.0897632516893907,
+    "plan_end": [
+     45.72,
+     -6.117158733907484e-20,
+     9.129002943655851e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.012808344819514872,
+     0.05401054862606891,
+     -0.055572738242235076
+    ],
+    "error_change": [
+     -0.10715864131657327,
+     -0.007837019164071535,
+     -0.15559276177822312
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.2148608054762455,
+    "tolerance_error_unchanged": 0.7512357455617047,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d54_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 34,
+   "ticks_beyond": 27,
+   "guided_end_t": 96.0,
+   "lowest_up_m": 1.5018740647897175,
+   "range_at_lowest_m": 11.094439192290698,
+   "lowest_before_end_s": 15.299999999999997,
+   "up_at_end_m": 45.547877615711116,
+   "range_at_end_m": 0.15063524329647854,
+   "first": {
+    "step": 40,
+    "t": 80.6,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5999999999999943,
+    "steps_since_divert": 6,
+    "range": 10.577859298009944,
+    "up": 1.5040194888838414,
+    "judged_margin": -1.9076070690628857,
+    "judged_tolerance": 1.8612429125497774,
+    "judged_over": -0.04636415651310832,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.0766588050243886,
+    "plan_min_node_margin": 2.8860949186082507e-09,
+    "plan_node_bracket": [
+     3.076658805024403,
+     2.8860949186082507e-09
+    ],
+    "plan_path_margin": -1.484620029830527,
+    "plan_end": [
+     45.71999999999999,
+     2.3025884021554212e-17,
+     2.92327792260441e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.029849939723119334,
+     -0.021383405448393233,
+     -0.04652044151441603
+    ],
+    "error_change": [
+     -0.04788228210645684,
+     0.002888528882067476,
+     -0.04450561572269862
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.7013147025237707,
+    "tolerance_error_unchanged": 1.8553266965784343,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 40,
+    "t": 81.15,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 6,
+    "range": 13.426446827979243,
+    "up": 1.6559362857906876,
+    "judged_margin": -2.968993730416326,
+    "judged_tolerance": 1.415427448246066,
+    "judged_over": -1.5535662821702598,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.0766588050243886,
+    "plan_min_node_margin": 2.8860949186082507e-09,
+    "plan_node_bracket": [
+     3.076658805024403,
+     2.8860949186082507e-09
+    ],
+    "plan_path_margin": -2.3105226152480283,
+    "plan_end": [
+     45.71999999999999,
+     2.3025884021554212e-17,
+     2.92327792260441e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.05606395243266604,
+     -0.04105621278508753,
+     -0.0913375093653559
+    ],
+    "error_change": [
+     -0.09246974633992977,
+     0.0030319525621962384,
+     -0.08611015731202087
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.6535052550908445,
+    "tolerance_error_unchanged": 1.4012982405753898,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d59_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 41,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 0.8584093119513909,
+   "range_at_lowest_m": 9.405084415990046,
+   "lowest_before_end_s": 12.5,
+   "up_at_end_m": 45.52328300497771,
+   "range_at_end_m": 0.17610181638658298,
+   "first": {
+    "step": 42,
+    "t": 85.95,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.9500000000000028,
+    "steps_since_divert": 7,
+    "range": 17.458410147745827,
+    "up": 2.6711587057012594,
+    "judged_margin": -1.301133446633715,
+    "judged_tolerance": 1.1570137682177186,
+    "judged_over": -0.14411967841599638,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 6.548610368241484,
+    "plan_min_node_margin": 1.4422140282022156e-07,
+    "plan_node_bracket": [
+     6.548610368241484,
+     1.4422140282022156e-07
+    ],
+    "plan_path_margin": 0.14237352494759392,
+    "plan_end": [
+     45.719999999999985,
+     1.8110819367261116e-20,
+     7.203149233997556e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.07330973575528077,
+     0.029997007787113006,
+     -0.21856648941147938
+    ],
+    "error_change": [
+     -0.1726711140813677,
+     0.13543423095052276,
+     -0.22797500295081363
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5678250826705682,
+    "tolerance_error_unchanged": 1.1459745697546033,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 43,
+    "t": 87.3,
+    "plan_step": 43,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 8,
+    "range": 10.066549320892294,
+    "up": 0.8778104260547934,
+    "judged_margin": -5.016372600231839,
+    "judged_tolerance": 1.9060857455624247,
+    "judged_over": -3.1102868546694142,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -1.495497761453704,
+    "plan_min_node_margin": 7.891463482678773e-08,
+    "plan_node_bracket": [
+     -1.4954977614537022,
+     7.891463482678773e-08
+    ],
+    "plan_path_margin": -3.6789729618609552,
+    "plan_end": [
+     45.71999999999999,
+     2.1708808253195436e-19,
+     3.423539743290646e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.04055100824541569,
+     0.014482576835639804,
+     -0.10650460920311566
+    ],
+    "error_change": [
+     -0.11992015336591066,
+     0.031229333215378574,
+     -0.13245073112403816
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -4.273672221273523,
+    "tolerance_error_unchanged": 1.9056020003986687,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d60_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 18,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 6.048229273836682,
+   "range_at_lowest_m": 35.7303500219725,
+   "lowest_before_end_s": 17.099999999999994,
+   "up_at_end_m": 45.67710289033437,
+   "range_at_end_m": 0.3883218419445936,
+   "first": {
+    "step": 42,
+    "t": 85.05,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0499999999999972,
+    "steps_since_divert": 6,
+    "range": 36.609241780955855,
+    "up": 6.068244673933862,
+    "judged_margin": -0.588386642018083,
+    "judged_tolerance": 0.5280891399707329,
+    "judged_over": -0.06029750204735007,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 8.744116541947733e-13,
+    "node0_margin": 2.46207523533948,
+    "plan_min_node_margin": 4.847429124765767e-10,
+    "plan_node_bracket": [
+     2.462075235338668,
+     4.847429124765767e-10
+    ],
+    "plan_path_margin": -0.3149875317218047,
+    "plan_end": [
+     45.71999999999999,
+     2.3781358652448577e-15,
+     -3.68107435438898e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.00022224795475978,
+     0.08830675219915918,
+     -0.0403738690173121
+    ],
+    "error_change": [
+     -0.10546281908182209,
+     -0.014030146801815135,
+     -0.1490834232990892
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.387091009172547,
+    "tolerance_error_unchanged": 0.5268714859305812,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.4,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4000000000000057,
+    "steps_since_divert": 6,
+    "range": 38.60070299996467,
+    "up": 6.258920838595202,
+    "judged_margin": -0.7899173388978831,
+    "judged_tolerance": 0.48105692705396724,
+    "judged_over": -0.3088604118439158,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 8.744116541947733e-13,
+    "node0_margin": 2.46207523533948,
+    "plan_min_node_margin": 4.847429124765767e-10,
+    "plan_node_bracket": [
+     2.462075235338668,
+     4.847429124765767e-10
+    ],
+    "plan_path_margin": -0.45448945139127517,
+    "plan_end": [
+     45.71999999999999,
+     2.3781358652448577e-15,
+     -3.68107435438898e-14
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0041946809941038055,
+     0.11806976314834117,
+     -0.0611548821618193
+    ],
+    "error_change": [
+     -0.11949835348104898,
+     0.0029326872800083947,
+     -0.17968979741090152
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5557961415619488,
+    "tolerance_error_unchanged": 0.4782169070572588,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d60_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 11,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 8.473493262327793,
+   "range_at_lowest_m": 47.7019330768197,
+   "lowest_before_end_s": 17.25,
+   "up_at_end_m": 45.53745594903535,
+   "range_at_end_m": 0.035316772268964396,
+   "first": {
+    "step": 42,
+    "t": 85.25,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.25,
+    "steps_since_divert": 6,
+    "range": 50.91827565593179,
+    "up": 8.63237179735711,
+    "judged_margin": -0.37791438019424817,
+    "judged_tolerance": 0.3718092026252626,
+    "judged_over": -0.0061051775689855425,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.866132173239066,
+    "plan_min_node_margin": 2.1089318735789675e-08,
+    "plan_node_bracket": [
+     1.866132173239066,
+     2.1089318735789675e-08
+    ],
+    "plan_path_margin": -0.254385648008542,
+    "plan_end": [
+     45.719999999999985,
+     -4.7399886043648245e-18,
+     8.422532205462245e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0010755414238445837,
+     0.03597546440752453,
+     -0.054700473769376146
+    ],
+    "error_change": [
+     -0.05339075033566587,
+     0.009594037012902845,
+     -0.06421870591839252
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.316349687908275,
+    "tolerance_error_unchanged": 0.37152815436636294,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.4,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4000000000000057,
+    "steps_since_divert": 6,
+    "range": 51.80393906449628,
+    "up": 8.740660860841501,
+    "judged_margin": -0.42292546872200987,
+    "judged_tolerance": 0.358904465907883,
+    "judged_over": -0.06402100281412687,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.866132173239066,
+    "plan_min_node_margin": 2.1089318735789675e-08,
+    "plan_node_bracket": [
+     1.866132173239066,
+     2.1089318735789675e-08
+    ],
+    "plan_path_margin": -0.2805855899836107,
+    "plan_end": [
+     45.719999999999985,
+     -4.7399886043648245e-18,
+     8.422532205462245e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0007735844671543646,
+     0.0403258958825532,
+     -0.06418541739791372
+    ],
+    "error_change": [
+     -0.061979272281860176,
+     0.021109210711983906,
+     -0.07442638010547853
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3521955111663413,
+    "tolerance_error_unchanged": 0.35861561193950936,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d63_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 38,
+   "ticks_beyond": 47,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 1.5584026906267923,
+   "range_at_lowest_m": 12.33520811033519,
+   "lowest_before_end_s": 12.700000000000003,
+   "up_at_end_m": 45.71486827608959,
+   "range_at_end_m": 0.14489395183356674,
+   "first": {
+    "step": 42,
+    "t": 85.4,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.4000000000000057,
+    "steps_since_divert": 4,
+    "range": 24.072734029274283,
+    "up": 3.868015489204595,
+    "judged_margin": -0.8717185730812442,
+    "judged_tolerance": 0.822669872452268,
+    "judged_over": -0.04904870062897626,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 3.946689087743451,
+    "plan_min_node_margin": 1.4635901379733696e-09,
+    "plan_node_bracket": [
+     3.946689087743451,
+     1.4635901379733696e-09
+    ],
+    "plan_path_margin": 0.37895086485546337,
+    "plan_end": [
+     45.71999999999999,
+     8.128957336354685e-19,
+     1.720961853563657e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0732111704681877,
+     0.2206114561396184,
+     -0.10983851968464009
+    ],
+    "error_change": [
+     -0.22196457417999227,
+     0.09667019894368423,
+     -0.35259909910178067
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.03976467080620161,
+    "tolerance_error_unchanged": 0.8178258584869754,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 43,
+    "t": 86.7,
+    "plan_step": 43,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7000000000000028,
+    "steps_since_divert": 5,
+    "range": 14.717905410498446,
+    "up": 1.7901080422540758,
+    "judged_margin": -3.065296177531647,
+    "judged_tolerance": 1.2918569000646392,
+    "judged_over": -1.773439277467008,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -2.2683044567467956,
+    "plan_min_node_margin": 2.6043919766422405,
+    "plan_node_bracket": [
+     -2.2683044567467956,
+     2.6043919766422405
+    ],
+    "plan_path_margin": -2.153415348701162,
+    "plan_end": [
+     45.71999999999999,
+     1.439791873462382e-18,
+     1.2425376545436116e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.027145946382444386,
+     0.07940957469353194,
+     -0.03874817934803909
+    ],
+    "error_change": [
+     -0.13721693433149085,
+     0.0010924231401077122,
+     -0.17929509910868546
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -2.3461368544332037,
+    "tolerance_error_unchanged": 1.2990048218232302,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.80859375
+  },
+  {
+   "flight": "20261062 d63_trn_e0_g72.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 22,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 4.370980483583594,
+   "range_at_lowest_m": 27.309583369634073,
+   "lowest_before_end_s": 15.25,
+   "up_at_end_m": 45.53264584050345,
+   "range_at_end_m": 0.31035163162928053,
+   "first": {
+    "step": 42,
+    "t": 84.65,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 0.6500000000000057,
+    "steps_since_divert": 6,
+    "range": 26.980614961295544,
+    "up": 4.400844341815343,
+    "judged_margin": -0.7359908338910888,
+    "judged_tolerance": 0.7283602203633637,
+    "judged_over": -0.007630613527725094,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 1.1397138881981164,
+    "plan_min_node_margin": 6.052038870052456e-09,
+    "plan_node_bracket": [
+     1.1397138881981146,
+     6.052038870052456e-09
+    ],
+    "plan_path_margin": -0.6905383674856793,
+    "plan_end": [
+     45.719999999999985,
+     4.859928856169338e-18,
+     1.7647866878414556e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0005716154258443851,
+     -0.05001349909686681,
+     -0.02925111462095753
+    ],
+    "error_change": [
+     -0.028378434325759372,
+     0.015980524685801356,
+     0.00795995344850553
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.763023493533824,
+    "tolerance_error_unchanged": 0.7275585960934914,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 42,
+    "t": 85.2,
+    "plan_step": 42,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2000000000000028,
+    "steps_since_divert": 6,
+    "range": 28.846858368160905,
+    "up": 4.4843324146581836,
+    "judged_margin": -1.1639193282724225,
+    "judged_tolerance": 0.6475373338159643,
+    "judged_over": -0.5163819944564582,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": 1.1397138881981164,
+    "plan_min_node_margin": 6.052038870052456e-09,
+    "plan_node_bracket": [
+     1.1397138881981146,
+     6.052038870052456e-09
+    ],
+    "plan_path_margin": -1.0786913313629345,
+    "plan_end": [
+     45.719999999999985,
+     4.859928856169338e-18,
+     1.7647866878414556e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.003803632645674071,
+     -0.09240988206571288,
+     -0.05917666592011983
+    ],
+    "error_change": [
+     -0.06170749330635772,
+     0.03568381862714887,
+     0.013495608547827942
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.2112714644814293,
+    "tolerance_error_unchanged": 0.646246588542616,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d63_trn_e3_g72.0 e3",
+   "outcome": "abort",
+   "kind": null,
+   "decision_step": null,
+   "ticks_beyond": 5,
+   "guided_end_t": 70.0,
+   "lowest_up_m": 173.3195319358631,
+   "range_at_lowest_m": 991.8369950564662,
+   "lowest_before_end_s": 0.0,
+   "up_at_end_m": 173.3195319358631,
+   "range_at_end_m": 991.8369950564662,
+   "first": {
+    "step": 34,
+    "t": 69.8,
+    "plan_step": 34,
+    "plan_is_divert": false,
+    "time_since_solve": 1.7999999999999972,
+    "steps_since_divert": null,
+    "range": 990.8591750773786,
+    "up": 174.21533155946997,
+    "judged_margin": -0.02803577360747589,
+    "judged_tolerance": 0.021934179232436166,
+    "judged_over": -0.006101594375039723,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 43,
+    "next_remaining": 42,
+    "plan_path_form_node_error_m": 2.2737367544323206e-13,
+    "node0_margin": 0.5348884422977314,
+    "plan_min_node_margin": 9.209573548218941e-08,
+    "plan_node_bracket": [
+     0.5348884422977314,
+     0.1884449197161313
+    ],
+    "plan_path_margin": 0.21348378011302493,
+    "plan_end": [
+     45.71999999999999,
+     -5.815448404114635e-18,
+     2.365694128770029e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.04527186069469735,
+     0.035045733173660665,
+     0.042877401513806035
+    ],
+    "error_change": [
+     -0.25354475617677963,
+     -0.2937892414001908,
+     -4.410475630104713
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.2153638110112741,
+    "tolerance_error_unchanged": 0.0219239755237476,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 34,
+    "t": 70.0,
+    "plan_step": 34,
+    "plan_is_divert": false,
+    "time_since_solve": 2.0,
+    "steps_since_divert": null,
+    "range": 991.8369950564662,
+    "up": 173.3195319358631,
+    "judged_margin": -0.08787665880374007,
+    "judged_tolerance": 0.02164378200932692,
+    "judged_over": -0.06623287679441314,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 43,
+    "next_remaining": 42,
+    "plan_path_form_node_error_m": 2.2737367544323206e-13,
+    "node0_margin": 0.5348884422977314,
+    "plan_min_node_margin": 9.209573548218941e-08,
+    "plan_node_bracket": [
+     0.1884449197161313,
+     0.018199499922998186
+    ],
+    "plan_path_margin": 0.1884449197161313,
+    "plan_end": [
+     45.71999999999999,
+     -5.815448404114635e-18,
+     2.365694128770029e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.05189728677618177,
+     0.03914499842665009,
+     0.0451697674885736
+    ],
+    "error_change": [
+     -0.28824004641569445,
+     -0.3280169288373145,
+     -5.04438220988601
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.19038288732980924,
+    "tolerance_error_unchanged": 0.0216359918374056,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d70_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 25,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 12.403433852222577,
+   "range_at_lowest_m": 68.52382471177658,
+   "lowest_before_end_s": 21.75,
+   "up_at_end_m": 45.28348104380018,
+   "range_at_end_m": 0.45046613758662024,
+   "first": {
+    "step": 41,
+    "t": 82.75,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.75,
+    "steps_since_divert": 6,
+    "range": 73.72623453562433,
+    "up": 12.621799472180555,
+    "judged_margin": -0.2852438024963053,
+    "judged_tolerance": 0.2662309662260027,
+    "judged_over": -0.019012836270302647,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 2.4087398742267396e-12,
+    "node0_margin": 0.6923639256152292,
+    "plan_min_node_margin": 6.9095982269118394e-09,
+    "plan_node_bracket": [
+     0.6923639256141794,
+     6.9095982269118394e-09
+    ],
+    "plan_path_margin": -0.21384489486538705,
+    "plan_end": [
+     45.71999999999999,
+     1.387312549054112e-17,
+     1.623882388426679e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.006594790248200866,
+     0.05284167421246,
+     -0.048025920617751794
+    ],
+    "error_change": [
+     -0.032268899646396676,
+     -0.011305512910439575,
+     -0.05246277495285767
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.24995660462321823,
+    "tolerance_error_unchanged": 0.26617300660108334,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.25,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.25,
+    "steps_since_divert": 6,
+    "range": 78.40395293622389,
+    "up": 13.148978485970247,
+    "judged_margin": -0.4796302157551082,
+    "judged_tolerance": 0.2364352866569266,
+    "judged_over": -0.24319492909818163,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 2.4087398742267396e-12,
+    "node0_margin": 0.6923639256152292,
+    "plan_min_node_margin": 6.9095982269118394e-09,
+    "plan_node_bracket": [
+     0.6923639256141794,
+     6.9095982269118394e-09
+    ],
+    "plan_path_margin": -0.3467446177318738,
+    "plan_end": [
+     45.71999999999999,
+     1.387312549054112e-17,
+     1.623882388426679e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0018710636648791024,
+     0.08839867882470731,
+     -0.09293786981417007
+    ],
+    "error_change": [
+     -0.06281307683798332,
+     -0.0038135223758217762,
+     -0.10360655108354422
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.41354952827387415,
+    "tolerance_error_unchanged": 0.23596640590529105,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d70_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 18,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 11.130026266587436,
+   "range_at_lowest_m": 61.074456898253764,
+   "lowest_before_end_s": 19.549999999999997,
+   "up_at_end_m": 45.58313548251874,
+   "range_at_end_m": 0.4171706451566129,
+   "first": {
+    "step": 41,
+    "t": 83.0,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0,
+    "steps_since_divert": 6,
+    "range": 66.24637334401532,
+    "up": 11.331296803949499,
+    "judged_margin": -0.29361622655087416,
+    "judged_tolerance": 0.29272885815518196,
+    "judged_over": -0.0008873683956922007,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.2726680840416709,
+    "plan_min_node_margin": 2.063647031036453e-10,
+    "plan_node_bracket": [
+     1.2726680840416797,
+     2.063647031036453e-10
+    ],
+    "plan_path_margin": -0.20700432223458698,
+    "plan_end": [
+     45.719999999999985,
+     -1.308959933275721e-17,
+     2.627216538629817e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0006695713877320486,
+     0.09047415963341443,
+     -0.044740326011281084
+    ],
+    "error_change": [
+     -0.04525540921872562,
+     -0.0020453321894819965,
+     -0.06315519224199306
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.24703402817031517,
+    "tolerance_error_unchanged": 0.2926073451058196,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.5,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5,
+    "steps_since_divert": 6,
+    "range": 70.51276853608027,
+    "up": 11.934692876509018,
+    "judged_margin": -0.3934033386135667,
+    "judged_tolerance": 0.2667711231603274,
+    "judged_over": -0.12663221545323927,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.2726680840416709,
+    "plan_min_node_margin": 2.063647031036453e-10,
+    "plan_node_bracket": [
+     1.2726680840416797,
+     2.063647031036453e-10
+    ],
+    "plan_path_margin": -0.2742613898897588,
+    "plan_end": [
+     45.719999999999985,
+     -1.308959933275721e-17,
+     2.627216538629817e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.010684700169193206,
+     0.13632662157155195,
+     -0.08308151415142362
+    ],
+    "error_change": [
+     -0.03774811303264869,
+     -0.01570748579888459,
+     -0.06889908374910192
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.344341842538169,
+    "tolerance_error_unchanged": 0.26640341711123333,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d70_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 36,
+   "ticks_beyond": 30,
+   "guided_end_t": 110.0,
+   "lowest_up_m": 12.827753596588195,
+   "range_at_lowest_m": 63.751976777006924,
+   "lowest_before_end_s": 29.049999999999997,
+   "up_at_end_m": 44.86423307817097,
+   "range_at_end_m": 0.35391588769993704,
+   "first": {
+    "step": 40,
+    "t": 81.9,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 1.9000000000000057,
+    "steps_since_divert": 4,
+    "range": 79.55835816655222,
+    "up": 13.650308475882696,
+    "judged_margin": -0.2642132386162448,
+    "judged_tolerance": 0.24821538845113456,
+    "judged_over": -0.01599785016511024,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 15,
+    "next_remaining": 14,
+    "plan_path_form_node_error_m": 5.730012020421782e-10,
+    "node0_margin": 6.20962357227824,
+    "plan_min_node_margin": -1.1134169142223982e-09,
+    "plan_node_bracket": [
+     6.20962357193968,
+     -1.1134169142223982e-09
+    ],
+    "plan_path_margin": 0.05393748329799308,
+    "plan_end": [
+     45.719999999999764,
+     3.479122443325927e-14,
+     -1.1614052447523744e-12
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.07715424164088347,
+     0.15661172359200193,
+     -0.2954929056460607
+    ],
+    "error_change": [
+     -0.14879898895901533,
+     -0.11922875989239401,
+     -0.199912642905133
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.1421957866871537,
+    "tolerance_error_unchanged": 0.2482049064347189,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.65,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.6500000000000057,
+    "steps_since_divert": 5,
+    "range": 91.08265108683989,
+    "up": 15.293575454464474,
+    "judged_margin": -0.46844821147079685,
+    "judged_tolerance": 0.20615481339056668,
+    "judged_over": -0.26229339808023017,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 2.842170943040401e-14,
+    "node0_margin": -0.3287790629626741,
+    "plan_min_node_margin": 0.36447308177649695,
+    "plan_node_bracket": [
+     -0.3287790629626741,
+     0.36447308177649695
+    ],
+    "plan_path_margin": -0.428540818095966,
+    "plan_end": [
+     45.71999999999999,
+     -1.272151863540519e-19,
+     4.583554398847787e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.01860935645451889,
+     0.04570260245836266,
+     -0.06404043640307222
+    ],
+    "error_change": [
+     -0.0371840269679069,
+     -0.033685966076518525,
+     -0.010629417252062012
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4657226294246932,
+    "tolerance_error_unchanged": 0.20605667877172398,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.80859375
+  },
+  {
+   "flight": "20261062 d85_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 30,
+   "guided_end_t": 108.0,
+   "lowest_up_m": 14.706913010932112,
+   "range_at_lowest_m": 74.13888396557921,
+   "lowest_before_end_s": 27.049999999999997,
+   "up_at_end_m": 44.82581543287267,
+   "range_at_end_m": 0.704522596518253,
+   "first": {
+    "step": 40,
+    "t": 82.0,
+    "plan_step": 40,
+    "plan_is_divert": false,
+    "time_since_solve": 2.0,
+    "steps_since_divert": 5,
+    "range": 90.03434272780945,
+    "up": 15.518720828263099,
+    "judged_margin": -0.22033799395024722,
+    "judged_tolerance": 0.21825426029629155,
+    "judged_over": -0.0020837336539556717,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 14,
+    "next_remaining": 13,
+    "plan_path_form_node_error_m": 3.126388037344441e-13,
+    "node0_margin": 4.6987605763678655,
+    "plan_min_node_margin": -5.765880217722952e-09,
+    "plan_node_bracket": [
+     -5.765880217722952e-09,
+     0.566040911294893
+    ],
+    "plan_path_margin": -5.765880217722952e-09,
+    "plan_end": [
+     45.719999999999985,
+     2.049940995225316e-16,
+     2.0851766083623464e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.0057864930251980695,
+     0.061001523263667146,
+     -0.24529017074460668
+    ],
+    "error_change": [
+     -0.16470490805431837,
+     -0.11504052173859236,
+     -0.1400953583510045
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.15226859330411813,
+    "tolerance_error_unchanged": 0.21800719344226194,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.7,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7000000000000028,
+    "steps_since_divert": 6,
+    "range": 99.3974574005873,
+    "up": 16.817806092127398,
+    "judged_margin": -0.3966462839066125,
+    "judged_tolerance": 0.18758279262232092,
+    "judged_over": -0.20906349128429158,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 13,
+    "next_remaining": 12,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": -0.22033799395024722,
+    "plan_min_node_margin": 0.28434148727637165,
+    "plan_node_bracket": [
+     -0.22033799395024722,
+     0.28434148727637165
+    ],
+    "plan_path_margin": -0.36564502184917735,
+    "plan_end": [
+     45.71999999999999,
+     7.52728242320679e-19,
+     8.07795691149038e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.001162404738252576,
+     0.017350415365468663,
+     -0.05231885012287307
+    ],
+    "error_change": [
+     -0.04091163233806583,
+     -0.014469434198872477,
+     -0.010117183785098405
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.39491889705387706,
+    "tolerance_error_unchanged": 0.18749777078865779,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d85_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 37,
+   "guided_end_t": 106.0,
+   "lowest_up_m": 11.638972791290712,
+   "range_at_lowest_m": 62.85140811237304,
+   "lowest_before_end_s": 24.450000000000003,
+   "up_at_end_m": 45.1842718996088,
+   "range_at_end_m": 0.7565573416728775,
+   "first": {
+    "step": 41,
+    "t": 82.05,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.04999999999999716,
+    "steps_since_divert": 6,
+    "range": 68.95161688667133,
+    "up": 11.77817757953909,
+    "judged_margin": -0.30640910903284535,
+    "judged_tolerance": 0.2944405456454463,
+    "judged_over": -0.011968563387399045,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 12,
+    "next_remaining": 11,
+    "plan_path_form_node_error_m": 1.3491430195244902e-11,
+    "node0_margin": -0.25512458094593526,
+    "plan_min_node_margin": 2.319975322961909e-09,
+    "plan_node_bracket": [
+     -0.2551245809515965,
+     2.319975322961909e-09
+    ],
+    "plan_path_margin": -0.3098043529991372,
+    "plan_end": [
+     45.71999999999999,
+     7.443612041535559e-16,
+     3.272587102981871e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     8.56124685242321e-05,
+     0.0029592315225066557,
+     -0.001662656059377099
+    ],
+    "error_change": [
+     0.00405367522398592,
+     0.003023874900463852,
+     0.006795685272948049
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3112546322070937,
+    "tolerance_error_unchanged": 0.294448573810105,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 82.9,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.9000000000000057,
+    "steps_since_divert": 6,
+    "range": 78.41683245521938,
+    "up": 12.801147067448142,
+    "judged_margin": -0.7285376991691273,
+    "judged_tolerance": 0.23767405062993646,
+    "judged_over": -0.4908636485391908,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 12,
+    "next_remaining": 11,
+    "plan_path_form_node_error_m": 1.3491430195244902e-11,
+    "node0_margin": -0.25512458094593526,
+    "plan_min_node_margin": 2.319975322961909e-09,
+    "plan_node_bracket": [
+     -0.2551245809515965,
+     2.319975322961909e-09
+    ],
+    "plan_path_margin": -0.6907303618318927,
+    "plan_end": [
+     45.71999999999999,
+     7.443612041535559e-16,
+     3.272587102981871e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.013771197567479021,
+     0.05251565168609851,
+     -0.04652409166622462
+    ],
+    "error_change": [
+     -0.03441191354249895,
+     -0.03221363331613247,
+     -0.009330591252705744
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.7265081599645278,
+    "tolerance_error_unchanged": 0.23754845937339125,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d85_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 24,
+   "guided_end_t": 104.0,
+   "lowest_up_m": 14.384576571728985,
+   "range_at_lowest_m": 76.67326136848465,
+   "lowest_before_end_s": 22.049999999999997,
+   "up_at_end_m": 45.13095075959791,
+   "range_at_end_m": 0.7546765815702524,
+   "first": {
+    "step": 41,
+    "t": 82.8,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.7999999999999972,
+    "steps_since_divert": 6,
+    "range": 86.33417340687785,
+    "up": 14.842694029064091,
+    "judged_margin": -0.24499150248909451,
+    "judged_tolerance": 0.22527462479058646,
+    "judged_over": -0.01971687769850805,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.4566126083082054e-13,
+    "node0_margin": 0.5487475600846246,
+    "plan_min_node_margin": -8.004334972611105e-10,
+    "plan_node_bracket": [
+     0.5487475600846814,
+     -8.004334972611105e-10
+    ],
+    "plan_path_margin": -0.2014355214054735,
+    "plan_end": [
+     45.71999999999999,
+     2.909257386240521e-16,
+     2.4443911516994183e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.018974522490907475,
+     -0.08623746299620727,
+     -0.042419198559940696
+    ],
+    "error_change": [
+     -0.03563050024808945,
+     0.05298481427871593,
+     -0.033573202884781495
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.2281830262680149,
+    "tolerance_error_unchanged": 0.22518847470020817,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.3,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 6,
+    "range": 91.26432242706287,
+    "up": 15.45907034622752,
+    "judged_margin": -0.38604475918289793,
+    "judged_tolerance": 0.2041226816034257,
+    "judged_over": -0.18192207757947224,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 11,
+    "next_remaining": 10,
+    "plan_path_form_node_error_m": 1.4566126083082054e-13,
+    "node0_margin": 0.5487475600846246,
+    "plan_min_node_margin": -8.004334972611105e-10,
+    "plan_node_bracket": [
+     0.5487475600846814,
+     -8.004334972611105e-10
+    ],
+    "plan_path_margin": -0.2824963719333269,
+    "plan_end": [
+     45.71999999999999,
+     2.909257386240521e-16,
+     2.4443911516994183e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.02032564626871647,
+     -0.14144935809739678,
+     -0.08222255184624672
+    ],
+    "error_change": [
+     -0.06703495955480321,
+     0.04637062241999956,
+     -0.09977726786945595
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.3327906611286462,
+    "tolerance_error_unchanged": 0.20375806556230988,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d85_trn_e2_g-72.0 e2",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 15,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 8.161945877443316,
+   "range_at_lowest_m": 43.512502832540655,
+   "lowest_before_end_s": 19.549999999999997,
+   "up_at_end_m": 45.370858360299565,
+   "range_at_end_m": 0.1472690897040863,
+   "first": {
+    "step": 41,
+    "t": 83.15,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 6,
+    "range": 50.12638038120849,
+    "up": 8.491780466006162,
+    "judged_margin": -0.3849569254345635,
+    "judged_tolerance": 0.3819939693744958,
+    "judged_over": -0.0029629560600676896,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.1723955140041653e-13,
+    "node0_margin": 2.0933203660299675,
+    "plan_min_node_margin": -4.481513826704031e-09,
+    "plan_node_bracket": [
+     2.0933203660300546,
+     -4.481513826704031e-09
+    ],
+    "plan_path_margin": -0.2812608738567146,
+    "plan_end": [
+     45.71999999999999,
+     1.5110110024535692e-16,
+     1.44651343066027e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0063310091073987,
+     0.016992994706600317,
+     -0.07419368418497285
+    ],
+    "error_change": [
+     -0.0183768616807356,
+     -0.017995155233620608,
+     -0.023394385301571674
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.36255484269061355,
+    "tolerance_error_unchanged": 0.38189417785225444,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.5,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.5,
+    "steps_since_divert": 6,
+    "range": 53.07636203207749,
+    "up": 8.893608232835504,
+    "judged_margin": -0.4877444823106849,
+    "judged_tolerance": 0.35261217748659957,
+    "judged_over": -0.13513230482408534,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.1723955140041653e-13,
+    "node0_margin": 2.0933203660299675,
+    "plan_min_node_margin": -4.481513826704031e-09,
+    "plan_node_bracket": [
+     2.0933203660300546,
+     -4.481513826704031e-09
+    ],
+    "plan_path_margin": -0.3216273087354118,
+    "plan_end": [
+     45.71999999999999,
+     1.5110110024535692e-16,
+     1.44651343066027e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.0013553648534880836,
+     0.02167541880137236,
+     -0.10838890932334522
+    ],
+    "error_change": [
+     -0.05118128474759942,
+     -0.02653224708592461,
+     -0.05887065787908341
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4351086831821771,
+    "tolerance_error_unchanged": 0.3519590837814995,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d85_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 25,
+   "guided_end_t": 102.0,
+   "lowest_up_m": 9.440270711281698,
+   "range_at_lowest_m": 50.4761595710443,
+   "lowest_before_end_s": 19.849999999999994,
+   "up_at_end_m": 45.246911684364704,
+   "range_at_end_m": 0.19591140973340612,
+   "first": {
+    "step": 41,
+    "t": 82.75,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.75,
+    "steps_since_divert": 6,
+    "range": 57.06402119121432,
+    "up": 9.691480183478234,
+    "judged_margin": -0.36113134521070833,
+    "judged_tolerance": 0.34468226555188447,
+    "judged_over": -0.016449079658823862,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 7.105427357601002e-14,
+    "node0_margin": 0.9846369588650408,
+    "plan_min_node_margin": -1.3000226672943427e-08,
+    "plan_node_bracket": [
+     0.9846369588650852,
+     -1.3000226672943427e-08
+    ],
+    "plan_path_margin": -0.2758489145713554,
+    "plan_end": [
+     45.719999999999985,
+     6.949993906856298e-17,
+     6.744085708088423e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.017823027312672934,
+     -0.017947874316832646,
+     -0.05303036178695386
+    ],
+    "error_change": [
+     -0.035709361003682716,
+     0.007074323122651549,
+     -0.04320822530212354
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.32501462461396535,
+    "tolerance_error_unchanged": 0.3445543981621616,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.3,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2999999999999972,
+    "steps_since_divert": 6,
+    "range": 62.484538784940575,
+    "up": 10.329116223110077,
+    "judged_margin": -0.6135059066333959,
+    "judged_tolerance": 0.2991288434275856,
+    "judged_over": -0.31437706320581027,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 10,
+    "next_remaining": 9,
+    "plan_path_form_node_error_m": 7.105427357601002e-14,
+    "node0_margin": 0.9846369588650408,
+    "plan_min_node_margin": -1.3000226672943427e-08,
+    "plan_node_bracket": [
+     0.9846369588650852,
+     -1.3000226672943427e-08
+    ],
+    "plan_path_margin": -0.44231019554093365,
+    "plan_end": [
+     45.719999999999985,
+     6.949993906856298e-17,
+     6.744085708088423e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.02072446118979343,
+     -0.0322510924713324,
+     -0.10759460229815865
+    ],
+    "error_change": [
+     -0.06390737213405373,
+     -0.007418164416776563,
+     -0.09752754684473075
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.5357477165944751,
+    "tolerance_error_unchanged": 0.2984038714210101,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.80859375
+  },
+  {
+   "flight": "20261062 d88_trn_e2_g-168.0 e2",
+   "outcome": "safe landing",
+   "kind": "divert",
+   "decision_step": 24,
+   "ticks_beyond": 36,
+   "guided_end_t": 146.0,
+   "lowest_up_m": 47.41212130991906,
+   "range_at_lowest_m": 0.6131431391813431,
+   "lowest_before_end_s": 0.0,
+   "up_at_end_m": 47.41212130991906,
+   "range_at_end_m": 0.6131431391813431,
+   "first": {
+    "step": 37,
+    "t": 75.15,
+    "plan_step": 37,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 13,
+    "range": 1109.2804576134506,
+    "up": 195.1716303734012,
+    "judged_margin": -0.02126338730524502,
+    "judged_tolerance": 0.017783977816939786,
+    "judged_over": -0.0034794094883052323,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 33,
+    "next_remaining": 32,
+    "plan_path_form_node_error_m": 3.410605131648481e-13,
+    "node0_margin": 0.12606652740271684,
+    "plan_min_node_margin": 4.396182973209761e-09,
+    "plan_node_bracket": [
+     0.1260665274027044,
+     4.396182973209761e-09
+    ],
+    "plan_path_margin": 0.01109719553671873,
+    "plan_end": [
+     45.719999999999985,
+     -1.405871630138273e-16,
+     3.480212159744056e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.004664922011215822,
+     0.01644091573911055,
+     0.09189772374796235
+    ],
+    "error_change": [
+     0.015136903363554666,
+     -0.1186504776824222,
+     -0.7408396544020661
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.01570180182457115,
+    "tolerance_error_unchanged": 0.01779354236768365,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": false,
+     "divert_switch": false,
+     "estimate_jump": true,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "1 estimate jump after the solve"
+   },
+   "worst": {
+    "step": 37,
+    "t": 75.85,
+    "plan_step": 37,
+    "plan_is_divert": false,
+    "time_since_solve": 1.8499999999999943,
+    "steps_since_divert": 13,
+    "range": 1120.5972241539343,
+    "up": 196.56554418026323,
+    "judged_margin": -0.05088422825121164,
+    "judged_tolerance": 0.01685699039656382,
+    "judged_over": -0.03402723785464782,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 33,
+    "next_remaining": 32,
+    "plan_path_form_node_error_m": 3.410605131648481e-13,
+    "node0_margin": 0.12606652740271684,
+    "plan_min_node_margin": 4.396182973209761e-09,
+    "plan_node_bracket": [
+     0.1260665274027044,
+     4.396182973209761e-09
+    ],
+    "plan_path_margin": -0.0024766413629873085,
+    "plan_end": [
+     45.719999999999985,
+     -1.405871630138273e-16,
+     3.480212159744056e-16
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.026316161097611257,
+     0.024384062972444553,
+     0.1755098467952223
+    ],
+    "error_change": [
+     0.004057505772152581,
+     -0.15911866884380288,
+     -1.161474968028017
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": 0.0063932562441681995,
+    "tolerance_error_unchanged": 0.016830940572653105,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.6875
+  },
+  {
+   "flight": "20261062 d92_trn_e2_g-168.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 42,
+   "ticks_beyond": 37,
+   "guided_end_t": 112.0,
+   "lowest_up_m": 6.730928668562797,
+   "range_at_lowest_m": 44.17187508736512,
+   "lowest_before_end_s": 17.400000000000006,
+   "up_at_end_m": 46.35987856759675,
+   "range_at_end_m": 0.5404596959932094,
+   "first": {
+    "step": 47,
+    "t": 94.05,
+    "plan_step": 47,
+    "plan_is_divert": false,
+    "time_since_solve": 0.04999999999999716,
+    "steps_since_divert": 5,
+    "range": 41.61741582723083,
+    "up": 6.949198453645465,
+    "judged_margin": -0.5203152010865306,
+    "judged_tolerance": 0.4921142331309652,
+    "judged_over": -0.028200967955565426,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.4022556997477764,
+    "plan_min_node_margin": 8.315920396739784e-09,
+    "plan_node_bracket": [
+     -0.4022556997477782,
+     8.315920396739784e-09
+    ],
+    "plan_path_margin": -0.5005936879389985,
+    "plan_end": [
+     45.71999999999999,
+     -4.5806682468052695e-20,
+     5.906844445450229e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.003424709859338293,
+     -0.0001392486725002584,
+     0.005516555656622124
+    ],
+    "error_change": [
+     0.0014750458342405182,
+     0.01069165201533906,
+     -0.018751658304040575
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.4938871402600533,
+    "tolerance_error_unchanged": 0.4921872409814178,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 47,
+    "t": 95.0,
+    "plan_step": 47,
+    "plan_is_divert": false,
+    "time_since_solve": 1.0,
+    "steps_since_divert": 5,
+    "range": 45.72633261935356,
+    "up": 6.884037911258872,
+    "judged_margin": -1.4384929429130526,
+    "judged_tolerance": 0.4147203619928522,
+    "judged_over": -1.0237725809202005,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 8,
+    "next_remaining": 7,
+    "plan_path_form_node_error_m": 7.105427357601002e-15,
+    "node0_margin": -0.4022556997477764,
+    "plan_min_node_margin": 8.315920396739784e-09,
+    "plan_node_bracket": [
+     -0.4022556997477782,
+     8.315920396739784e-09
+    ],
+    "plan_path_margin": -1.2351732988068918,
+    "plan_end": [
+     45.71999999999999,
+     -4.5806682468052695e-20,
+     5.906844445450229e-19
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.06433475130175736,
+     -0.002367856581216188,
+     0.11699926706204433
+    ],
+    "error_change": [
+     0.1024580332957612,
+     0.30986698479318875,
+     -0.24305690164885618
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.1027643651974408,
+    "tolerance_error_unchanged": 0.41504451199513387,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": false
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  },
+  {
+   "flight": "20261062 d93_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 28,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 4.929262805914561,
+   "range_at_lowest_m": 28.25947070372008,
+   "lowest_before_end_s": 17.700000000000003,
+   "up_at_end_m": 45.40482737337095,
+   "range_at_end_m": 0.12161786482405262,
+   "first": {
+    "step": 41,
+    "t": 82.55,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5499999999999972,
+    "steps_since_divert": 6,
+    "range": 30.533478760926,
+    "up": 4.991001825159003,
+    "judged_margin": -0.7165341686784785,
+    "judged_tolerance": 0.6488839461019512,
+    "judged_over": -0.06765022257652731,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.0634995365539428,
+    "plan_min_node_margin": 1.3226655326548098e-08,
+    "plan_node_bracket": [
+     1.063499536553941,
+     1.3226655326548098e-08
+    ],
+    "plan_path_margin": -0.5812486018376486,
+    "plan_end": [
+     45.72,
+     3.934044655493995e-21,
+     2.8570954168440734e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.016522651545169964,
+     -0.009310187382720159,
+     -0.03393638156015388
+    ],
+    "error_change": [
+     -0.05087933917820919,
+     0.010574708583590109,
+     -0.05100127404540444
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6376602925830017,
+    "tolerance_error_unchanged": 0.6481836124288732,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.2,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.2000000000000028,
+    "steps_since_divert": 6,
+    "range": 36.01078320443767,
+    "up": 5.572903209917058,
+    "judged_margin": -1.2028910347593555,
+    "judged_tolerance": 0.5242216037326088,
+    "judged_over": -0.6786694310267467,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 1.0634995365539428,
+    "plan_min_node_margin": 1.3226655326548098e-08,
+    "plan_node_bracket": [
+     1.063499536553941,
+     1.3226655326548098e-08
+    ],
+    "plan_path_margin": -0.9603911004364694,
+    "plan_end": [
+     45.72,
+     3.934044655493995e-21,
+     2.8570954168440734e-18
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.029038552179727617,
+     -0.02083213093819314,
+     -0.0847991934815342
+    ],
+    "error_change": [
+     -0.09368768436183927,
+     0.021159919981982966,
+     -0.09066939743570401
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.0838682446769887,
+    "tolerance_error_unchanged": 0.5219081528012312,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 107.67578125
+  },
+  {
+   "flight": "20261062 d98_trn_e1_g24.0 e1",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 17,
+   "guided_end_t": 96.0,
+   "lowest_up_m": 2.052528472045992,
+   "range_at_lowest_m": 13.067560480947286,
+   "lowest_before_end_s": 12.400000000000006,
+   "up_at_end_m": 45.61345712025576,
+   "range_at_end_m": 0.033571064070880785,
+   "first": {
+    "step": 41,
+    "t": 82.6,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5999999999999943,
+    "steps_since_divert": 6,
+    "range": 17.590129855798068,
+    "up": 2.7480802238225692,
+    "judged_margin": -1.1205413781162097,
+    "judged_tolerance": 1.100538106059315,
+    "judged_over": -0.020003272056894783,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.2661630829776094,
+    "plan_min_node_margin": 0.6853571599183752,
+    "plan_node_bracket": [
+     0.2661630829776076,
+     0.6853571599183752
+    ],
+    "plan_path_margin": -1.1232435209559934,
+    "plan_end": [
+     45.71999999999999,
+     4.7847784384662246e-18,
+     1.5405108897430707e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.005866383256956098,
+     -0.03269810611607937,
+     -0.009531334639022226
+    ],
+    "error_change": [
+     -0.010287686468245738,
+     -0.018276746351148176,
+     0.017451295721230053
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.1656888888610464,
+    "tolerance_error_unchanged": 1.1024856389442632,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.15,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 6,
+    "range": 14.820265060251474,
+    "up": 2.1915148233276227,
+    "judged_margin": -1.5884662917157826,
+    "judged_tolerance": 1.2574885136595857,
+    "judged_over": -0.3309777780561969,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 7,
+    "next_remaining": 6,
+    "plan_path_form_node_error_m": 1.4210854715202004e-14,
+    "node0_margin": 0.2661630829776094,
+    "plan_min_node_margin": 0.6853571599183752,
+    "plan_node_bracket": [
+     0.2661630829776076,
+     0.6853571599183752
+    ],
+    "plan_path_margin": -1.5902254291688536,
+    "plan_end": [
+     45.71999999999999,
+     4.7847784384662246e-18,
+     1.5405108897430707e-17
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     0.017348499283283303,
+     -0.06235302093613626,
+     -0.02897963786969715
+    ],
+    "error_change": [
+     -0.026974905038969155,
+     -0.02627246420888696,
+     0.042038401314243856
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.7284254975660769,
+    "tolerance_error_unchanged": 1.260232130740119,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 97.80859375
+  },
+  {
+   "flight": "20261062 d98_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "kind": "divert",
+   "decision_step": 35,
+   "ticks_beyond": 30,
+   "guided_end_t": 100.0,
+   "lowest_up_m": 3.944063679892281,
+   "range_at_lowest_m": 21.73418534201256,
+   "lowest_before_end_s": 17.799999999999997,
+   "up_at_end_m": 45.53096028198951,
+   "range_at_end_m": 0.04723542440594472,
+   "first": {
+    "step": 41,
+    "t": 82.5,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 0.5,
+    "steps_since_divert": 6,
+    "range": 24.747794809415012,
+    "up": 4.001385236394299,
+    "judged_margin": -0.8155285237183048,
+    "judged_tolerance": 0.8073550477314889,
+    "judged_over": -0.008173475986815837,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 4.973799150320701e-14,
+    "node0_margin": 1.4665825310548097,
+    "plan_min_node_margin": 5.643308043090656e-10,
+    "plan_node_bracket": [
+     1.4665825310547334,
+     5.643308043090656e-10
+    ],
+    "plan_path_margin": -0.6169396871485713,
+    "plan_end": [
+     45.719999999999985,
+     8.873852855524993e-17,
+     -1.7261342151974605e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.010665336172841933,
+     0.025384147880145314,
+     -0.02766448825423584
+    ],
+    "error_change": [
+     -0.031980675731119845,
+     -0.01272891154167155,
+     -0.06673909640556985
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -0.6776383829952266,
+    "tolerance_error_unchanged": 0.80697975086954,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "worst": {
+    "step": 41,
+    "t": 83.15,
+    "plan_step": 41,
+    "plan_is_divert": false,
+    "time_since_solve": 1.1500000000000057,
+    "steps_since_divert": 6,
+    "range": 30.76241561574761,
+    "up": 4.592236201968262,
+    "judged_margin": -1.509542301825702,
+    "judged_tolerance": 0.6135092076841507,
+    "judged_over": -0.8960330941415512,
+    "rebuilt": true,
+    "rebuild_cmd_max_abs_diff": 0.0,
+    "rebuild_n": 9,
+    "next_remaining": 8,
+    "plan_path_form_node_error_m": 4.973799150320701e-14,
+    "node0_margin": 1.4665825310548097,
+    "plan_min_node_margin": 5.643308043090656e-10,
+    "plan_node_bracket": [
+     1.4665825310547334,
+     5.643308043090656e-10
+    ],
+    "plan_path_margin": -1.1756952882434266,
+    "plan_end": [
+     45.719999999999985,
+     8.873852855524993e-17,
+     -1.7261342151974605e-15
+    ],
+    "est_at_solve_minus_plan_node0": 0.0,
+    "truth_minus_plan_disp": [
+     -0.017010237795631156,
+     0.05882526185236703,
+     -0.07616916518891159
+    ],
+    "error_change": [
+     -0.07270207958026731,
+     -0.03683394331619638,
+     -0.12023525923950729
+    ],
+    "error_change_at_fix_ticks": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fix_in_interval": false,
+    "margin_error_unchanged": -1.312431217458709,
+    "tolerance_error_unchanged": 0.6099183775026535,
+    "flags": {
+     "plan_nodes_outside": false,
+     "between_node": true,
+     "divert_switch": false,
+     "estimate_jump": false,
+     "dynamics_departure": false,
+     "near_apex": true
+    },
+    "primary": "2 between-node path"
+   },
+   "maxrss_mb": 105.9375
+  }
+ ]
+}

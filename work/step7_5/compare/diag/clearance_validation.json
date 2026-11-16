@@ -1,0 +1,289 @@
+{
+ "n": 17,
+ "seconds": 290.02218866348267,
+ "accepted": true,
+ "compared": 14,
+ "recorded_none": [
+  "20261062 d33_trn_e3_g24.0 e3",
+  "20261062 d46_trn_e3_g24.0 e3",
+  "20261062 d78_trn_e3_g24.0 e3"
+ ],
+ "fixed_exact": 14,
+ "default_exact": 0,
+ "default_minus_recorded_abs_min": 0.024807621862976248,
+ "default_minus_recorded_max_abs": 0.20944947954154713,
+ "flights": [
+  {
+   "flight": "20261062 d05_trn_e2_g24.0 e2",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.41189776322159,
+   "n_guided": 1760,
+   "fixed": {
+    "own_lowest_guided": 45.41189776322159,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.36720605518883,
+    "minus_recorded": -0.044691708032758015,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d08_trn_e3_g24.0 e3",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 51.532147677170585,
+   "n_guided": 2680,
+   "fixed": {
+    "own_lowest_guided": 51.532147677170585,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 51.40074965156254,
+    "minus_recorded": -0.1313980256080427,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e1_g24.0 e1",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.519512722697186,
+   "n_guided": 1720,
+   "fixed": {
+    "own_lowest_guided": 45.519512722697186,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.55573231274627,
+    "minus_recorded": 0.03621959004908604,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e2_g0.0 e2",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.67165296202654,
+   "n_guided": 1720,
+   "fixed": {
+    "own_lowest_guided": 45.67165296202654,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.708499060474765,
+    "minus_recorded": 0.03684609844822262,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e3_g0.0 e3",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.66707428894989,
+   "n_guided": 1720,
+   "fixed": {
+    "own_lowest_guided": 45.66707428894989,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.70511065292823,
+    "minus_recorded": 0.03803636397833543,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d22_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 47.321472838943635,
+   "n_guided": 1720,
+   "fixed": {
+    "own_lowest_guided": 47.321472838943635,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 47.13093515263057,
+    "minus_recorded": -0.19053768631306411,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d33_trn_e3_g24.0 e3",
+   "outcome": "abort",
+   "recorded_min_clearance": null,
+   "n_guided": 2000,
+   "fixed": {
+    "own_lowest_guided": 1141.0220658101653,
+    "minus_recorded": null,
+    "exact": null
+   },
+   "default": {
+    "own_lowest_guided": 1140.340040485943,
+    "minus_recorded": null,
+    "exact": null
+   }
+  },
+  {
+   "flight": "20261062 d46_trn_e3_g24.0 e3",
+   "outcome": "abort",
+   "recorded_min_clearance": null,
+   "n_guided": 1920,
+   "fixed": {
+    "own_lowest_guided": 1156.7723017685068,
+    "minus_recorded": null,
+    "exact": null
+   },
+   "default": {
+    "own_lowest_guided": 1156.031309051301,
+    "minus_recorded": null,
+    "exact": null
+   }
+  },
+  {
+   "flight": "20261062 d53_trn_e2_g24.0 e2",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.32539363761941,
+   "n_guided": 1800,
+   "fixed": {
+    "own_lowest_guided": 45.32539363761941,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.35020125948239,
+    "minus_recorded": 0.024807621862976248,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d57_trn_e1_g-24.0 e1",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 46.131796112942084,
+   "n_guided": 1760,
+   "fixed": {
+    "own_lowest_guided": 46.131796112942084,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 46.05845222577619,
+    "minus_recorded": -0.07334388716589046,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d57_trn_e3_g0.0 e3",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 46.16030542287348,
+   "n_guided": 1760,
+   "fixed": {
+    "own_lowest_guided": 46.16030542287348,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 46.10250793902554,
+    "minus_recorded": -0.05779748384793493,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d59_trn_e3_g72.0 e3",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 59.02944904913329,
+   "n_guided": 2680,
+   "fixed": {
+    "own_lowest_guided": 59.02944904913329,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 59.11681747280835,
+    "minus_recorded": 0.08736842367505915,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d74_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.71634572161042,
+   "n_guided": 1840,
+   "fixed": {
+    "own_lowest_guided": 45.71634572161042,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.62010391326686,
+    "minus_recorded": -0.09624180834356366,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d76_trn_e2_g24.0 e2",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 46.28957853591464,
+   "n_guided": 1760,
+   "fixed": {
+    "own_lowest_guided": 46.28957853591464,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 46.33487214383547,
+    "minus_recorded": 0.04529360792082571,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d78_trn_e3_g24.0 e3",
+   "outcome": "abort",
+   "recorded_min_clearance": null,
+   "n_guided": 1600,
+   "fixed": {
+    "own_lowest_guided": 1158.7245228266374,
+    "minus_recorded": null,
+    "exact": null
+   },
+   "default": {
+    "own_lowest_guided": 1157.9305312365082,
+    "minus_recorded": null,
+    "exact": null
+   }
+  },
+  {
+   "flight": "20261062 d88_trn_e0_g72.0 e0",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 45.88740676626071,
+   "n_guided": 1760,
+   "fixed": {
+    "own_lowest_guided": 45.88740676626071,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 45.67795728671916,
+    "minus_recorded": -0.20944947954154713,
+    "exact": false
+   }
+  },
+  {
+   "flight": "20261062 d88_trn_e2_g0.0 e2",
+   "outcome": "safe landing",
+   "recorded_min_clearance": 46.63299868128979,
+   "n_guided": 1720,
+   "fixed": {
+    "own_lowest_guided": 46.63299868128979,
+    "minus_recorded": 0.0,
+    "exact": true
+   },
+   "default": {
+    "own_lowest_guided": 46.65900491829376,
+    "minus_recorded": 0.02600623700396909,
+    "exact": false
+   }
+  }
+ ]
+}

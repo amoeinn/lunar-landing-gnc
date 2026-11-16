@@ -1,0 +1,15 @@
+| 20261062 d93_trn_e3_g-72.0 e3 | unsafe landing | 3 glide slope | -1.203 | 0.5242 | -0.6787 | 28 | lowest_elevation_margin_deg -1.204; d81_over_deg 1.281 |
+| 20261062 d97_trn_e0_g0.0 e0 | safe landing | 6 site lit | -0.1637 | 0.03438 | -0.1293 |  | sun_elevation 1.704; horizon 1.868; sun_azimuth 15.39; margin_lower_limb -0.4306; lit_disc_fraction 0.1375; ray_spacing_deg 0.0001611; march_step_deg 0.03422; samples_outside_grid 0 |
+| 20261062 d98_trn_e0_g168.0 e0 | safe landing | 6 site lit | -2.854 | 0.1037 | -2.751 |  | sun_elevation 1.706; horizon 4.561; sun_azimuth 15.02; margin_lower_limb -3.121; lit_disc_fraction 0; ray_spacing_deg 1.685e-06; march_step_deg 0.1037; samples_outside_grid 0 |
+| 20261062 d98_trn_e1_g24.0 e1 | unsafe landing | 3 glide slope | -1.588 | 1.257 | -0.331 | 17 | lowest_elevation_margin_deg -1.588; d81_over_deg 1.284 |
+| 20261062 d98_trn_e2_g-72.0 e2 | unsafe landing | 3 glide slope | -1.51 | 0.6135 | -0.896 | 30 | lowest_elevation_margin_deg -1.51; d81_over_deg 2.131 |
+
+
+real	0m0.260s
+user	0m0.148s
+sys	0m0.043s
+116 violations located; every smallest margin over tolerance matched the checker's
+
+real	0m2.190s
+user	0m2.095s
+sys	0m0.059s

@@ -6,7 +6,7 @@ judged as written.
 
     python -B work/step7_5/compare/compare.py
 
-Reads work/step7_5/seed_20261062, work/step7_5/score, work/step7_5/replay (if
+Reads work/step7_5/seed_20261062, work/step7_5/score, work/step7_5/compare/replay (7.3's summary of work/step7_5/replay; if
 present), work/step7_5/compare/diag (7.4's diagnosis outputs on the
 sensitivity run, if present), work/step6_3 (the registered seed and score),
 work/step7_3 (7.3's results) and work/step7_4/diagnosis.json. Writes
@@ -114,7 +114,7 @@ def paired():
 
 
 def replay():
-    sm = SENS / "replay" / "summary.json"
+    sm = OUT / "replay" / "summary.json"          # 7.3's summary over work/step7_5/replay, read only
     if not sm.exists():
         return None
     b = json.loads(sm.read_text())
@@ -163,17 +163,26 @@ def predictions(pay, cs):
     b = cs["sensitivity"]
     sc = b["clearance"]["sample_causes"]
     only_strikes = set(sc) <= {"1 terrain strike, confirmed"}
+    val = json.loads((OUT / "diag" / "clearance_validation.json").read_text())
+    only_strikes = only_strikes and val["accepted"]     # the clearance diagnosis counts only on a validated ground
     out["b check 4 ground-model violations disappear, only real terrain strikes left"] = dict(
-        verdict="PASS" if only_strikes else "FAIL", sample_causes=sc, flight_causes=b["clearance"]["flight_causes"])
+        verdict="PASS" if only_strikes else "FAIL", sample_causes=sc, flight_causes=b["clearance"]["flight_causes"],
+        check4_violating_flights=b["clearance"]["n_flights"], cause_2_samples=sc.get("2 ground-model difference", 0),
+        registered_7_4_seed_samples=cs["registered_7_4"]["clearance_samples"],
+        fixed_ground_validation=dict(accepted=val["accepted"], flights=val["n"], fixed_exact=val["fixed_exact"],
+                                     default_exact=val["default_exact"]))
     reg6 = {"navigation", "cell_vs_point"}
     reg3 = {"2 between-node path", "1 estimate jump after the solve"}
     c6 = set(b["lit"]["primary"])
     c3 = set(b["glide"]["first"]["primary"]) | set(b["glide"]["worst"]["primary"])
-    keep = c6 <= reg6 and c3 <= reg3 and not b["lit"]["fits_none"]
+    keep = c6 <= reg6 and c3 <= reg3 and not b["lit"]["fits_none"] and "none" not in c6
     out["c checks 3 and 6 keep their causes"] = dict(
         verdict="PASS" if keep else "FAIL", check6=b["lit"]["primary"], check3_first=b["glide"]["first"]["primary"],
         check3_worst=b["glide"]["worst"]["primary"], causes_7_4=dict(check6=sorted(reg6), check3=sorted(reg3)))
     return out
+
+
+PB = "b check 4 ground-model violations disappear, only real terrain strikes left"
 
 
 def fmt(v):
@@ -223,12 +232,15 @@ def markdown(sm):
         for c, v in r["per_check"].items():
             L.append(f"| {c} | {v['registered'].get('PASS', 0)} | {v['registered'].get('FAIL', 0)} | "
                      f"{v['sensitivity'].get('PASS', 0)} | {v['sensitivity'].get('FAIL', 0)} |")
+        L += ["", f"Checker integrity: error flights {r['integrity']['error_flights']}, checker errors "
+                  f"{r['integrity']['checker_errors']}, load errors {r['integrity']['load_errors']}."]
     c = sm["causes"]
     if c is not None:
         b, a = c["sensitivity"], c["registered_7_4"]
         L += ["", "## Causes (7.4's diagnosis scripts)", "",
               f"- Check 6: sensitivity {b['lit']['primary']}; registered seed in 7.4 {a['lit_primary']}; fits none "
               f"{len(b['lit']['fits_none'])}",
+              f"- Check 4 fixed-ground validation: {sm['predictions'][PB]['fixed_ground_validation']}",
               f"- Check 4 samples: sensitivity {b['clearance']['sample_causes']}; registered seed in 7.4 "
               f"{a['clearance_samples']}",
               f"- Check 3 worst tick: sensitivity {b['glide']['worst']['primary']}; registered seed in 7.4 {a['glide_worst']}",

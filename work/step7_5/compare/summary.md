@@ -72,10 +72,30 @@ Pairs 3200; outcomes changing class 132.
 
 ## Replay checker
 
-Not run in this step.
+Sensitivity bar: FAIL; flights judged 3189.
+
+| check | registered PASS | registered FAIL | sensitivity PASS | sensitivity FAIL |
+|---|---|---|---|---|
+| 1 mass flow | 3189 | 0 | 3189 | 0 |
+| 2 thrust and pointing | 3189 | 0 | 3189 | 0 |
+| 3 glide slope | 3138 | 51 | 3135 | 54 |
+| 4 terrain clearance | 3172 | 17 | 3189 | 0 |
+| 5 touchdown velocity | 3189 | 0 | 3189 | 0 |
+| 6 site lit | 3130 | 59 | 3127 | 62 |
+| 7 triggers | 3189 | 0 | 3189 | 0 |
+
+Checker integrity: error flights 8, checker errors 0, load errors 0.
+
+## Causes (7.4's diagnosis scripts)
+
+- Check 6: sensitivity {'navigation': 45, 'cell_vs_point': 17}; registered seed in 7.4 {'navigation': 45, 'cell_vs_point': 14}; fits none 0
+- Check 4 fixed-ground validation: {'accepted': True, 'flights': 17, 'fixed_exact': 14, 'default_exact': 0}
+- Check 4 samples: sensitivity {}; registered seed in 7.4 {'2 ground-model difference': 25}
+- Check 3 worst tick: sensitivity {'2 between-node path': 52, '1 estimate jump after the solve': 2}; registered seed in 7.4 {'2 between-node path': 49, '1 estimate jump after the solve': 2}
+- Check 3 first tick: sensitivity {'2 between-node path': 43, '1 estimate jump after the solve': 11}; registered seed in 7.4 {'2 between-node path': 41, '1 estimate jump after the solve': 10}
 
 ## Registered predictions (PLAN.md Step 7.5)
 
 - a payoff criteria 1 to 4 still all hold: **PASS**
-- b check 4 ground-model violations disappear, only real terrain strikes left: **NOT JUDGED**
-- c checks 3 and 6 keep their causes: **NOT JUDGED**
+- b check 4 ground-model violations disappear, only real terrain strikes left: **PASS**
+- c checks 3 and 6 keep their causes: **PASS**

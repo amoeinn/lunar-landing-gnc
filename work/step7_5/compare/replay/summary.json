@@ -1,0 +1,2807 @@
+{
+ "integrity": {
+  "jobs": {
+   "20261060": 0,
+   "20261061": 0,
+   "20261062": 2900
+  },
+  "flights_judged": {
+   "20261060": 0,
+   "20261061": 0,
+   "20261062": 3189
+  },
+  "error_flights": [
+   {
+    "seed": 20261062,
+    "job": "d28_trn_e1_g-24.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 144.4 m at t = 74.35 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d28_trn_e1_g72.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 128.5 m at t = 74.65 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d34_trn_e0_g168.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 129.8 m at t = 94.95 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d37_trn_e3_g72.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 146.5 m at t = 78.85 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d61_trn_e3_g24.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 126.7 m at t = 72.25 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d63_trn_e3_g24.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 120.3 m at t = 82.25 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d83_notrn_eNone_gNone",
+    "exception": [
+     "ValueError: scan plan reaches slant 142.3 m at t = 76.25 s"
+    ]
+   },
+   {
+    "seed": 20261062,
+    "job": "d96_trn_e3_g24.0",
+    "exception": [
+     "ValueError: scan plan reaches slant 137.7 m at t = 76.05 s"
+    ]
+   }
+  ],
+  "checker_errors": [],
+  "load_errors": [],
+  "histories": {
+   "20261060": 0,
+   "20261061": 0,
+   "20261062": 2892
+  }
+ },
+ "bar": {
+  "reads": "zero violations beyond the registered tolerances on checks 1, 2, 4, 5, 6 and 7, and on check 3 as judged (D97); an unjudged judged check counts against the bar (D105)",
+  "violations_per_check": {
+   "1 mass flow": 0,
+   "2 thrust and pointing": 0,
+   "3 glide slope": 54,
+   "4 terrain clearance": 0,
+   "5 touchdown velocity": 0,
+   "6 site lit": 62,
+   "7 triggers": 0
+  },
+  "unjudged_flights_per_check": {
+   "1 mass flow": 0,
+   "2 thrust and pointing": 0,
+   "3 glide slope": 0,
+   "4 terrain clearance": 0,
+   "5 touchdown velocity": 0,
+   "6 site lit": 0,
+   "7 triggers": 0
+  },
+  "verdict": "FAIL"
+ },
+ "per_check": {
+  "1 mass flow": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3189,
+     "smallest": {
+      "over": 3.2285840667611865e-12,
+      "margin": -8.641420912169906e-13,
+      "tolerance": 4.092726157978177e-12,
+      "flight": "20261062 d70_trn_e2_g-168.0 e2"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3189,
+    "smallest": {
+     "over": 3.2285840667611865e-12,
+     "margin": -8.641420912169906e-13,
+     "tolerance": 4.092726157978177e-12,
+     "flight": "20261062 d70_trn_e2_g-168.0 e2"
+    }
+   }
+  },
+  "2 thrust and pointing": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3189,
+     "smallest": {
+      "over": 4.403543346885008e-12,
+      "margin": -1.8189894035458565e-12,
+      "tolerance": 6.222532750430865e-12,
+      "flight": "20261062 d05_notrn_eNone_gNone e0"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3189,
+    "smallest": {
+     "over": 4.403543346885008e-12,
+     "margin": -1.8189894035458565e-12,
+     "tolerance": 6.222532750430865e-12,
+     "flight": "20261062 d05_notrn_eNone_gNone e0"
+    }
+   }
+  },
+  "3 glide slope": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3135,
+     "FAIL": 54,
+     "smallest": {
+      "over": -3.1102868546694142,
+      "margin": -5.016372600231839,
+      "tolerance": 1.9060857455624247,
+      "flight": "20261062 d59_trn_e0_g24.0 e0"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3135,
+    "FAIL": 54,
+    "smallest": {
+     "over": -3.1102868546694142,
+     "margin": -5.016372600231839,
+     "tolerance": 1.9060857455624247,
+     "flight": "20261062 d59_trn_e0_g24.0 e0"
+    }
+   }
+  },
+  "4 terrain clearance": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3189,
+     "smallest": {
+      "over": 0.02170705459759028,
+      "margin": 5.273928678661832e-05,
+      "tolerance": 0.02165431531080366,
+      "flight": "20261062 d04_trn_e1_g72.0 e1"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3189,
+    "smallest": {
+     "over": 0.02170705459759028,
+     "margin": 5.273928678661832e-05,
+     "tolerance": 0.02165431531080366,
+     "flight": "20261062 d04_trn_e1_g72.0 e1"
+    }
+   }
+  },
+  "5 touchdown velocity": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3189,
+     "smallest": {
+      "over": 1.1047862618458126,
+      "margin": 1.1047862517586562,
+      "tolerance": 1.0087156385686255e-08,
+      "flight": "20261062 d30_trn_e1_g-72.0 e1"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3189,
+    "smallest": {
+     "over": 1.1047862618458126,
+     "margin": 1.1047862517586562,
+     "tolerance": 1.0087156385686255e-08,
+     "flight": "20261062 d30_trn_e1_g-72.0 e1"
+    }
+   }
+  },
+  "6 site lit": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3127,
+     "FAIL": 62,
+     "smallest": {
+      "over": -3.3025186948578376,
+      "margin": -3.3031386414131116,
+      "tolerance": 0.0006199465552740353,
+      "flight": "20261062 d92_trn_e0_g168.0 e0"
+     }
+    }
+   },
+   "total": {
+    "PASS": 3127,
+    "FAIL": 62,
+    "smallest": {
+     "over": -3.3025186948578376,
+     "margin": -3.3031386414131116,
+     "tolerance": 0.0006199465552740353,
+     "flight": "20261062 d92_trn_e0_g168.0 e0"
+    }
+   }
+  },
+  "7 triggers": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "PASS": 3189,
+     "smallest": null
+    }
+   },
+   "total": {
+    "PASS": 3189,
+    "smallest": null
+   }
+  },
+  "2 tilt (deg)": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "smallest": {
+      "over": 3.543993677703346e-05,
+      "margin": 6.334866284873897e-07,
+      "tolerance": 3.480645014854607e-05,
+      "flight": "20261062 d47_trn_e1_g-72.0 e1"
+     }
+    }
+   },
+   "total": {
+    "smallest": {
+     "over": 3.543993677703346e-05,
+     "margin": 6.334866284873897e-07,
+     "tolerance": 3.480645014854607e-05,
+     "flight": "20261062 d47_trn_e1_g-72.0 e1"
+    }
+   }
+  },
+  "2 abort engines (relative)": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "smallest": {
+      "over": 1.3322676295501878e-15,
+      "margin": -0.0,
+      "tolerance": 1.3322676295501878e-15,
+      "flight": "20261062 d00_notrn_eNone_gNone e0"
+     }
+    }
+   },
+   "total": {
+    "smallest": {
+     "over": 1.3322676295501878e-15,
+     "margin": -0.0,
+     "tolerance": 1.3322676295501878e-15,
+     "flight": "20261062 d00_notrn_eNone_gNone e0"
+    }
+   }
+  },
+  "3 D81 form, reported (deg)": {
+   "per_seed": {
+    "20261060": {
+     "smallest": null
+    },
+    "20261061": {
+     "smallest": null
+    },
+    "20261062": {
+     "smallest": {
+      "over": -6.850289870512695,
+      "margin": -6.889443762882611,
+      "tolerance": 0.03915389236991597,
+      "flight": "20261062 d53_notrn_eNone_gNone e0"
+     }
+    }
+   },
+   "total": {
+    "smallest": {
+     "over": -6.850289870512695,
+     "margin": -6.889443762882611,
+     "tolerance": 0.03915389236991597,
+     "flight": "20261062 d53_notrn_eNone_gNone e0"
+    }
+   }
+  }
+ },
+ "d81_form_below_cone": {
+  "20261060": [],
+  "20261061": [],
+  "20261062": [
+   {
+    "flight": "20261062 d05_notrn_eNone_gNone e0",
+    "outcome": "safe landing",
+    "over": -0.02173380751011257,
+    "ticks_below": 1
+   },
+   {
+    "flight": "20261062 d05_notrn_eNone_gNone e1",
+    "outcome": "safe landing",
+    "over": -0.02173380751011257,
+    "ticks_below": 1
+   },
+   {
+    "flight": "20261062 d05_notrn_eNone_gNone e2",
+    "outcome": "safe landing",
+    "over": -0.02173380751011257,
+    "ticks_below": 1
+   },
+   {
+    "flight": "20261062 d05_notrn_eNone_gNone e3",
+    "outcome": "safe landing",
+    "over": -0.02173380751011257,
+    "ticks_below": 1
+   },
+   {
+    "flight": "20261062 d09_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -3.9527867270444053,
+    "ticks_below": 97
+   },
+   {
+    "flight": "20261062 d09_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -3.9527867270444053,
+    "ticks_below": 97
+   },
+   {
+    "flight": "20261062 d09_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -3.9527867270444053,
+    "ticks_below": 97
+   },
+   {
+    "flight": "20261062 d09_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -3.9527867270444053,
+    "ticks_below": 97
+   },
+   {
+    "flight": "20261062 d13_trn_e0_g24.0 e0",
+    "outcome": "safe landing",
+    "over": -0.2708678986856072,
+    "ticks_below": 27
+   },
+   {
+    "flight": "20261062 d18_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -3.2843771820798318,
+    "ticks_below": 69
+   },
+   {
+    "flight": "20261062 d18_notrn_eNone_gNone e1",
+    "outcome": "safe landing",
+    "over": -3.2843771820798318,
+    "ticks_below": 69
+   },
+   {
+    "flight": "20261062 d18_notrn_eNone_gNone e2",
+    "outcome": "safe landing",
+    "over": -3.2843771820798318,
+    "ticks_below": 69
+   },
+   {
+    "flight": "20261062 d18_notrn_eNone_gNone e3",
+    "outcome": "safe landing",
+    "over": -3.2843771820798318,
+    "ticks_below": 69
+   },
+   {
+    "flight": "20261062 d19_trn_e3_g72.0 e3",
+    "outcome": "abort",
+    "over": -0.08379666838212854,
+    "ticks_below": 4
+   },
+   {
+    "flight": "20261062 d22_trn_e0_g168.0 e0",
+    "outcome": "abort",
+    "over": -1.1606153762498295,
+    "ticks_below": 31
+   },
+   {
+    "flight": "20261062 d23_trn_e3_g-168.0 e3",
+    "outcome": "abort",
+    "over": -3.8314356871648014,
+    "ticks_below": 434
+   },
+   {
+    "flight": "20261062 d28_trn_e1_g24.0 e1",
+    "outcome": "safe landing",
+    "over": -0.1768627077460494,
+    "ticks_below": 13
+   },
+   {
+    "flight": "20261062 d37_notrn_eNone_gNone e0",
+    "outcome": "safe landing",
+    "over": -4.978713712116609,
+    "ticks_below": 100
+   },
+   {
+    "flight": "20261062 d37_notrn_eNone_gNone e1",
+    "outcome": "safe landing",
+    "over": -4.978713712116609,
+    "ticks_below": 100
+   },
+   {
+    "flight": "20261062 d37_notrn_eNone_gNone e2",
+    "outcome": "safe landing",
+    "over": -4.978713712116609,
+    "ticks_below": 100
+   },
+   {
+    "flight": "20261062 d37_notrn_eNone_gNone e3",
+    "outcome": "safe landing",
+    "over": -4.978713712116609,
+    "ticks_below": 100
+   },
+   {
+    "flight": "20261062 d37_trn_e0_g168.0 e0",
+    "outcome": "abort",
+    "over": -1.6238123871217713,
+    "ticks_below": 38
+   },
+   {
+    "flight": "20261062 d37_trn_e2_g-168.0 e2",
+    "outcome": "abort",
+    "over": -0.772418024432514,
+    "ticks_below": 17
+   },
+   {
+    "flight": "20261062 d46_trn_e2_g-24.0 e2",
+    "outcome": "safe landing",
+    "over": -0.1992627162611466,
+    "ticks_below": 18
+   },
+   {
+    "flight": "20261062 d46_trn_e2_g24.0 e2",
+    "outcome": "safe landing",
+    "over": -0.16043883489270933,
+    "ticks_below": 22
+   },
+   {
+    "flight": "20261062 d48_notrn_eNone_gNone e0",
+    "outcome": "safe landing",
+    "over": -0.09411507729462742,
+    "ticks_below": 12
+   },
+   {
+    "flight": "20261062 d48_notrn_eNone_gNone e1",
+    "outcome": "safe landing",
+    "over": -0.09411507729462742,
+    "ticks_below": 12
+   },
+   {
+    "flight": "20261062 d48_notrn_eNone_gNone e2",
+    "outcome": "safe landing",
+    "over": -0.09411507729462742,
+    "ticks_below": 12
+   },
+   {
+    "flight": "20261062 d48_notrn_eNone_gNone e3",
+    "outcome": "safe landing",
+    "over": -0.09411507729462742,
+    "ticks_below": 12
+   },
+   {
+    "flight": "20261062 d50_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -4.103885616940615,
+    "ticks_below": 105
+   },
+   {
+    "flight": "20261062 d50_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -4.103885616940615,
+    "ticks_below": 105
+   },
+   {
+    "flight": "20261062 d50_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -4.103885616940615,
+    "ticks_below": 105
+   },
+   {
+    "flight": "20261062 d50_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -4.103885616940615,
+    "ticks_below": 105
+   },
+   {
+    "flight": "20261062 d53_notrn_eNone_gNone e0",
+    "outcome": "safe landing",
+    "over": -6.850289870512695,
+    "ticks_below": 208
+   },
+   {
+    "flight": "20261062 d53_notrn_eNone_gNone e1",
+    "outcome": "safe landing",
+    "over": -6.850289870512695,
+    "ticks_below": 208
+   },
+   {
+    "flight": "20261062 d53_notrn_eNone_gNone e2",
+    "outcome": "safe landing",
+    "over": -6.850289870512695,
+    "ticks_below": 208
+   },
+   {
+    "flight": "20261062 d53_notrn_eNone_gNone e3",
+    "outcome": "safe landing",
+    "over": -6.850289870512695,
+    "ticks_below": 208
+   },
+   {
+    "flight": "20261062 d59_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -2.6751135710022473,
+    "ticks_below": 68
+   },
+   {
+    "flight": "20261062 d59_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -2.6751135710022473,
+    "ticks_below": 68
+   },
+   {
+    "flight": "20261062 d59_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -2.6751135710022473,
+    "ticks_below": 68
+   },
+   {
+    "flight": "20261062 d59_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -2.6751135710022473,
+    "ticks_below": 68
+   },
+   {
+    "flight": "20261062 d61_trn_e3_g72.0 e3",
+    "outcome": "safe landing",
+    "over": -6.43014403431785,
+    "ticks_below": 359
+   },
+   {
+    "flight": "20261062 d64_trn_e2_g72.0 e2",
+    "outcome": "safe landing",
+    "over": -1.47579648123233,
+    "ticks_below": 56
+   },
+   {
+    "flight": "20261062 d70_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -1.2985833196009622,
+    "ticks_below": 37
+   },
+   {
+    "flight": "20261062 d70_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -1.2985833196009622,
+    "ticks_below": 37
+   },
+   {
+    "flight": "20261062 d70_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -1.2985833196009622,
+    "ticks_below": 37
+   },
+   {
+    "flight": "20261062 d70_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -1.2985833196009622,
+    "ticks_below": 37
+   },
+   {
+    "flight": "20261062 d72_trn_e0_g168.0 e0",
+    "outcome": "abort",
+    "over": -0.155989886935578,
+    "ticks_below": 5
+   },
+   {
+    "flight": "20261062 d73_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -4.37306261195091,
+    "ticks_below": 163
+   },
+   {
+    "flight": "20261062 d73_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -4.37306261195091,
+    "ticks_below": 163
+   },
+   {
+    "flight": "20261062 d73_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -4.37306261195091,
+    "ticks_below": 163
+   },
+   {
+    "flight": "20261062 d73_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -4.37306261195091,
+    "ticks_below": 163
+   },
+   {
+    "flight": "20261062 d73_trn_e1_g168.0 e1",
+    "outcome": "safe landing",
+    "over": -5.4241146856849625,
+    "ticks_below": 682
+   },
+   {
+    "flight": "20261062 d74_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -1.5184816948248505,
+    "ticks_below": 42
+   },
+   {
+    "flight": "20261062 d74_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -1.5184816948248505,
+    "ticks_below": 42
+   },
+   {
+    "flight": "20261062 d74_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -1.5184816948248505,
+    "ticks_below": 42
+   },
+   {
+    "flight": "20261062 d74_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -1.5184816948248505,
+    "ticks_below": 42
+   },
+   {
+    "flight": "20261062 d75_trn_e3_g72.0 e3",
+    "outcome": "abort",
+    "over": -3.163743722927043,
+    "ticks_below": 151
+   },
+   {
+    "flight": "20261062 d85_trn_e0_g0.0 e0",
+    "outcome": "safe landing",
+    "over": -0.13950233882291307,
+    "ticks_below": 19
+   },
+   {
+    "flight": "20261062 d85_trn_e2_g-24.0 e2",
+    "outcome": "safe landing",
+    "over": -0.1117658405383945,
+    "ticks_below": 17
+   },
+   {
+    "flight": "20261062 d85_trn_e3_g-24.0 e3",
+    "outcome": "safe landing",
+    "over": -0.15609003125930415,
+    "ticks_below": 21
+   },
+   {
+    "flight": "20261062 d97_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -3.5491445934042694,
+    "ticks_below": 98
+   },
+   {
+    "flight": "20261062 d97_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -3.5491445934042694,
+    "ticks_below": 98
+   },
+   {
+    "flight": "20261062 d97_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -3.5491445934042694,
+    "ticks_below": 98
+   },
+   {
+    "flight": "20261062 d97_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -3.5491445934042694,
+    "ticks_below": 98
+   },
+   {
+    "flight": "20261062 d98_notrn_eNone_gNone e0",
+    "outcome": "abort",
+    "over": -6.729442467788732,
+    "ticks_below": 174
+   },
+   {
+    "flight": "20261062 d98_notrn_eNone_gNone e1",
+    "outcome": "abort",
+    "over": -6.729442467788732,
+    "ticks_below": 174
+   },
+   {
+    "flight": "20261062 d98_notrn_eNone_gNone e2",
+    "outcome": "abort",
+    "over": -6.729442467788732,
+    "ticks_below": 174
+   },
+   {
+    "flight": "20261062 d98_notrn_eNone_gNone e3",
+    "outcome": "abort",
+    "over": -6.729442467788732,
+    "ticks_below": 174
+   },
+   {
+    "flight": "20261062 d98_trn_e1_g-24.0 e1",
+    "outcome": "safe landing",
+    "over": -1.9539817155673824,
+    "ticks_below": 34
+   }
+  ]
+ },
+ "unjudged_items": {
+  "20261060": {},
+  "20261061": {},
+  "20261062": {
+   "1 holds without a step count": 0,
+   "2 guided holds without a step estimate": 0,
+   "3 guided ticks without an estimate (D105)": 0,
+   "4 off-DEM samples below 10,786 m (D87)": 0,
+   "4 off-DEM samples above 10,786 m, passed by the bound (D87, not unjudged)": 447197
+  }
+ },
+ "unjudged_flights": [],
+ "violations": [
+  {
+   "flight": "20261062 d01_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.46005713326572106,
+   "tolerance": 0.03921276050808004,
+   "over": -0.420844372757641,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7042519190271,
+    "horizon": 2.164309052292821,
+    "sun_azimuth": 15.335959397305443,
+    "margin_lower_limb": -0.727019344343506,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00015361882844366903,
+    "march_step_deg": 0.03905723567963637,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d03_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.4220925783193534,
+   "tolerance": 0.15130564333009072,
+   "over": -2.2707869349892627,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7061572208267144,
+    "horizon": 4.128249799146068,
+    "sun_azimuth": 15.119358019454895,
+    "margin_lower_limb": -2.689054789929348,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 4.027048611909834e-06,
+    "march_step_deg": 0.15129971028147882,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d03_trn_e1_g-24.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.6388859576455914,
+   "tolerance": 0.5639151213379381,
+   "over": -1.0749708363076533,
+   "items_beyond_tolerance": 33,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.6388859576455914,
+    "d81_over_deg": 1.658238193323717
+   }
+  },
+  {
+   "flight": "20261062 d03_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.8014270855551828,
+   "tolerance": 0.40055812320194734,
+   "over": -0.4008689623532355,
+   "items_beyond_tolerance": 25,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.8032257447836688,
+    "d81_over_deg": 0.6795605796414201
+   }
+  },
+  {
+   "flight": "20261062 d05_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.23112705114595422,
+   "tolerance": 0.044457243805316744,
+   "over": -0.18666980734063748,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7043141395195602,
+    "horizon": 1.9354411906655145,
+    "sun_azimuth": 15.381864640082652,
+    "margin_lower_limb": -0.4980892623366697,
+    "lit_disc_fraction": 0.030463187420097,
+    "ray_spacing_deg": 0.00016170306577478755,
+    "march_step_deg": 0.044293634739541954,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d06_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.2593645310379651,
+   "tolerance": 0.08601423441036488,
+   "over": -0.1733502966276002,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704636646189427,
+    "horizon": 1.964001177227392,
+    "sun_azimuth": 15.399658092446046,
+    "margin_lower_limb": -0.5263267424572569,
+    "lit_disc_fraction": 0.003836925148362213,
+    "ray_spacing_deg": 0.000515842500284247,
+    "march_step_deg": 0.08549648591008063,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d06_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.3436591696123208,
+   "tolerance": 0.08826542683706678,
+   "over": -1.255393742775254,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7051599725548399,
+    "horizon": 3.0488191421671607,
+    "sun_azimuth": 15.231655989208944,
+    "margin_lower_limb": -1.61062138113297,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00026546344511357844,
+    "march_step_deg": 0.08799805739195321,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d07_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.492734110755147,
+   "tolerance": 0.09695474324444259,
+   "over": -2.395779367510704,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.706523755580016,
+    "horizon": 4.199257866335163,
+    "sun_azimuth": 15.18754353731718,
+    "margin_lower_limb": -2.759696321922685,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 6.033202447497388e-05,
+    "march_step_deg": 0.09689250521996762,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d08_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.14552692668885303,
+   "tolerance": 0.06732747417019386,
+   "over": -0.07819945251865917,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7049561313119403,
+    "horizon": 1.8504830580007934,
+    "sun_azimuth": 15.424614401363751,
+    "margin_lower_limb": -0.412489138018856,
+    "lit_disc_fraction": 0.172858159530042,
+    "ray_spacing_deg": 0.00034301596699637393,
+    "march_step_deg": 0.06698255220319749,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d10_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.0811275007986247,
+   "tolerance": 0.17709769758466537,
+   "over": -0.9040298032139593,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7055148672286138,
+    "horizon": 2.7866423680272385,
+    "sun_azimuth": 15.266042748694773,
+    "margin_lower_limb": -1.3480897120256894,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00010763928597601335,
+    "march_step_deg": 0.17698815229868936,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d12_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.9820903606486666,
+   "tolerance": 0.01183235788413967,
+   "over": -0.9702580027645269,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7045833497013512,
+    "horizon": 2.686673710350018,
+    "sun_azimuth": 15.279278912791266,
+    "margin_lower_limb": -1.2490525714132883,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.008451714941903887,
+    "march_step_deg": 0.0033787369422357827,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d12_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.22378797872803058,
+   "tolerance": 0.013380743211518668,
+   "over": -0.21040723551651191,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7048693819251923,
+    "horizon": 1.928657360653223,
+    "sun_azimuth": 15.594079580222779,
+    "margin_lower_limb": -0.4907501904553586,
+    "lit_disc_fraction": 0.03810702290389411,
+    "ray_spacing_deg": 6.220056127936857e-07,
+    "march_step_deg": 0.013378215205905875,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.4248016983196994,
+   "tolerance": 0.26770146023113356,
+   "over": -0.15710023808856582,
+   "items_beyond_tolerance": 19,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.4259228937717676,
+    "d81_over_deg": 1.0186678586372702
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.2803483379045466,
+   "tolerance": 0.018983054290593496,
+   "over": -0.2613652836139531,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7041181856832979,
+    "horizon": 1.9844665235878445,
+    "sun_azimuth": 15.356506468311935,
+    "margin_lower_limb": -0.5473105495633532,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00015393855146261792,
+    "march_step_deg": 0.01882720973913088,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e0_g72.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.31319510814839546,
+   "tolerance": 0.26348247427093857,
+   "over": -0.04971263387745689,
+   "items_beyond_tolerance": 10,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.31319510814839546,
+    "d81_over_deg": 0.17888287133898656
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.49765837377636046,
+   "tolerance": 0.23799768358781093,
+   "over": -0.25966069018854954,
+   "items_beyond_tolerance": 27,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.49765837377636046,
+    "d81_over_deg": 0.9461100412102696
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.43235884168035454,
+   "tolerance": 0.257449877943161,
+   "over": -0.17490896373719356,
+   "items_beyond_tolerance": 20,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.43235884168035454,
+    "d81_over_deg": 0.26613645843090633
+   }
+  },
+  {
+   "flight": "20261062 d13_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.41329512878640173,
+   "tolerance": 0.3141711005245731,
+   "over": -0.09912402826182865,
+   "items_beyond_tolerance": 14,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.41329512878640173,
+    "d81_over_deg": 0.2273616970644664
+   }
+  },
+  {
+   "flight": "20261062 d14_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.184925226345463,
+   "tolerance": 0.34792088071130084,
+   "over": -0.8370043456341623,
+   "items_beyond_tolerance": 39,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.184925226345463,
+    "d81_over_deg": 0.7604610471708555
+   }
+  },
+  {
+   "flight": "20261062 d14_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.479606707442473,
+   "tolerance": 0.3108458259693221,
+   "over": -0.16876088147315094,
+   "items_beyond_tolerance": 17,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.479606707442473,
+    "d81_over_deg": 0.6590004900195543
+   }
+  },
+  {
+   "flight": "20261062 d15_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.658771262574092,
+   "tolerance": 0.6080662503866145,
+   "over": -0.05070501218747747,
+   "items_beyond_tolerance": 5,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.658771262574092,
+    "d81_over_deg": 3.0690081889825294
+   }
+  },
+  {
+   "flight": "20261062 d18_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.21712698201393388,
+   "tolerance": 0.01218951955745812,
+   "over": -0.20493746245647576,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7048352570601513,
+    "horizon": 1.9219622390740851,
+    "sun_azimuth": 15.591755270392003,
+    "margin_lower_limb": -0.4840891936096223,
+    "lit_disc_fraction": 0.04707009915513179,
+    "ray_spacing_deg": 2.204262259830614e-06,
+    "march_step_deg": 0.01218540929519829,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.3051243088728397,
+   "tolerance": 0.06686856553086334,
+   "over": -0.23825574334197636,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7054281999583039,
+    "horizon": 2.0105525088311436,
+    "sun_azimuth": 15.395746639399752,
+    "margin_lower_limb": -0.5720865196570322,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0002761330223473024,
+    "march_step_deg": 0.06659052650851605,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.7691722310766926,
+   "tolerance": 0.08323363800442024,
+   "over": -0.6859385930722723,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7060209957227674,
+    "horizon": 2.47519322679946,
+    "sun_azimuth": 15.369133355841951,
+    "margin_lower_limb": -1.0361344423346979,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00022178537703965162,
+    "march_step_deg": 0.08300994662738059,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d19_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.08604836374884473,
+   "tolerance": 0.009064002787761042,
+   "over": -0.07698436096108369,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.705375365340233,
+    "horizon": 1.7914237290890778,
+    "sun_azimuth": 15.437033281331729,
+    "margin_lower_limb": -0.35301057527653645,
+    "lit_disc_fraction": 0.29886788828115707,
+    "ray_spacing_deg": 0.00027272746765061306,
+    "march_step_deg": 0.00878936932011043,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d20_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.41470871722533054,
+   "tolerance": 0.2282756978004214,
+   "over": -0.18643301942490914,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7058892525757934,
+    "horizon": 2.120597969801124,
+    "sun_azimuth": 15.39246538027972,
+    "margin_lower_limb": -0.68167092886838,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0003119720785158542,
+    "march_step_deg": 0.22796181972190555,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d20_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.16145869865373608,
+   "tolerance": 0.004463058814898562,
+   "over": -0.15699563983883752,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7054258374916949,
+    "horizon": 1.866884536145431,
+    "sun_azimuth": 15.428651710243866,
+    "margin_lower_limb": -0.4284209102296068,
+    "lit_disc_fraction": 0.14163214843930333,
+    "ray_spacing_deg": 0.004461152814898561,
+    "march_step_deg": 0.0,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d25_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.07149093351646729,
+   "tolerance": 0.04736906924694501,
+   "over": -0.02412186426952228,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704821550468741,
+    "horizon": 1.7763124839852082,
+    "sun_azimuth": 15.582649735472668,
+    "margin_lower_limb": -0.33845314526534964,
+    "lit_disc_fraction": 0.3316443834920854,
+    "ray_spacing_deg": 1.5994727926571528e-06,
+    "march_step_deg": 0.04736556377415235,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d25_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.1016593765039,
+   "tolerance": 0.3836371818431363,
+   "over": -1.7180221946607634,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7066227440827315,
+    "horizon": 3.808282120586631,
+    "sun_azimuth": 15.202410923365976,
+    "margin_lower_limb": -2.368621589932874,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 6.500637951667443e-05,
+    "march_step_deg": 0.3835702694636196,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d25_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.10956592980056379,
+   "tolerance": 0.01824631125544646,
+   "over": -0.09131961854511733,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7047383466428696,
+    "horizon": 1.8143042764434334,
+    "sun_azimuth": 15.62928785434224,
+    "margin_lower_limb": -0.3765281413606947,
+    "lit_disc_fraction": 0.24645291946188636,
+    "ray_spacing_deg": 7.886745600615974e-05,
+    "march_step_deg": 0.0181655377994403,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d26_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.168382966473981,
+   "tolerance": 0.12686098971265952,
+   "over": -3.0415219767613215,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7066805104497484,
+    "horizon": 4.87506347692373,
+    "sun_azimuth": 14.70326097668665,
+    "margin_lower_limb": -3.4353451777839554,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00015831818888845106,
+    "march_step_deg": 0.12670076552377108,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d27_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -3.9041879747193784,
+   "tolerance": 2.323655699194356,
+   "over": -1.5805322755250222,
+   "items_beyond_tolerance": 21,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -3.9323589304200084,
+    "d81_over_deg": 6.323243123086636
+   }
+  },
+  {
+   "flight": "20261062 d27_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -4.250429443791828,
+   "tolerance": 1.5221992372976259,
+   "over": -2.728230206494202,
+   "items_beyond_tolerance": 54,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -4.25590989924008,
+    "d81_over_deg": 6.323243123086636
+   }
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.3781761124949359,
+   "tolerance": 0.2339708846646791,
+   "over": -0.14420522783025677,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3781761124949359,
+    "d81_over_deg": 1.735546516704992
+   }
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e1",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.3781761124949359,
+   "tolerance": 0.2339708846646791,
+   "over": -0.14420522783025677,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3781761124949359,
+    "d81_over_deg": 1.735546516704992
+   }
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e2",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.3781761124949359,
+   "tolerance": 0.2339708846646791,
+   "over": -0.14420522783025677,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3781761124949359,
+    "d81_over_deg": 1.735546516704992
+   }
+  },
+  {
+   "flight": "20261062 d28_notrn_eNone_gNone e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.3781761124949359,
+   "tolerance": 0.2339708846646791,
+   "over": -0.14420522783025677,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3781761124949359,
+    "d81_over_deg": 1.735546516704992
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.107411464566317,
+   "tolerance": 0.4495325387637353,
+   "over": -0.6578789258025817,
+   "items_beyond_tolerance": 28,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.107411464566317,
+    "d81_over_deg": 0.8134877038156181
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -2.1548928043662983,
+   "tolerance": 0.7445135315264738,
+   "over": -1.4103792728398243,
+   "items_beyond_tolerance": 36,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -2.159607854803366,
+    "d81_over_deg": 3.4119572122593738
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.936150869943063,
+   "tolerance": 0.306504320420955,
+   "over": -0.629646549522108,
+   "items_beyond_tolerance": 37,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.936150869943063,
+    "d81_over_deg": 0.935404545978837
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e1_g24.0 e1",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -1.467801634374613,
+   "tolerance": 1.148647309461089,
+   "over": -0.319154324913524,
+   "items_beyond_tolerance": 19,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.5116983016422516,
+    "d81_over_deg": -0.1768627077460494
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.4153956696832868,
+   "tolerance": 0.5203216612627377,
+   "over": -0.8950740084205491,
+   "items_beyond_tolerance": 38,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.4153956696832868,
+    "d81_over_deg": 0.2641113863185698
+   }
+  },
+  {
+   "flight": "20261062 d28_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.32041247881754664,
+   "tolerance": 0.23591496777314272,
+   "over": -0.08449751104440392,
+   "items_beyond_tolerance": 16,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.32041247881754664,
+    "d81_over_deg": 0.785434208098418
+   }
+  },
+  {
+   "flight": "20261062 d29_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.25465882300010034,
+   "tolerance": 0.008438252548689854,
+   "over": -0.2462205704514105,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704876225243076,
+    "horizon": 1.9595350482431764,
+    "sun_azimuth": 15.417725622721514,
+    "margin_lower_limb": -0.5216210343924848,
+    "lit_disc_fraction": 0.006600934187919396,
+    "ray_spacing_deg": 0.008436346548689855,
+    "march_step_deg": 0.0,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d33_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.778045447882231,
+   "tolerance": 0.03299187620527406,
+   "over": -0.7450535716769568,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7046547428355554,
+    "horizon": 2.4827001907177864,
+    "sun_azimuth": 15.315857295605039,
+    "margin_lower_limb": -1.045007658545562,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00012974980297419947,
+    "march_step_deg": 0.032860220402299856,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d40_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.11612402500951302,
+   "tolerance": 0.013442851516795199,
+   "over": -0.10268117349271783,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7053832024853506,
+    "horizon": 1.8215072274948636,
+    "sun_azimuth": 15.430751448557043,
+    "margin_lower_limb": -0.3830862370272632,
+    "lit_disc_fraction": 0.232637549647481,
+    "ray_spacing_deg": 0.0002733228665376952,
+    "march_step_deg": 0.013167622650257504,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d41_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.3116202971393673,
+   "tolerance": 0.2135143999808195,
+   "over": -3.098105897158548,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7069014397010647,
+    "horizon": 5.018521736840432,
+    "sun_azimuth": 14.776107720614586,
+    "margin_lower_limb": -3.5785825085188083,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 9.416022018982062e-06,
+    "march_step_deg": 0.21350307795880052,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d41_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.13679794060482453,
+   "tolerance": 0.1145574783512277,
+   "over": -0.022240462253596827,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7046647008292395,
+    "horizon": 1.841462641434064,
+    "sun_azimuth": 15.41712054624723,
+    "margin_lower_limb": -0.40376015198557424,
+    "lit_disc_fraction": 0.19064862788417553,
+    "ray_spacing_deg": 0.000479472920319024,
+    "march_step_deg": 0.11407609943090868,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d43_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.0056499665911403,
+   "tolerance": 0.003225310666075069,
+   "over": -1.0024246559250651,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.710259759417627,
+    "horizon": 2.7159097260087672,
+    "sun_azimuth": 17.569292137116012,
+    "margin_lower_limb": -1.2726121778882706,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 4.3394795925078e-05,
+    "march_step_deg": 0.0031800098701499913,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d45_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.2333620315519633,
+   "tolerance": 0.3204166276421136,
+   "over": -1.9129454039098497,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7067233753381228,
+    "horizon": 3.940085406890086,
+    "sun_azimuth": 15.205350777822511,
+    "margin_lower_limb": -2.5003242438821385,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00014171152636066608,
+    "march_step_deg": 0.32027301011575293,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d45_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.669632229017278,
+   "tolerance": 0.2874922614119571,
+   "over": -0.38213996760532093,
+   "items_beyond_tolerance": 31,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.669632229017278,
+    "d81_over_deg": 1.857897985637882
+   }
+  },
+  {
+   "flight": "20261062 d45_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.3006677500976416,
+   "tolerance": 0.28034893300235186,
+   "over": -0.02031881709528971,
+   "items_beyond_tolerance": 5,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3006677500976416,
+    "d81_over_deg": 0.7238794278193721
+   }
+  },
+  {
+   "flight": "20261062 d46_trn_e2_g-24.0 e2",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.49684255222267915,
+   "tolerance": 0.3472091230580052,
+   "over": -0.14963342916467393,
+   "items_beyond_tolerance": 16,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.49684255222267915,
+    "d81_over_deg": -0.1992627162611466
+   }
+  },
+  {
+   "flight": "20261062 d46_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.36899850690941527,
+   "tolerance": 0.3260892516134419,
+   "over": -0.04290925529597339,
+   "items_beyond_tolerance": 9,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.36899850690941527,
+    "d81_over_deg": 0.12218459217520178
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.259192968672302,
+   "tolerance": 0.3862401740046716,
+   "over": -0.8729527946676304,
+   "items_beyond_tolerance": 38,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.259192968672302,
+    "d81_over_deg": 1.5962460084528738
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.05901110142609589,
+   "tolerance": 0.02746867037064878,
+   "over": -0.031542431055447115,
+   "items_beyond_tolerance": 34,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.05901110142609589,
+    "d81_over_deg": 5.850609399962324
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.40824252297924346,
+   "tolerance": 0.3059984012978667,
+   "over": -0.10224412168137675,
+   "items_beyond_tolerance": 13,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.40824252297924346,
+    "d81_over_deg": 1.3887036177655159
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.4702293462013287,
+   "tolerance": 0.7108408314431445,
+   "over": -0.7593885147581843,
+   "items_beyond_tolerance": 24,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.4702293462013287,
+    "d81_over_deg": 3.198044286665847
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e2_g-72.0 e2",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -1.3108380668902733,
+   "tolerance": 0.40029182651378176,
+   "over": -0.9105462403764915,
+   "items_beyond_tolerance": 40,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.3143097363525449,
+    "d81_over_deg": 1.745874131142449
+   }
+  },
+  {
+   "flight": "20261062 d47_trn_e3_g-168.0 e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -2.57676194540925,
+   "tolerance": 1.2734649184036437,
+   "over": -1.3032970270056061,
+   "items_beyond_tolerance": 35,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -2.6084302819529865,
+    "d81_over_deg": 5.474635953327956
+   }
+  },
+  {
+   "flight": "20261062 d48_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.8999772072851764,
+   "tolerance": 0.5188425648603556,
+   "over": -0.38113464242482076,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7064303454032541,
+    "horizon": 2.6064075526884305,
+    "sun_azimuth": 15.324021885899171,
+    "margin_lower_limb": -1.1669394189115623,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00016030509191233833,
+    "march_step_deg": 0.5186803537684432,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d49_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.542229611911393,
+   "tolerance": 0.05275106369728894,
+   "over": -1.489478548214104,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7053758263647283,
+    "horizon": 3.2476054382761212,
+    "sun_azimuth": 15.217595909594847,
+    "margin_lower_limb": -1.8091918228822361,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 9.430541453658847e-05,
+    "march_step_deg": 0.05265485228275235,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d49_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.25605514694489284,
+   "tolerance": 0.021633266211404437,
+   "over": -0.2344218807334884,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704130330435888,
+    "horizon": 1.9601854773807807,
+    "sun_azimuth": 15.362906329204426,
+    "margin_lower_limb": -0.5230173578907851,
+    "lit_disc_fraction": 0.005863978902438795,
+    "ray_spacing_deg": 0.00015533130382028304,
+    "march_step_deg": 0.021476028907584155,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d50_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.31973500425208856,
+   "tolerance": 0.012681174601095028,
+   "over": -0.30705382965099354,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7043817945422766,
+    "horizon": 2.024116798794365,
+    "sun_azimuth": 15.380068231921667,
+    "margin_lower_limb": -0.5866972153484249,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.008274819977250658,
+    "march_step_deg": 0.00440444862384437,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d50_trn_e0_g72.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.7003472192214133,
+   "tolerance": 0.01007542876649831,
+   "over": -0.6902717904549149,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7044991011736887,
+    "horizon": 2.404846320395102,
+    "sun_azimuth": 15.322623286971215,
+    "margin_lower_limb": -0.9673094301343892,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00742664978638885,
+    "march_step_deg": 0.0026468729801094604,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d51_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.26763342591313743,
+   "tolerance": 0.04016598431217706,
+   "over": -0.22746744160096039,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7043049160896449,
+    "horizon": 1.9719383420027823,
+    "sun_azimuth": 15.373791040930563,
+    "margin_lower_limb": -0.5345956373538527,
+    "lit_disc_fraction": 9.856395759706607e-05,
+    "ray_spacing_deg": 0.0001603212633183304,
+    "march_step_deg": 0.040003757048858724,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d51_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.19802576179588094,
+   "tolerance": 0.011322176757933847,
+   "over": -0.1867035850379471,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7040450540513725,
+    "horizon": 1.9020708158472535,
+    "sun_azimuth": 15.365377649517916,
+    "margin_lower_limb": -0.4649879730652531,
+    "lit_disc_fraction": 0.07729724272260347,
+    "ray_spacing_deg": 0.00015395050084920925,
+    "march_step_deg": 0.011166320257084639,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d52_notrn_eNone_gNone e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.7577786494933769,
+   "tolerance": 0.5235320481625165,
+   "over": -0.2342466013308604,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7182882011687073,
+    "horizon": 2.476066850662084,
+    "sun_azimuth": 14.584891021760532,
+    "margin_lower_limb": -1.0247408620287766,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00010358228609241849,
+    "march_step_deg": 0.5234265598764241,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d52_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.08803937398388029,
+   "tolerance": 0.03522048599596856,
+   "over": -0.052818887987911727,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7054491272833523,
+    "horizon": 1.7934885012672326,
+    "sun_azimuth": 15.432867055273315,
+    "margin_lower_limb": -0.3550015856723978,
+    "lit_disc_fraction": 0.29530575067693415,
+    "ray_spacing_deg": 0.00022689745223436475,
+    "march_step_deg": 0.03499168254373419,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d52_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.021846721298498073,
+   "tolerance": 0.00024043366204024434,
+   "over": -0.02160628763645783,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7053886108481973,
+    "horizon": 1.7272353321466953,
+    "sun_azimuth": 15.448835148030119,
+    "margin_lower_limb": -0.28880893315859324,
+    "lit_disc_fraction": 0.4483075830943803,
+    "ray_spacing_deg": 0.00023852766204024434,
+    "march_step_deg": 0.0,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d53_trn_e2_g-168.0 e2",
+   "outcome": "abort",
+   "check": "3 glide slope",
+   "margin": -0.7170887930789789,
+   "tolerance": 0.45872118831748193,
+   "over": -0.25836760476149695,
+   "items_beyond_tolerance": 2,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.7170887930789789,
+    "d81_over_deg": 4.318352726419189
+   }
+  },
+  {
+   "flight": "20261062 d54_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.5280886331202534,
+   "tolerance": 0.7573449773381683,
+   "over": -0.7707436557820851,
+   "items_beyond_tolerance": 24,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.5280886331202534,
+    "d81_over_deg": 3.0353554499454343
+   }
+  },
+  {
+   "flight": "20261062 d54_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -2.968993730416326,
+   "tolerance": 1.415427448246066,
+   "over": -1.5535662821702598,
+   "items_beyond_tolerance": 27,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -2.975827139799236,
+    "d81_over_deg": 5.91422348145984
+   }
+  },
+  {
+   "flight": "20261062 d59_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.6703956929408972,
+   "tolerance": 0.19311269055775554,
+   "over": -1.4772830023831416,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7051315720050075,
+    "horizon": 3.3755272649459047,
+    "sun_azimuth": 15.164777253367207,
+    "margin_lower_limb": -1.937357904559238,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 4.465983654222683e-05,
+    "march_step_deg": 0.19306612472121332,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d59_trn_e0_g24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -5.016372600231839,
+   "tolerance": 1.9060857455624247,
+   "over": -3.1102868546694142,
+   "items_beyond_tolerance": 41,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -5.016372600231839,
+    "d81_over_deg": 5.823205398836617
+   }
+  },
+  {
+   "flight": "20261062 d59_trn_e3_g72.0 e3",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.942394143928709,
+   "tolerance": 0.2941586342370032,
+   "over": -2.648235509691706,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.6406347118702644,
+    "horizon": 4.583028855798974,
+    "sun_azimuth": 297.45781144750595,
+    "margin_lower_limb": -3.2078841913355682,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0007157784599156614,
+    "march_step_deg": 0.29344094977708757,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d60_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.7899173388978831,
+   "tolerance": 0.48105692705396724,
+   "over": -0.3088604118439158,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.7899173388978831,
+    "d81_over_deg": 1.5123896193578201
+   }
+  },
+  {
+   "flight": "20261062 d60_trn_e3_g-72.0 e3",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.42292546872200987,
+   "tolerance": 0.358904465907883,
+   "over": -0.06402100281412687,
+   "items_beyond_tolerance": 11,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.42292546872200987,
+    "d81_over_deg": 0.6140124361221143
+   }
+  },
+  {
+   "flight": "20261062 d61_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.1188057294003744,
+   "tolerance": 4.6223122961601284e-05,
+   "over": -3.1187595062774127,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7066264126802424,
+    "horizon": 4.825432142080617,
+    "sun_azimuth": 15.119967998503483,
+    "margin_lower_limb": -3.385767940540253,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 4.4317122961601285e-05,
+    "march_step_deg": 0.0,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d63_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -3.065296177531647,
+   "tolerance": 1.2918569000646392,
+   "over": -1.773439277467008,
+   "items_beyond_tolerance": 47,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -3.0878321663683774,
+    "d81_over_deg": 5.968970301631888
+   }
+  },
+  {
+   "flight": "20261062 d63_trn_e0_g72.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.1639193282724225,
+   "tolerance": 0.6475373338159643,
+   "over": -0.5163819944564582,
+   "items_beyond_tolerance": 22,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.1639193282724225,
+    "d81_over_deg": 1.5202582227733288
+   }
+  },
+  {
+   "flight": "20261062 d63_trn_e3_g72.0 e3",
+   "outcome": "abort",
+   "check": "3 glide slope",
+   "margin": -0.08787665880374007,
+   "tolerance": 0.02164378200932692,
+   "over": -0.06623287679441314,
+   "items_beyond_tolerance": 5,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.08787665880374007,
+    "d81_over_deg": 5.968970301631888
+   }
+  },
+  {
+   "flight": "20261062 d65_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.01869407936667833,
+   "tolerance": 0.004295233504994338,
+   "over": -0.014398845861683992,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7053818755588155,
+    "horizon": 1.7240759549254938,
+    "sun_azimuth": 15.450653581975576,
+    "margin_lower_limb": -0.2856562907171787,
+    "lit_disc_fraction": 0.4557038481350165,
+    "ray_spacing_deg": 0.004293327504994338,
+    "march_step_deg": 0.0,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d66_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.4937349958068156,
+   "tolerance": 0.17281544424677925,
+   "over": -2.3209195515600363,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7062121766612126,
+    "horizon": 4.199947172468028,
+    "sun_azimuth": 15.10670271211909,
+    "margin_lower_limb": -2.7606972067157916,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 4.8714203044752935e-06,
+    "march_step_deg": 0.17280866682647478,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d66_trn_e0_g72.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.01255051762725512,
+   "tolerance": 0.002159336902687718,
+   "over": -0.010391180724567402,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7038349555617347,
+    "horizon": 1.7163854731889898,
+    "sun_azimuth": 15.385044507596776,
+    "margin_lower_limb": -0.27951272878134525,
+    "lit_disc_fraction": 0.47024170916736086,
+    "ray_spacing_deg": 0.0001835093647291064,
+    "march_step_deg": 0.0019739215379586117,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d70_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.4796302157551082,
+   "tolerance": 0.2364352866569266,
+   "over": -0.24319492909818163,
+   "items_beyond_tolerance": 25,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.4796302157551082,
+    "d81_over_deg": 0.7998022072482298
+   }
+  },
+  {
+   "flight": "20261062 d70_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.3934033386135667,
+   "tolerance": 0.2667711231603274,
+   "over": -0.12663221545323927,
+   "items_beyond_tolerance": 18,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3962298750496469,
+    "d81_over_deg": 0.9239827372887235
+   }
+  },
+  {
+   "flight": "20261062 d70_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.46844821147079685,
+   "tolerance": 0.20615481339056668,
+   "over": -0.26229339808023017,
+   "items_beyond_tolerance": 30,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.46844821147079685,
+    "d81_over_deg": 0.8459464287090498
+   }
+  },
+  {
+   "flight": "20261062 d71_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.137489261964368,
+   "tolerance": 0.1832329857224954,
+   "over": -2.9542562762418725,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7067324910539636,
+    "horizon": 4.844221753018331,
+    "sun_azimuth": 15.097218325465754,
+    "margin_lower_limb": -3.4044514753919994,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 3.8847425814836356e-05,
+    "march_step_deg": 0.18319223229668058,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d72_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.32059765878579105,
+   "tolerance": 0.013641209624202181,
+   "over": -0.3069564491615889,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7038793017180924,
+    "horizon": 2.0244769605038835,
+    "sun_azimuth": 15.333955868600098,
+    "margin_lower_limb": -0.5875598696507951,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0007783696315937227,
+    "march_step_deg": 0.012860933992608459,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d75_trn_e0_g-24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.5469043952077146,
+   "tolerance": 0.01728382825935121,
+   "over": -0.5296205669483633,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7060052528395282,
+    "horizon": 2.252909648047243,
+    "sun_azimuth": 15.40092218539154,
+    "margin_lower_limb": -0.8138666065054179,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00010956862743105589,
+    "march_step_deg": 0.017172353631920156,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d75_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.2462911205990936,
+   "tolerance": 0.08113374957800706,
+   "over": -2.1651573710210865,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7059585766881005,
+    "horizon": 3.952249697287194,
+    "sun_azimuth": 15.119829546825619,
+    "margin_lower_limb": -2.5132533320636945,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 3.8566739132939176e-05,
+    "march_step_deg": 0.08109327683887413,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d77_trn_e0_g72.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.563857961441169,
+   "tolerance": 0.029040447377827797,
+   "over": -0.5348175140633411,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7041848470196168,
+    "horizon": 2.2680428084607858,
+    "sun_azimuth": 15.31307249938352,
+    "margin_lower_limb": -0.8308201732253091,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0001487150405532489,
+    "march_step_deg": 0.02888982633727455,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d80_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.1622300782777717,
+   "tolerance": 0.021076126561633216,
+   "over": -0.14115395171613848,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704145422061864,
+    "horizon": 1.8663755003396356,
+    "sun_azimuth": 15.379838115279474,
+    "margin_lower_limb": -0.4291922897354197,
+    "lit_disc_fraction": 0.14014615037272551,
+    "ray_spacing_deg": 0.00015797862396937923,
+    "march_step_deg": 0.020916241937663838,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d80_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.09048506171611437,
+   "tolerance": 0.01881996474289122,
+   "over": -0.07166509697322315,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7041506437258545,
+    "horizon": 1.7946357054419688,
+    "sun_azimuth": 15.39426906266388,
+    "margin_lower_limb": -0.3574472726382054,
+    "lit_disc_fraction": 0.2895722364658012,
+    "ray_spacing_deg": 0.0001601689298411646,
+    "march_step_deg": 0.018657889813050055,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d81_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.0261419884947234,
+   "tolerance": 0.13960577079663622,
+   "over": -2.886536217698087,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7066137147566713,
+    "horizon": 4.732755703251395,
+    "sun_azimuth": 14.930804983528047,
+    "margin_lower_limb": -3.293104199896524,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 2.7154683378327604e-05,
+    "march_step_deg": 0.1395767101132579,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d84_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.2969625188940377,
+   "tolerance": 0.018399960945539143,
+   "over": -0.27856255794849855,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7041076338416508,
+    "horizon": 2.0010701527356884,
+    "sun_azimuth": 15.35407701528179,
+    "margin_lower_limb": -0.5639247298487557,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0001535082602877047,
+    "march_step_deg": 0.01824454668525144,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d85_trn_e0_g-24.0 e0",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.3966462839066125,
+   "tolerance": 0.18758279262232092,
+   "over": -0.20906349128429158,
+   "items_beyond_tolerance": 30,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.3966462839066125,
+    "d81_over_deg": 0.38845691447742364
+   }
+  },
+  {
+   "flight": "20261062 d85_trn_e1_g-72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.7285376991691273,
+   "tolerance": 0.23767405062993646,
+   "over": -0.4908636485391908,
+   "items_beyond_tolerance": 37,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.7285376991691273,
+    "d81_over_deg": 0.17926841044315375
+   }
+  },
+  {
+   "flight": "20261062 d85_trn_e1_g72.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.38604475918289793,
+   "tolerance": 0.2041226816034257,
+   "over": -0.18192207757947224,
+   "items_beyond_tolerance": 24,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.38604475918289793,
+    "d81_over_deg": 0.07939503905036355
+   }
+  },
+  {
+   "flight": "20261062 d85_trn_e2_g-72.0 e2",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.4877444823106849,
+   "tolerance": 0.35261217748659957,
+   "over": -0.13513230482408534,
+   "items_beyond_tolerance": 15,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.48808610530640273,
+    "d81_over_deg": 0.6668354787609786
+   }
+  },
+  {
+   "flight": "20261062 d85_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -0.6135059066333959,
+   "tolerance": 0.2991288434275856,
+   "over": -0.31437706320581027,
+   "items_beyond_tolerance": 25,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.6136856116007436,
+    "d81_over_deg": 0.4869574102461799
+   }
+  },
+  {
+   "flight": "20261062 d86_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.1136633838069336,
+   "tolerance": 0.2442446760663563,
+   "over": -1.8694187077405773,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7066994624658893,
+    "horizon": 3.820362846272823,
+    "sun_azimuth": 15.23226007265678,
+    "margin_lower_limb": -2.3806255950534654,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.00014972157242931772,
+    "march_step_deg": 0.244093048493927,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d86_trn_e0_g72.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.347970924450137,
+   "tolerance": 0.04745985575679285,
+   "over": -0.30051106869334415,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7050214487419368,
+    "horizon": 2.052992373192074,
+    "sun_azimuth": 15.388723567858747,
+    "margin_lower_limb": -0.6149331355117944,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0003521624247597721,
+    "march_step_deg": 0.04710578733203308,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d87_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.786595892946549,
+   "tolerance": 0.3269237546270482,
+   "over": -2.4596721383195006,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7064063642990526,
+    "horizon": 4.493002257245601,
+    "sun_azimuth": 15.029802143648034,
+    "margin_lower_limb": -3.053558103862345,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 2.927418513820612e-06,
+    "march_step_deg": 0.3269189212085344,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d88_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.1864425526324887,
+   "tolerance": 0.023344202063896927,
+   "over": -2.1630983505685917,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.686846517814617,
+    "horizon": 3.8732890704471057,
+    "sun_azimuth": 23.537097969851686,
+    "margin_lower_limb": -2.453404767851669,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0025704658785961065,
+    "march_step_deg": 0.02077183018530082,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d88_trn_e2_g-168.0 e2",
+   "outcome": "safe landing",
+   "check": "3 glide slope",
+   "margin": -0.05088422825121164,
+   "tolerance": 0.01685699039656382,
+   "over": -0.03402723785464782,
+   "items_beyond_tolerance": 36,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -0.05088422825121164,
+    "d81_over_deg": 2.4089912849051656
+   }
+  },
+  {
+   "flight": "20261062 d91_trn_e0_g24.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.020745787751157874,
+   "tolerance": 0.0175974552854567,
+   "over": -0.0031483324657011723,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7036224497085397,
+    "horizon": 1.7243682374596976,
+    "sun_azimuth": 15.370298592481936,
+    "margin_lower_limb": -0.2877079994798464,
+    "lit_disc_fraction": 0.450844337515244,
+    "ray_spacing_deg": 0.0001766647529082288,
+    "march_step_deg": 0.017418884532548473,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d92_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -3.3031386414131116,
+   "tolerance": 0.0006199465552740353,
+   "over": -3.3025186948578376,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7067534604846515,
+    "horizon": 5.009892101897763,
+    "sun_azimuth": 14.89256189789547,
+    "margin_lower_limb": -3.57010085320071,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 3.4781548554185804e-05,
+    "march_step_deg": 0.0005832590067198495,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d92_trn_e2_g-168.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.4384929429130526,
+   "tolerance": 0.4147203619928522,
+   "over": -1.0237725809202005,
+   "items_beyond_tolerance": 37,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.4384929429130526,
+    "d81_over_deg": 5.885223916965412
+   }
+  },
+  {
+   "flight": "20261062 d93_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -1.6975150689319316,
+   "tolerance": 0.23105212388753799,
+   "over": -1.4664629450443936,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7061520148758575,
+    "horizon": 3.403667083807789,
+    "sun_azimuth": 15.243271661983984,
+    "margin_lower_limb": -1.9644772804591872,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 0.0001932760090421759,
+    "march_step_deg": 0.2308569418784958,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d93_trn_e3_g-72.0 e3",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.2028910347593555,
+   "tolerance": 0.5242216037326088,
+   "over": -0.6786694310267467,
+   "items_beyond_tolerance": 28,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.2038661097615293,
+    "d81_over_deg": 1.2805903320262522
+   }
+  },
+  {
+   "flight": "20261062 d97_trn_e0_g0.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -0.16368275879488303,
+   "tolerance": 0.0343834532052873,
+   "over": -0.12929930558959574,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.704238132171922,
+    "horizon": 1.867920890966805,
+    "sun_azimuth": 15.388113384531117,
+    "margin_lower_limb": -0.4306449699964172,
+    "lit_disc_fraction": 0.137450341108593,
+    "ray_spacing_deg": 0.00016105747721817387,
+    "march_step_deg": 0.034220489728069126,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d98_trn_e0_g168.0 e0",
+   "outcome": "safe landing",
+   "check": "6 site lit",
+   "margin": -2.8543251137746823,
+   "tolerance": 0.10365509525529365,
+   "over": -2.7506700185193886,
+   "items_beyond_tolerance": null,
+   "unit": "deg",
+   "where": {
+    "sun_elevation": 1.7063083828178638,
+    "horizon": 4.560633496592546,
+    "sun_azimuth": 15.019206426617702,
+    "margin_lower_limb": -3.1212873254777493,
+    "lit_disc_fraction": 0.0,
+    "ray_spacing_deg": 1.6851341717583068e-06,
+    "march_step_deg": 0.1036515041211219,
+    "samples_outside_grid": 0
+   }
+  },
+  {
+   "flight": "20261062 d98_trn_e1_g24.0 e1",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.5884662917157826,
+   "tolerance": 1.2574885136595857,
+   "over": -0.3309777780561969,
+   "items_beyond_tolerance": 17,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.5884662917157826,
+    "d81_over_deg": 1.2844334753759565
+   }
+  },
+  {
+   "flight": "20261062 d98_trn_e2_g-72.0 e2",
+   "outcome": "unsafe landing",
+   "check": "3 glide slope",
+   "margin": -1.509542301825702,
+   "tolerance": 0.6135092076841507,
+   "over": -0.8960330941415512,
+   "items_beyond_tolerance": 30,
+   "unit": "deg",
+   "where": {
+    "lowest_elevation_margin_deg": -1.509542301825702,
+    "d81_over_deg": 2.131224912047453
+   }
+  }
+ ]
+}

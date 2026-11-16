@@ -1,6 +1,6 @@
 # lunar-landing-gnc
 
-Guidance, navigation and control for a crewed class lunar lander descending to
+Guidance, navigation and control for a lunar module class lander descending to
 the south pole, on the real LOLA terrain with a SPICE sun, built to test one
 claim: at the south pole a terrain relative navigation reference map expires as
 the low sun's shadows move, and that expiry carries through the navigation filter
@@ -18,9 +18,9 @@ map flight lands safely and whose week-old flight aborts to a safe orbit (draw
 abort: 261 of this seed's 400 at +168 h.*
 
 **In short.** With the same filter, guidance and hazard detection, a fresh
-reference map landed all 400 flights of the scored seed safely, with a median
-touchdown position error of 0.12 m. A map one day old lost 13 to 24 pct of the
-landings and the error grew to 2 to 4 m; three days, about 55 pct lost and 10 to
+reference map landed all 400 flights of the scored seed safely, and the lander
+knew its touchdown position to 0.12 m (median). A map one day old lost 13 to 24
+pct of the landings and that navigation error grew to 2 to 4 m; three days, about 55 pct lost and 10 to
 15 m; a week, 72 to 92 pct lost and about 600 m, worse than a lander with no map
 at all, which landed 62 pct. Both halves of the claim, the fix error at the
 correlator and the outcome at the ground, were measured against bars registered
@@ -71,7 +71,7 @@ table or interval table from that project is reused.
 ## Results
 
 Each phase registered its bar in a private working record before the run it
-judges, then reported the result as it fell. Nothing below was rescored. The
+judges, then reported the result as it fell. Each verdict is the one first scored. The
 seeds named as scored were never used before their scored run.
 
 ### The renderer (phase 1)
@@ -106,7 +106,7 @@ seeds named as scored were never used before their scored run.
   convex formulation's linear thrust bound is conservative, so its last burn
   under-uses the thrust by about 0.2 pct.
 * **Closed loop guidance: PASS**, 6 of 6 on a fresh seed: 200 of 200 landed,
-  horizontal touchdown error p95 0.784 m (bar 1.046 m), touchdown velocity error
+  horizontal miss from the site p95 0.784 m (bar 1.046 m), touchdown velocity error
   p95 0.0490 m/s (bar 0.052), closed loop better than open loop in 200 of 200
   pairs.
 * **Aborts: PASS**, 7 of 7 on fresh seeds: 0 false alarms in 200 nominal
@@ -136,9 +136,9 @@ no fix is possible.
 
 The filter's own consistency step was **not reached**: on both reference seeds
 its NEES fell inside the bound at 6 and 5 of 10 times where 7 were needed, every
-miss on the low side, so the filter is underconfident by about 10 pct. By the
-bar's rule its scored seed was never run, and that filter was carried into
-phase 6 as it stood.
+miss on the low side, so the filter is underconfident by about 10 pct. The step
+was closed at its registered stop point by decision, its scored seed was never
+run, and that filter was carried into phase 6 as it stood.
 
 ### The C++ flight code (phase 4)
 
@@ -181,9 +181,9 @@ lander fell from 97 to 86 pct.
 
 ### The payoff (phase 6)
 
-![Safe landings and touchdown error against map gap](docs/fig_payoff.png)
+![Safe landings and navigation error at touchdown against map gap](docs/fig_payoff.png)
 
-Q is the touchdown navigation error: the distance between where the lander
+Q is the navigation error at touchdown: the distance between where the lander
 believes it touched down and where it did. The whole loop flies on the filter's
 estimate: guidance, the triggers, the scan, site selection, the divert and the
 terminal descent. Each draw is flown at every gap and landing epoch with the same
@@ -294,7 +294,8 @@ are in [docs/fig_captions.md](docs/fig_captions.md).
   rendered from the reference map itself, so a fresh map matches it by
   construction.
 * **The filter is underconfident by about 10 pct** in NEES on fresh maps, and its
-  consistency step was not reached.
+  consistency step was closed at its registered stop point, its scored seed
+  never run.
 * **Unsafe landings off the verified site cannot be split** into estimate drift
   and scan placement: the records do not hold what would separate them.
 * **The lit test reads one 20 m cell centre in the estimated frame**, so a lost
@@ -319,9 +320,9 @@ are in [docs/fig_captions.md](docs/fig_captions.md).
 * **The widened final time search cannot run in one re-plan period** on a flight
   computer (phase 4).
 * **Flights within a draw share its dispersions**, so counts pooled over landing
-  epochs are dependent; every sign test is over draws for that reason. 8 to 10
-  flights per seed ended in the scan planner's error (slant range under 150 m)
-  and count as not safe.
+  epochs are dependent; every sign test is over draws for that reason. 4, 6 and
+  8 flights on the three seeds, 18 in all, ended in the scan planner's error
+  (slant range under 150 m) and count as not safe.
 * **The prior is a reading.** The 333 m prior sigma reads a published 1.0 km
   orbit determination uncertainty as 3 sigma; the source does not say whether it
   is 1 or 3 sigma.
@@ -364,7 +365,7 @@ Clarabel.rs (cargo 1.99.1 here). The replay checker's site lit check calls the
 built horizon binary of lunar-polar-traverse, found beside this repository or
 through `LLG_E_ROOT`. The animation is encoded with ffmpeg (6.1 here).
 
-Memory: the 20 m DEM is 2.7 GB and the 5 m mosaic 3.3 GB, and nothing here opens
+Memory: the 20 m DEM is 2.70 GB and the 5 m mosaic 3.47 GB, and nothing here opens
 either whole. A Monte Carlo worker peaks at about 2 GB; the runs here were
 sized for an 8 GB cap.
 
@@ -382,10 +383,9 @@ examples/fetch_data.sh
 The script is resumable and downloads about 7.1 GB:
 
 * the LOLA 20 m and 80 m south polar DEMs, PGDA product 90, 2.9 GB;
-* the LOLA 87S to 90S mosaic at 5 m, `ldem_87s_5mpp.tif` (3.3 GB), and its return
-  count map, `ldec_87s_5mpp.tif` (140 MB), PGDA product 81, from
-  <https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S/>, sizes as the product page
-  lists them;
+* the LOLA 87S to 90S mosaic at 5 m, `ldem_87s_5mpp.tif` (3.47 GB), and its
+  return count map, `ldec_87s_5mpp.tif` (146 MB), PGDA product 81, from
+  <https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/87S/>;
 * nine LRO NAC observations map projected onto the 20 m DEM, with their published
   simulated counterparts, 27 files, 626 MB;
 * the SPICE kernels (DE421, the lunar PA binary PCK, leapseconds, planetary
@@ -519,7 +519,7 @@ value is on the line beside it or in the table below.
 | gear limits: mean slope 6 deg, effective slope 12 deg, 0.61 m relief in the footprint | hazard detection (TN D-6850) |
 | glide slope 80 deg from vertical; pointing 45 deg; throttle 10 to 60 pct | guidance constraints (Bennett) |
 | payoff bar: at gap 0 at most 2 of 400 unsafe and median Q at most 1.0 m; at -24 and +24 h one-sided p below 0.01 and median Q at least 1.0 m; safe fraction falling and median Q rising strictly from 24 to 72 to 168 h; at -168 and +168 h Hp at least 0.5 and safe fraction at least 0.10 below the no-TRN lander | registered 7 Nov 2026 from seeds 20261060 and 20261061, before any flight of 20261062 |
-| replay tolerances, per item: mass flow (N/2 + 4) ulp of the hold's largest mass; thrust 6 machine epsilons of the bound; tilt from the solver's primal tolerance through the pointing constraint; glide slope the elevation angle rate over half a tick plus a 0.332 m site height term; clearance the vertical speed plus slope times horizontal speed over half the sample spacing; touchdown velocity 1.01e-8 m/s; lit per site from the horizon march's ray spacing; triggers exact | registered 7 Nov 2026, before any registered seed was re-flown; each item's value is written beside its margin in the checker's output |
+| replay tolerances, per item: mass flow (N/2 + 4) ulp of the hold's largest mass; thrust 6 machine epsilons of the bound; tilt from the solver's primal tolerance through the pointing constraint; glide slope the elevation angle rate over half a tick plus a 0.332 m site height term; clearance the vertical speed plus slope times horizontal speed over half the sample spacing; touchdown velocity 1.01e-8 m/s; lit per site, from the horizon march's ray spacing and step measured at that site, plus E's implementation error; triggers exact | registered 7 Nov 2026, before any registered seed was re-flown; each item's value is written beside its margin in the checker's output |
 | replay bar: zero violations beyond those tolerances on all seven checks | phase 7 |
 | ground fix: off by default | keeps every registered result reproducible; on only for the stated sensitivity |
 | seeds: premise 20261020, 20261021 (reference) and 20261022 (scored); phase 4 20261040 and 20261041; phase 5 20261050, 20261051 and 20261052; phase 6 20261060, 20261061 and 20261062 | each scored seed was unused before its scored run |

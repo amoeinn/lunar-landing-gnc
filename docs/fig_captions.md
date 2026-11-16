@@ -4,7 +4,7 @@ Made by `examples/make_result_figures.py`; every number is read from the committ
 
 ## Payoff (`fig_payoff.png`)
 
-The TRN lander's safe-landing fraction and median touchdown error Q against map gap, for the scored seed 20261062 and the reference seeds 20261060 and 20261061, with each seed's no-TRN lander as a dashed level. On the scored seed the safe fraction is 1.000 at gap 0 and 0.275 at +168 h against 0.620 for the no-TRN lander; median Q is 0.12 m at gap 0 and 608 m at +168 h against 343 m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. Limit: median Q is over the flights that touched down only, 138 of 400 at +168 h on the scored seed, so at large gaps it describes a shrinking and selected subset; aborts and errors are not in it.
+The TRN lander's safe-landing fraction and median touchdown error Q against map gap, for the scored seed 20261062 and the reference seeds 20261060 and 20261061, with each seed's no-TRN lander as a dashed level. On the scored seed the safe fraction is 1.000 at gap 0 and 0.275 at +168 h against 0.620 for the no-TRN lander; median Q is 0.12 m at gap 0 and 608 m at +168 h against 343 m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. The number beside each scored seed point is the touchdowns behind its median. Limit: median Q is over the flights that touched down only, 138 of 400 at +168 h on the scored seed, so at large gaps it describes a shrinking and selected subset; aborts and errors are not in it.
 
 ## Three way split (`fig_split.png`)
 
@@ -16,7 +16,7 @@ The fix hazard rate H, the fraction of TRN fixes whose error exceeds the prior's
 
 ## Phase 5 (`fig_phase5.png`)
 
-Safe landings of the hazard detection and divert system against the blind lander, which lands at the target, on the scored seed 20261052 by landing epoch (system 100, 100, 100, 100; blind 91, 91, 91, 91 of 100 each), and the rock-field sensitivity on the reference seed 20261050 (system minimum 400, nominal 400, maximum 400; blind minimum 388, nominal 368, maximum 344 of 400). Source: `work/step5_3/score_scored_20261052.json` and `work/step5_2/baselines.json`. Limit: phase 5 navigates on the truth, so this is the hazard system alone, before any TRN error.
+Safe landings of the hazard detection and divert system against the blind lander, which lands at the target, on the scored seed 20261052 by landing epoch (system 100, 100, 100, 100; blind 91, 91, 91, 91 of 100 each), and the rock-field sensitivity on the reference seed 20261050 (system minimum 400, nominal 400, maximum 400; blind minimum 388, nominal 368, maximum 344 of 400). Source: `work/step5_3/score_scored_20261052.json` and `work/step5_2/baselines.json`. The blind lander's count is the same at every epoch because the epochs fly the same draws, with the same dispersions and rocks, and the blind lander lands at the target, so it never uses the lit test that differs between epochs; its failures are on the ground's span. Limit: phase 5 navigates on the truth, so this is the hazard system alone, before any TRN error.
 
 ## Replay checker (`fig_replay.png`)
 

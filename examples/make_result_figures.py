@@ -164,6 +164,11 @@ def fig_payoff(out):
         a.plot(d["gaps"], d["safe"], "o-", color=SEED_COLOUR[s], lw=lw, label=f"TRN, seed {s} ({tag})")
         a.axhline(d["notrn_safe"], color=SEED_COLOUR[s], ls="--", lw=1.0, label=f"no-TRN, seed {s}")
         b.plot(d["gaps"], d["q_median"], "o-", color=SEED_COLOUR[s], lw=lw, label=f"TRN, seed {s} ({tag})")
+        if s == P6_SEED:
+            for g, q, n in zip(d["gaps"], d["q_median"], d["q_n"]):
+                b.annotate(f"n {n}", (g, q), xytext=(0, 9), textcoords="offset points", ha="center", fontsize=7.5,
+                           color=SEED_COLOUR[s], bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none",
+                                                            alpha=0.8))
         b.axhline(d["notrn_q"], color=SEED_COLOUR[s], ls="--", lw=1.0, label=f"no-TRN, seed {s}")
     gaps = D[P6_SEED]["gaps"]
     for ax in (a, b):
@@ -175,7 +180,8 @@ def fig_payoff(out):
     a.set_title("Safe landings against map gap", fontsize=10)
     b.set_yscale("log")
     b.set_ylabel("median touchdown error Q, m (flights that touched down)", fontsize=9)
-    b.set_title("Median Q against map gap", fontsize=10)
+    b.set_title(f"Median Q against map gap (n: touchdowns of 400 behind each median, seed {P6_SEED})", fontsize=9)
+    b.set_ylim(top=max(max(d["q_median"]) for d in D.values()) * 6)
     fig.suptitle("Phase 6 payoff: the TRN lander against map gap, scored seed and both reference seeds, with the "
                  "no-TRN lander's level", fontsize=11)
     fig.tight_layout(rect=(0, 0, 1, 0.95))
@@ -317,7 +323,8 @@ def captions():
               f"lander as a dashed level. On the scored seed the safe fraction is {s['safe'][i0]:.3f} at gap 0 and "
               f"{s['safe'][i168]:.3f} at +168 h against {s['notrn_safe']:.3f} for the no-TRN lander; median Q is "
               f"{s['q_median'][i0]:.2f} m at gap 0 and {s['q_median'][i168]:.0f} m at +168 h against "
-              f"{s['notrn_q']:.0f} m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. Limit: median Q is "
+              f"{s['notrn_q']:.0f} m. Source: `work/step6_3/score_<seed>.json`, `summary_6_2`. The number beside each scored seed "
+              "point is the touchdowns behind its median. Limit: median Q is "
               f"over the flights that touched down only, {s['q_n'][i168]} of 400 at +168 h on the scored seed, so "
               "at large gaps it describes a shrinking and selected subset; aborts and errors are not in it.", ""]
     if FIGS["split"][1]():
@@ -352,7 +359,10 @@ def captions():
               f"sensitivity on the reference seed {P5_ROCK_SEED} (system "
               f"{', '.join(f'{f} {n}' for f, n in zip(r['fields'], r['system']))}; blind "
               f"{', '.join(f'{f} {n}' for f, n in zip(r['fields'], r['blind']))} of {r['flights'][0]}). Source: "
-              "`work/step5_3/score_scored_20261052.json` and `work/step5_2/baselines.json`. Limit: phase 5 "
+              "`work/step5_3/score_scored_20261052.json` and `work/step5_2/baselines.json`. The blind lander's count "
+              "is the same at every epoch because the epochs fly the same draws, with the same dispersions and "
+              "rocks, and the blind lander lands at the target, so it never uses the lit test that differs between "
+              "epochs; its failures are on the ground's span. Limit: phase 5 "
               "navigates on the truth, so this is the hazard system alone, before any TRN error.", ""]
     if FIGS["replay"][1]():
         D = replay_data()

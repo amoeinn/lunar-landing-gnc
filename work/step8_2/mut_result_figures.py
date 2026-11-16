@@ -7,6 +7,8 @@ M = [
      'safe=[sm["safe_fraction"][k]["epoch 0"] for k in ks]'),
     ("median Q read as the p90", V, 'q_median=[sm["q"][k]["pooled"]["median"] for k in ks]',
      'q_median=[sm["q"][k]["pooled"]["p90"] for k in ks]'),
+    ("touchdown count beside each median read at epoch 0", V, 'q_n=[sm["q"][k]["pooled"]["n"] for k in ks]',
+     'q_n=[sm["q"][k]["epoch 0"]["n"] for k in ks]'),
     ("no-TRN level read at epoch 0", V, 'notrn_safe=sm["safe_fraction"]["no-TRN"]["pooled"]',
      'notrn_safe=sm["safe_fraction"]["no-TRN"]["epoch 0"]'),
     ("gaps in file order", V, 'return sorted((k for k in d if k != "no-TRN"), key=gap_hours)',

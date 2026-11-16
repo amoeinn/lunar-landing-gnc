@@ -1,0 +1,22 @@
+touchdown read from the estimate: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+Q from an earlier estimate: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+site read as the target: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+true site read as the target: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d0_g168.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+fix outcomes not read: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g168.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g168.0]
+outcome a constant: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g168.0], test_plotted_values_equal_the_record[d18_g168.0], test_unsafe_landing_names_the_check_it_failed
+miss measured from the site: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+true site miss measured from the believed site: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g0.0], test_plotted_values_equal_the_record[d2_g0.0], test_plotted_values_equal_the_record[d2_g168.0], test_plotted_values_equal_the_record[d18_g0.0], test_plotted_values_equal_the_record[d18_g168.0]
+criterion 2 radius loosened: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d18_g168.0], test_unsafe_landing_names_the_check_it_failed
+gear check a constant: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g168.0]
+abort orbit swapped: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g168.0]
+abort time off by a tick: applied, reverted; CAUGHT by test_plotted_values_equal_the_record[d0_g168.0]
+abort samples dropped: applied, reverted; CAUGHT by test_time_axis_ends_where_the_record_ends[d0_g168.0]
+abort samples timed from zero: applied, reverted; CAUGHT by test_time_axis_ends_where_the_record_ends[d0_g168.0]
+unlogged abort ticks kept: applied, reverted; CAUGHT by test_time_axis_ends_where_the_record_ends[d0_g168.0]
+descent holds timed from zero: applied, reverted; CAUGHT by test_time_axis_ends_where_the_record_ends[d0_g0.0], test_time_axis_ends_where_the_record_ends[d2_g0.0], test_time_axis_ends_where_the_record_ends[d2_g168.0], test_time_axis_ends_where_the_record_ends[d18_g0.0], test_time_axis_ends_where_the_record_ends[d18_g168.0]
+guided holds timed without their step: applied, reverted; CAUGHT by test_time_axis_ends_where_the_record_ends[d0_g0.0], test_time_axis_ends_where_the_record_ends[d0_g168.0], test_time_axis_ends_where_the_record_ends[d2_g0.0], test_time_axis_ends_where_the_record_ends[d2_g168.0], test_time_axis_ends_where_the_record_ends[d18_g0.0], test_time_axis_ends_where_the_record_ends[d18_g168.0]
+gear failure named for a gear-safe landing: applied, reverted; CAUGHT by test_unsafe_landing_names_the_check_it_failed
+abort and unsafe rows swapped: applied, reverted; CAUGHT by test_draws_are_the_registered_rules
+unsafe share read from the safe count: applied, reverted; CAUGHT by test_shares_are_the_registered_score
+maps view reads the fresh map for both: applied, reverted; CAUGHT by test_tracked_maps_are_the_maps_flown
+17.79 s

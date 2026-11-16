@@ -1,0 +1,48 @@
+"""Mutations for tests/test_descent_viz.py (step 8.1b's three draws), run with
+work/step11a/mutharness.py. The end to end test is left out of the run (it
+draws the animation); every mutation targets a value the views plot, the time
+axis, the abort's path, the rows' draws, the shares or the maps read."""
+V = "examples/make_descent_viz.py"
+M = [
+    ("touchdown read from the estimate", V,
+     'td = np.asarray(h["tick_pos"][-1][:2], float) if landed', 'td = np.asarray(h["est_pos"][-1][:2], float) if landed'),
+    ("Q from an earlier estimate", V,
+     'est = np.asarray(h["est_pos"][-1][:2], float)', 'est = np.asarray(h["est_pos"][-2][:2], float)'),
+    ("site read as the target", V,
+     'site=(float(d["site"][0]), float(d["site"][1])) if d and',
+     'site=(float(d["target"][0]), float(d["target"][1])) if d and'),
+    ("true site read as the target", V,
+     'ts = tuple(float(v) for v in row["true_site"]) if', 'ts = tuple(float(v) for v in m["target"][:2]) if'),
+    ("fix outcomes not read", V, 'fixes=[(float(f["t"]), str(f["status"])) for f in m["fixes"]]',
+     'fixes=[(float(f["t"]), "accepted") for f in m["fixes"]]'),
+    ("outcome a constant", V, 'out = dict(outcome=m["outcome"], target=(tx, ty),',
+     'out = dict(outcome="safe landing", target=(tx, ty),'),
+    ("miss measured from the site", V, 'miss_target=float(np.hypot(td[0] - tx, td[1] - ty))',
+     'miss_target=float(np.hypot(td[0] - d["site"][0], td[1] - d["site"][1]))'),
+    ("true site miss measured from the believed site", V,
+     'miss_true_site=float(np.hypot(td[0] - ts[0], td[1] - ts[1]))',
+     'miss_true_site=float(np.hypot(td[0] - d["site"][0], td[1] - d["site"][1]))'),
+    ("criterion 2 radius loosened", V, 'out["miss_true_site"] <= LANDING_RADIUS if', 'out["miss_true_site"] <= 2.2 if'),
+    ("gear check a constant", V, 'gear_safe=row.get("gear_safe"),', 'gear_safe=True,'),
+    ("abort orbit swapped", V, 'perilune=float(ab["perilune"]), apolune=float(ab["apolune"])',
+     'perilune=float(ab["apolune"]), apolune=float(ab["perilune"])'),
+    ("abort time off by a tick", V, 't=float(ab["t"]), outcome=str(ab["outcome"])',
+     't=float(ab["t"]) + 0.05, outcome=str(ab["outcome"])'),
+    ("abort samples dropped", V, 'if m.get("abort") and len(h["abort_tau"]):', 'if False:'),
+    ("abort samples timed from zero", V,
+     'T = np.concatenate([T, float(m["abort"]["t"]) + np.asarray(h["abort_tau"], float)])',
+     'T = np.concatenate([T, np.asarray(h["abort_tau"], float)])'),
+    ("unlogged abort ticks kept", V, 'ok = np.isfinite(T) & np.all(np.isfinite(P), axis=1)', 'ok = np.ones(len(T), bool)'),
+    ("descent holds timed from zero", V,
+     'start, t_desc = [], float(m["touchdown"]["t_guided"]) if m["touchdown"] else None', 'start, t_desc = [], 0.0'),
+    ("guided holds timed without their step", V,
+     '            start.append(t_step[x["step"]] + x["t0"])', '            start.append(x["t0"])'),
+    ("gear failure named for a gear-safe landing", V, 'if v["gear_safe"] is False:', 'if v["gear_safe"] is not False:'),
+    ("abort and unsafe rows swapped", V,
+     'CASES = (("abort to a safe orbit", 0, "D126"), ("safe landing", 2, "D121"), ("unsafe landing", 18, "D126"))',
+     'CASES = (("abort to a safe orbit", 18, "D126"), ("safe landing", 2, "D121"), ("unsafe landing", 0, "D126"))'),
+    ("unsafe share read from the safe count", V, '"unsafe landing": "unsafe outcome"}', '"unsafe landing": "safe landing"}'),
+    ("maps view reads the fresh map for both", V, 'return MAPS / f"e{EPOCH}_g+{int(gap)}.npy"',
+     'return MAPS / f"e{EPOCH}_g+0.npy"'),
+]
+TESTS = ["tests/test_descent_viz.py", "-k", "not end_to_end"]

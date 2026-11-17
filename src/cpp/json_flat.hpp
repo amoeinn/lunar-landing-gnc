@@ -1,4 +1,4 @@
-// Copied from lunar-polar-traverse cpp/src/json_flat.hpp at commit b9ce42e.
+// Copied from lunar-polar-traverse cpp/src/json_flat.hpp at commit cb43ed9.
 // Minimal reader and writer for a flat JSON object: string, number and boolean
 // values only, no nesting and no arrays. The schema is deliberately flat so
 // that this parser is small enough to be read and checked by eye; the model's

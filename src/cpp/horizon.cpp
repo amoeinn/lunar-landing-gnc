@@ -1,4 +1,4 @@
-// Copied from lunar-polar-traverse cpp/src/horizon.cpp at commit b9ce42e.
+// Copied from lunar-polar-traverse cpp/src/horizon.cpp at commit cb43ed9.
 // Horizon precompute for the lunar polar illumination model.
 //
 // For each cell of the planning region, the maximum terrain elevation angle

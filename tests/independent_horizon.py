@@ -1,4 +1,4 @@
-# Copied from lunar-polar-traverse tests/independent_horizon.py at commit b9ce42e.
+# Copied from lunar-polar-traverse tests/independent_horizon.py at commit cb43ed9.
 """Independent horizon ray march, for PLAN.md check 1c.
 
 Written from the specification in PLAN.md Method, "Horizon model". It shares

@@ -5,7 +5,7 @@
 The ray march in `src/cpp/horizon.cpp` and its parameter reader
 `src/cpp/json_flat.hpp` are copied from
 [lunar-polar-traverse](https://github.com/amoeinn/lunar-polar-traverse) at commit
-b9ce42e, as is the independent Python march in `tests/independent_horizon.py`.
+cb43ed9, as is the independent Python march in `tests/independent_horizon.py`.
 Both projects are MIT licensed by the same author. Changes made here: the
 single-ray mode below, and comments that pointed at the other project's
 documents.

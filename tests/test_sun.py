@@ -60,19 +60,24 @@ def test_reproduces_e_geometry_at_its_region_centre():
     there, and ties F's sun to E's independent implementation at the
     M139729686 label midpoint, 2010-09-21T17:34:00.5, at E's region centre.
 
-    E's region, PLAN.md:139-140: "The planning region is the 10 km square
-    centred on (1000, 6000) m". E's recorded values, examples/score_p6.py:36,
-    are azimuth 8.989 and elevation 1.105, and the elevation is wrong:
-    score_p6.py:96 passes spkpos's sun position in kilometres to sun_angles,
-    whose cell positions are in metres, so the sun sits a thousand times too
-    close and its elevation is pulled down by parallax.
+    E's region is at lunar-polar-traverse PLAN.md:141: "The planning region
+    is the 10 km square centred on (1000, 6000) m". E's step 8 recorded
+    azimuth 8.989 and elevation 1.105 deg there, because its
+    examples/score_p6.py passed spkpos's sun position in kilometres to
+    sun_angles, whose cell positions were in metres: the sun sat a thousand
+    times too close, and parallax lowered its elevation from 1.765 to 1.105
+    deg. lunar-polar-traverse corrected this in commits ed47b02 and 05ab5c0;
+    at commit 80edcb3 its examples/score_p6.py asserts azimuth 8.9888 and
+    elevation 1.7654 deg, with the sun in metres, and keeps the step 8 pair
+    as history.
 
-    The expected values below are E's committed src.illumination.sun_angles,
-    called with a RegionCells at (1000, 6000) m, height 0, radius 1737400 m,
-    and the same spkpos sun (MOON_ME_DE421, LT+S, observer MOON) converted to
-    metres. With the sun left in km the same call returns 8.98878688 and
-    1.10503549, E's recorded pair. Tolerance 1e-6 deg: both sides are double
-    precision evaluations of the same geometry.
+    The expected values below were E's src.illumination.sun_angles, called
+    with a RegionCells at (1000, 6000) m, height 0, radius 1737400 m, and the
+    same spkpos sun (MOON_ME_DE421, LT+S, observer MOON) converted to metres;
+    with the sun left in km the same call returned 8.98878688 and 1.10503549,
+    the step 8 pair. These constants, 8.988786878068638 and
+    1.7654148302371733, agree with the corrected pair. Tolerance 1e-6 deg:
+    both sides are double precision evaluations of the same geometry.
     """
     lat, lon = map_to_latlon(1000.0, 6000.0)
     azimuth, elevation = sun_az_el(float(lat), float(lon), "2010-09-21T17:34:00.5")
@@ -83,9 +88,10 @@ def test_reproduces_e_geometry_at_its_region_centre():
 @pytest.mark.parametrize("utc", EPOCHS)
 def test_sun_distance_from_surface_is_one_au_in_metres(utc):
     """Protects the unit of the sun position. spkpos returns kilometres; a
-    sun left in km against surface positions in metres is the error at
-    lunar-polar-traverse examples/score_p6.py:96, which lowered E's recorded
-    elevation from 1.765 to 1.105 deg. The Earth-Moon system is 0.983 to
+    sun left in km against surface positions in metres was the error in
+    lunar-polar-traverse's examples/score_p6.py, which lowered E's step 8
+    elevation from 1.765 to 1.105 deg until commits ed47b02 and 05ab5c0
+    corrected it. The Earth-Moon system is 0.983 to
     1.017 AU from the sun, so 1.47e11 to 1.53e11 m holds at every epoch."""
     lat, lon = subsolar_latlon(utc)
     distance = np.linalg.norm(sun_from_surface(lat + 30.0, lon + 45.0, utc))
